@@ -1,0 +1,18 @@
+\frametitle{Example frame}
+\begin{itemize}
+\item thing one
+\begin{itemize}
+\item subitem
+\end{itemize}
+\item thing two
+\end{itemize}
+
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	// A comment
+	printf("asdf\n");
+	return 0;
+}
+\end{lstlisting}
+
