@@ -1,18 +1,5 @@
-\frametitle{Example frame}
+\frametitle{Algorithms}
 \begin{itemize}
-\item thing one
-\begin{itemize}
-\item subitem
+\item Informally, an \textit{algorithm} is a series of steps which accomplishes a task.
 \end{itemize}
-\item thing two
-\end{itemize}
-
-\begin{lstlisting}[style=CStyle]
-#include <stdio.h>
-int main() {
-	// A comment
-	printf("asdf\n");
-	return 0;
-}
-\end{lstlisting}
 
