@@ -1,11 +1,13 @@
 \documentclass[14pt]{beamer}
-\usetheme{Singapore}
+\usetheme{Dresden}
+\usecolortheme{beaver}
 
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{courier}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{algorithm2e}
 
 \definecolor{mGreen}{rgb}{0,0.6,0}
 \definecolor{mGray}{rgb}{0.5,0.5,0.5}
@@ -44,7 +46,7 @@
 \begin{document}
 \titlepage
 
-\begin{frame}[fragile]
+\begin{frame} % Algo defn
 \frametitle{Algorithms}
 \begin{itemize}
 \item Informally, an \textit{algorithm} is a series of steps which accomplishes a task
@@ -61,7 +63,7 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame} % Algo communication
 \frametitle{Algorithms}
 \begin{itemize}
 \item An algorithm exists purely as an abstract concept until it is communicated
@@ -70,12 +72,76 @@
 	\item \textit{Pseudocode} to communicate algorithms to ourselve's and other people
 	\item The languages C and MATLAB to communicate algorithms to computers
 	\end{itemize}
-\item Pseudocode can be very formal, as engineers we will be pragmatic and ignore the formal rules
+\item Pseudocode can be very formal, as engineers we will only use formal rules if required
+	\begin{itemize}
+		\item eg: When documenting algorithms for other people
+		\item Your own ``working out'' can be anything that helps \textit{you}
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile] % car starting example
+
+\frametitle{Algorithm Example 1}
+{\footnotesize
+\textbf{Example 1:} Algorithm given to mum to start my car (2015 Toyota Tarago) \\
+\textbf{Result:}{The vehicle's engine is idling} \\
+\textbf{Initialisation:} stand next to the vehicle, key fob in hand 
+\begin{enumerate}
+\setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+\item Depress the unlock button on the key fob, car will beep twice
+\item Place key fob in your pocket
+\item Enter the vehicle, sit in the driver's seat
+\item Ensure that the gear selector has P engaged
+\item Depress the brake pedal
+\item Observe that the green LED is lit on the engine start button
+\item Press the engine start button
+\item If engine is not idling
+	\begin{itemize}
+		\item Call me
+	\end{itemize}
+\end{enumerate}
+}
+\end{frame}
+
+\begin{frame} % Car algo discussion
+\frametitle{Example Discussion}
+\begin{itemize}
+\item The process appears over-explained
+	\begin{itemize}
+		\item Computers are \textit{really stupid}; get in the habit of over-thinking everything
+	\end{itemize}
+\item The algorithm contained \textit{flow control}
+	\begin{itemize}
+		\item The final step (``call me") was \textit{conditional} on the car not starting
+	\end{itemize}
+\item Lets talk briefly about Boolean logic
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile] % C lstlisting examples
+\frametitle{C listing template}
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	printf("Custom lstlisting template\n");
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=c]
+#include <stdio.h>
+int main() {
+	printf("default C style\n");
+}
+\end{lstlisting}
+\end{frame}
+
 \begin{frame}
-\frametitle{Columns}
+\frametitle{Columns Template}
 \begin{columns}
 \column{1.5in}
 left side
@@ -86,10 +152,6 @@ right side
 \end{figure}
 \end{columns}
 \end{frame}
-
-\begin{lstlisting}[style=CStyle]
-
-\end{lstlisting}
 
 
 \end{document}
