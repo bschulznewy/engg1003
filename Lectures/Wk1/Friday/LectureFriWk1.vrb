@@ -1,6 +1,14 @@
 \frametitle{Algorithms}
 \begin{itemize}
-\item Informally, an \textit{algorithm} is a series of steps which accomplishes a task.
-asfd
+\item Informally, an \textit{algorithm} is a series of steps which accomplishes a task
+\item More accurately, the steps (instructions) must:
+	\begin{itemize}
+		\item Have a strict order
+		\item Be unambiguous
+		\item Be executable
+	\end{itemize}
+\item ``Executable" means that the \textit{target platform} is capable of performing that task.
+	\begin{itemize}
+		\item eg: An industrial welding robot can execute ``move welding tip 1~cm left". A mobile phone can't.
+	\end{itemize}
 \end{itemize}
-
