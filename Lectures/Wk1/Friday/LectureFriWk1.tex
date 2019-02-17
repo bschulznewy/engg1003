@@ -316,7 +316,7 @@ END\\
 \linebreak \linebreak
 The function $\cos (x)$ can be evaluated with arithmetic as:
 \begin{equation}
-\cos (x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!}
+\cos (x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!} = \frac{-x^{2}}{2!} + \frac{x^{4}}{4!} + \frac{-x^6}{6!} + \frac{x^8}{8!} ...
 \end{equation}
 Evaluation of this series needs two things:
 \begin{enumerate}
@@ -344,6 +344,26 @@ Evaluation of this series needs two things:
 \cos (x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!}
 \end{equation}
 }
+\end{frame}
+
+\begin{frame}
+\frametitle{Loops}
+\begin{itemize}
+\item A \textit{loop} causes an algorithm to execute a given block of instruction multiple times
+\item Loops typically require an \textit{exit condition}
+	\begin{itemize}
+		\item Without an exit condition they are called \textit{infinite loops}
+		\begin{itemize}
+			\item Yes, these have a purpose
+		\end{itemize}
+	\end{itemize}
+\item Multiple types of loops
+	\begin{itemize}
+		\item WHILE \textit{condition}...ENDWHILE
+		\item DO...WHILE \textit{condition}
+		\item FOR \textit{counter} FROM 1 TO \textit{something}
+	\end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
