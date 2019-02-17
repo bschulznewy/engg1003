@@ -245,34 +245,34 @@ lets write an algorithm which only deals with real numbers.
 } 
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Algorithm Example 3 - Quadratic Root Finding}
+\begin{columns}
+\column{1.5in}
 {\footnotesize
-\begin{enumerate}
-\setlength{\itemsep}{0pt}
-  \setlength{\parskip}{0pt}
-  \setlength{\parsep}{0pt}
-\item BEGIN
-\item Calculate $D = \sqrt{b^2 - 4 a c}$
-\item IF $D < 0$
-	\begin{enumerate}
-		\item N = 0
-	\end{enumerate}
-\item ELSE IF $D = 0$
-	\begin{enumerate}
-		\item N = 1
-		\item $x_1 = \frac{-b}{2a}$
-	\end{enumerate}
-\item ELSE IF $D > 0$
-	\begin{enumerate}
-		\item N = 2
-		\item $x_1 = \frac{-b + D}{2a}$
-		\item $x_2 = \frac{-b - D}{2a}$
-	\end{enumerate}
-\item END
-\end{enumerate}
-
+\texttt{
+BEGIN\\
+\quad  $D = \sqrt{b^2 - 4 a c}$\\
+\quad	IF $D < 0$\\
+\quad\quad		$N = 0$\\
+\quad	ELSE IF $D = 0$\\
+\quad\quad		$N = 1$\\
+\quad\quad		$x_1 = \frac{-b}{2a}$\\
+\quad	ELSE IF $D > 0$\\
+\quad\quad		$N = 2$\\
+\quad\quad		$x_1 = \frac{-b + D}{2a}$\\
+\quad\quad		$x_2 = \frac{-b - D}{2a}$\\
+\quad	ENDIF\\
+END\\
 }
+}
+\column{3in}
+\begin{itemize}
+\item The IF ... ELSE IF flow control construct forces exclusive execution of only \textit{one} block
+\item The first condition that is true causes execution of that block
+\item Subsequent blocks ignored
+\end{itemize}
+\end{columns}
 \end{frame}
 
 \begin{frame}[fragile] % C lstlisting examples
