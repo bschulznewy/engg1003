@@ -72,7 +72,7 @@
 	\item \textit{Pseudocode} to communicate algorithms to ourselve's and other people
 	\item The languages C and MATLAB to communicate algorithms to computers
 	\end{itemize}
-\item Pseudocode can be very formal, as engineers we will only use formal rules if required
+\item Pseudocode \textit{can} be very formal, but as engineers we will only use formal rules if required
 	\begin{itemize}
 		\item eg: When documenting algorithms for other people
 		\item Your own ``working out'' can be anything that helps \textit{you}
@@ -113,11 +113,11 @@
 	\begin{itemize}
 		\item Computers are \textit{really stupid}; get in the habit of over-thinking everything
 	\end{itemize}
-\item The algorithm contained \textit{flow control}
+\item The algorithm contained \textit{flow control} in the form of an ``if'' statement
 	\begin{itemize}
 		\item The final step (``call me") was \textit{conditional} on the car not starting
 	\end{itemize}
-\item To study conditions we will discuss \textit{Boolean algebra} later, but first...
+\item We will discuss logical statements later, but first...
 \end{itemize}
 \end{frame}
 
@@ -139,12 +139,96 @@ A wife asks her robot helper, ``Could you please go shopping for me and buy one 
 The robot replies: ``Unknown instruction: `get 6'. ''
 \end{frame}
 
-\begin{frame} % Boolean Logic
-\frametitle{Boolean Algebra Basics}
+\begin{frame}
+\frametitle{Conditions}
 \begin{itemize}
 \item Computers don't understand ``maybe''
 \item A \textit{condition} must be absolutely \textbf{true} or \textbf{false}
-\item Boolean algebra (or Boolean logic) is a field of mathematics which evaluates \textit{logical statements} as either true or false
+\item Human examples:
+	\begin{itemize}
+		\item I am within the boundary of the Callaghan campus
+		\item I am alive
+		\item My net worth is below AU\$100M
+	\end{itemize}
+\item Computer examples:
+	\begin{itemize}
+		\item \texttt{i} is less than 184
+		\item \texttt{x} plus \texttt{y} is not equal to zero
+		\item Input data has been given to the program
+		\item A division by zero occured
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame} % Quadratic root finding intro
+\frametitle{Algorithm Example 3 - Quadratic Root Finding}
+From high school you should know that the equation
+\begin{equation}
+a x^2 + b x + c = 0
+\end{equation}
+has solutions given by
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}
+\end{equation}
+lets write an algorithm which only deals with real numbers.
+\end{frame}
+
+\begin{frame} % Quadratic root finding 
+\frametitle{Algorithm Example 3 - Quadratic Root Finding}
+{\footnotesize
+\textbf{Input:} Real numbers $a$, $b$, and $c$ \\
+\textbf{Output:} Three numbers:
+\begin{enumerate}
+\item The number of solutions, N
+\item One of the roots, $x_1$
+\item The other root, $x_2$
+\end{enumerate}
+\textbf{Behaviour:}
+\begin{itemize}
+\item If N is 2 then $x_1$ and $x_2$ are different real numbers
+\item If N is 1 then $x_1$ is the unique solution and $x_2$ is undefined
+\item If N is 0 then $x_1$ and $x_2$ are undefined
+\end{itemize} 
+} 
+\end{frame}
+
+\begin{frame}[fragile] % Quadratic root finding algorithm
+\frametitle{Algorithm Example 3 - Quadratic Root Finding}
+\begin{columns}
+\column{1.5in}
+{\footnotesize
+\texttt{
+BEGIN\\
+\quad  $D = b^2 - 4 a c$\\
+\quad	IF $D < 0$\\
+\quad\quad		$N = 0$\\
+\quad	ELSE IF $D = 0$\\
+\quad\quad		$N = 1$\\
+\quad\quad		$x_1 = \frac{-b}{2a}$\\
+\quad	ELSE IF $D > 0$\\
+\quad\quad		$N = 2$\\
+\quad\quad		$x_1 = \frac{-b + \sqrt{D}}{2a}$\\
+\quad\quad		$x_2 = \frac{-b - \sqrt{D}}{2a}$\\
+\quad	ENDIF\\
+END\\
+}
+}
+\column{3in}
+\begin{itemize}
+\item Reasonably formal pseudocode
+\item The IF ... ELSE IF flow control construct forces exclusive execution of only \textit{one} block
+\item The first condition that is true causes execution of that block
+\item Subsequent blocks ignored
+\item Contains 3 \textit{conditions}
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame} % Boolean Logic
+\frametitle{Boolean Algebra Basics}
+\begin{itemize}
+\item What if we want more complicated conditions? Boolean algebra is needed!
+\item Boolean algebra (or Boolean logic) is a field of mathematics which evaluates combinations of \textit{logical variables} as either true or false
 \item Boolean \textit{variables} can only take the values \textbf{true} (or 1) or \textbf{false} (or 0)
 \item Boolean algebra defines three \textit{operators}:
 	\begin{itemize}
@@ -155,7 +239,7 @@ The robot replies: ``Unknown instruction: `get 6'. ''
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame} % Boolean Algebra Basics
 \frametitle{Boolean Algebra Basics}
 \begin{itemize}
 \item Boolean variables can be allocated any symbols (just like in ``normal'' algebra)
@@ -167,12 +251,12 @@ The robot replies: ``Unknown instruction: `get 6'. ''
 	\begin{itemize}
 		\item Write them in capitals to remove ambiguity
 		\item C and MATLAB have their own symbols for Boolean algebra
-		\item Other courses (eg: ELE17100) will use others again
+		\item Other courses (eg: ELE17100) will use different symbols again
 	\end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame} % Boolean Operators
 \frametitle{Boolean Operators}
 \begin{itemize}
 \item An \textit{operand} is a value on which a mathematical operation takes place
@@ -192,7 +276,7 @@ The robot replies: ``Unknown instruction: `get 6'. ''
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame} % Boolean Operators
 \frametitle{Boolean Operators}
 \begin{itemize}
 \item Observe that OR and AND are \textit{binary} operators
@@ -213,67 +297,19 @@ The robot replies: ``Unknown instruction: `get 6'. ''
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Algorithm Example 3 - Quadratic Root Finding}
-From high school you should know that the equation
-\begin{equation}
-a x^2 + b x + c = 0
-\end{equation}
-has solutions given by
-\begin{equation}
-x = \frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}
-\end{equation}
-lets write an algorithm which only deals with real numbers.
-\end{frame}
+\begin{frame} % Boolean condition examples
+\frametitle{Boolean Condition Examples}
 
-\begin{frame}
-\frametitle{Algorithm Example 3 - Quadratic Root Finding}
-{\footnotesize
-\textbf{Input:} Real numbers $a$, $b$, and $c$ \\
-\textbf{Output:} Three numbers:
-\begin{enumerate}
-\item The number of solutions, N
-\item One of the roots, $x_1$
-\item The other root, $x_2$
-\end{enumerate}
-\textbf{Behaviour:}
 \begin{itemize}
-\item If N is 2 then $x_1$ and $x_2$ are different real numbers
-\item If N is 1 then $x_1$ is the unique solution and $x_2$ is undefined
-\item If N is 0 then $x_1$ and $x_2$ are undefined
-\end{itemize} 
-} 
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Algorithm Example 3 - Quadratic Root Finding}
-\begin{columns}
-\column{1.5in}
-{\footnotesize
-\texttt{
-BEGIN\\
-\quad  $D = \sqrt{b^2 - 4 a c}$\\
-\quad	IF $D < 0$\\
-\quad\quad		$N = 0$\\
-\quad	ELSE IF $D = 0$\\
-\quad\quad		$N = 1$\\
-\quad\quad		$x_1 = \frac{-b}{2a}$\\
-\quad	ELSE IF $D > 0$\\
-\quad\quad		$N = 2$\\
-\quad\quad		$x_1 = \frac{-b + D}{2a}$\\
-\quad\quad		$x_2 = \frac{-b - D}{2a}$\\
-\quad	ENDIF\\
-END\\
-}
-}
-\column{3in}
-\begin{itemize}
-\item Reasonably formal pseudocode
-\item The IF ... ELSE IF flow control construct forces exclusive execution of only \textit{one} block
-\item The first condition that is true causes execution of that block
-\item Subsequent blocks ignored
+	\item My car needs a service if, since the last service, (more than 6 months has past) OR (more than 15000km have been traveled)
+	\item You will pass this course if (you score 40\% or more in the final exam) AND (the weighted sum of all assessments is more than 50\%)
+	\item A computer program repeats an algorithm if (there is still data to process) AND (errors have not been encounted) AND ( NOT (the user has terminated the program) )
 \end{itemize}
-\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm Example 4 - Boolean Conditions}
+
 \end{frame}
 
 \begin{frame}[fragile] % C lstlisting examples
