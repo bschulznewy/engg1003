@@ -312,7 +312,7 @@ END\\
 {\small
 \textbf{Problem:} How can trigonometric functions be calculated by a computer?
 \linebreak \linebreak
-\textbf{One Solution:} Series expansion!
+\textbf{One Solution:} Series expansion! (Seen in MATH11xx).
 \linebreak \linebreak
 The function $\cos (x)$ can be evaluated with arithmetic as:
 \begin{equation}
@@ -323,6 +323,26 @@ Evaluation of this series needs two things:
 \item The \textit{loop} flow control concept
 \item Some kind of \textit{stop condition}
 \end{enumerate}
+}
+\end{frame}
+\begin{frame}
+\frametitle{Algorithm Example 4 - Boolean Conditions}
+{\small
+\begin{itemize}
+\setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+	\item Computers can't count to infinity, we need to know when to stop
+	\item Computers have limited precision, around $10^{-16}$ is typical
+	\item Observe that as $k$ increases in Equation \ref{eq:cosseries} the denomenator increases \textit{really fast} (4!=24, 10!=3628800)
+	\item This implies that the value of $\frac{(-1)^k x^{2k}}{(2k)}!$ tends to drop as $k$ increases
+	\item Therefore, we can add terms until they are ``too small''
+	\item A maximum value of $k$ can also be specified for safety 
+\end{itemize}
+\vspace{-3mm}
+\begin{equation} \label{eq:cosseries}
+\cos (x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!}
+\end{equation}
 }
 \end{frame}
 
@@ -346,7 +366,7 @@ Evaluation of this series needs two things:
 \column{2in}
 \begin{itemize}
 \item The \textit{while} loop repeats a block of steps until the \textit{condition} becomes false.
-\item We loops until 10 \textit{iterations} have occured OR a precision limit is reached1
+\item We loops until 10 \textit{iterations} have occured OR a precision limit is reached
 \end{itemize}
 \end{columns}
 \end{frame}
