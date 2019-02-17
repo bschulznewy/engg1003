@@ -117,7 +117,7 @@
 	\begin{itemize}
 		\item The final step (``call me") was \textit{conditional} on the car not starting
 	\end{itemize}
-\item We will discuss \textit{Boolean logic} later, but first...
+\item To study conditions we will discuss \textit{Boolean algebra} later, but first...
 \end{itemize}
 \end{frame}
 
@@ -132,24 +132,147 @@ He replies, “They had eggs.”
 
 \begin{frame}
 \frametitle{Algorithm Example 2a}
+\textit{Lets make this more realistic.}
+\linebreak \linebreak
 A wife asks her robot helper, ``Could you please go shopping for me and buy one carton of milk, and if they have eggs, get 6?”
 \linebreak \linebreak
 The robot replies: ``Unknown instruction: `get 6'. ''
 \end{frame}
 
 \begin{frame} % Boolean Logic
-\frametitle{Boolean Logic}
+\frametitle{Boolean Algebra Basics}
 \begin{itemize}
 \item Computers don't understand ``maybe''
-\item A \textit{condition} on execution must be absolutely \textbf{true} or \textbf{false}
-\item Boolean logic (or Boolean algebra) is a field of mathematics which evaluates logical statements as either true or false
-\item Boolean logic defines three \textit{operators}:
+\item A \textit{condition} must be absolutely \textbf{true} or \textbf{false}
+\item Boolean algebra (or Boolean logic) is a field of mathematics which evaluates \textit{logical statements} as either true or false
+\item Boolean \textit{variables} can only take the values \textbf{true} (or 1) or \textbf{false} (or 0)
+\item Boolean algebra defines three \textit{operators}:
 	\begin{itemize}
 		\item OR
 		\item AND
 		\item NOT
 	\end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Boolean Algebra Basics}
+\begin{itemize}
+\item Boolean variables can be allocated any symbols (just like in ``normal'' algebra)
+	\begin{itemize}
+		\item Typically get uppercase letters
+		\item eg: X = A OR B
+	\end{itemize}
+\item Various symbols can be used for OR/AND/NOT, we will only use the words here
+	\begin{itemize}
+		\item Write them in capitals to remove ambiguity
+		\item C and MATLAB have their own symbols for Boolean algebra
+		\item Other courses (eg: ELE17100) will use others again
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Boolean Operators}
+\begin{itemize}
+\item An \textit{operand} is a value on which a mathematical operation takes place
+	\begin{itemize}
+		\item eg: In ``1 + 2'' the 1 and 2 are operands and + is the operator
+	\end{itemize}
+\item OR - Evaluates true if either operand is true
+	\begin{itemize}
+		\item X = A OR B
+		\item X is true if A or B is true
+	\end{itemize}
+\item AND- Evaluates true only when \textit{both} operands are true
+	\begin{itemize}
+		\item X = A AND B
+		\item X is true only if both A and B is true
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Boolean Operators}
+\begin{itemize}
+\item Observe that OR and AND are \textit{binary} operators
+	\begin{itemize}
+		\item They operate on two operands
+		\item From latin ``bini'' meaning ``two together''
+	\end{itemize}
+\item The NOT operator is \textit{unitary}
+	\begin{itemize}
+		\item ie: it only operates on \textit{one} operand
+		\item NB: The operand could be a single variable or complex expression
+	\end{itemize}
+\item NOT performs a logical inversion
+	\begin{itemize}
+		\item NOT true = false
+		\item NOT false = true
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm Example 3 - Quadratic Root Finding}
+From high school you should know that the equation
+\begin{equation}
+a x^2 + b x + c = 0
+\end{equation}
+has solutions given by
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}
+\end{equation}
+lets write an algorithm which only deals with real numbers.
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm Example 3 - Quadratic Root Finding}
+{\footnotesize
+\textbf{Input:} Real numbers $a$, $b$, and $c$ \\
+\textbf{Output:} Three numbers:
+\begin{enumerate}
+\item The number of solutions, N
+\item One of the roots, $x_1$
+\item The other root, $x_2$
+\end{enumerate}
+\textbf{Behaviour:}
+\begin{itemize}
+\item If N is 2 then $x_1$ and $x_2$ are different real numbers
+\item If N is 1 then $x_1$ is the unique solution and $x_2$ is undefined
+\item If N is 0 then $x_1$ and $x_2$ are undefined
+\end{itemize} 
+} 
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm Example 3 - Quadratic Root Finding}
+{\footnotesize
+\begin{enumerate}
+\setlength{\itemsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+\item BEGIN
+\item Calculate $D = \sqrt{b^2 - 4 a c}$
+\item IF $D < 0$
+	\begin{enumerate}
+		\item N = 0
+	\end{enumerate}
+\item ELSE IF $D = 0$
+	\begin{enumerate}
+		\item N = 1
+		\item $x_1 = \frac{-b}{2a}$
+	\end{enumerate}
+\item ELSE IF $D > 0$
+	\begin{enumerate}
+		\item N = 2
+		\item $x_1 = \frac{-b + D}{2a}$
+		\item $x_2 = \frac{-b - D}{2a}$
+	\end{enumerate}
+\item END
+\end{enumerate}
+
+}
 \end{frame}
 
 \begin{frame}[fragile] % C lstlisting examples
