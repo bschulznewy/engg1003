@@ -309,7 +309,46 @@ END\\
 
 \begin{frame}
 \frametitle{Algorithm Example 4 - Boolean Conditions}
+{\small
+\textbf{Problem:} How can trigonometric functions be calculated by a computer?
+\linebreak \linebreak
+\textbf{One Solution:} Series expansion!
+\linebreak \linebreak
+The function $\cos (x)$ can be evaluated with arithmetic as:
+\begin{equation}
+\cos (x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!}
+\end{equation}
+Evaluation of this series needs two things:
+\begin{enumerate}
+\item The \textit{loop} flow control concept
+\item Some kind of \textit{stop condition}
+\end{enumerate}
+}
+\end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Algorithm Example 4 - Boolean Conditions}
+\begin{columns}
+\column{2.7in}
+{\small
+\texttt{
+ BEGIN\\
+\quad tmp = 1\\
+\quad k = 0\\
+\quad WHILE (k<10) AND (tmp>1e-6)\\
+\quad \quad $tmp = \frac{(-1)^k x^{2k}}{(2k)!}$\\
+\quad \quad $x = x + tmp$\\
+\quad \quad $k = k + 1$\\
+\quad ENDWHILE \\
+ END \\
+}
+}
+\column{2in}
+\begin{itemize}
+\item The \textit{while} loop repeats a block of steps until the \textit{condition} becomes false.
+\item We loops until 10 \textit{iterations} have occured OR a precision limit is reached1
+\end{itemize}
+\end{columns}
 \end{frame}
 
 \begin{frame}[fragile] % C lstlisting examples
