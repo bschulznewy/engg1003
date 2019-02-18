@@ -125,7 +125,7 @@ Linux is not supported by university IT but, personally, I find it to be a fanta
 
 Installing Ubuntu is beyond the scope of this document (and course). If you think this is a daunting task I would recommend only using the officially supported tools to complete ENGG1003. There are many thousands of websites and YouTube videos which will guide you through the Ubuntu (or Mint, Arch, etc.) installation process. \textbf{NB:} Installing a new operating system can \textit{very easily} destroy all existing software on a machine. Don't do this if you don't know what you're doing.
 
-That out of the way, here's how you can get started:
+That out of the way, here's how you can get started. These steps assume a fresh Ubuntu 18.04 installation, in other distributions YMMV\footnote{Your mileage may vary. ie: this steps might not work}:
 
 \begin{enumerate}
 \item The C compiler in Linux (and OnlineGDB, and \textit{many} other platforms) is gcc (the GNU C Compiler). To install it, open a terminal (\texttt{ctrl + alt + t}) and type:
@@ -136,22 +136,18 @@ When prompted, enter your password, wait a few seconds, press \texttt{enter} if 
 
 The \texttt{libc6-dev} package provides all the basic C libraries (\texttt{printf} etc.) and \texttt{gedit} is a basic text editor.
 
-To compile a basic C program:
-
-
-\item Open a terminal (\texttt{ctrl + alt + t}). It will start to your ``home directory'' (ie: any commands typed will effect files in your home directory). 
 \item Lets make a new directory for writing C files, type:
 \begin{enumerate}
 	\item \texttt{\$ mkdir c}
 	\item \texttt{\$ cd c}
 \end{enumerate}
-The first command creates a directory called ``c'' and the second changes into that directory.
+The first command creates a directory called ``c'' and the second ``changes into'' that directory.
 
 \item Create a new .c file. We will do this in \texttt{gedit} (because it is easy and simple) but there are many others (the more nerdy among you may want to learn \texttt{vim} or \texttt{emacs}. They are \textit{very} powerful editors).
 
 Type: \texttt{\$ nohup gedit test.c \&} \\ (The \& symbol at the end of a command runs the command ``in the background''. This gives you the command line back straight away, instead of having to quit gedit first. Preceding the command with \texttt{nohup} stops \texttt{gedit} from closing if you close the terminal window)
 
-then type out the code seen in Figure \ref{fig:gedit}.
+\item Type out the code seen in Figure \ref{fig:gedit}.
 
 \item Click the Save button (or type \texttt{ctrl + s}).
 
@@ -184,7 +180,7 @@ The \texttt{./} is a special character string meaning ``relative to the current 
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.5\textwidth]{c_ubuntu.png}
+\includegraphics[width=0.8\textwidth]{c_ubuntu.png}
 \end{center}
 \caption{The complete command line sequence performed in these steps.}\label{fig:c_ubuntu}
 \end{figure}
