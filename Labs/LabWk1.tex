@@ -1,46 +1,70 @@
-\documentclass[17pt]{article}
+\documentclass{lab}
 
-\usepackage{xcolor}
-\usepackage{listings}
-\usepackage{courier}
 \usepackage{graphicx}
 
-\definecolor{mGreen}{rgb}{0,0.6,0}
-\definecolor{mGray}{rgb}{0.5,0.5,0.5}
-\definecolor{mPurple}{rgb}{0.8,0,0.82}
-\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
-
-\lstdefinestyle{CStyle}{
-    backgroundcolor=\color{backgroundColour},   
-    commentstyle=\color{mGreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{mGray},
-    stringstyle=\color{mPurple},
-    basicstyle=\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2,
-    language=C
-}
-
-\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-\lstset{framextopmargin=50pt,frame=bottomline}
-
-\title{ENGG1003 - Friday Week 1}
-\subtitle{Algorithms and Pseudocode}
+\title{ENGG1003 - Lab 1}
 \author{Brenton Schulz}
-\institute{University of Newcastle}
 \date{\today}
 
 \begin{document}
-\titlepage
+\maketitle
+
+\section{Introduction}
+This laboratory exposes you to the fundamental tools required to write computer programs in C. No prior programming experience is assumed
+
+\section{C Programming Basics}
+In order to write programs in C (and most other languages) the following software tools are required:
+
+\begin{itemize}
+\item An \textit{editor}, to create and edit raw text files.
+\item A \textit{compiler}, to convert your text files into an \textit{executable} file.
+\end{itemize}
+
+A programming editor is very different to a \textit{word processor} (eg: Microsoft Word) in that it displays and stores raw ASCII text only. What you see printed to the screen represents the \textit{actual data} stored in the file. By contrast, Word will store a combination of text and display formatting and, as such, is not suitable for writing code.
+
+Programming editors will generally have features optimised for coding, such as:
+
+\begin{itemize}
+\item Syntax highlighting
+\item Line numbering
+\item Auto completion
+\item Pre-emptive error notifications
+\item Communication with the compiler to highlight errors
+\item Automatic indenting
+\item Highlighting of matching blocks 
+	\begin{itemize}
+		\item ie: an easy method to find matching pairs of ( ), \{ \}, " "
+	\end{itemize}
+\end{itemize}
+
+It is hoped that you will discover these features and learn to work with them. In time you will learn which features work well with your style and which simply get in the way.
+
+For the time being the ``compiler'' noun will be used to colloquially reference a highly complex set of software tools which turn your source code into an executable binary file. You will be shielded from the details until otherwise necessary.
+
+\subsection{Introduction to OnlineGDB}
+
+OnlineGDB is a basic (\textit{very} basic) browser-based development environment for a variety of programming languages. It gives you access to an editor, a small amount of cloud storage, compiler, and standard input~/~output. It also contains a \textit{debugging} feature however for technical reasons\footnote{It only allows one debug session per IP address. The entire campus uses the same public IP so we can't use it in labs.} we won't be using it.
+
+All compilation and execution is performed on the OnlineGDB server. As such, the service has an incredibly low barrier to entry: there is (almost) zero installation/configuration required to get started running code.
+
+\textbf{Task:} Open a web browser and navigate to \url{http://www.onlinegdb.com}.\\ \\ \textbf{NB:} If a demonstrator sees you using Edge or IE they may instinctively think you need more help than students using Chrome or Firefox.
+
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+int main() {
+	printf("Hello, World!\n");
+	if(x<5)
+		printf("other stuff\n");
+	return 0;
+} // This is a comment
+not a comment
+/* block comment*/
+\end{lstlisting}
+
+
+\section{Git}
+\subsection{What on Earth is git?}
 
 
 \end{document}
