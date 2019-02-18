@@ -145,7 +145,7 @@
 
 % Headers
 \usepackage{lastpage}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 
 \pagestyle{fancy}
 %\makeatletter
