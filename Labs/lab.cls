@@ -232,7 +232,6 @@
     commentstyle=\color{mGreen},
     numberstyle=\tiny\color{mGray},
     stringstyle=\color{mPurple},
-    basicstyle=\footnotesize,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
@@ -251,5 +250,5 @@
     classoffset=0
 }
 
-\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{basicstyle=\ttfamily}
 \lstset{framextopmargin=50pt,frame=bottomline}
