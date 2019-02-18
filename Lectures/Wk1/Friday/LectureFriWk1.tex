@@ -69,7 +69,7 @@
 \item An algorithm exists purely as an abstract concept until it is communicated
 \item We will use:
 	\begin{itemize}
-	\item \textit{Pseudocode} to communicate algorithms to ourselve's and other people
+	\item \textit{Pseudocode} to communicate algorithms to ourselves and other people
 	\item The languages C and MATLAB to communicate algorithms to computers
 	\end{itemize}
 \item Pseudocode \textit{can} be very formal, but as engineers we will only use formal rules if required
@@ -155,7 +155,7 @@ The robot replies: ``Unknown instruction: `get 6'. ''
 		\item \texttt{i} is less than 184
 		\item \texttt{x} plus \texttt{y} is not equal to zero
 		\item Input data has been given to the program
-		\item A division by zero occured
+		\item A division by zero occurred
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -244,7 +244,7 @@ END\\
 \begin{itemize}
 \item Boolean variables can be allocated any symbols (just like in ``normal'' algebra)
 	\begin{itemize}
-		\item Typically get uppercase letters
+		\item Typically get upper-case letters
 		\item eg: X = A OR B
 	\end{itemize}
 \item Various symbols can be used for OR/AND/NOT, we will only use the words here
@@ -282,7 +282,7 @@ END\\
 \item Observe that OR and AND are \textit{binary} operators
 	\begin{itemize}
 		\item They operate on two operands
-		\item From latin ``bini'' meaning ``two together''
+		\item From Latin ``bini'' meaning ``two together''
 	\end{itemize}
 \item The NOT operator is \textit{unitary}
 	\begin{itemize}
@@ -301,9 +301,9 @@ END\\
 \frametitle{Boolean Condition Examples}
 
 \begin{itemize}
-	\item My car needs a service if, since the last service, (more than 6 months has past) OR (more than 15000km have been traveled)
+	\item My car needs a service if, since the last service, (more than 6 months has past) OR (more than 15000km have been travelled)
 	\item You will pass this course if (you score 40\% or more in the final exam) AND (the weighted sum of all assessments is more than 50\%)
-	\item A computer program repeats an algorithm if (there is still data to process) AND (errors have not been encounted) AND ( NOT (the user has terminated the program) )
+	\item A computer program repeats an algorithm if (there is still data to process) AND (errors have not occurred) AND ( NOT (the user has terminated the program) )
 \end{itemize}
 \end{frame}
 
@@ -334,7 +334,7 @@ Evaluation of this series needs two things:
   \setlength{\parsep}{0pt}
 	\item Computers can't count to infinity, we need to know when to stop
 	\item Computers have limited precision, around $10^{-16}$ is typical
-	\item Observe that as $k$ increases in Equation \ref{eq:cosseries} the denomenator increases \textit{really fast} (4!=24, 10!=3628800)
+	\item Observe that as $k$ increases in Equation \ref{eq:cosseries} the denominator increases \textit{really fast} (4!=24, 10!=3628800)
 	\item This implies that the value of $\frac{(-1)^k x^{2k}}{(2k)}!$ tends to drop as $k$ increases
 	\item Therefore, we can add terms until they are ``too small''
 	\item A maximum value of $k$ can also be specified for safety 
@@ -369,7 +369,7 @@ Evaluation of this series needs two things:
 \begin{frame}[fragile]
 \frametitle{Algorithm Example 4 - Boolean Conditions}
 \begin{columns}
-\column{2.7in}
+\column{2.9in}
 {\small
 \texttt{
  BEGIN\\
@@ -386,11 +386,12 @@ Evaluation of this series needs two things:
 \column{2in}
 \begin{itemize}
 \item The \textit{while} loop repeats a block of steps until the \textit{condition} becomes false.
-\item We loops until 10 \textit{iterations} have occured OR a precision limit is reached
+\item We loops until 10 \textit{iterations} have occurred OR a precision limit is reached
 \end{itemize}
 \end{columns}
 \end{frame}
 
+\if false
 \begin{frame}[fragile] % C lstlisting examples
 \frametitle{C listing template}
 \begin{lstlisting}[style=CStyle]
@@ -420,6 +421,6 @@ right side
 \end{figure}
 \end{columns}
 \end{frame}
-
+\fi
 
 \end{document}
