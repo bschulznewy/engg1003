@@ -11,7 +11,7 @@
 \maketitle
 
 \section{Introduction}
-This laboratory exposes you to the fundamental tools required to write computer programs in C. No prior programming experience is assumed
+This laboratory exposes you to the fundamental tools required to write computer programs in C. No prior programming experience is assumed but if you don't have basic computer literacy you're gonna have a bad time.
 
 \section{C Programming Basics}
 In order to write programs in C (and most other languages) the following software tools are required:
@@ -116,15 +116,19 @@ int main() {
 
 \end{enumerate}
 
+
+\pagebreak
 \section{Compiler Errors and Warnings}
 
 This section will demonstrate several common compiler \textit{errors} and \textit{warnings}.
 
 An error occurs when the code does not meet the rigorous and unambiguous syntax rules specified in the ANSI C standard and, as such, the compiler does not know how to interpret the code. For example, if you miss a " symbol inside a \texttt{printf()} where does the text to be printed end? This can't be assumed because there are not enough rules about what you can and can't write in this context. As such, missing a " will produce a \textit{syntax error}.
 
-By contrast, a warning occurs when the code is in some way ``mildly'' problematic but the compiler is still able to make assumptions about what the code should do and produce a binary executable. For example, if the \texttt{return 0;} at the end of \texttt{main()} is missing the compiler will throw it in for you because, well, what else is it going to do at the end of \texttt{main()}?\footnote{The programer could want \texttt{main()} to return a value other than zero but it is overwhelmingly common to just return zero here. Historically, a program returning zero means ``the program finished without error'' and non-zero indicates some kind of error code.}
+By contrast, a warning occurs when the code is in some way ``mildly'' problematic but the compiler is still able to make assumptions about what the code should do and produce a binary executable. For example, if the \texttt{return 0;} at the end of \texttt{main()} is missing the compiler will throw it in for you because, well, what else is it going to do at the end of \texttt{main()}?\footnote{The programmer could want \texttt{main()} to return a value other than zero but it is overwhelmingly common to just return zero here. Historically, a program returning zero means ``the program finished without error'' and non-zero indicates some kind of error code.}
 
 Unfortunately compiler errors can be \textit{highly} technical and difficult to interpret. Furthermore, they often report an error on a line \textit{after} the actual mistake! The exercises below will give you some experience with interpreting compiler errors but this is a topic in which you will likely engage in ``life-long learning''.
+
+\subsection{Missing a semicolon}
 
 \textbf{Task:}
 \begin{enumerate}
@@ -134,29 +138,149 @@ Unfortunately compiler errors can be \textit{highly} technical and difficult to 
 	
 	The compiler errors will look something like Listing \ref{lst:errs}.
 	
-	\begin{lstlisting}[caption=The multiple errors produced by removing a \textit{single} semicolon.,label=lst:errs]
+	\begin{lstlisting}[caption=The multiple errors produced by removing a \textit{single} semicolon.,label=lst:errs,basicstyle=\ttfamily,frame=single]
 main.c: In function ‘main’:
-main.c:14:5: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘scanf’
+main.c:14:5: error: expected `=`, `,`, `;`, `asm` or `__attribute__`
+	before `scanf`
      scanf("%d", &k);
      ^
 main.c:14:18: error: ‘k’ undeclared (first use in this function)
      scanf("%d", &k);
                   ^
-main.c:14:18: note: each undeclared identifier is reported only once for each
-	function it appears in
+main.c:14:18: note: each undeclared identifier is reported only once for
+	each function it appears in
 	\end{lstlisting}
 \end{enumerate}
 	
-Lets break this down a bit. Each error starts with a location, the syntax is: \texttt{{file}:{line No.}:{column No.}}. So \texttt{main.c:14:5} means the file \texttt{main.c} at line 14, column\footnote{\textit{Column} means the number of characters since the start of the line} 5.
+Lets break this down a bit. Each error starts with a location, the syntax is: \texttt{{file}:{line}:{column}}. So \texttt{main.c:14:5} means the file \texttt{main.c} at line 14, column\footnote{\textit{Column} means the number of characters since the start of the line} 5.
 
-The first error (\texttt{error: expected '=' , ‘,’, ‘;’, ‘asm'}... etc.) is telling you that something was missing and the compiler noticed the ommission at line 14. In this case we removed a ; so that's what is missing. Note, however, that while the error was reported to be on like 14 the omission was actually on line 13! Also observe the extra technical jargon that you don't understand yet (what is \textit{\_\_attribute\_\_}??). Some of these are, in fact, beyond the scope of ENGG1003, you have to get used to reading text you don't understand and extracting the small pieces of information you actually need.
+The first error (\texttt{error: expected '=' , ‘,’, ‘;’, ‘asm'}... etc.) is telling you that something was missing and the compiler noticed the omission at line 14. In this case we removed a ; so that's what is missing. Note, however, that while the error was reported to be on like 14 the omission was actually on line 13! Also observe the extra technical jargon that you don't understand yet (what is \textit{\_\_attribute\_\_}??). Some of these are, in fact, beyond the scope of ENGG1003, you have to get used to reading text you don't understand and extracting the small pieces of information you actually need.
 
-Let's look at the second error: \texttt{'k' undeclared}. Wait, wasn't \texttt{int k} still in our source code? Why is the compiler complaining that it is undeclared when it is \textit{right there}? The problem is that by removing the semilcolon the declaration syntax was incorrect, so the compiler did not interpret that line as a declaration. It didn't find the expected ; threw its hand in the air and gave up.
+Let's look at the second error: \texttt{'k' undeclared}. Wait, wasn't \texttt{int k} still in our source code? Why is the compiler complaining that it is undeclared when it is \textit{right there}? The problem is that by removing the semicolon the declaration syntax was incorrect, so the compiler did not interpret that line as a declaration. It didn't find the expected ; threw its hand in the air and gave up.
 
-The final line (\texttt{each undeclared identifier...} etc.) is just telling you that if you forget to declare a variable the compiler will only tell you about it once. This is because it could appear multiple times and producing the same error over and over again is redundant and confusing.
+The final line (\texttt{each undeclared identifier...} etc.) is just telling you that if you forget to declare a variable the compiler will only tell you about it \textit{once}. This is because it could appear multiple times and producing the same error over and over is redundant and confusing.
 
-\section{Git}
-\subsection{What on Earth is git?}
+Lets try a different syntax error.
+
+\subsection{Missing a Quote Symbol}
+
+\textbf{Task:} Remove the closing " from the \texttt{printf} line so it reads:
+
+\begin{lstlisting}[style=CStyle]
+printf("You entered: %d\n, k);
+\end{lstlisting}
+
+You will see an immediate change to the syntax highlighting; all characters between where the " was and the end of the line are now green, as if they were still inside the double quotes. Take-home message: \textit{pay attention to syntax highlighting!}
+
+Again, removing a \textit{single character} generated a slew of errors:
+
+\begin{lstlisting}[basicstyle=\ttfamily]
+main.c: In function ‘main’:
+main.c:15:12: warning: missing terminating " character
+     printf("You entered: %d\n, k);
+            ^
+main.c:15:5: error: missing terminating " character
+     printf("You entered: %d\n, k);
+     ^
+main.c:16:5: error: expected expression before ‘return’
+     return 0;
+     ^
+main.c:17:1: error: expected ‘;’ before ‘}’ token
+ }
+ ^
+\end{lstlisting}
+
+Observe how missing the closing " generates both and error and a warning at different locations. Why does it do this? To be honest, this is beyond my experience; I've only been using gcc for 20 years, there's always \textit{something} that you haven't learned yet. In the end it doesn't matter, an error exists that needs to be fixed before the compiler can output an executable.
+
+Missing the " generated two other errors. By missing the " the \texttt{printf} \textit{expression} was not completed. In C an expression can be thought of as "a complete line of code that does something unambiguous". This is a \textit{very} informal definition but it will do for now. In order to complete the \texttt{printf} expression the syntax rules require the closing ", a closing right parenthesis ) [to match the opening left parenthesis (] and a semicolon ;. Removing the " character makes the compiler think that the existing ``\texttt{);}'' string at the end of the line is actually part of the data to be printed, not part of the C expression syntax. As such, the expression was never finished, leaving the compiler with an unresolved tension that will stay with it \textit{all day}\footnote{\url{https://xkcd.com/859/}}.
+
+Remember how missing a ; caused errors on lines \textit{below} where the error actually was? Well the same thing has happened here. Because the \texttt{printf()} line was malformed an error occurred on the line below it (\texttt{expected expression before return}) \textit{and} the one below that (\texttt{expected ; before \} token}); and you thought your \textit{ex} was highly strung!
+
+\pagebreak
+
+\subsection{Failing to Define \texttt{main()}'s Return Type}
+
+Enough about errors, the final example in this section demonstrates a compiler \textit{warning}. Unfortunately, OnlineGDB doesn't display the compiler output if only warnings are generated. If you are running \texttt{gcc} in Linux (as described at the end of this lab document) you won't have this problem\footnote{Yeah, I'm very biased towards Linux. It gets a bad rap because games, Microsoft Office, Adobe, and Autodesk don't support it but it is otherwise \textit{overwhelmingly} dominant. It runs: mobile phones (Android is a Linux derivative, iOS is a Unix variant), servers, supercomputers, ``internet of things'' devices, etc. As engineers you will probably see it in many places throughout your career, just hidden from the end user.}.
+
+\textbf{Task:} Remove \texttt{int} before \texttt{main} and the semicolon in \texttt{return 0}, as per Listing \ref{lst:warn}
+
+\begin{lstlisting}[style=CStyle,caption=Example code which generates a warning.,label=lst:warn]
+main()
+{
+    int k;
+    scanf("%d", &k);
+    printf("You entered: %d\n", k);
+    return 0
+}
+\end{lstlisting}
+
+Attempting to compile this code generates the following compiler output:
+
+\begin{lstlisting}[basicstyle=\ttfamily]
+main.c:11:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ main()
+ ^
+main.c: In function ‘main’:
+main.c:17:1: error: expected ‘;’ before ‘}’ token
+ }
+ ^
+\end{lstlisting}
+
+The error can be ignored here, lets focus on \texttt{warning: return type defaults to `int`}. The keyword which goes before \texttt{main()} specifies its \textit{return type}. This is the type of data which it sends back to the operating system on program exit, we will study function return types in later weeks. To my knowledge, operating systems only support the \texttt{int} return type (ie: an integer) so if you leave it out the compiler can quite safely \textit{assume} that's what should be there and only issue a warning instead of an error.
+
+Generally speaking, warnings should be fixed when you see them. With experience you will know when they \textit{need} to be fixed (because the compiler is assuming something incorrectly) and when they can be ignored (because you have more important stuff to fix first).
+
+No doubt you will see \textit{many} other errors and warnings during your foray into C programming. I still occasionally see new ones! If in doubt, throw the compiler output into Google, chances are someone on Stack Overflow\footnote{Why are you even taking this course? Stack Overflow is all you \textit{really} need, right?} has written a good explanation about it.
+
+\pagebreak
+\section{Basic Arithmetic in C}
+
+So, it is Page \thepage{} of these notes and we haven't done anything \textit{useful} yet! Ok, lets start doing some data processing.
+
+In this section we will do some basic arithmetic on numbers which are read from the console (ie: read from \texttt{stdin}). Since we haven't learnt much C (or even much programming in general) these examples are either going to be a bit boring (because they don't do much) or look like black magic (because you haven't learned how they work yet). I have to ask you just to go through the motions at this stage, hopefully exposure to the code below now will make it easier to understand how it works in the coming weeks.
+
+Lets start with the basic C arithmetic operators:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+Operation      & C Symbol \\
+\hline
+Addition       & +        \\
+Subtraction    & -        \\
+Multiplication & *        \\
+Division       & /       \\
+\hline
+\end{tabular}
+\caption{Basic arithmetic operators in C}
+\end{table}
+
+These are all \textit{binary} operators, meaning they operate on two things. Each thing could be a variable (eg: \texttt{a + b}), a constant (eg: \texttt{a + 5}) or some complicated expression (eg: \texttt{(2*a + 6) / (12 + b - x)} )\footnote{I contemplated leaving this closing parenthesis out to give you unresolved tension but I'm not quite \textit{that} evil.}.
+
+We begin with a basic example:
+
+Modify your code to match that of Listing \ref{lst:arithmetic1}.
+
+\begin{lstlisting}[style=CStyle,caption=A basic arithmetic example,label=lst:arithmetic1]
+#include <stdio.h>
+
+int main() {
+	int k;
+	printf("Enter an integer: ");
+	scanf("%d", &k);
+	k = 2*k;
+	printf("That integer doubled is: %d\n", k);
+	return 0;
+}
+\end{lstlisting}
+
+Notice that this code has a \textit{slightly} improved user experience to previous examples; it produces a prompt (\texttt{Enter an integer: }) which tells you what to do. Also notice that the first \texttt{printf()} does \textit{not} end with a \texttt{\textbackslash n} (newline), so the number you type appears on the same line as the prompt.
+
+The line \texttt{k = 2*k} takes the value of \texttt{k}, multiplies it by 2, then assigns that result back into the variable \texttt{k}. This is a \textit{crucial} concept in programming: the \texttt{=} symbol is \textbf{not} equality (a number is never equal to double itself unless the number is zero!), it is \textit{assignment}. Assignment takes what's on the right, evaluates it, then stores it into the variable on the left.
+
+\pagebreak
+\section{And Introduction to Git}
 
 \section{Getting started with C in Ubuntu Linux}
 
