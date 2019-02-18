@@ -232,6 +232,7 @@
     commentstyle=\color{mGreen},
     numberstyle=\tiny\color{mGray},
     stringstyle=\color{mPurple},
+    basicstyle=\ttfamily,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
@@ -250,5 +251,5 @@
     classoffset=0
 }
 
-\lstset{basicstyle=\ttfamily}
-\lstset{framextopmargin=50pt,frame=bottomline}
+%\lstset{basicstyle=\ttfamily}
+%\lstset{framextopmargin=50pt,frame=bottomline}

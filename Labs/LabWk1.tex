@@ -116,6 +116,45 @@ int main() {
 
 \end{enumerate}
 
+\section{Compiler Errors and Warnings}
+
+This section will demonstrate several common compiler \textit{errors} and \textit{warnings}.
+
+An error occurs when the code does not meet the rigorous and unambiguous syntax rules specified in the ANSI C standard and, as such, the compiler does not know how to interpret the code. For example, if you miss a " symbol inside a \texttt{printf()} where does the text to be printed end? This can't be assumed because there are not enough rules about what you can and can't write in this context. As such, missing a " will produce a \textit{syntax error}.
+
+By contrast, a warning occurs when the code is in some way ``mildly'' problematic but the compiler is still able to make assumptions about what the code should do and produce a binary executable. For example, if the \texttt{return 0;} at the end of \texttt{main()} is missing the compiler will throw it in for you because, well, what else is it going to do at the end of \texttt{main()}?\footnote{The programer could want \texttt{main()} to return a value other than zero but it is overwhelmingly common to just return zero here. Historically, a program returning zero means ``the program finished without error'' and non-zero indicates some kind of error code.}
+
+Unfortunately compiler errors can be \textit{highly} technical and difficult to interpret. Furthermore, they often report an error on a line \textit{after} the actual mistake! The exercises below will give you some experience with interpreting compiler errors but this is a topic in which you will likely engage in ``life-long learning''.
+
+\textbf{Task:}
+\begin{enumerate}
+	\item If you have not done so already, get the code shown in Listing \ref{lst:basicio} working correctly.
+	\item Remove the semicolon (the ; character) from the end of line 4.
+	\item Compile the code, what error did the compiler produce? Which line does it say the error is on?
+	
+	The compiler errors will look something like Listing \ref{lst:errs}.
+	
+	\begin{lstlisting}[caption=The multiple errors produced by removing a \textit{single} semicolon.,label=lst:errs]
+main.c: In function ‘main’:
+main.c:14:5: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘scanf’
+     scanf("%d", &k);
+     ^
+main.c:14:18: error: ‘k’ undeclared (first use in this function)
+     scanf("%d", &k);
+                  ^
+main.c:14:18: note: each undeclared identifier is reported only once for each
+	function it appears in
+	\end{lstlisting}
+\end{enumerate}
+	
+Lets break this down a bit. Each error starts with a location, the syntax is: \texttt{{file}:{line No.}:{column No.}}. So \texttt{main.c:14:5} means the file \texttt{main.c} at line 14, column\footnote{\textit{Column} means the number of characters since the start of the line} 5.
+
+The first error (\texttt{error: expected '=' , ‘,’, ‘;’, ‘asm'}... etc.) is telling you that something was missing and the compiler noticed the ommission at line 14. In this case we removed a ; so that's what is missing. Note, however, that while the error was reported to be on like 14 the omission was actually on line 13! Also observe the extra technical jargon that you don't understand yet (what is \textit{\_\_attribute\_\_}??). Some of these are, in fact, beyond the scope of ENGG1003, you have to get used to reading text you don't understand and extracting the small pieces of information you actually need.
+
+Let's look at the second error: \texttt{'k' undeclared}. Wait, wasn't \texttt{int k} still in our source code? Why is the compiler complaining that it is undeclared when it is \textit{right there}? The problem is that by removing the semilcolon the declaration syntax was incorrect, so the compiler did not interpret that line as a declaration. It didn't find the expected ; threw its hand in the air and gave up.
+
+The final line (\texttt{each undeclared identifier...} etc.) is just telling you that if you forget to declare a variable the compiler will only tell you about it once. This is because it could appear multiple times and producing the same error over and over again is redundant and confusing.
+
 \section{Git}
 \subsection{What on Earth is git?}
 
