@@ -387,6 +387,8 @@ As practice, implement the following equations (what happens when you choose x t
 \pagebreak
 \section{A Very Brief Introduction to Git}
 
+\textit{NB: Git is not in the course outline so it isn't strictly required nor assessed. It is, however, incredibly useful and included here because several 3rd and 4th year course coordinators (and industry contacts) asked me to expose you to it. I agreed.}
+
 Programming projects typically involve two potentially problematic issues:
 
 \begin{enumerate}
@@ -398,7 +400,7 @@ The second item arises from the fact that after going down a problematic design 
 
 As such, programmers designed so-called \textit{versioning} subsystems. These are ways of storing data which allows someone to access either a current or past version.
 
-In this course it will be \textit{recommended} that you take advantage of the modern versioning system known as Git. It was developed for tracking code in the Linux kernel and has since expanded to be an industry standard; even Microsoft purchased the website GitHub because it was \textit{just better} than anything else they had developed internally.
+In this course it will be \textit{recommended} that you take advantage of the modern versioning system known as Git. It was developed for tracking code in the Linux kernel and has since expanded to be an industry standard; even Microsoft purchased the website GitHub because it was \textit{just better} than anything else they had developed internally. I am using Git for tracking changes while writing course content. The Git host GitHub is also doubling as cloud storage as I move writing between three different computers.
 
 \textbf{Task:} Navigate to \url{https://github.com/bschulznewy/engg1003/blob/master/Lectures/Wk1/Friday/LectureFriWk1.pdf}, this is the GitHub ``repository'' that I have been using when writing ENGG1003 content. In particular, it is the lecture notes for the Friday Week 1 Lecture (I'm subtly trying to get you to read them ahead of time, apologies for improving your study efficiency).
 
@@ -408,11 +410,11 @@ But that's not what we're here for, I want to show you the real power of Git: ve
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.9\textwidth]{github_lecture.png}
+\includegraphics[width=0.8\textwidth]{github_lecture.png}
 \end{center}
 \caption{The git repo history for the Friday lecture notes.}\label{fig:githistory}
 \end{figure}
-\pagebreak
+
 Click on the top one (specifically the text ``Changed lecture notes to blue.'') and you will see what changed in this particular git commit.
 
 \begin{figure}[H]
@@ -424,11 +426,13 @@ Click on the top one (specifically the text ``Changed lecture notes to blue.'') 
 
 The box at the bottom of Figure \ref{fig:gitchanges} shows the actual changes which occurred. In this case I changed the colour theme for the lecture notes to roughly match that of the first lecture. The changes to the PDF are not shown because they would be unintelligible garbage (it is a binary file, not text).
 
-Browse through the other commits, feel free to also browse the other files in the repository.
+Click the ``View file'' button next to LectureFriWk1.pdf to view what the PDF looked like in this commit.
+
+Browse through the other commits and observe the writing process for the Lecture 1 PDF, feel free to also browse the other files in the repository.
 
 \textbf{Task:} Go to \url{www.github.com} and create a GitHub account. You will use it in later weeks when we swap to a development environment which supports Git. You can also use a GitHub account to login to OnlineGDB, allowing you to have your source files stored on their server.
 
-\textbf{Task:} Read more about how Git works and what it does here: \url{https://medium.com/@graeme_boy/how-to-use-git-and-github-60c4ba44ef40}.
+\textbf{Task:} Read more about how Git works and what it does here: \url{https://developer.ibm.com/tutorials/d-learn-workings-git/}. You probably won't understand everything, but that's not important right now. Just get some general exposure to the ideas and we'll fill in the practicalities later.
 
 \pagebreak
 \section{Getting started with C in Ubuntu Linux - Optional}
