@@ -233,9 +233,68 @@ Generally speaking, warnings should be fixed when you see them. With experience 
 No doubt you will see \textit{many} other errors and warnings during your foray into C programming. I still occasionally see new ones! If in doubt, throw the compiler output into Google, chances are someone on Stack Overflow\footnote{Why are you even taking this course? Stack Overflow is all you \textit{really} need, right?} has written a good explanation about it.
 
 \pagebreak
+\section{Comments}
+
+So far all the code examples have been very basic and (hopefully) easy enough to read. In ``real'' projects, however, this is rarely the case and the code needs some kind of explanation for the reader to quickly, and accurately, understand what it does\footnote{Despite what you might believe experienced engineers and programmers are not wizards, our understanding is not \textit{magic}, it is based on experience and frequently needs supplementing with code comments.}.
+
+You will hopefully gain experience with code comments as you progress through this course (and the rest of you career!) but for now we will just see the basics. Any text in the source files\footnote{Did I forget to define what source code, or source files, are? It is just another word for any programming code. It can also be called a source \textit{listing}.} which:
+
+\begin{itemize}
+\item Is between \texttt{/*} and \texttt{*/}, or
+\item Is between \texttt{//} and the end of the line
+\end{itemize}
+
+is \textit{totally ignored} by the compiler and called a ``comment''.
+
+Code comments are a place for you to explain how your code works, or what it does, to future people who work with it. It is also a great place to leave little memos to yourself, typically in the form of:
+
+\texttt{// TODO: Fix this because <reasons>}.
+
+In fact some code editors (like the Linux editor \texttt{vim}) will automatically highlight the text \texttt{TODO} so it is easy to find.
+
+\textbf{Task:} Take whatever source code is currently shown in OnlineGDB and add some comments in various places. Compile the code and observe that they have no effect.
+
+Students frequently ask what should and should not be commented. In this course your comments should be written such that a student who is on track to achieve 50\% can understand what your code does without having to consult external reference material. This will seem overly verbose but it will be used in lieu of a better standard. As a general rule: if you needed to look up something in a reference manual when writing the code write a comment explaining it. For example:
+
+\begin{lstlisting}[style=CStyle]
+printf("%d\n", x); // %d formats an integer
+\end{lstlisting}
+
+Anything which, at first glance, appears to be at least a little bit cryptic should probably get a comment.
+
+\pagebreak
+\subsection{Intrinsic Documentation}
+
+As a supplement to comments, \textit{intrinsic documentation} is the idea behind choosing informative names for variables and functions\footnote{No, you don't need to know what a function is yet. It is in week 5 or so.}. Compare, for example, the following two code listings:
+
+\begin{lstlisting}[style=CStyle]
+int main()
+{
+	float x, y;
+	scanf("%f", &x);
+	y = x*9.0/5.0 + 32.0;
+	printf("%f\n", y);
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=CStyle]
+int main()
+{
+	float tempFahrenheit, tempCelcius;
+	scanf("%f", &tempCelcius);
+	tempFahrenheit = tempCelcius*9.0/5.0 + 32.0;
+	printf("%f\n", tempFahrenheit);
+}
+\end{lstlisting}
+
+The first one, especially without comments, is cryptic and not possible to understand without more information. The second, even if you don't understand all the code, quite intuitively converts Celcius to Fahrenheit.
+
+You will observe that my notes break intrinsic documentation rules all the time. Sorry.
+
+\pagebreak
 \section{Basic Arithmetic in C}
 
-So, it is Page \thepage{} of these notes and we haven't done anything \textit{useful} yet! Ok, lets start doing some data processing.
+So, it is Page \thepage{} of these notes and we haven't done anything \textit{useful} yet! Ok \textit{fine}, lets do some data processing.
 
 In this section we will do some basic arithmetic on numbers which are read from the console (ie: read from \texttt{stdin}). Since we haven't learnt much C (or even much programming in general) these examples are either going to be a bit boring (because they don't do much) or look like black magic (because you haven't learned how they work yet). I have to ask you just to go through the motions at this stage, hopefully exposure to the code below now will make it easier to understand how it works in the coming weeks.
 
@@ -256,7 +315,7 @@ Division       & /       \\
 \caption{Basic arithmetic operators in C}
 \end{table}
 
-These are all \textit{binary} operators, meaning they operate on two things. Each thing could be a variable (eg: \texttt{a + b}), a constant (eg: \texttt{a + 5}) or some complicated expression (eg: \texttt{(2*a + 6) / (12 + b - x)} )\footnote{I contemplated leaving this closing parenthesis out to give you unresolved tension but I'm not quite \textit{that} evil.}.
+These are all \textit{binary} operators, meaning they operate on two \textit{operands}\footnote{An operand is one of the ``things'' that a mathematical operator operates on. Eg: In a + b the variables a and b are operands.}. This may feel obvious, but C includes several \textit{unitary} operators and even a \textit{ternary} one (that nobody uses because it's confusing). Each operand could be a variable (eg: \texttt{a + b}), a constant (eg: \texttt{a + 5}) or some complicated expression (eg: \texttt{(2*a + 6) / (12 + b - x)} )\footnote{I contemplated leaving this closing parenthesis out to give you unresolved tension but I'm not quite \textit{that} evil.}.
 
 We begin with a basic example:
 
@@ -277,10 +336,67 @@ int main() {
 
 Notice that this code has a \textit{slightly} improved user experience to previous examples; it produces a prompt (\texttt{Enter an integer: }) which tells you what to do. Also notice that the first \texttt{printf()} does \textit{not} end with a \texttt{\textbackslash n} (newline), so the number you type appears on the same line as the prompt.
 
-The line \texttt{k = 2*k} takes the value of \texttt{k}, multiplies it by 2, then assigns that result back into the variable \texttt{k}. This is a \textit{crucial} concept in programming: the \texttt{=} symbol is \textbf{not} equality (a number is never equal to double itself unless the number is zero!), it is \textit{assignment}. Assignment takes what's on the right, evaluates it, then stores it into the variable on the left.
+The line \texttt{k = 2*k} takes the value of \texttt{k}, multiplies it by 2, then assigns that result back into the variable \texttt{k}. This is a \textit{crucial} concept in programming: the \texttt{=} symbol is \textbf{not} equality, \texttt{k = 2*k} is \textbf{not} and equation, it is \textit{assignment}. Assignment takes what's on the right, evaluates it, then stores it into the variable on the left.
+
+\subsection{Operator Precedence Basics}
+
+Just like in ``normal'' algebra different operators take precedence over others (PEMDAS / BODMAS anyone? How about those Facebook posts where \textit{everybody} gets this wrong?). You can view the full C operator precedence here: \url{https://en.cppreference.com/w/c/language/operator_precedence} but you don't need to learn all of it now, it will be covered more in future lectures.
+
+For now we will observe some basic examples and look at how engineers can deal with the complexity of full C operator precedence.
+
+The predominant engineer's approach to this topic is to vaguely learn how the language behaves and then throw parentheses everywhere just to be \textit{absolutely sure} that the intention is not ambiguous. In the end it is \textit{other people} who will have trouble reading your code, not the compiler, so you might as well make their job easy.
+
+\textbf{Task:} Implement the following equation in C:
+
+\begin{equation}\label{eq:fraction}
+y = \frac{x}{1 - x}
+\end{equation}
+
+using the template in Listing \ref{lst:arithmetic2}.
+
+\begin{lstlisting}[style=CStyle,caption=A basic arithmetic example,label=lst:arithmetic2]
+#include <stdio.h>
+
+int main() {
+	float x;
+	float y;
+	printf("Enter a number: ");
+	scanf("%f", &x);
+	// x = ??? uncomment this line and write your answer instead
+	printf("y: %f\n", y);
+	return 0;
+}
+\end{lstlisting}
+
+You will notice a few new things about Listing \ref{lst:arithmetic2}. Firstly, it uses the \texttt{float} datatype. This type will store any real number with a magnitude of $1.2 \times 10^{-38}$ to $3.4 \times 10^{38}$ with a precision of approximately 6 decimal digits. Its bigger brother, the \texttt{double} will be seen later.
+
+The other major change is that inside \texttt{scanf} and \texttt{printf} the \texttt{\%d} has changed to \texttt{\%f}. The \texttt{f} stands for floating point, which is a standard method\footnote{The other major standard is known as \textit{fixed point}. Details are beyond ELEC1003 but you'll probably see it if you study enough digital signal processing (DSP).} for storing fractional numbers using only binary integers. The details are beyond this course, but you can read the details on Wikipedia: \url{https://en.wikipedia.org/wiki/IEEE_754}.
+
+Back to the task at hand, have a go at implementing Equation \ref{eq:fraction} and see if the result works. After you've had a go yourself read the examples and commentary below:
+
+\begin{enumerate}
+\item {\texttt{x = y/1-y}} // This won't work because \texttt{y/1} happens first
+\item {\texttt{x = y/(1-y)}} // This one is correct
+\end{enumerate}
+
+As practice, implement as many of the following equations(what happens when you choose x to force a division by zero?):
+
+\begin{equation}
+y = \frac{9}{5} x + 32
+\end{equation}
+
+\begin{equation}
+y = \frac{x + 2}{x - 1}
+\end{equation}
+
+For this one you need to know that C does \textit{not} include a ``to the power of'' operator. Implement $x^2$ as \texttt{x*x}:
+\begin{equation}
+y = x^2 + 2x.
+\end{equation}
+
 
 \pagebreak
-\section{And Introduction to Git}
+\section{An Introduction to Git}
 
 \section{Getting started with C in Ubuntu Linux}
 
