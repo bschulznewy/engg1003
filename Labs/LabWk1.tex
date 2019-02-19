@@ -190,7 +190,7 @@ main.c:17:1: error: expected ‘;’ before ‘}’ token
  ^
 \end{lstlisting}
 
-Observe how missing the closing " generates both and error and a warning at different locations. Why does it do this? To be honest, this is beyond my experience; I've only been using gcc for 20 years, there's always \textit{something} that you haven't learned yet. In the end it doesn't matter, an error exists that needs to be fixed before the compiler can output an executable.
+Observe how missing the closing " generates both an error and a warning at different locations. Why does it do this? To be honest, this is beyond my experience; I've only been using gcc for 20 years, there's always \textit{something} that you haven't learned yet. In the end it doesn't matter, an error exists that needs to be fixed before the compiler can output an executable.
 
 Missing the " generated two other errors. By missing the " the \texttt{printf} \textit{expression} was not completed. In C an expression can be thought of as "a complete line of code that does something unambiguous". This is a \textit{very} informal definition but it will do for now. In order to complete the \texttt{printf} expression the syntax rules require the closing ", a closing right parenthesis ) [to match the opening left parenthesis (] and a semicolon ;. Removing the " character makes the compiler think that the existing ``\texttt{);}'' string at the end of the line is actually part of the data to be printed, not part of the C expression syntax. As such, the expression was never finished, leaving the compiler with an unresolved tension that will stay with it \textit{all day}\footnote{\url{https://xkcd.com/859/}}.
 
@@ -336,7 +336,7 @@ int main() {
 
 Notice that this code has a \textit{slightly} improved user experience to previous examples; it produces a prompt (\texttt{Enter an integer: }) which tells you what to do. Also notice that the first \texttt{printf()} does \textit{not} end with a \texttt{\textbackslash n} (newline), so the number you type appears on the same line as the prompt.
 
-The line \texttt{k = 2*k} takes the value of \texttt{k}, multiplies it by 2, then assigns that result back into the variable \texttt{k}. This is a \textit{crucial} concept in programming: the \texttt{=} symbol is \textbf{not} equality, \texttt{k = 2*k} is \textbf{not} and equation, it is \textit{assignment}. Assignment takes what's on the right, evaluates it, then stores it into the variable on the left.
+The line \texttt{k = 2*k} takes the value of \texttt{k}, multiplies it by 2, then assigns that result back into the variable \texttt{k}. This is a \textit{crucial} concept in programming: the \texttt{=} symbol is \textbf{not} equality, \texttt{k = 2*k} is \textbf{not} an equation, it is \textit{assignment}. Assignment takes what's on the right, evaluates it, then stores it into the variable on the left.
 
 \subsection{Operator Precedence Basics}
 
@@ -370,7 +370,7 @@ int main() {
 
 You will notice a few new things about Listing \ref{lst:arithmetic2}. Firstly, it uses the \texttt{float} datatype. This type will store any real number with a magnitude of $1.2 \times 10^{-38}$ to $3.4 \times 10^{38}$ with a precision of approximately 6 decimal digits. Its bigger brother, the \texttt{double} will be seen later.
 
-The other major change is that inside \texttt{scanf} and \texttt{printf} the \texttt{\%d} has changed to \texttt{\%f}. The \texttt{f} stands for floating point, which is a standard method\footnote{The other major standard is known as \textit{fixed point}. Details are beyond ELEC1003 but you'll probably see it if you study enough digital signal processing (DSP).} for storing fractional numbers using only binary integers. The details are beyond this course, but you can read the details on Wikipedia: \url{https://en.wikipedia.org/wiki/IEEE_754}.
+The other major change is that inside \texttt{scanf} and \texttt{printf} the \texttt{\%d} has changed to \texttt{\%f}. The \texttt{f} stands for floating point, which is a standard method\footnote{The other major standard is known as \textit{fixed point}. Details are beyond ENGG1003 but you'll probably see it if you study enough digital signal processing (DSP).} for storing fractional numbers using only binary integers. The details are beyond this course, but you can read the details on Wikipedia: \url{https://en.wikipedia.org/wiki/IEEE_754}.
 
 Back to the task at hand, have a go at implementing Equation \ref{eq:fraction} and see if the result works. Observe that you don't need to force precedence with parentheses because, in C, the multiplication operations are performed before addition.
 
@@ -393,7 +393,7 @@ Programming projects typically involve two potentially problematic issues:
 
 \begin{enumerate}
 	\item Multiple people contribute to the same project
-	\item Programmers frequency want to ``roll-back'' to an earlier code version.
+	\item Programmers frequently want to ``roll-back'' to an earlier code version.
 \end{enumerate}
 
 The second item arises from the fact that after going down a problematic design pathway it is typically much faster to scrap the idea and start again than it is to try and fix all the problems you just created. The fastest way to do \textit{this} is to load up known-working code from the past and go from there.
