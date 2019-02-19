@@ -315,7 +315,7 @@ Division       & /       \\
 \caption{Basic arithmetic operators in C}
 \end{table}
 
-These are all \textit{binary} operators, meaning they operate on two \textit{operands}\footnote{An operand is one of the ``things'' that a mathematical operator operates on. Eg: In a + b the variables a and b are operands.}. This may feel obvious, but C includes several \textit{unitary} operators and even a \textit{ternary} one (that nobody uses because it's confusing). Each operand could be a variable (eg: \texttt{a + b}), a constant (eg: \texttt{a + 5}) or some complicated expression (eg: \texttt{(2*a + 6) / (12 + b - x)} )\footnote{I contemplated leaving this closing parenthesis out to give you unresolved tension but I'm not quite \textit{that} evil.}.
+These are all \textit{binary} operators, meaning they operate on two \textit{operands}\footnote{An operand is one of the ``things'' that a mathematical operator operates on. Eg: In a + b the variables a and b are operands.}. This may feel obvious, but C includes several \textit{unary} operators and even a \textit{ternary} one (that nobody uses because it's confusing). Each operand could be a variable (eg: \texttt{a + b}), a constant (eg: \texttt{a + 5}) or some complicated expression (eg: \texttt{(2*a + 6) / (12 + b - x)} )\footnote{I contemplated leaving this closing parenthesis out to give you unresolved tension but I'm not quite \textit{that} evil.}.
 
 We begin with a basic example:
 
@@ -336,7 +336,7 @@ int main() {
 
 Notice that this code has a \textit{slightly} improved user experience to previous examples; it produces a prompt (\texttt{Enter an integer: }) which tells you what to do. Also notice that the first \texttt{printf()} does \textit{not} end with a \texttt{\textbackslash n} (newline), so the number you type appears on the same line as the prompt.
 
-The line \texttt{k = 2*k} takes the value of \texttt{k}, multiplies it by 2, then assigns that result back into the variable \texttt{k}. This is a \textit{crucial} concept in programming: the \texttt{=} symbol is \textbf{not} equality, \texttt{k = 2*k} is \textbf{not} and equation, it is \textit{assignment}. Assignment takes what's on the right, evaluates it, then stores it into the variable on the left.
+The line \texttt{k = 2*k} takes the value of \texttt{k}, multiplies it by 2, then assigns that result back into the variable \texttt{k}. This is a \textit{crucial} concept in programming: the \texttt{=} symbol is \textbf{not} equality, \texttt{k = 2*k} is \textbf{not} an equation, it is \textit{assignment}. Assignment takes what's on the right, evaluates it, then stores it into the variable on the left.
 
 \subsection{Operator Precedence Basics}
 
