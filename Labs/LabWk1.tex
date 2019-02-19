@@ -349,7 +349,7 @@ The predominant engineer's approach to this topic is to vaguely learn how the la
 \textbf{Task:} Implement the following equation in C:
 
 \begin{equation}\label{eq:fraction}
-y = \frac{x}{1 - x}
+y = 2x+3\times5
 \end{equation}
 
 using the template in Listing \ref{lst:arithmetic2}.
@@ -361,8 +361,8 @@ int main() {
 	float x;
 	float y;
 	printf("Enter a number: ");
-	scanf("%f", &x);
-	// x = ??? uncomment this line and write your answer instead
+	scanf("%f", &x); // Note change of %d to %f
+	// y = ??? uncomment this line and write your answer instead
 	printf("y: %f\n", y);
 	return 0;
 }
@@ -372,33 +372,66 @@ You will notice a few new things about Listing \ref{lst:arithmetic2}. Firstly, i
 
 The other major change is that inside \texttt{scanf} and \texttt{printf} the \texttt{\%d} has changed to \texttt{\%f}. The \texttt{f} stands for floating point, which is a standard method\footnote{The other major standard is known as \textit{fixed point}. Details are beyond ELEC1003 but you'll probably see it if you study enough digital signal processing (DSP).} for storing fractional numbers using only binary integers. The details are beyond this course, but you can read the details on Wikipedia: \url{https://en.wikipedia.org/wiki/IEEE_754}.
 
-Back to the task at hand, have a go at implementing Equation \ref{eq:fraction} and see if the result works. After you've had a go yourself read the examples and commentary below:
+Back to the task at hand, have a go at implementing Equation \ref{eq:fraction} and see if the result works. Observe that you don't need to force precedence with parentheses because, in C, the multiplication operations are performed before addition.
+
+As practice, implement the following equations (what happens when you choose x to force a division by zero?):
+
 
 \begin{enumerate}
-\item {\texttt{x = y/1-y}} // This won't work because \texttt{y/1} happens first
-\item {\texttt{x = y/(1-y)}} // This one is correct
+\item $y = \frac{9}{5} x + 32$
+\item $y = \frac{x}{1 - x}$.  This one will require parentheses.
+\item $y = x^2 + 2x$. \textbf{NB:} C does \textit{not} include an exponent operator. Implement $x^2$ as \texttt{x*x}:
+\item $y = \frac{x + 2}{x - 1}$
 \end{enumerate}
 
-As practice, implement as many of the following equations(what happens when you choose x to force a division by zero?):
+\pagebreak
+\section{A Very Brief Introduction to Git}
 
-\begin{equation}
-y = \frac{9}{5} x + 32
-\end{equation}
+Programming projects typically involve two potentially problematic issues:
 
-\begin{equation}
-y = \frac{x + 2}{x - 1}
-\end{equation}
+\begin{enumerate}
+	\item Multiple people contribute to the same project
+	\item Programmers frequency want to ``roll-back'' to an earlier code version.
+\end{enumerate}
 
-For this one you need to know that C does \textit{not} include a ``to the power of'' operator. Implement $x^2$ as \texttt{x*x}:
-\begin{equation}
-y = x^2 + 2x.
-\end{equation}
+The second item arises from the fact that after going down a problematic design pathway it is typically much faster to scrap the idea and start again than it is to try and fix all the problems you just created. The fastest way to do \textit{this} is to load up known-working code from the past and go from there.
 
+As such, programmers designed so-called \textit{versioning} subsystems. These are ways of storing data which allows someone to access either a current or past version.
+
+In this course it will be \textit{recommended} that you take advantage of the modern versioning system known as Git. It was developed for tracking code in the Linux kernel and has since expanded to be an industry standard; even Microsoft purchased the website GitHub because it was \textit{just better} than anything else they had developed internally.
+
+\textbf{Task:} Navigate to \url{https://github.com/bschulznewy/engg1003/blob/master/Lectures/Wk1/Friday/LectureFriWk1.pdf}, this is the GitHub ``repository'' that I have been using when writing ENGG1003 content. In particular, it is the lecture notes for the Friday Week 1 Lecture (I'm subtly trying to get you to read them ahead of time, apologies for improving your study efficiency).
+
+The link is for a PDF document and you will see that GitHub automatically renders it inside the website. It will attempt to display any file directly linked to.
+
+But that's not what we're here for, I want to show you the real power of Git: version tracking. Click on the ``History'' button to the top right of the PDF preview. You will be greeted with a view similar to that shown in Figure \ref{fig:githistory}. It lists the git \textit{commits} made which effect that file. A commit is a snapshot of what the entire repository looked like at a particular point in time. Each commit happens manually (ie: I type a command to cause a commit to be created) and is attached to a ``commit message'' which (hopefully) describes the changes which were made.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{github_lecture.png}
+\end{center}
+\caption{The git repo history for the Friday lecture notes.}\label{fig:githistory}
+\end{figure}
+\pagebreak
+Click on the top one (specifically the text ``Changed lecture notes to blue.'') and you will see what changed in this particular git commit.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{github_lecture_changes.png}
+\end{center}
+\caption{The changes which occured in a particular commit.}\label{fig:gitchanges}
+\end{figure}
+
+The box at the bottom of Figure \ref{fig:gitchanges} shows the actual changes which occurred. In this case I changed the colour theme for the lecture notes to roughly match that of the first lecture. The changes to the PDF are not shown because they would be unintelligible garbage (it is a binary file, not text).
+
+Browse through the other commits, feel free to also browse the other files in the repository.
+
+\textbf{Task:} Go to \url{www.github.com} and create a GitHub account. You will use it in later weeks when we swap to a development environment which supports Git. You can also use a GitHub account to login to OnlineGDB, allowing you to have your source files stored on their server.
+
+\textbf{Task:} Read more about how Git works and what it does here: \url{https://medium.com/@graeme_boy/how-to-use-git-and-github-60c4ba44ef40}.
 
 \pagebreak
-\section{An Introduction to Git}
-
-\section{Getting started with C in Ubuntu Linux}
+\section{Getting started with C in Ubuntu Linux - Optional}
 
 Linux is not supported by university IT but, personally, I find it to be a fantastic development platform. The following instructions are completely optional, only do this if you are keen to learn.
 
