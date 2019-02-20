@@ -1,0 +1,139 @@
+\documentclass[14pt]{beamer}
+\usetheme{Dresden}
+\usecolortheme{orchid}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,frame=bottomline}
+
+\title{ENGG1003 - Tuesday Week 2}
+\subtitle{C Arithmetic\\Datatypes\\Standard Input-Output}
+\author{Brenton Schulz}
+\institute{University of Newcastle}
+\date{\today}
+
+\begin{document}
+\titlepage
+
+\begin{frame}
+\frametitle{C Arithmetic}
+\begin{itemize}
+\item Basic arithmetic was seen in the lab
+\begin{itemize}
+\item You all did the lab, right?
+\end{itemize}
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+Operation      & C Symbol \\
+\hline
+Addition       & +        \\
+Subtraction    & -        \\
+Multiplication & *        \\
+Division       & /       \\
+\hline
+\end{tabular}
+\caption{Basic arithmetic operators in C}
+\end{table}
+\item Complex expressions can be built from these operators and parentheses
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{C Arithmetic}
+Examples:
+\begin{small}
+\begin{table}
+\centering
+\begin{tabular}{|c|c|}
+\hline
+$z = x^2 + 5(y + b)$ & \texttt{z = x*x + 5*(y + b);} \\
+$u = \frac{x + 1}{x - 1}$ & \texttt{u = (x + 1)/(x - 1);} \\
+$v = z^3 + \frac{5(y + b)}{2}$ & \texttt{v = z*z*z+(5*(y + b))/2;} \\
+\hline
+\end{tabular}
+\end{table}
+\end{small}
+
+\begin{itemize}
+\item Multiplication is not assumed. If you write \texttt{5(y+b)} the compiler will generate a syntax error.
+\item To be valid C expressions the semicolon is required.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{C Arithmetic}
+\begin{itemize}
+\item C supports two time-saving \textit{unary} operators:
+\begin{itemize}
+\item Very useful in loops.
+\end{itemize}
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Operation & C Syntax & Replaces\\
+\hline
+Increment & \texttt{x++;} or \texttt{++x;} & \texttt{x = x + 1;} \\
+Decrement & \texttt{x--;} or \texttt{--x;} & \texttt{x = x - 1;} \\
+\hline
+\end{tabular}
+\end{table}
+
+\item It also supports the following shorthand syntax:
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\texttt{x = x + y;} & \texttt{x += y;} \\
+\texttt{x = x - y;} & \texttt{x -= y;} \\
+\texttt{x = x * y;} & \texttt{x *= y;} \\
+\texttt{x = x / y;} & \texttt{x /= y;} \\
+\hline
+\end{tabular}
+\end{table}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{C Arithmetic Example}
+TODO: The cos() series from last lecture
+\end{frame}
+
+\end{document}
