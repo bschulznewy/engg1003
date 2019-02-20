@@ -13,5 +13,5 @@
 \contentsline {section}{\numberline {7}Installing a C Compiler on Your Personal Machine - Optional}{15}{section.7}
 \contentsline {subsection}{\numberline {7.1}Getting started with C in Windows}{15}{subsection.7.1}
 \contentsline {subsection}{\numberline {7.2}Getting started with C in MacOS}{15}{subsection.7.2}
-\contentsline {subsection}{\numberline {7.3}Getting started with C in Ubuntu Linux - Optional}{16}{subsection.7.3}
-\contentsline {subsection}{\numberline {7.4}Running Ubuntu With VirtualBox - Optional}{18}{subsection.7.4}
+\contentsline {subsection}{\numberline {7.3}Getting started with C in Ubuntu Linux}{16}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Running Ubuntu With VirtualBox}{18}{subsection.7.4}

@@ -17,12 +17,18 @@ This laboratory exposes you to the fundamental tools required to write computer 
 \item Editing .cfg or .ini files
 \item Configuring command line arguments (eg: via a shortcut or Steam)
 \item Debugging complicated driver problems
-\item Using a game engine's debug console (eg: accessed via the tilde \textasciitilde\ key)
+\item Using a game engine's debug console (typically accessed via the tilde \textasciitilde\ key)
 \item High WPM touch typing
 \item Use of keyboard shortcuts
 \end{itemize}
 
 are all excellent preparation for your programming adventure.
+
+The ENGG1003 labs involve sitting at a PC with 20 to 40 other students and working through lab exercises. Most weeks the lab exercises are there for you to learn, others there will be an assessment task which must be marked by a lab demonstrator before you leave.
+
+The lab demonstrator's job is to answer questions you have about the material and help you work through unexpected problems. There will be limits to how much help they can provide during assessment tasks (default assumption is zero) but during non-assessed labs you can ask them anything you want.
+
+Their job is not \textit{necessarily} to directly answer your question but to provide information which best supports your learning. This means that, instead of giving you an answer, they may guide you through the process of using Google/reference documentation/etc to help you become an independent learner.
 
 \tableofcontents
 
@@ -303,7 +309,7 @@ int main()
 
 The first one, especially without comments, is cryptic and not possible to understand without more information. The second, even if you don't understand all the code, quite intuitively converts Celcius to Fahrenheit.
 
-You will observe that my notes break intrinsic documentation rules all the time. Sorry about that (the examples in notes will also tend to not do anything particularly useful, so it gets difficult when you want to document ``nothing'').
+You will observe that my notes break intrinsic documentation rules all the time. Sorry about that (the examples in notes will also tend to not do anything particularly useful, so it gets difficult when you try to document ``nothing'').
 
 \pagebreak
 \section{Basic Arithmetic in C}
@@ -360,13 +366,13 @@ For now we will observe some basic examples and look at how engineers can deal w
 
 The predominant engineer's approach to this topic is to vaguely learn how the language behaves and then throw parentheses everywhere just to be \textit{absolutely sure} that the intention is not ambiguous. In the end it is \textit{other people} who will have trouble reading your code, not the compiler, so you might as well make their job easy.
 
-\textbf{Task:} Implement the following equation in C:
+\textbf{Task:} Using the template in Listing \ref{lst:arithmetic2} implement the following equation in C:
 
 \begin{equation}\label{eq:fraction}
 y = 2x+3\times5
 \end{equation}
 
-using the template in Listing \ref{lst:arithmetic2}.
+
 
 \begin{lstlisting}[style=CStyle,caption=A basic arithmetic example,label=lst:arithmetic2]
 #include <stdio.h>
@@ -410,11 +416,13 @@ Programming projects typically involve two potentially problematic issues:
 	\item Programmers frequency want to ``roll-back'' to an earlier code version.
 \end{enumerate}
 
-The second item arises from the fact that after going down a problematic design pathway it is typically much faster to scrap the idea and start again than it is to try and fix all the problems you just created. The fastest way to do \textit{this} is to load up known-working code from the past and go from there.
+The second item arises from the fact that after going down a problematic design pathway it is typically much faster to scrap the idea and start again than it is to try and fix all the problems you just created. The fastest way to do this is to load up known-working code from the past and go from there.
 
-As such, programmers designed so-called \textit{versioning} subsystems. These are ways of storing data which allows someone to access either a current or past version.
+As such, programmers designed so-called \textit{versioning} subsystems. These are ways of storing data which allows someone to access either a current or past version of a set of data.
 
-In this course it will be \textit{recommended} that you take advantage of the modern versioning system known as Git. It was developed for tracking code in the Linux kernel and has since expanded to be an industry standard; even Microsoft purchased the website GitHub because it was \textit{just better} than anything else they had developed internally. I am using Git for tracking changes while writing course content. The Git host GitHub is also doubling as cloud storage as I move writing between three different computers.
+In this course it will be \textit{recommended} that you take advantage of the modern versioning system known as Git. It was developed for tracking code in the Linux kernel and has since expanded to be an industry standard; even Microsoft purchased the website GitHub because it was \textit{just better} than anything else they had developed internally. I am using Git for tracking changes while writing course content and the Git host GitHub is also doubling as cloud storage as I move writing between three different computers.
+
+The Git package can be installed on any computer, it doesn't even require a server / client architecture spread across two or more computers. GitHub is simply a website which hosts Git servers.
 
 \textbf{Task:} Navigate to \url{https://github.com/bschulznewy/engg1003/blob/master/Lectures/Wk1/Friday/LectureFriWk1.pdf}, this is the GitHub ``repository'' that I have been using when writing ENGG1003 content. In particular, it is the lecture notes for the Friday Week 1 Lecture (I'm subtly trying to get you to read them ahead of time, apologies for improving your study efficiency).
 
@@ -457,7 +465,7 @@ My personal recommendation for Windows and Mac users is to either run the Ubuntu
 
 \subsection{Getting started with C in Windows}
 
-My support for Windows is lukewarm. Given you \textit{probably} grew up with Windows hopefully you can work out how to install and use the software below without much help. I don't have access to a Windows machine to test and debug installation of the recommendations.
+My support for Windows is lukewarm. Given you \textit{probably} grew up with Windows hopefully you can work out how to install and use the software below without much help. I don't have access to a Windows machine to test and debug installation of these recommendations.
 
 I recommend \texttt{tcc} for a simple C compiler on Windows, download from: \url{https://bellard.org/tcc/}. You will need to pair it with a editor and the Windows command line \texttt{cmd}.
 
@@ -480,7 +488,7 @@ If in doubt, run the Ubuntu virtual machine from Section \ref{sec:virtualbox}.
 Instructions which appear to explain how to install VirtualBox on a Mac can be found here: \url{https://matthewpalmer.net/blog/2017/12/10/install-virtualbox-mac-high-sierra/index.html}.
 
 \pagebreak
-\subsection{Getting started with C in Ubuntu Linux - Optional}
+\subsection{Getting started with C in Ubuntu Linux}
 
 Desktop Linux is not supported by university IT but, personally, I find it to be a fantastic development platform. The following instructions are completely optional, only do this if you are keen to learn.
 
@@ -552,7 +560,7 @@ The \texttt{./} is a special character string meaning ``relative to the current 
 \end{figure}
 
 \pagebreak
-\subsection{Running Ubuntu With VirtualBox - Optional}\label{sec:virtualbox}
+\subsection{Running Ubuntu With VirtualBox}\label{sec:virtualbox}
 
 If you are interested in investigating Linux but don't want to risk destroying data on an existing personal computer this section is for you.
 
