@@ -575,6 +575,19 @@ I have installed Ubuntu 18.04 onto a virtual machine image and installed the nec
 \begin{enumerate}
 \item Download VirtualBox from: \url{https://www.virtualbox.org/wiki/Downloads}
 \item Install it. I don't have access to Windows or Mac machine to test and document this step, hopefully you can work it out.
+
+\textbf{NB:} Windows 10 comes with its own virtualization software called Hyper-V. If enabled it conflicts with VirtualBox and causes:
+
+\texttt{ERROR "Raw-mode is unavailable courtesy of Hyper-V.\\	 (VERR\_SUPDRV\_NO\_RAW\_MODE\_HYPER\_V\_ROOT)."}
+
+To get around this you can build your own Ubuntu image with Hyper-V (try \url{https://www.windowscentral.com/how-run-linux-distros-windows-10-using-hyper-v} or just Google it) or disable Hyper-V with the following steps:
+
+	\begin{enumerate}
+		\item Open the command prompt (\texttt{cmd}) as Administrator.
+		\item Disable Hyper-V by running: \texttt{bcdedit /set hypervisorlaunchtype off}
+		\item Restart your PC.
+	\end{enumerate}
+
 \item To get Ubuntu running you have a few options:
 	\begin{enumerate}
 		\item Download the pre-installed virtual machine image I created from: \url{http://chetesting.vk2dds.net/Ubuntu.ova}
@@ -591,6 +604,7 @@ The password will be needed if you do anything with \texttt{sudo}, like install 
 		\item Download the Ubuntu installation \texttt{.iso} from \url{http://releases.ubuntu.com/18.04/} and create your own virtual machine
 		\item Download the installation \texttt{.iso} for another Linux distribution of your choice. I don't want to start a religious war about which distribution is ``best'', there are \textit{plenty} of threads debating the merits of various distributions all over the Internet. Ubuntu is one of the more popular choices but you could also try Mint (entry level difficulty), Debian (semi-advanced), Arch (\textit{very} advanced), Gentoo (your beard is taller than you advanced), etc.
 	\end{enumerate}
+	\pagebreak
 	The following instructions assume you downloaded the pre-installed image.
 \item Open VirtualBox
 \item Click File -$>$ Import Appliance
