@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {2}C Programming Basics}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}Introduction to OnlineGDB}{2}{subsection.2.1}
+\contentsline {section}{\numberline {3}Compiler Errors and Warnings}{5}{section.3}
+\contentsline {subsection}{\numberline {3.1}Missing a semicolon}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Missing a Quote Symbol}{6}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Failing to Define \texttt {main()}'s Return Type}{7}{subsection.3.3}
+\contentsline {section}{\numberline {4}Comments}{8}{section.4}
+\contentsline {subsection}{\numberline {4.1}Intrinsic Documentation}{9}{subsection.4.1}
+\contentsline {section}{\numberline {5}Basic Arithmetic in C}{10}{section.5}
+\contentsline {subsection}{\numberline {5.1}Operator Precedence Basics}{10}{subsection.5.1}
+\contentsline {section}{\numberline {6}A Very Brief Introduction to Git}{12}{section.6}
+\contentsline {section}{\numberline {7}Installing a C Compiler on Your Personal Machine - Optional}{15}{section.7}
+\contentsline {subsection}{\numberline {7.1}Getting started with C in Windows}{15}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Getting started with C in MacOS}{15}{subsection.7.2}
+\contentsline {subsection}{\numberline {7.3}Getting started with C in Ubuntu Linux}{16}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Running Ubuntu With VirtualBox}{18}{subsection.7.4}
