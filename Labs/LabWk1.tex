@@ -2,6 +2,7 @@
 
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{soul}
 
 \title{ENGG1003 - Lab 1}
 \author{Brenton Schulz}
@@ -11,7 +12,7 @@
 \maketitle
 
 \section{Introduction}
-This laboratory exposes you to the fundamental tools required to write computer programs in C. No prior programming experience is assumed but if you don't have basic computer literacy you're gonna have a bad time. Advanced PC gaming skills such as:
+This laboratory exposes you to the fundamental tools required to write computer programs in C. No prior programming experience is assumed but if you lack basic computer literacy you're gonna have a bad time. Advanced PC gaming skills such as:
 
 \begin{itemize}
 \item Editing .cfg or .ini files
@@ -22,7 +23,7 @@ This laboratory exposes you to the fundamental tools required to write computer 
 \item Hosting LAN parties and knowing how to configure the network
 \end{itemize}
 
-are also excellent preparation for your programming adventure.
+are also excellent preparation for your programming adventure. If you lack this experience then hopefully today's lab gets you up to speed.
 
 The ENGG1003 labs involve sitting at a PC with 20 to 40 other students and working through lab exercises. Most weeks the lab exercises are there for you to learn, others there will be an assessment task which must be marked by a lab demonstrator before you leave.
 
@@ -30,6 +31,16 @@ The lab demonstrator's job is to answer questions you have about the material an
 
 Their job is not \textit{necessarily} to directly answer your question but to provide information which best supports your learning. This means that, instead of giving you an answer, they may guide you through the process of using Google/reference documentation/etc to help you become an independent learner.
 
+While you are going through this course it is a near certainty that you will encounter difficult problems which take hours (or even days) to solve. This is normal. Engineering is \textit{hard} and watching other students solve problems faster than you is demoralising. Don't hesitate to ask for help. Talk to people and \st{copy from them}\footnote{Seriously, don't do this.} solve problems together. Don't suffer in silence.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{google.png}
+\end{center}
+\caption{This image isn't really relevant, I just thought it was funny. Yes, it is real.}
+\end{figure}
+
+\pagebreak
 \tableofcontents
 
 \pagebreak
@@ -212,7 +223,7 @@ main.c:17:1: error: expected ‘;’ before ‘}’ token
 
 Observe how missing the closing " generates both an error and a warning at different locations. Why does it do this? To be honest, I don't know; I've only been using gcc for 20 years, there's always \textit{something} that you haven't learned yet. In the end it doesn't matter, an error exists that needs to be fixed before the compiler can output an executable.
 
-Missing the " generated two other errors. By missing the " the \texttt{printf} \textit{expression} was not completed. In C an expression can be thought of as "a complete line of code that does something unambiguous". This is a \textit{very} informal definition but it will do for now. In order to complete the \texttt{printf} expression the syntax rules require the closing ", a closing right parenthesis ) [to match the opening left parenthesis (] and a semicolon ;. Removing the " character makes the compiler think that the existing ``\texttt{);}'' string at the end of the line is actually part of the data to be printed, not part of the C expression syntax (as such, the expression was never finished, leaving the compiler with an unresolved tension that will stay with it \textit{all day}\footnote{\url{https://xkcd.com/859/}}.
+Missing the " generated two other errors as without the " the \texttt{printf} \textit{expression} was not completed. In C an expression can be thought of as ``a syntactically complete line of code that does something unambiguous''. This is a \textit{very} informal definition but it will do for now. In order to complete the \texttt{printf} expression the syntax rules require the closing ", a closing right parenthesis ) [to match the opening left parenthesis (] and a semicolon ;. Removing the " character makes the compiler think that the existing ``\texttt{);}'' string at the end of the line is actually part of the data to be printed, not part of the C expression syntax (as such, the expression was never finished, leaving the compiler with an unresolved tension that will stay with it \textit{all day}\footnote{\url{https://xkcd.com/859/}}.
 
 Remember how missing a ; caused errors on lines \textit{below} where the error actually was? Well the same thing has happened here. Because the \texttt{printf()} line was malformed an error occurred on the line below it (\texttt{expected expression before return}) \textit{and} the one below that (\texttt{expected ; before \} token}); and you thought your \textit{ex} was highly strung!
 
