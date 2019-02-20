@@ -11,8 +11,22 @@
 \maketitle
 
 \section{Introduction}
-This laboratory exposes you to the fundamental tools required to write computer programs in C. No prior programming experience is assumed but if you don't have basic computer literacy you're gonna have a bad time.
+This laboratory exposes you to the fundamental tools required to write computer programs in C. No prior programming experience is assumed but if you don't have basic computer literacy you're gonna have a bad time. Advanced PC gaming skills such as:
 
+\begin{itemize}
+\item Editing .cfg or .ini files
+\item Configuring command line arguments (eg: via a shortcut or Steam)
+\item Debugging complicated driver problems
+\item Using a game engine's debug console (eg: accessed via the tilde \textasciitilde\ key)
+\item High WPM touch typing
+\item Use of keyboard shortcuts
+\end{itemize}
+
+are all excellent preparation for your programming adventure.
+
+\tableofcontents
+
+\pagebreak
 \section{C Programming Basics}
 In order to write programs in C (and most other languages) the following software tools are required:
 
@@ -435,7 +449,38 @@ Browse through the other commits and observe the writing process for the Lecture
 \textbf{Task:} Read more about how Git works and what it does here: \url{https://developer.ibm.com/tutorials/d-learn-workings-git/}. You probably won't understand everything, but that's not important right now. Just get some general exposure to the ideas and we'll fill in the practicalities later.
 
 \pagebreak
-\section{Getting started with C in Ubuntu Linux - Optional}
+\section{Installing a C Compiler on Your Personal Machine - Optional}
+
+Although ENGG1003 officially uses cross-platform web-based services like OnlineGDB (later, hopefully, Eclipse Che) you are welcome to install a suitable editor and C compiler on your personal machine.
+
+My personal recommendation for Windows and Mac users is to either run the Ubuntu virtual machine (see Section \ref{sec:virtualbox}) or, if you know what you're doing, install \texttt{gcc} natively (instructions below). Feel free to also take advice from your demonstrator, opinions on this will vary wildly.
+
+\subsection{Getting started with C in Windows}
+
+My support for Windows is lukewarm. Given you \textit{probably} grew up with Windows hopefully you can work out how to install and use the software below without much help. I don't have access to a Windows machine to test and debug installation of the recommendations.
+
+I recommend \texttt{tcc} for a simple C compiler on Windows, download from: \url{https://bellard.org/tcc/}. You will need to pair it with a editor and the Windows command line \texttt{cmd}.
+
+For more advanced usage you can install \texttt{gcc} with the MinGW package: \url{http://www.mingw.org/}. It installs all the development software you would find on in Linux development environment. You may experience difficulties, this one is pretty complicated.
+
+The MinGW getting started documentation is here: \url{http://www.mingw.org/wiki/Getting_Started}.
+
+For editing I recommend notepad++: \url{https://notepad-plus-plus.org/download/v7.6.3.html}.
+
+If you would like to use the Ubuntu virtual machine follow the instructions in Section \ref{sec:virtualbox}. Instructions for installation of VirtualBox can be found through Google: \url{https://bit.ly/2T4sjAW}.
+
+\subsection{Getting started with C in MacOS}
+
+Ok, I've never used a Mac but under the hood they are very similar to Linux (mostly the same command line, both Unix variants) so \texttt{gcc} should run fine...right??
+
+Since I don't know what I'm doing here instructions are outsourced to this StackOverflow thread: \url{https://stackoverflow.com/questions/9353444/how-to-use-install-gcc-on-mac-os-x-10-8-xcode-4-4}
+
+If in doubt, run the Ubuntu virtual machine from Section \ref{sec:virtualbox}.
+
+Instructions which appear to explain how to install VirtualBox on a Mac can be found here: \url{https://matthewpalmer.net/blog/2017/12/10/install-virtualbox-mac-high-sierra/index.html}.
+
+\pagebreak
+\subsection{Getting started with C in Ubuntu Linux - Optional}
 
 Desktop Linux is not supported by university IT but, personally, I find it to be a fantastic development platform. The following instructions are completely optional, only do this if you are keen to learn.
 
@@ -507,7 +552,7 @@ The \texttt{./} is a special character string meaning ``relative to the current 
 \end{figure}
 
 \pagebreak
-\section{Running Ubuntu With VirtualBox - Optional}\label{sec:virtualbox}
+\subsection{Running Ubuntu With VirtualBox - Optional}\label{sec:virtualbox}
 
 If you are interested in investigating Linux but don't want to risk destroying data on an existing personal computer this section is for you.
 
