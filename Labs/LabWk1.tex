@@ -122,7 +122,7 @@ The area below the editor is where standard output is written to and standard in
 
 \begin{enumerate}
 
-\item Running the default template demonstrates \textit{standard output}, modify the code to match that in Listing~\ref{lst:stdio}. While making the changes you will observe OnlineGDB's auto-complete features. When, for example, you type a double quote " character it \textit{automatically} types two and places the cursor between them. It will also provide auto-complete suggestions, although many of them will be inappropriate (it is, after all, just a computer program; not a science fiction grade artificial intelligence).
+\item Running the default template demonstrates \textit{standard output}. Modify the code to match that in Listing~\ref{lst:stdio}. While making the changes you will observe OnlineGDB's auto-complete features. When, for example, you type a double quote " character it \textit{automatically} types two and places the cursor between them. It will also provide auto-complete suggestions, although many of them will be inappropriate (it is, after all, just a computer program; not a science fiction grade artificial intelligence).
 
 What other ``helpful'' editor behaviour did you notice? Some of it will be annoying at first (some of it will be annoying \textit{forever}) but learning to work with the editor's features will improve your coding speed in the long term.
 
@@ -167,7 +167,7 @@ Unfortunately compiler errors can be \textit{highly} technical and difficult to 
 	\item Remove the semicolon (the ; character) from the end of line 4.
 	\item Compile the code, what error did the compiler produce? Which line does it say the error is on?
 	
-	The compiler errors will look something like Listing \ref{lst:errs}.
+	The compiler errors will look something like Listing \ref{lst:errs} (line numbers include the comments at the top of the OnlineGDB template code; Listing \ref{lst:errs} omitted these).
 	
 	\begin{lstlisting}[caption=The multiple errors produced by removing a \textit{single} semicolon.,label=lst:errs,basicstyle=\ttfamily,frame=single]
 main.c: In function ‘main’:
@@ -185,7 +185,7 @@ main.c:14:18: note: each undeclared identifier is reported only once for
 	
 Lets break this down a bit. Each error starts with a location, the syntax is: \texttt{{file}:{line}:{column}}. So \texttt{main.c:14:5} means the file \texttt{main.c} at line 14, column\footnote{\textit{Column} means the number of characters since the start of the line} 5.
 
-The first error (\texttt{error: expected '=' , ‘,’, ‘;’, ‘asm'}... etc.) is telling you that something was missing and the compiler noticed the omission at line 14. In this case we removed a ; so that's what is missing. Note, however, that while the error was reported to be on like 14 the omission was actually on line 13! Also observe the extra technical jargon that you don't understand yet (what is \textit{\_\_attribute\_\_}??). Some of these are, in fact, beyond the scope of ENGG1003, you have to get used to reading text you don't understand and extracting the small pieces of information you actually need.
+The first error (\texttt{error: expected '=' , ‘,’, ‘;’, ‘asm'}... etc.) is telling you that something was missing and the compiler noticed the omission at line 14. In this case we removed a ; so that's what is missing. Note, however, that while the error was reported to be on line 14 the omission was actually on line 13! Also observe the extra technical jargon that you don't understand yet (what is \textit{\_\_attribute\_\_}??). Some of these are, in fact, beyond the scope of ENGG1003. You have to get used to reading text you don't understand and extracting the small pieces of information you actually need.
 
 Let's look at the second error: \texttt{'k' undeclared}. Wait, wasn't \texttt{int k} still in our source code? Why is the compiler complaining that it is undeclared when it is \textit{right there}? The problem is that by removing the semicolon the declaration syntax was incorrect, so the compiler did not interpret that line as a declaration. It didn't find the expected ; threw its hand in the air and gave up.
 
@@ -257,7 +257,7 @@ main.c:17:1: error: expected ‘;’ before ‘}’ token
  ^
 \end{lstlisting}
 
-The error can be ignored here, lets focus on \texttt{warning: return type defaults to `int`}. The keyword which goes before \texttt{main()} specifies its \textit{return type}. This is the type of data which it sends back to the operating system on program exit, we will study function return types in later weeks. To my knowledge, operating systems only support the \texttt{int} return type (ie: an integer) so if you leave it out the compiler can quite safely \textit{assume} that's what should be there and only issue a warning instead of an error.
+The error can be ignored here, lets focus on \texttt{warning: return type defaults to `int`}. The keyword which goes before \texttt{main()} specifies its \textit{return type}. This is the type of data which it sends back to the operating system on program exit. We will study function return types in later weeks. To my knowledge, operating systems only support the \texttt{int} return type (ie: an integer) so if you leave it out the compiler can quite safely \textit{assume} that's what should be there and only issue a warning instead of an error.
 
 Generally speaking, warnings should be fixed when you see them. With experience you will know when they \textit{need} to be fixed (because the compiler is assuming something incorrectly) and when they can be ignored (because you have more important stuff to fix first).
 
@@ -327,7 +327,7 @@ You will observe that my notes break intrinsic documentation rules all the time.
 
 So, it is Page \thepage{} of these notes and we haven't done anything \textit{useful} yet! Ok \textit{fine}, lets do some data processing.
 
-In this section we will do some basic arithmetic on numbers which are read from the console (ie: read from \texttt{stdin}). Since we haven't learnt much C (or even much programming in general) these examples are either going to be a bit boring (because they don't do much) or look like black magic (because you haven't learned how they work yet). I have to ask you just to go through the motions at this stage, hopefully exposure to the code below now will make it easier to understand how it works in the coming weeks.
+In this section we will do some basic arithmetic on numbers which are read from the console (ie: read from \texttt{stdin}). Since we haven't learnt much C (or even much programming in general) these examples are either going to be a bit boring (because they don't do much) or look like black magic (because you haven't learned how they work yet). I have to ask you just to go through the motions at this stage. Hopefully exposure to the code below now will make it easier to understand how it works in the coming weeks.
 
 Lets start with the basic C arithmetic operators:
 
@@ -423,7 +423,7 @@ As practice, implement the following equations (what happens when you choose x t
 Programming projects typically involve two potentially problematic issues:
 
 \begin{enumerate}
-	\item Multiple people contribute to the same project, how should their changes be ``merged'' into some kind of ``master'' source listing?
+	\item Multiple people contribute to the same project. How should their changes be ``merged'' into some kind of ``master'' source listing?
 	\item Programmers frequently want to ``roll-back'' to an earlier code version.
 \end{enumerate}
 
@@ -439,7 +439,7 @@ The Git package can be installed on any computer, it doesn't even require a serv
 
 The link is for a PDF document and you will see that GitHub automatically renders it inside the website. It will attempt to display any file directly linked to.
 
-But that's not what we're here for, I want to show you the real power of Git: version tracking. Click on the ``History'' button to the top right of the PDF preview. You will be greeted with a view similar to that shown in Figure \ref{fig:githistory}. It lists the git \textit{commits} made which effect that file. A commit is a snapshot of what the entire repository looked like at a particular point in time. Each commit happens manually (ie: I type a command to cause a commit to be created) and is attached to a ``commit message'' which (hopefully) describes the changes which were made.
+But that's not what we're here for. I want to show you the real power of Git: version tracking. Click on the ``History'' button to the top right of the PDF preview. You will be greeted with a view similar to that shown in Figure \ref{fig:githistory}. It lists the git \textit{commits} made which affect that file. A commit is a snapshot of what the entire repository looked like at a particular point in time. Each commit happens manually (ie: I type a command to cause a commit to be created) and is attached to a ``commit message'' which (hopefully) describes the changes which were made.
 
 \begin{figure}[H]
 \begin{center}
@@ -461,7 +461,7 @@ The box at the bottom of Figure \ref{fig:gitchanges} shows the actual changes wh
 
 Click the ``View file'' button next to LectureFriWk1.pdf to view what the PDF looked like in this commit.
 
-Browse through the other commits and observe the writing process for the Lecture 1 PDF, feel free to also browse the other files in the repository.
+Browse through the other commits and observe the writing process for the Lecture 1 PDF. Feel free to also browse the other files in the repository.
 
 \textbf{Task:} Go to \url{www.github.com} and create a GitHub account. You will use it in later weeks when we swap to a development environment which supports Git. You can also use a GitHub account to login to OnlineGDB, allowing you to have your source files stored on their server.
 
@@ -546,13 +546,13 @@ Type: \texttt{\$ nohup gedit test.c \&} \\ (The \& symbol at the end of a comman
 
 \item Move the \textit{keyboard focus} back to the terminal (ie: click the terminal window).
 
-\item If you can see the command prompt yet, press \texttt{enter}
+\item If you can't see the command prompt yet, press \texttt{enter}
 
 \item You can type \texttt{ls} to see a list of all files in the current directory. \texttt{test.c} should be there.
 
 \item To compile the \texttt{.c} file run: \texttt{\$ gcc test.c -o test}
 
-This will create a binary executable called \texttt{test}. If the \texttt{-o} \textit{command line argument} is not given \texttt{gcc} the binary file defaults to the name \texttt{a.out}.
+This will create a binary executable called \texttt{test}. If the \texttt{-o} \textit{command line argument} is not given to \texttt{gcc} the binary file defaults to the name \texttt{a.out}.
 
 \item Run \texttt{test} by typing: \texttt{\$ ./test}
 
