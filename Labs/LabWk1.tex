@@ -190,7 +190,7 @@ main.c:17:1: error: expected ‘;’ before ‘}’ token
  ^
 \end{lstlisting}
 
-Observe how missing the closing " generates both and error and a warning at different locations. Why does it do this? To be honest, this is beyond my experience; I've only been using gcc for 20 years, there's always \textit{something} that you haven't learned yet. In the end it doesn't matter, an error exists that needs to be fixed before the compiler can output an executable.
+Observe how missing the closing " generates both and error and a warning at different locations. Why does it do this? To be honest, I don't know; I've only been using gcc for 20 years, there's always \textit{something} that you haven't learned yet. In the end it doesn't matter, an error exists that needs to be fixed before the compiler can output an executable.
 
 Missing the " generated two other errors. By missing the " the \texttt{printf} \textit{expression} was not completed. In C an expression can be thought of as "a complete line of code that does something unambiguous". This is a \textit{very} informal definition but it will do for now. In order to complete the \texttt{printf} expression the syntax rules require the closing ", a closing right parenthesis ) [to match the opening left parenthesis (] and a semicolon ;. Removing the " character makes the compiler think that the existing ``\texttt{);}'' string at the end of the line is actually part of the data to be printed, not part of the C expression syntax (as such, the expression was never finished, leaving the compiler with an unresolved tension that will stay with it \textit{all day}\footnote{\url{https://xkcd.com/859/}}.
 
@@ -392,7 +392,7 @@ As practice, implement the following equations (what happens when you choose x t
 Programming projects typically involve two potentially problematic issues:
 
 \begin{enumerate}
-	\item Multiple people contribute to the same project
+	\item Multiple people contribute to the same project, how should their changes be ``merged'' into some kind of ``master'' source listing?
 	\item Programmers frequency want to ``roll-back'' to an earlier code version.
 \end{enumerate}
 
@@ -437,18 +437,22 @@ Browse through the other commits and observe the writing process for the Lecture
 \pagebreak
 \section{Getting started with C in Ubuntu Linux - Optional}
 
-Linux is not supported by university IT but, personally, I find it to be a fantastic development platform. The following instructions are completely optional, only do this if you are keen to learn.
+Desktop Linux is not supported by university IT but, personally, I find it to be a fantastic development platform. The following instructions are completely optional, only do this if you are keen to learn.
 
-Installing Ubuntu is beyond the scope of this document (and course). If you think this is a daunting task I would recommend only using the officially supported tools to complete ENGG1003. There are many thousands of websites and YouTube videos which will guide you through the Ubuntu (or Mint, Arch, etc.) installation process. \textbf{NB:} Installing a new operating system can \textit{very easily} destroy all existing software on a machine. Don't do this if you don't know what you're doing.
+Installing Ubuntu is beyond the scope of this document (and course). If you think this is a daunting task I would recommend only using the officially supported tools (OnlineGDB, a better one later) to complete ENGG1003. There are many thousands of websites and YouTube videos which will guide you through the Ubuntu (or Mint, Arch, etc.) installation process. \textbf{NB:} Installing a new operating system can \textit{very easily} destroy all existing software on a machine. Don't do this if you don't know what you're doing.
+
+If you don't want to risk installing Linux ``natively'' you can use the software package ``VirtualBox'' to run a virtual Ubuntu machine under Windows or macOS; details in Section \ref{sec:virtualbox}.
 
 That out of the way, here's how you can get started. These steps assume a fresh Ubuntu 18.04 installation, in other distributions YMMV\footnote{Your mileage may vary. ie: this step might not work.}:
 
 \begin{enumerate}
-\item The C compiler in Linux (and OnlineGDB, and \textit{many} other platforms) is gcc (the GNU C Compiler). To install it, open a terminal (\texttt{ctrl + alt + t}) and type:
+\item \textit{If you are using the virtual machine image described in Section \ref{sec:virtualbox} this step is optional, I've already done it for you. Running it again will just bring up ``xxx is already at the latest version'' messages, so by all means try it anyway.}
+
+The C compiler in Linux (and OnlineGDB, and \textit{many} other platforms) is gcc (the GNU C Compiler). To install it, open a terminal (\texttt{ctrl + alt + t}) and type:
 
 \texttt{\$ sudo apt install gcc libc6-dev gedit}\\ (the \$ indicates the terminal prompt, don't type that character)
 
-When prompted, enter your password, wait a few seconds, press \texttt{enter} if it wants installation confirmation, and wait a few more seconds. An Internet connection is required for apt to download the required software.
+When prompted, enter your password (the virtual machine password is ``engg1003''), wait a few seconds, press \texttt{enter} if it wants installation confirmation, and wait a few more seconds. An Internet connection is required for apt to download the required software.
 
 The \texttt{libc6-dev} package provides all the basic C libraries (\texttt{printf} etc.) and \texttt{gedit} is a basic text editor.
 
@@ -492,7 +496,8 @@ The \texttt{./} is a special character string meaning ``relative to the current 
 
 \item Go back to \texttt{gedit} and keep coding as you desire. Return to the command line to run \texttt{gcc} to re-compile your code. \textbf{NB:} The command line has a \textit{history} feature, pressing the up arrow will scroll through past commands, \textit{you don't need to type them out from scratch}.
 
-\item If you enjoyed this you're a bit weird, welcome to the club! Recommended further reading would be a tutorial on \texttt{make} followed by investigations into more powerful editors like \texttt{vim}.
+\item If you enjoyed this you're a bit weird, welcome to the club! Recommended further reading would be a tutorial on \texttt{make} followed by investigations into a more powerful editor like \texttt{vim} or \texttt{emacs}.
+\end{enumerate}
 
 \begin{figure}[H]
 \begin{center}
@@ -501,6 +506,78 @@ The \texttt{./} is a special character string meaning ``relative to the current 
 \caption{The complete command line sequence performed in these steps.}\label{fig:c_ubuntu}
 \end{figure}
 
+\pagebreak
+\section{Running Ubuntu With VirtualBox - Optional}\label{sec:virtualbox}
+
+If you are interested in investigating Linux but don't want to risk destroying data on an existing personal computer this section is for you.
+
+\textbf{\textit{These steps will not work on university lab machines.}}
+
+A \textit{virtual machine} is an instance of an operating system (could be Windows, macOS, Linux, or something else) which \textit{thinks} it is running directly on real hardware (ie: a motherboard, CPU, RAM, graphics card, etc) but, in reality, it is being run within another operating system (OS). The host OS allocates part of its physical CPU/RAM/HDD space to the virtual machine, along with access to optional devices such as the sound card, network interface, USB, etc.
+
+As such, a virtual machine allows you to run an installation of Linux \textit{as if it was physically installed} but without the risk and hassle of actually installing it. The only compromise is a potential decrease in performance (the virtual machine can't use \textit{all} the host machine's RAM, for example).
+
+I have installed Ubuntu 18.04 onto a virtual machine image and installed the necessary packages for compiling basic C programs. To run it:
+
+\begin{enumerate}
+\item Download VirtualBox from: \url{https://www.virtualbox.org/wiki/Downloads}
+\item Install it. I don't have access to Windows or Mac machine to test and document this step, hopefully you can work it out.
+\item To get Ubuntu running you have a few options:
+	\begin{enumerate}
+		\item Download the pre-installed virtual machine image I created from: \url{http://chetesting.vk2dds.net/Ubuntu.ova}
+
+The file is hosted on virtual machine I pay \$4 per month for. If you know what you're doing (ie: have Linux webserver administration experience) web hosting is \textit{really} cheap.
+
+The default username / password for this image is:
+
+\textbf{Username:} engg1003\\
+\textbf{Password:} engg1003
+
+The password will be needed if you do anything with \texttt{sudo}, like install software. The username won't be needed, it is configured to login automatically.
+
+		\item Download the Ubuntu installation \texttt{.iso} from \url{http://releases.ubuntu.com/18.04/} and create your own virtual machine
+		\item Download the installation \texttt{.iso} for another Linux distribution of your choice. I don't want to start a religious war about which distribution is ``best'', there are \textit{plenty} of threads debating the merits of various distributions all over the Internet. Ubuntu is one of the more popular choices but you could also try Mint (entry level difficulty), Debian (semi-advanced), Arch (\textit{very} advanced), Gentoo (your beard is taller than you advanced), etc.
+	\end{enumerate}
+	The following instructions assume you downloaded the pre-installed image.
+\item Open VirtualBox
+\item Click File -$>$ Import Appliance
+\item Click the little folder icon to the right of the text box and find \texttt{Ubuntu.ova}
+\item Click Next
+\item Review the ``Appliance settings'' (Figure \ref{fig:virtualbox1}). You shouldn't need to change anything
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{ubuntu_import.png}
+\end{center}
+\caption{You will see this if \texttt{Ubuntu.ova} was selected correctly.}\label{fig:virtualbox1}
+\end{figure}
+
+\item Click Import. A progress bar will appear as the image is unpacked and copied into VirtualBox's virtual machine folder.
+
+\item Select the Ubuntu image from the list and click the green ``Start'' button (Figure \ref{fig:virtualbox2}).
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{ubuntu_start.png}
+\end{center}
+\caption{The ``start'' button which fires up a virtual machine image.}\label{fig:virtualbox2}
+\end{figure}
+
+\item A window will appear with the title ``Ubuntu [Running] - Oracle VM VirtualBox''. It will be black, flash up some random text about /dev/sda1, bring up the Ubuntu start image, then finally present you with the Ubuntu desktop seen in Figure \ref{fig:virtualbox3}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{ubuntu_desktop.png}
+\end{center}
+\caption{The default Ubuntu desktop. The resolution will be higher when you open my image.}\label{fig:virtualbox3}
+\end{figure}
+
+\item If Ubuntu can access the Internet it will probably bring up a ``Software Updater'' window. Installing updates is optional (don't get me started on the way Windows handles this...) but quite fast (30sec or less if you have an SSD and 100/40 NBN). If you click ``Install now'' it will give a preview of what will be downloaded before you confirm the upgrade.
+
+\item You are now ready to start the \texttt{gcc} exercise from the previous section. Enjoy! (Or not, I know this isn't for everyone).
+
+\item When you want to turn off the virtual machine you can either tell Ubuntu to turn off or just click the window's X button and tell VirtualBox to send the shutdown signal. It will close after a second or two. If you select ``power off the machine'' that is the equivalent of unplugging the power lead, probably not recommended although Linux typically handles this without issue.
+
+\item Next time you boot the machine all changes (eg: files created, settings changed) will be present.
 
 \end{enumerate}
 
