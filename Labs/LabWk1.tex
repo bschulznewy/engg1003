@@ -531,7 +531,7 @@ The first command creates a directory called ``c'' and the second ``changes into
 
 \item Create a new .c file. We will do this in \texttt{gedit} (because it is easy and simple) but there are many others (the more nerdy among you may want to learn \texttt{vim} or \texttt{emacs}. They are \textit{very} powerful editors).
 
-Type: \texttt{\$ nohup gedit test.c \&} \\ (The \& symbol at the end of a command runs the command ``in the background''. This gives you the command line back straight away, instead of having to quit gedit first. Preceding the command with \texttt{nohup} stops \texttt{gedit} from closing if you close the terminal window)
+Type: \texttt{\$ gedit test.c \&} \\ (The \& symbol at the end of a command runs the command ``in the background''. This gives you the command line back straight away, instead of having to quit gedit first. \textbf{NB:} gedit will quit if you close the terminal.)
 
 \item Type out the code seen in Figure \ref{fig:gedit}.
 
@@ -562,14 +562,14 @@ The \texttt{./} is a special character string meaning ``relative to the current 
 
 \item Go back to \texttt{gedit} and keep coding as you desire. Return to the command line to run \texttt{gcc} to re-compile your code. \textbf{NB:} The command line has a \textit{history} feature, pressing the up arrow will scroll through past commands, \textit{you don't need to type them out from scratch}.
 
-\item If you enjoyed this you're a bit weird, welcome to the club! Recommended further reading would be a tutorial on \texttt{make} followed by investigations into a more powerful editor like \texttt{vim} or \texttt{emacs}.
+\item If you enjoyed this you're a bit weird, welcome to the club! Recommended further reading would be a tutorial on \texttt{make} followed by investigations into a more powerful editor like \texttt{vim} or \texttt{emacs}. If nothing else you will then be able to appreciate ``exit vim'' memes.
 \end{enumerate}
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{c_ubuntu.png}
 \end{center}
-\caption{The complete command line sequence performed in these steps.}\label{fig:c_ubuntu}
+\caption{The complete command line sequence performed in the Ubuntu virtual machine.}\label{fig:c_ubuntu}
 \end{figure}
 
 \pagebreak
