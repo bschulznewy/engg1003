@@ -22,7 +22,7 @@
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{mGray},
     stringstyle=\color{mPurple},
-    basicstyle=\footnotesize,
+    basicstyle=\ttfamily\footnotesize,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
@@ -40,13 +40,111 @@
 \lstset{framextopmargin=50pt,frame=bottomline}
 
 \title{ENGG1003 - Tuesday Week 2}
-\subtitle{C Arithmetic\\Datatypes\\Standard Input-Output}
+\subtitle{C Arithmetic\\Datatypes\\Calculating Pi}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
 
 \begin{document}
 \titlepage
+
+\begin{frame}
+\frametitle{Case Study: Calulating $\pi$}
+\begin{itemize}
+\item Computers are \textit{really} good at repetitive things
+\item Lets use this fact to calculate $\pi$ using a ``monte-carlo'' method
+	\begin{itemize}
+		\item Informally, these are methods which solve problems by trying the same thing with different inputs until patterns emerge
+		\item It could repeat millions or billions of times
+		\item Name comes from the Monaco Principality's high concentration of casinos
+	\end{itemize}
+\item Algorithm pseudocode will be written before an implementation in C
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Case Study: Calulating $\pi$}
+Consider a quadrant of a unit circle ($r=1$) with a square around it:
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\small{
+\item Area of the square $A_1 = 1$\\
+\item Area of the circle quadrant $A_2 =\frac{\pi r^2}{4} = \frac{\pi}{4}$ \\
+\item Ratio of areas $\frac{A_2}{A_1} = \frac{\pi}{4}$
+\item Therefore $\pi = 4\times \frac{A2}{A1}$
+}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{pi.png}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Case Study: Calulating $\pi$}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\small{
+\item We can't calculate the area ratio without knowing $\pi$
+\item Estimate it by:
+\begin{itemize}
+	\item Randomly picking many points inside the square
+	\item Test if the point is inside the circle with $x^2 + y^2 < 1$
+	\end{itemize}
+}
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{pi-dots.png}
+\end{figure}
+\end{column}
+\end{columns}
+\begin{itemize}
+\item $\pi \approx 4 \times \frac{\textrm{Number of points which land inside circle}}{\textrm{Total number of points tested}} = 4 \times \frac{9}{12} = 3$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm for Calculating $\pi$}
+{\footnotesize
+\texttt{BEGIN\\
+\quad integer countInside = 0\\
+\quad integer countTotal = 0\\
+\quad WHILE countTotal < A large number\\
+\quad \quad x = random number between 0 and 1\\
+\quad \quad y = random number between 0 and 1\\
+\quad \quad countTotal = countTotal + 1\\
+\quad \quad IF $x^2 + y^2 < 1$\\
+\quad \quad \quad countInside = countInside + 1\\
+\quad \quad ENDIF\\
+\quad ENDWHILE\\
+\quad pi = 4*countInside/countTotal\\
+\quad PRINT pi\\
+END\\
+}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Missing Knowledge for C Implementation}
+\begin{itemize}
+\item More information about arithmetic
+\begin{itemize}
+	\item Relational operators look useful
+	\item Is there a neat way to do \texttt{count=count+1}?
+	\item \texttt{countInside} and \texttt{countTotal} are both integers. What happens when we divide?
+\end{itemize}
+\item Datatypes and how they are handled in arithmetic statements
+\item How do we generate random numbers?
+\item Syntax for WHILE loops and IF statements
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{C Arithmetic}
@@ -79,12 +177,12 @@ Examples:
 \begin{small}
 \begin{table}
 \centering
-\begin{tabular}{|c|c|}
-\hline
+\begin{tabular}{cc}
+\vspace{2mm}
 $z = x^2 + 5(y + b)$ & \texttt{z = x*x + 5*(y + b);} \\
+\vspace{2mm}
 $u = \frac{x + 1}{x - 1}$ & \texttt{u = (x + 1)/(x - 1);} \\
 $v = z^3 + \frac{5(y + b)}{2}$ & \texttt{v = z*z*z+(5*(y + b))/2;} \\
-\hline
 \end{tabular}
 \end{table}
 \end{small}
@@ -132,8 +230,190 @@ Decrement & \texttt{x--;} or \texttt{--x;} & \texttt{x = x - 1;} \\
 \end{frame}
 
 \begin{frame}
-\frametitle{C Arithmetic Example}
-TODO: The cos() series from last lecture
+\frametitle{C Arithmetic}
+What's the difference between \texttt{x++} and \texttt{++x}?
+\begin{itemize}
+\item \texttt{x++} is a \textit{post-increment}
+\item \texttt{++x} is a \textit{pre-increment}
+\item If they appear in an arithmetic expression, pre-increment is processed \textit{before} the variable is used and post-increment is processed \textit{after} it is used.
+\item In isolation there is no difference.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Increment Example}
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	int x = 0;
+	int y = 0;
+	int z = 0;
+	y = ++x + 10;
+	printf("Pre-increment: %d\n", y);
+	y = z++ + 10;
+	printf("Post-increment: %d\n", y);
+	return 0;
+}
+\end{lstlisting}
+Pre/post-inc/decrements will be used when working with \textit{arrays}, more details in coming weeks.
+\end{frame}
+
+\begin{frame}
+\frametitle{Modulus}
+\begin{itemize}
+\item Computers frequently only deal with integers
+\item Integer division in C ignores (truncates) any fractional component
+\item The \textit{modulus} operator provides the remainder after division
+\begin{itemize}
+	\item Implemented with the \texttt{\%} character
+	\item \texttt{a \% b =} remainder of \texttt{a / b}
+	\item Very useful for tasks performed every \textit{nth} loop
+\end{itemize}
+\item Example:
+	\begin{itemize}	
+		\item \texttt{10 / 3 = 3}
+		\item \texttt{10 \% 3 = 1}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Relational Operators}
+\begin{itemize}
+\item C supports six \textit{relational} operators:
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+Operation      & C Symbol \\
+\hline
+Less than       & $\texttt{<}$        \\
+Less than or equal to    & $\texttt{<=}$\\
+Greater than & $\texttt{>}$        \\
+Greater than or equal to       & $\texttt{>=}$       \\
+Equal to & \texttt{==} \\
+Not equal to & \texttt{!=} \\
+\hline
+\end{tabular}
+\caption{Relational operators in C}
+\end{table}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Relational Operators}
+\begin{itemize}
+\item The result of a relational operation is \texttt{0} or \texttt{1}
+	\begin{itemize}
+		\item C treats \texttt{0} as Boolean FALSE and non-zero as TRUE
+	\end{itemize}
+\item They are typically used as flow control conditions
+	\begin{itemize}
+		\item \texttt{if(\textit{condition}) \{\textit{statements}\}}
+		\item \texttt{while(\textit{condition}) \{\textit{statements}\}}
+	\end{itemize}
+\item While we're here: the above is the correct syntax for IF and WHILE flow control in C
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example 1 - Printing Every \textit{nth} Loop}
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	int x = 0;
+	while(x < 1000)
+	{
+		// Presumably something useful is done with x
+		// inside this loop
+		if(x%100 == 0)
+			printf("%d\n", x);
+	}
+	return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example 2 - Finding Factors}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\scriptsize]
+#include <stdio.h>
+int main() {
+	int input;
+	int x;
+	printf("Enter an integer to factorise: ");
+	scanf("%d", &input);
+	x = input;
+	while(x > 0) {
+		if(input % x == 0) // ie: if the remainder is zero
+			printf("%d is a factor of %d\n", x, input);
+		x--;
+	}
+	return 0;
+}
+\end{lstlisting}
+{\small
+Observe that the \texttt{while()} loop loops over every value of \texttt{x} from \texttt{input} to \texttt{1}. We will discuss a flow control method designed for this (the \texttt{for} loop) later.
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{C Arithmetic Operator Precedence}
+\begin{itemize}
+\item C has an ``order of operations''
+\item eg: \texttt{1+5*2} evaluates to \texttt{11}
+\item Multiplication and division first
+\item Addition and subtraction second
+\item Relational operators somewhere below that
+\item If in doubt: force order with parentheses
+	\begin{itemize}
+		\item This makes the code more readable
+		\item It doesn't cost you anything
+		\item C compilers understand algebra and will optimise inefficient expressions automatically
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Data types}
+\begin{itemize}
+\item You have hopefully noticed that all variables are \textit{declared} before use
+\item Declaration specifies the variable's:
+	\begin{itemize}
+		\item Datatype
+		\item Name
+		\item An \textit{initialisation value} (optional)
+			\begin{itemize}
+				\item Always assume uninitialised variables have random values! Behaviour varies between compilers and target platforms.
+			\end{itemize}
+	\end{itemize}
+\item C is a ``strongly-typed'' language
+	\begin{itemize}
+		\item Every variable has a fixed type
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Integer Data types}
+\begin{itemize}
+\item Integer data types vary by their:
+	\begin{itemize}
+		\item Size
+		\item Support for negative numbers
+	\end{itemize}
+\item C integer types can be 1, 2, 4, or 8 bytes long
+\item Each type can be \textit{signed} or \textit{unsigned}
+	\begin{itemize}
+		\item Unsigned number are never negative but you get double the value range
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+TODO: Keep hacking until we've implemented $\pi$.
 \end{frame}
 
 \end{document}
