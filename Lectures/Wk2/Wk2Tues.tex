@@ -112,10 +112,45 @@ Consider a quadrant of a unit circle ($r=1$) with a square around it:
 
 \begin{frame}
 \frametitle{Algorithm for Calculating $\pi$}
+\begin{itemize}
+\item How can the above \textit{mathematics} be turned into an \textit{algorithm}?
+\item The algorithm needs to repeat the \textit{same thing} multiple times
+	\begin{itemize}
+			\item This implies use of a loop
+	\end{itemize}
+\item As the loop repeats, we need to keep track of the following \textit{variables}:
+		\begin{itemize}
+			\item The number of points which have been tested
+			\item The number of points which have been inside the circle
+			\item The $(x,y)$ coordinates of the point under test
+		\end{itemize}
+
+\item The points get tested and incrememting of the ``inside circle'' count is \textit{conditional}
+	\begin{itemize}
+		\item This implies an \texttt{IF...ENDIF} flow control structure
+	\end{itemize}
+\end{itemize}	 
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm for Calculating $\pi$}
+\begin{itemize}
+\item The number of points tested will be an \textit{integer}, we will call it \texttt{countTotal}
+\item The number of points found to be inside the circle is also an integer, we will call it \texttt{countInside}
+\item The point under test needs two ``real'' variables: \texttt{x} and \texttt{y}
+ \begin{itemize}
+ 	\item ``Real'' is the generic term for a number with integer and fractional components. Eg: 1.45
+ \end{itemize}
+\item The condition on incrementing \texttt{countInside} will be $x^2 + y^2 < 1$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm for Calculating $\pi$}
 {\footnotesize
 \texttt{BEGIN\\
-\quad integer countInside = 0\\
 \quad integer countTotal = 0\\
+\quad integer countInside = 0\\
 \quad WHILE countTotal < A large number\\
 \quad \quad x = random number between 0 and 1\\
 \quad \quad y = random number between 0 and 1\\
