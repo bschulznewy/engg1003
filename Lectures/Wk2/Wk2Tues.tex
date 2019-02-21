@@ -40,7 +40,7 @@
 \lstset{framextopmargin=50pt,frame=bottomline}
 
 \title{ENGG1003 - Tuesday Week 2}
-\subtitle{C Arithmetic\\Datatypes\\Calculating Pi}
+\subtitle{Calculating Pi\\C Arithmetic\\Datatypes}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
@@ -112,6 +112,7 @@ Consider a quadrant of a unit circle ($r=1$) with a square around it:
 
 \begin{frame}
 \frametitle{Algorithm for Calculating $\pi$}
+
 \begin{itemize}
 \item How can the above \textit{mathematics} be turned into an \textit{algorithm}?
 \item The algorithm needs to repeat the \textit{same thing} multiple times
@@ -120,12 +121,12 @@ Consider a quadrant of a unit circle ($r=1$) with a square around it:
 	\end{itemize}
 \item As the loop repeats, we need to keep track of the following \textit{variables}:
 		\begin{itemize}
-			\item The number of points which have been tested
-			\item The number of points which have been inside the circle
+			\item The number of points tested
+			\item The number of points inside the circle
 			\item The $(x,y)$ coordinates of the point under test
 		\end{itemize}
 
-\item The points get tested and incrememting of the ``inside circle'' count is \textit{conditional}
+\item The incrementation of the ``inside circle'' count is \textit{conditional} on the values of $x$ and $y$
 	\begin{itemize}
 		\item This implies an \texttt{IF...ENDIF} flow control structure
 	\end{itemize}
