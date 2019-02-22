@@ -198,6 +198,23 @@
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}
 
+\usepackage[most]{tcolorbox}
+\newtcbtheorem{task}{Task}{
+  enhanced,
+  sharp corners,
+  attach boxed title to top left={
+    yshifttext=-1mm
+  },
+  colback=white,
+  colframe=blue!75!black,
+  boxed title style={
+    sharp corners,
+    size=small,
+    colback=blue!75!black,
+    colframe=blue!75!black,
+  } 
+}{thm}
+
 \if@printSolutions
  \newcommand{\answer}[2][0.1]{{\color{red}\noindent \textbf{\@solutionTitle} \\#2}}
  \newcommand{\answertext}[2][]{{\color{red}#2}}
@@ -253,3 +270,4 @@
 
 %\lstset{basicstyle=\ttfamily}
 %\lstset{framextopmargin=50pt,frame=bottomline}
+\lstset{captionpos=b}

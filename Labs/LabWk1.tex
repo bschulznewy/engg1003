@@ -79,7 +79,9 @@ OnlineGDB is a basic (\textit{very} basic) browser-based development environment
 
 All compilation and execution is performed on the OnlineGDB server. As such, the service has an incredibly low barrier to entry: there is (almost) zero installation/configuration required to get started running code.
 
-\textbf{Task:} Open a web browser and navigate to \url{http://www.onlinegdb.com}.\\ \\ \textbf{NB:} If a demonstrator sees you using Edge or IE they may instinctively think you need more help than students using Chrome or Firefox.
+\begin{task}{}{}
+Open a web browser and navigate to \url{http://www.onlinegdb.com}.\\ \\ \textbf{NB:} If a demonstrator sees you using Edge or IE they may instinctively think you need more help than students using Chrome or Firefox.
+\end{task}
 
 \begin{figure}[H]
 \begin{center}
@@ -105,9 +107,13 @@ Above the editor is a toolbar which, from left to right, performs the following 
 
 The area below the editor is where standard output is written to and standard input read from. When the code is run its appearance changes to that of a basic console (ie: the GUI elements disappear and it becomes just text).
 
-\textbf{Task:} Configure OnlineGDB to run C code by selecting ``C'' from the ``Language'' drop-down box in the upper-right. This website supports many languages\footnote{MATLAB is not one of them because it is a \textit{very} expensive commercial package} so feel free to come back here later if you're interested in learning any of the others. Python, although not taught in an Engineering degree, is a common choice for Engineering PhD students as a free MATLAB alternative and is probably worth playing around with.
+\begin{task}{}{}
+Configure OnlineGDB to run C code by selecting ``C'' from the ``Language'' drop-down box in the upper-right. This website supports many languages\footnote{MATLAB is not one of them because it is a \textit{very} expensive commercial package.} so feel free to come back here later if you're interested in learning any of the others. Python, although not taught in an Engineering degree, is a common choice for Engineering PhD students as a free MATLAB alternative and is probably worth playing around with.
+\end{task}
 
-\textbf{Task:} Click the green Run button. The box at the bottom of the screen will produce a ``Compiling'' animation and, after execution of the template code, will produce the output seen in Figure \ref{fig:onlinegdb_hello}.
+\begin{task}{}{}
+Observe that there is already a template C listing in the editor. Click the green Run button. The box at the bottom of the screen will produce a ``Compiling'' animation and, after execution of the template code, will produce the output seen in Figure \ref{fig:onlinegdb_hello}.
+\end{task}
 
 \begin{figure}[H]
 \begin{center}
@@ -118,7 +124,7 @@ The area below the editor is where standard output is written to and standard in
 
 \textbf{Off-topic note:} Remember the ``returns zero to the operating system'' comment in lecture 1? Well that's what the text ``...Program finished with exit code 0'' is referencing. The 0 is the number that \texttt{main()} \textit{returned}. We will learn about \textit{function return values} later in the semester.
 
-\textbf{Tasks:} 
+\begin{task}{}{}
 
 \begin{enumerate}
 
@@ -146,7 +152,7 @@ int main() {
 \item Run the program again except this time don't type just an integer, try typing a word, or a word containing a number, or a number followed by letters (with and without a space). What is the behaviour each time? Are you getting annoyed by the slow compile time and lag yet? OnlineGDB may be simple but it is, at times, a compromise.
 
 \end{enumerate}
-
+\end{task}\label{tsk:stdio}
 
 \pagebreak
 \section{Compiler Errors and Warnings}
@@ -161,11 +167,13 @@ Unfortunately compiler errors can be \textit{highly} technical and difficult to 
 
 \subsection{Missing a semicolon}
 
-\textbf{Task:}
+\begin{task}{}{}
 \begin{enumerate}
 	\item If you have not done so already, get the code shown in Listing \ref{lst:stdio} working correctly.
 	\item Remove the semicolon (the ; character) from the end of line 4.
-	\item Compile the code, what error did the compiler produce? Which line does it say the error is on?
+	\item Compile the code, what error did the compiler produce? Which line is the error is on?
+\end{enumerate}
+\end{task}
 	
 	The compiler errors will look something like Listing \ref{lst:errs} (line numbers include the comments at the top of the OnlineGDB template code; Listing \ref{lst:errs} omitted these).
 	
@@ -181,7 +189,7 @@ main.c:14:18: error: ‘k’ undeclared (first use in this function)
 main.c:14:18: note: each undeclared identifier is reported only once for
 	each function it appears in
 	\end{lstlisting}
-\end{enumerate}
+
 	
 Lets break this down a bit. Each error starts with a location, the syntax is: \texttt{{file}:{line}:{column}}. So \texttt{main.c:14:5} means the file \texttt{main.c} at line 14, column\footnote{\textit{Column} means the number of characters since the start of the line} 5.
 
@@ -195,17 +203,19 @@ Lets try a different syntax error.
 
 \subsection{Missing a Quote Symbol}
 
-\textbf{Task:} Remove the closing " from the \texttt{printf} line so it reads:
+\begin{task}{}{} Remove the closing " from the \texttt{printf} line so it reads:
 
 \begin{lstlisting}[style=CStyle]
 printf("You entered: %d\n, k);
 \end{lstlisting}
 
+\end{task}
+
 You will see an immediate change to the syntax highlighting; all characters between where the " was and the end of the line are now green, as if they were still inside the double quotes. Take-home message: \textit{pay attention to syntax highlighting!}
 
 Again, removing a \textit{single character} generated a slew of errors:
 
-\begin{lstlisting}[basicstyle=\ttfamily]
+\begin{lstlisting}[basicstyle=\ttfamily,caption=Errors produced by removing a \texttt{"} character.,frame=single]
 main.c: In function ‘main’:
 main.c:15:12: warning: missing terminating " character
      printf("You entered: %d\n, k);
@@ -233,7 +243,7 @@ Remember how missing a ; caused errors on lines \textit{below} where the error a
 
 Enough about errors, the final example in this section demonstrates a compiler \textit{warning}. Unfortunately, OnlineGDB doesn't display the compiler output if only warnings are generated. If you are running \texttt{gcc} in Linux (as described at the end of this lab document) you won't have this problem\footnote{Yeah, I'm very biased towards Linux. It gets a bad rap because games, Microsoft Office, Adobe, and Autodesk don't support it but it is otherwise \textit{overwhelmingly} dominant. It runs: mobile phones (Android is a Linux derivative, iOS is a Unix variant), servers, supercomputers, ``internet of things'' devices, etc. As engineers you will probably see it in many places throughout your career, just hidden from the end user.}.
 
-\textbf{Task:} Remove \texttt{int} before \texttt{main} and the semicolon in \texttt{return 0}, as per Listing \ref{lst:warn}
+\begin{task}{}{} Remove \texttt{int} before \texttt{main} and the semicolon in \texttt{return 0}, as per Listing \ref{lst:warn}
 
 \begin{lstlisting}[style=CStyle,caption=Example code which generates a warning.,label=lst:warn]
 main()
@@ -244,10 +254,11 @@ main()
     return 0
 }
 \end{lstlisting}
+\end{task}
 
 Attempting to compile this code generates the following compiler output:
 
-\begin{lstlisting}[basicstyle=\ttfamily]
+\begin{lstlisting}[basicstyle=\ttfamily,frame=single,caption=Compiler output produced when \texttt{main()} return type is omitted.,captionpos=b]
 main.c:11:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
  main()
  ^
@@ -283,7 +294,8 @@ Code comments are a place for you to explain how your code works, or what it doe
 
 In fact some code editors (like the Linux editor \texttt{vim}) will automatically highlight the text \texttt{TODO} so it is easy to find.
 
-\textbf{Task:} Take whatever source code is currently shown in OnlineGDB and add some comments in various places. Compile the code and observe that they have no effect.
+\begin{task}{}{} Take whatever source code is currently shown in OnlineGDB and add some comments in various places. Compile the code and observe that they have no effect.
+\end{task}
 
 Students frequently ask what should and should not be commented. In this course your comments should be written such that a student who is on track to achieve 50\% can understand what your code does without having to consult external reference material. This will seem overly verbose but it will be used in lieu of a better standard. As a general rule: if you needed to look up something in a reference manual when writing the code write a comment explaining it. For example:
 
@@ -377,7 +389,8 @@ For now we will observe some basic examples and look at how engineers can deal w
 
 The predominant engineer's approach to this topic is to vaguely learn how the language behaves and then throw parentheses everywhere just to be \textit{absolutely sure} that the intention is not ambiguous. In the end it is \textit{other people} who will have trouble reading your code, not the compiler, so you might as well make their job easy.
 
-\textbf{Task:} Using the template in Listing \ref{lst:arithmetic2} implement the following equation in C:
+\begin{task}{}{}
+Using the template in Listing \ref{lst:arithmetic2} implement the following equation in C:
 
 \begin{equation}\label{eq:fraction}
 y = 2x+3\times5
@@ -398,6 +411,7 @@ int main() {
 	return 0;
 }
 \end{lstlisting}
+\end{task}
 
 You will notice a few new things about Listing \ref{lst:arithmetic2}. Firstly, it uses the \texttt{float} datatype. This type will store any real number with a magnitude of $1.2 \times 10^{-38}$ to $3.4 \times 10^{38}$ with a precision of approximately 6 decimal digits. Its bigger brother, the \texttt{double} will be seen later.
 
@@ -435,7 +449,10 @@ In this course it will be \textit{recommended} that you take advantage of the mo
 
 The Git package can be installed on any computer, it doesn't even require a server / client architecture spread across two or more computers. GitHub is simply a website which hosts Git servers.
 
-\textbf{Task:} Navigate to \url{https://github.com/bschulznewy/engg1003/blob/master/Lectures/Wk1/Friday/LectureFriWk1.pdf}, this is the GitHub ``repository'' that I have been using when writing ENGG1003 content. In particular, it is the lecture notes for the Friday Week 1 Lecture (I'm subtly trying to get you to read them ahead of time, apologies for improving your study efficiency).
+\begin{task}{}{} Navigate to \url{https://github.com/bschulznewy/engg1003/blob/master/Lectures/Wk1/Friday/LectureFriWk1.pdf}.
+\\ \\ 
+This is the GitHub ``repository'' that I have been using when writing ENGG1003 content. In particular, it is the lecture notes for the Friday Week 1 Lecture (I'm subtly trying to get you to read them ahead of time, apologies for improving your study efficiency).
+\end{task}
 
 The link is for a PDF document and you will see that GitHub automatically renders it inside the website. It will attempt to display any file directly linked to.
 
@@ -463,9 +480,11 @@ Click the ``View file'' button next to LectureFriWk1.pdf to view what the PDF lo
 
 Browse through the other commits and observe the writing process for the Lecture 1 PDF. Feel free to also browse the other files in the repository.
 
-\textbf{Task:} Go to \url{www.github.com} and create a GitHub account. You will use it in later weeks when we swap to a development environment which supports Git. You can also use a GitHub account to login to OnlineGDB, allowing you to have your source files stored on their server.
+\begin{task}{}{} Go to \url{www.github.com} and create a GitHub account. You will use it in later weeks when we swap to a development environment which supports Git. You can also use a GitHub account to login to OnlineGDB, allowing you to have your source files stored on their server.
+\end{task}
 
-\textbf{Task:} Read more about how Git works and what it does here: \url{https://developer.ibm.com/tutorials/d-learn-workings-git/}. You probably won't understand everything, but that's not important right now. Just get some general exposure to the ideas and we'll fill in the practicalities later.
+\begin{task}{}{} Read more about how Git works and what it does here: \url{https://developer.ibm.com/tutorials/d-learn-workings-git/}. You probably won't understand everything, but that's not important right now. Just get some general exposure to the ideas and we'll fill in the practicalities later.
+\end{task}
 
 \pagebreak
 \section{Installing a C Compiler on Your Personal Machine - Optional}
