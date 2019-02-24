@@ -80,7 +80,16 @@ OnlineGDB is a basic (\textit{very} basic) browser-based development environment
 All compilation and execution is performed on the OnlineGDB server. As such, the service has an incredibly low barrier to entry: there is (almost) zero installation/configuration required to get started running code.
 
 \begin{task}{}{}
-Open a web browser and navigate to \url{http://www.onlinegdb.com}.\\ \\ \textbf{NB:} If a demonstrator sees you using Edge or IE they may instinctively think you need more help than students using Chrome or Firefox.
+\begin{enumerate}
+
+\item Open a web browser and navigate to \url{http://www.onlinegdb.com}.
+
+\item Configure OnlineGDB to run C code by selecting ``C'' from the ``Language'' drop-down box in the upper-right.
+\end{enumerate}
+
+This website supports many languages\footnote{MATLAB is not one of them because it is a \textit{very} expensive commercial package.} so feel free to come back here later if you're interested in learning any of the others. Python, although not taught in an Engineering degree, is a common choice for Engineering PhD students as a free MATLAB alternative and is probably worth playing around with.
+
+\textbf{NB:} If a demonstrator sees you using Edge or IE they may instinctively think you need more help than students using Chrome or Firefox.
 \end{task}
 
 \begin{figure}[H]
@@ -108,11 +117,11 @@ Above the editor is a toolbar which, from left to right, performs the following 
 The area below the editor is where standard output is written to and standard input read from. When the code is run its appearance changes to that of a basic console (ie: the GUI elements disappear and it becomes just text).
 
 \begin{task}{}{}
-Configure OnlineGDB to run C code by selecting ``C'' from the ``Language'' drop-down box in the upper-right. This website supports many languages\footnote{MATLAB is not one of them because it is a \textit{very} expensive commercial package.} so feel free to come back here later if you're interested in learning any of the others. Python, although not taught in an Engineering degree, is a common choice for Engineering PhD students as a free MATLAB alternative and is probably worth playing around with.
-\end{task}
-
-\begin{task}{}{}
-Observe that there is already a template C listing in the editor. Click the green Run button. The box at the bottom of the screen will produce a ``Compiling'' animation and, after execution of the template code, will produce the output seen in Figure \ref{fig:onlinegdb_hello}.
+\begin{enumerate}
+\item Observe that there is already a template C listing in the editor.
+\item Click the green Run button.
+\end{enumerate}
+The box at the bottom of the screen will produce a ``Compiling'' animation and, after execution of the template code, will produce the output seen in Figure \ref{fig:onlinegdb_hello}.
 \end{task}
 
 \begin{figure}[H]
@@ -128,7 +137,11 @@ Observe that there is already a template C listing in the editor. Click the gree
 
 \begin{enumerate}
 
-\item Running the default template demonstrates \textit{standard output}. Modify the code to match that in Listing~\ref{lst:stdio}. While making the changes you will observe OnlineGDB's auto-complete features. When, for example, you type a double quote " character it \textit{automatically} types two and places the cursor between them. It will also provide auto-complete suggestions, although many of them will be inappropriate (it is, after all, just a computer program; not a science fiction grade artificial intelligence).
+\item Running the default template demonstrates \textit{standard output}. Modify the code to match that in Listing~\ref{lst:stdio}.
+\\ \\
+\textbf{NB:} You can use either tabs or spaces for indenting. Tabs is fewer keystrokes, spaces are more well defined. Some editors change the width of a tab and this causes illogical anger in some programmers.
+\\ \\
+While making the changes you will observe OnlineGDB's auto-complete features. When, for example, you type a double quote " character it \textit{automatically} types two and places the cursor between them. The editor will also automatically indent new lines and provide auto-complete suggestions, although many of them will be inappropriate (it is, after all, just a computer program; not a science fiction grade artificial intelligence).
 
 What other ``helpful'' editor behaviour did you notice? Some of it will be annoying at first (some of it will be annoying \textit{forever}) but learning to work with the editor's features will improve your coding speed in the long term.
 
@@ -203,12 +216,14 @@ Lets try a different syntax error.
 
 \subsection{Missing a Quote Symbol}
 
-\begin{task}{}{} Remove the closing " from the \texttt{printf} line so it reads:
-
+\begin{task}{}{}
+\begin{enumerate}
+\item Fix the previous error by re-inserting the semicolon.
+\item Remove the closing " from the \texttt{printf} line so it reads:
 \begin{lstlisting}[style=CStyle]
 printf("You entered: %d\n, k);
 \end{lstlisting}
-
+\end{enumerate}
 \end{task}
 
 You will see an immediate change to the syntax highlighting; all characters between where the " was and the end of the line are now green, as if they were still inside the double quotes. Take-home message: \textit{pay attention to syntax highlighting!}
@@ -243,7 +258,10 @@ Remember how missing a ; caused errors on lines \textit{below} where the error a
 
 Enough about errors, the final example in this section demonstrates a compiler \textit{warning}. Unfortunately, OnlineGDB doesn't display the compiler output if only warnings are generated. If you are running \texttt{gcc} in Linux (as described at the end of this lab document) you won't have this problem\footnote{Yeah, I'm very biased towards Linux. It gets a bad rap because games, Microsoft Office, Adobe, and Autodesk don't support it but it is otherwise \textit{overwhelmingly} dominant. It runs: mobile phones (Android is a Linux derivative, iOS is a Unix variant), servers, supercomputers, ``internet of things'' devices, etc. As engineers you will probably see it in many places throughout your career, just hidden from the end user.}.
 
-\begin{task}{}{} Remove \texttt{int} before \texttt{main} and the semicolon in \texttt{return 0}, as per Listing \ref{lst:warn}
+\begin{task}{}{}
+\begin{enumerate}
+\item Fix the previous error by re-inserting the appropriate quote symbol
+\item Remove \texttt{int} before \texttt{main} \textbf{and} the semicolon in \texttt{return 0}, as per Listing \ref{lst:warn}
 
 \begin{lstlisting}[style=CStyle,caption=Example code which generates a warning.,label=lst:warn]
 main()
@@ -254,6 +272,7 @@ main()
     return 0
 }
 \end{lstlisting}
+\end{enumerate}
 \end{task}
 
 Attempting to compile this code generates the following compiler output:
@@ -362,6 +381,7 @@ These are all \textit{binary} operators, meaning they operate on two \textit{ope
 
 We begin with a basic example:
 
+\begin{task}{}{}
 Modify your code to match that of Listing \ref{lst:arithmetic1}.
 
 \begin{lstlisting}[style=CStyle,caption=A basic arithmetic example,label=lst:arithmetic1]
@@ -376,6 +396,7 @@ int main() {
 	return 0;
 }
 \end{lstlisting}
+\end{task}
 
 Notice that this code has a \textit{slightly} improved user experience to previous examples; it produces a prompt (\texttt{Enter an integer: }) which tells you what to do. Also notice that the first \texttt{printf()} does \textit{not} end with a \texttt{\textbackslash n} (newline), so the number you type appears on the same line as the prompt.
 
@@ -419,8 +440,8 @@ The other major change is that inside \texttt{scanf} and \texttt{printf} the \te
 
 Back to the task at hand, have a go at implementing Equation \ref{eq:fraction} and see if the result works. Observe that you don't need to force precedence with parentheses because, in C, the multiplication operations are performed before addition.
 
-As practice, implement the following equations (what happens when you choose x to force a division by zero?):
-
+\begin{task}{}{}
+Implement the following equations on line 8. What happens when you choose x to force a division by zero?
 
 \begin{enumerate}
 \item $y = \frac{9}{5} x + 32$
@@ -428,9 +449,9 @@ As practice, implement the following equations (what happens when you choose x t
 \item $y = x^2 + 2x$. \textbf{NB:} C does \textit{not} include an exponent operator. Implement $x^2$ as \texttt{x*x}:
 \item $y = \frac{x + 2}{x - 1}$
 \end{enumerate}
-
+\end{task}
 \pagebreak
-\section{A Very Brief Introduction to Git}
+\section{A Very Brief Introduction to Git - Optional}
 
 \textit{NB: Git is not in the course outline so it isn't strictly required nor assessed. It is, however, incredibly useful and included here because several 3rd and 4th year course coordinators (and industry contacts) asked me to expose you to it. I agreed.}
 
