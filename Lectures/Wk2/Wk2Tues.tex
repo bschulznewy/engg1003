@@ -15,6 +15,7 @@
 \definecolor{mGray}{rgb}{0.5,0.5,0.5}
 \definecolor{mPurple}{rgb}{0.8,0,0.82}
 \definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
 
 \lstdefinestyle{CStyle}{
     backgroundcolor=\color{backgroundColour},   
@@ -36,8 +37,17 @@
     language=C
 }
 
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,PRINT,WHILE,RETURN},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen},
+        tabsize=2
+}
+
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-\lstset{framextopmargin=50pt,frame=bottomline}
+\lstset{framextopmargin=50pt,tabsize=4}
 
 \title{ENGG1003 - Tuesday Week 2}
 \subtitle{Calculating Pi\\C Arithmetic\\Datatypes}
@@ -47,6 +57,24 @@
 
 \begin{document}
 \titlepage
+
+\begin{frame}
+\frametitle{Before we start...}
+\begin{itemize}
+\item Today's lecture is information overload
+	\begin{itemize}
+		\item It is a long list of ``stuff'' to rote learn
+		\item Half of programming is just ``playing with Lego'' with this ``stuff''
+		\item There is a lot to learn before we can solve interesting problems
+	\end{itemize}
+\item It will probably push you out of your comfort zone
+\item Lab experience will hopefully rebuild your confidence
+	\begin{itemize}
+		\item Ideally, before the HECS census date
+		\item I have 2 labs to do this ... oh crap
+	\end{itemize}
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{Case Study: Calulating $\pi$}
@@ -180,25 +208,24 @@ Consider a quadrant of a unit circle ($r=1$) with a square around it:
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Algorithm for Calculating $\pi$}
-{\footnotesize
-\texttt{BEGIN\\
-\quad integer countTotal = 0\\
-\quad integer countInside = 0\\
-\quad WHILE countTotal < A large number\\
-\quad \quad x = random number between 0 and 1\\
-\quad \quad y = random number between 0 and 1\\
-\quad \quad countTotal = countTotal + 1\\
-\quad \quad IF x*x + y*y < 1\\
-\quad \quad \quad countInside = countInside + 1\\
-\quad \quad ENDIF\\
-\quad ENDWHILE\\
-\quad pi = 4*countInside/countTotal\\
-\quad PRINT pi\\
-END\\
-}
-}
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	integer countTotal = 0
+	integer countInside = 0
+	WHILE countTotal < A large number
+		x = random number between 0 and 1
+		y = random number between 0 and 1
+		countTotal = countTotal + 1
+		IF x*x + y*y < 1
+			countInside = countInside + 1
+		ENDIF
+	ENDWHILE
+	pi = 4*countInside/countTotal
+	PRINT pi
+END
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}
@@ -348,7 +375,25 @@ Pre/post-inc/decrements have many applications, more details in coming weeks.
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Modulus Example - Factor Testing}
+\frametitle{Modulus Example 1 - Printing Every \textit{nth} Loop}
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	int x = 0;
+	while(x < 1000)
+	{
+		// Presumably something useful is done with x
+		// inside this loop
+		if(x%100 == 0)
+			printf("%d\n", x);
+	}
+	return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example 2 - Factor Testing}
 \begin{lstlisting}[style=CStyle]
 #include <stdio.h>
 int main() {
@@ -366,6 +411,30 @@ int main() {
 	return 0;
 }
 \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example 3 - Finding Factors}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\scriptsize]
+#include <stdio.h>
+int main() {
+	int input;
+	int x;
+	printf("Enter an integer to factorise: ");
+	scanf("%d", &input);
+	x = input;
+	while(x > 0) {
+		if(input % x == 0) // ie: if the remainder is zero
+			printf("%d is a factor of %d\n", x, input);
+		x--;
+	}
+	return 0;
+}
+\end{lstlisting}
+{\small
+Observe that the \texttt{while()} loop loops over every value of \texttt{x} from \texttt{input} to \texttt{1}. We will discuss a flow control method designed for this (the \texttt{for} loop) later.
+}
 \end{frame}
 
 \begin{frame}
@@ -406,46 +475,51 @@ Not equal to & \texttt{!=} \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Modulus Example 1 - Printing Every \textit{nth} Loop}
-\begin{lstlisting}[style=CStyle]
-#include <stdio.h>
-int main() {
-	int x = 0;
-	while(x < 1000)
-	{
-		// Presumably something useful is done with x
-		// inside this loop
-		if(x%100 == 0)
-			printf("%d\n", x);
-	}
-	return 0;
-}
-\end{lstlisting}
+\begin{frame}
+\frametitle{Boolean Operators}
+\begin{itemize}
+\item We discussed Boolean algebra last week
+\item It has three operators: AND, OR, NOT
+\item In C, these are implemented with:
+\end{itemize}
+\vspace{-5mm}
+\begin{table}[]
+\begin{tabular}{|c|c|}
+\hline
+Operator & C Characters \\
+\hline
+AND      & \texttt{\&\&}         \\
+OR       & \texttt{||}           \\
+NOT      & \texttt{!}           \\
+\hline
+\end{tabular}
+\end{table}
+\vspace{-5mm}
+\begin{itemize}
+\item I know the \texttt{|} character as a ``pipe'' symbol or ``vertical slash''
+	\begin{itemize}
+		\item Ask your demonstrator to find it on the keyboard
+	\end{itemize}
+\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Modulus Example 2 - Finding Factors}
-
-\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\scriptsize]
-#include <stdio.h>
-int main() {
-	int input;
-	int x;
-	printf("Enter an integer to factorise: ");
-	scanf("%d", &input);
-	x = input;
-	while(x > 0) {
-		if(input % x == 0) // ie: if the remainder is zero
-			printf("%d is a factor of %d\n", x, input);
-		x--;
-	}
-	return 0;
-}
-\end{lstlisting}
-{\small
-Observe that the \texttt{while()} loop loops over every value of \texttt{x} from \texttt{input} to \texttt{1}. We will discuss a flow control method designed for this (the \texttt{for} loop) later.
-}
+\begin{frame}
+\frametitle{Conditions}
+\begin{itemize}
+\item We have seen that \texttt{if()} and \texttt{while()} statements need \textit{conditions}
+\item A condition can be any combination of variables, operators, and literals (numbers, defined later)
+\item The following are all valid:
+	\begin{itemize}
+		\item \texttt{if(x > 29)}
+		\item \texttt{if(x == 2)}
+		\item \texttt{if(!(x == y))}
+		\item \texttt{if( (x > 5) \&\& (x < 20) )}
+		\item \texttt{if(x = y + z)}
+			\begin{itemize}
+				\item Evaluates \texttt{(y + z)}, assigns to \texttt{x}, uses result as \texttt{if()} condition
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -470,7 +544,7 @@ Observe that the \texttt{while()} loop loops over every value of \texttt{x} from
 \end{frame}
 
 \begin{frame}
-\frametitle{Data Types}
+\frametitle{Variable Declaration}
 \begin{itemize}
 \item In C, all variables are \textit{declared} before use
 \item Declaration specifies the variable's:
@@ -491,6 +565,28 @@ Observe that the \texttt{while()} loop loops over every value of \texttt{x} from
 \item C is a ``strongly-typed'' language
 	\begin{itemize}
 		\item Every variable has a fixed type
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variable Naming Rules}
+\begin{itemize}
+\item Variable names:
+	\begin{itemize}
+		\item Are case sensitive
+		\item Must \textbf{not} be a C keywoard (eg: \texttt{int, char, while}, etc)
+		\item Must \textbf{not} contain special characters (\texttt{*-+/,} etc)
+		\item Must begin with a letter
+		\item Can contain numbers
+		\item Can contain underscores
+		
+	\end{itemize}
+\item What you do with those rules is up to you
+\item Modern practice encourages:
+	\begin{itemize}
+		\item camelCaseVariableNames
+		\item names\_with\_underscores
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -527,7 +623,46 @@ Observe that the \texttt{while()} loop loops over every value of \texttt{x} from
 		\item 1 kilobyte is $2^{10} = 1024$ bytes
 		\item 1 Megabyte is $2^{20} = 1048576$ bytes
 		\item 1 Gigabyte is $2^{30} = 1073741824$ bytes
-		\item Decimal looks like a poor way to write these numbers... They look better in hex: \texttt{0x3FF}, \texttt{0xFFFFF}, etc.
+		\item (Advanced) These numbers look better in hex: \texttt{0x3FF}, \texttt{0xFFFFF}, etc.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Diversion: Binary Nomenclature}
+\begin{itemize}
+\item Observe that kilobyte, Megabyte, Gigabyte, etc use scientific prefixes
+\item These \textit{normally} mean a power of 10:
+	\begin{itemize}
+		\item kilo- = $10^3$
+		\item Mega- = $10^6$
+		\item Giga- = $10^9$
+		\item ...etc (see the inside cover of a physics text)
+	\end{itemize}
+\item Computer science stole these terms and re-defined them
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Diversion: Binary Nomenclature}
+\begin{itemize}
+\item This has made some people \textit{illogically angry}
+\item Instead, we can use a more modern standard:
+	\begin{itemize}
+		\item $1024$ bytes = 1 kibiByte (KiB)
+		\item $1024^2$ bytes = 1 Mebibyte (MiB)
+		\item $1024^3$ bytes = 1 Gibibyte (GiB)
+		\item ...etc
+	\end{itemize}
+\item Generally speaking:
+	\begin{itemize}
+		\item KB (etc) implies powers of two to \textit{engineers}
+		\item KB (etc) implies powers of ten to \textit{marketing}
+			\begin{itemize}
+				\item The number is smaller
+				\item Hard drive manufacturers, ISPs, etc like this
+			\end{itemize}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -802,15 +937,15 @@ int main() {
 \begin{frame}[fragile]
 \frametitle{Random Numbers}
 \begin{itemize}
-\item In C there is a \textit{standard library} function which generates random numbers
+\item In C there is a \textit{standard library function} which generates random numbers
 \item We will study functions in more detail later
 \item To use a library function:
 	\begin{itemize}
 		\item Read the function's documentation
 		\item \texttt{\#include} the correct \textit{header file}
-		\item Take note of the \textit{return value}
+		\item Take note of the \textit{return value} data type
 		\item Add any \textit{compiler flags} (beyond ENGG1003)
-		\item Use the function
+		\item Use the function in your code
 	\end{itemize}
 \item Demonstration: read the \texttt{rand()} man page
 	\begin{itemize}
@@ -830,9 +965,47 @@ int main() {
 \item Note that is has \underline{\href{http://www.azillionmonkeys.com/qed/random.html}{limits}} (advanced discussion, beyond ENGG1003)
 \item For us, using the \% operator:
 \begin{lstlisting}[style=CStyle]
-x = rand() % RANGE;
+x = rand() % (RANGE+1);
 \end{lstlisting}
 produces a \textit{good enough} random number between zero and \texttt{RANGE}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Random Numbers}
+\begin{itemize}
+\item Using the above information, we can roll a standard die with:
+\begin{lstlisting}[style=CStyle]
+int dieRoll;
+dieRoll = rand() % 7;
+\end{lstlisting}
+\item Or, if you're a D\&D fan, roll a D20 with:
+\begin{lstlisting}[style=CStyle]
+int D20Roll;
+D20Roll = rand() % 21;
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Random Numbers}
+\begin{itemize}
+\item \texttt{RAND\_MAX} is a \textit{constant} defined in \texttt{stdlib.h}
+\item We can try to generate a floating point number from 0 to 1 with a division:
+\begin{lstlisting}[style=CStyle]
+float num;
+num = rand()/RAND_MAX; // This is broken
+\end{lstlisting}
+\item Problem: \texttt{rand()} is an integer, \texttt{RAND\_MAX} is a (large) integer
+	\begin{itemize}
+		\item The integer division result will always be zero!
+	\end{itemize}
+\item Solution: use an explicit cast so that a floating point division occurs:
+\begin{lstlisting}[style=CStyle]
+double num;
+num = (double)rand()/RAND_MAX;
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 

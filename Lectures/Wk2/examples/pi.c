@@ -1,6 +1,5 @@
 #include <stdio.h>	// For printf();
 #include <stdlib.h>	// For rand();
-#include <time.h>
 
 int main() {
 	double x, y; // The current test coordinates
