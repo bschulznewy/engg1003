@@ -5,6 +5,9 @@
 \usepackage{soul}
 \usepackage{multicol}
 
+\addtolength{\oddsidemargin}{-.4in}
+\addtolength{\evensidemargin}{-.4in}
+
 \title{ENGG1003 - Lab 2}
 \author{Brenton Schulz}
 \date{\today}
@@ -12,6 +15,64 @@
 \begin{document}
 \maketitle
 
+\section{Introduction}
+
+This lab leaves you to perform a series of programming exercises on your own. This can be daunting at first but confidence and perseverance will be crucial skills.
+
+Do not expect programs to work (or even \textit{compile}) first go. It is totally normal, even for experienced programmers, for several lines of hand typed code to generate several errors the first time it is compiled. You will gain experience interpreting the error messages, typically it will be a syntax error due to a missing parenthesis, semicolon, or double quote. Don't be afraid to ask for help and work with other students in the lab.
+
+\section{Simple Flow Control Exercises}
+
+This first task presents you with all the required building blocks to implement a simple algorithm. All this program will do is read in 2 integers, perform a division, then print the result. A check is performed to make sure a division by zero does not occur.
+
+\begin{task}{}{}
+Write a program which implements the following pseudocode:
+
+\begin{lstlisting}[style=pseudo]
+BEGIN 
+	Integer a 
+	Integer b
+	Integer c
+	Read an integer from standard input, store in a
+	Read an integer from standard input, store in b
+	IF b is zero
+		PRINT "Division by zero error"
+		RETURN // stop executing
+	ENDIF
+	c = a/b
+	PRINT "a divided by b is" <the value of c>
+END
+\end{lstlisting}
+
+Notes:
+
+\begin{itemize}
+\item Reading each integer can be done with: \texttt{scanf("\%d", \&a);} (with an appropriate substitution for the variable name). You may prompt the user by placing a \texttt{printf();} \textit{without} newline character prior to \texttt{scanf();}, eg:
+
+\begin{lstlisting}[style=CStyle]
+printf("Enter an integer: ");
+scanf("%d", &a);
+\end{lstlisting}
+
+\item Note that $<$the value of c$>$ in the pseudocode is implying that a number should be printed there, ie:
+
+\begin{lstlisting}[style=CStyle]
+printf("a divided by b is %d\n", c);
+\end{lstlisting}
+
+
+\item The \texttt{RETURN} pseudocode can be implemented with:
+\begin{lstlisting}[style=CStyle]
+return 0;
+\end{lstlisting}
+
+\item The condition "b is zero" needs to be implemented with the \texttt{==} (\textit{two} equals symbols) operator.
+
+\item You may start with the default code listing provided by OnlineGDB
+\end{itemize}
+\end{task}
+
+\pagebreak 
 \section{C Summary}
 This section will be included in all future lab documents and lists a summary of C language features taught prior to the lab session. It will grow each week.
 
@@ -22,7 +83,7 @@ Not everything listed in this section is required to complete a particular lab.
 \begin{lstlisting}[style=CStyle]
 #include <stdio.h>
 int main() {
-	// Your program starts here
+	// Your program goes here
 	return 0;
 }
 \end{lstlisting}
@@ -215,6 +276,21 @@ while(1/(x*x) > 1e-6) {
 }
 \end{lstlisting}
 
+\pagebreak
+\subsection{Library Functions}
+\subsubsection{\texttt{rand()}}
+
+To generate a random number between \texttt{0} and \texttt{MAX}:
+
+\begin{lstlisting}[style=CStyle]
+#include <stdlib.h> // For rand()
+// ...
+x = rand() % MAX;
+\end{lstlisting}
+
+For all work in this course you may assume that the above method works well enough.
+
+For more crucial work (eg: cryptography, serious mathematics) this method is considered problematic. Very advanced discussion \underline{\href{http://www.azillionmonkeys.com/qed/random.html}{Here}}.
 
 \begin{lstlisting}[style=CStyle]
 \end{lstlisting}

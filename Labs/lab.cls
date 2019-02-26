@@ -41,6 +41,7 @@
 \RequirePackage{fancyhdr} % to redo the headings
 \RequirePackage{geometry}
 
+
 %\RequirePackage{totcount} % to allow point counting
 
 \RequirePackage{siunitx}
@@ -237,6 +238,7 @@
 \definecolor{funcC}{rgb}{0.9, 0.0, 0.0}
 \definecolor{flowControl}{rgb}{0.1, 0.1, 0.9}
 \definecolor{keywordCol}{rgb}{0.2, 0.4, 0.6}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
 
 \lstdefinestyle{CStyle}{
     language=C,
@@ -268,6 +270,14 @@
     classoffset=0
 }
 
+\lstdefinestyle{pseudo}{
+	basicstyle=\ttfamily,
+	keywordstyle=\color{lightBlue},
+	morekeywords={BEGIN,END,IF,ELSE,ENDIF,PRINT,WHILE,RETURN},
+	morecomment=[l]{//},
+	commentstyle=\color{mGreen}
+}
+
 %\lstset{basicstyle=\ttfamily}
 %\lstset{framextopmargin=50pt,frame=bottomline}
-\lstset{captionpos=b}
+\lstset{captionpos=b,tabsize=4}
