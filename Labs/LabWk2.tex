@@ -1,0 +1,118 @@
+\documentclass{lab}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{soul}
+\usepackage{multicol}
+
+\title{ENGG1003 - Lab 2}
+\author{Brenton Schulz}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{C Summary}
+This section will be included in all future lab documents and lists a summary of C language features taught prior to the lab session. It will grow each week.
+
+\begin{multicols}{2}
+\subsection{Basic Structure}
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	// Your program starts here
+	return 0;
+}
+\end{lstlisting}
+\subsection{Comments}
+\begin{lstlisting}[style=CStyle]
+// This is a comment to end of line
+
+/* this is a block comment
+   which could span
+   multiple
+   lines */
+\end{lstlisting}
+
+\subsection{Operators}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+Operation      & C Symbol \\
+\hline
+Addition       & \texttt{+}        \\
+Subtraction    & \texttt{-}        \\
+Multiplication & \texttt{*}        \\
+Division       & \texttt{/}       \\
+Increment	& \texttt{++}	\\
+Decrement	& \texttt{--} \\
+Less than       & $\texttt{<}$        \\
+Less than or equal to    & $\texttt{<=}$\\
+Greater than & $\texttt{>}$        \\
+Greater than or equal to       & $\texttt{>=}$ \\
+Equal to & \texttt{==} \\
+Not equal to & \texttt{!=} \\
+\hline
+\end{tabular}
+\caption{Arithmetic operators in C}
+\end{table}
+
+\subsection{Standard i/o}
+
+Read a single variable from \texttt{stdin} with \texttt{scanf();}
+\texttt{scanf("\textit{format specifier}", \&\textit{variable}});
+
+Write a single variable to \texttt{stdout} with \texttt{printf();}
+\texttt{printf("\textit{format specifier}", \textit{variable});}
+
+You can use \texttt{printf();} \textit{without} a newline (\texttt{\textbackslash n}) to create an input prompt:
+
+\begin{lstlisting}[style=CStyle]
+printf("Enter a number: ");
+scanf("%d", &variable);
+\end{lstlisting}
+
+This prints:
+
+\texttt{Enter a number: \_}
+
+where \_ indicates the terminal prompt (ie: where typed characters will appear).
+
+\textbf{NB:} Pressing \texttt{enter} after typing a value will produce a new line.
+
+\subsection{Format Specifiers}
+The following table is woefully incomplete. The compiler \textit{may} generate warnings if \texttt{\%d} is given something other than \texttt{int} and \texttt{\%f} is given something other than \texttt{float}. If \texttt{printf();} output is wrong apply an explicit data type cast.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Data Type & Format Specifier \\
+\hline
+Integers & \texttt{\%d} \\
+Floating point & \texttt{\%f} \\
+Float with \texttt{n} decimal places & \texttt{\%.nf} \\
+\hline
+\end{tabular}
+\caption{Basic format specifiers}
+\end{table}
+
+\subsection{Type Casting}
+Placing the syntax \texttt{(\textit{type})} before a variable name performs a type cast (ie: data type conversion).
+
+eg: convert \texttt{a} to an \texttt{int} prior to using its value.
+
+\begin{lstlisting}[style=CStyle]
+(int)a
+\end{lstlisting}
+
+\textbf{NB:} This does \textit{not} modify the original variable.
+
+This is often done automatically by the compiler but sometimes it is required. Adding it unnecessarily doesn't have any negative impact.
+
+\begin{lstlisting}[style=CStyle]
+\end{lstlisting}
+
+\end{multicols}
+\end{document}
