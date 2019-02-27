@@ -142,6 +142,14 @@ The robot replies: ``Unknown instruction: `get 6'. ''
 \end{frame}
 
 \begin{frame}
+\frametitle{Code Blocks}
+\begin{itemize}
+\item A \textit{block} is a set of instructions which are, for some reason, grouped together
+\item If a single condition controls multiple instructions they can go together in a block
+\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Conditions}
 \begin{itemize}
 \item Computers don't understand ``maybe''
@@ -160,6 +168,10 @@ The robot replies: ``Unknown instruction: `get 6'. ''
 		\item A division by zero occurred
 	\end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{IF ... ENDIF and IF ... ELSEIF}
 \end{frame}
 
 \begin{frame} % Quadratic root finding intro
@@ -391,6 +403,23 @@ Evaluation of this series needs two things:
 \item We loop until 10 \textit{iterations} have occurred OR a precision limit is reached
 \end{itemize}
 \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Loop Details}
+WHILE condition tested before "entering" loop
+Tested before every repeat
+Variables in the condition should change inside the loop
+\end{frame}
+
+\begin{frame}
+\frametitle{DO ... WHILE}
+Same as WHILE except executes at least once
+\end{frame}
+
+\begin{frame}
+\frametitle{FOR Loops}
+Used when the number of loop repeats is known before entering the loop
 \end{frame}
 
 \if false
