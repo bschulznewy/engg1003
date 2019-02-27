@@ -8,8 +8,10 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{algorithm2e}
+\usepackage[font=small]{caption}
 
 \usefonttheme[onlymath]{serif}
+
 
 \definecolor{mGreen}{rgb}{0,0.6,0}
 \definecolor{mGray}{rgb}{0.5,0.5,0.5}
@@ -68,11 +70,11 @@
 		\item There is a lot to learn before we can solve interesting problems
 	\end{itemize}
 \item It will probably push you out of your comfort zone
-\item Lab experience will hopefully rebuild your confidence
+\item Lab experience will rebuild your confidence
 	\begin{itemize}
-		\item Ideally, before the HECS census date
-		\item I have 2 labs to do this ... oh crap
+		\item Much of this content will be used in every lab
 	\end{itemize}
+\item But first, a problem for motivation...
 \end{itemize}
 \end{frame}
 
@@ -115,7 +117,7 @@ Consider a quadrant of a unit circle ($r=1$) with a square around it:
 \begin{frame}
 \frametitle{Case Study: Calulating $\pi$}
 \begin{columns}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.6\textwidth}
 \begin{itemize}
 \small{
 \item We can't calculate the area ratio without knowing $\pi$
@@ -127,7 +129,7 @@ Consider a quadrant of a unit circle ($r=1$) with a square around it:
 }
 \end{itemize}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.4\textwidth}
 \begin{figure}
 \includegraphics[width=0.9\textwidth]{pi-dots.png}
 \end{figure}
@@ -339,7 +341,7 @@ What's the difference between \texttt{x++} and \texttt{++x}?
 
 \begin{frame}[fragile]
 \frametitle{Increment Example}
-\begin{lstlisting}[style=CStyle]
+\begin{lstlisting}[style=CStyle,caption=\texttt{increment.c}]
 #include <stdio.h>
 int main() {
 	int x = 0;
@@ -358,13 +360,11 @@ Pre/post-inc/decrements have many applications, more details in coming weeks.
 \begin{frame}
 \frametitle{Modulus}
 \begin{itemize}
-\item Computers frequently only deal with integers
 \item Integer division ignores (truncates) any fractional component
 \item The \textit{modulus} operator provides the remainder after division
 \begin{itemize}
-	\item Implemented with the \texttt{\%} character
-	\item \texttt{a \% b =} remainder of \texttt{a / b}
-	\item Very useful for tasks performed every \textit{nth} loop
+	\item C uses the \texttt{\%} character
+	\item ``\texttt{a \% b}'' means ``remainder of \texttt{a / b}''
 \end{itemize}
 \item Example:
 	\begin{itemize}	
@@ -376,7 +376,7 @@ Pre/post-inc/decrements have many applications, more details in coming weeks.
 
 \begin{frame}[fragile]
 \frametitle{Modulus Example 1 - Printing Every \textit{nth} Loop}
-\begin{lstlisting}[style=CStyle]
+\begin{lstlisting}[style=CStyle,caption=\texttt{loopmod.c}]
 #include <stdio.h>
 int main() {
 	int x = 0;
@@ -394,11 +394,10 @@ int main() {
 
 \begin{frame}[fragile]
 \frametitle{Modulus Example 2 - Factor Testing}
-\begin{lstlisting}[style=CStyle]
+\begin{lstlisting}[style=CStyle,caption=\texttt{factorTest.c}]
 #include <stdio.h>
 int main() {
-	int x;
-	int y;
+	int x, y;
 	printf("Enter an integer: ");
 	scanf("%d", &x);
 	printf("Enter another integer: ");
@@ -416,11 +415,10 @@ int main() {
 \begin{frame}[fragile]
 \frametitle{Modulus Example 3 - Finding Factors}
 
-\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\scriptsize]
+\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\footnotesize,caption=\texttt{factors.c}]
 #include <stdio.h>
 int main() {
-	int input;
-	int x;
+	int input, x;
 	printf("Enter an integer to factorise: ");
 	scanf("%d", &input);
 	x = input;
@@ -432,9 +430,6 @@ int main() {
 	return 0;
 }
 \end{lstlisting}
-{\small
-Observe that the \texttt{while()} loop loops over every value of \texttt{x} from \texttt{input} to \texttt{1}. We will discuss a flow control method designed for this (the \texttt{for} loop) later.
-}
 \end{frame}
 
 \begin{frame}
@@ -516,7 +511,7 @@ NOT      & \texttt{!}           \\
 		\item \texttt{if( (x > 5) \&\& (x < 20) )}
 		\item \texttt{if(x = y + z)}
 			\begin{itemize}
-				\item Evaluates \texttt{(y + z)}, assigns to \texttt{x}, uses result as \texttt{if()} condition
+				\item Evaluates \texttt{(y + z)}, assigns to \texttt{x}, uses result as \texttt{if()} condition.
 			\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -559,7 +554,7 @@ NOT      & \texttt{!}           \\
 			\begin{itemize}
 				\item Type is \texttt{int}
 				\item Name is \texttt{counter}
-				\item Initial value is \texttt{0}
+				\item Initial value is \texttt{0} (optional)
 			\end{itemize}
 	\end{itemize}
 \item C is a ``strongly-typed'' language
@@ -587,27 +582,6 @@ NOT      & \texttt{!}           \\
 	\begin{itemize}
 		\item camelCaseVariableNames
 		\item names\_with\_underscores
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Integer Data Types}
-\begin{itemize}
-\item There are several integer data types
-\item They vary by their:
-	\begin{itemize}
-		\item Size
-		\item Support for negative numbers
-	\end{itemize}
-\item C integer types can be 1, 2, 4, or 8 bytes long
-	\begin{itemize}
-		\item \texttt{int} and \texttt{long} sizes vary by platform
-		\item Larger sizes store larger numbers, use more RAM
-	\end{itemize}
-\item Each type can be \textit{signed} or \textit{unsigned}
-	\begin{itemize}
-		\item Unsigned numbers are always positive but you get double the \textit{value range}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -650,19 +624,40 @@ NOT      & \texttt{!}           \\
 \item This has made some people \textit{illogically angry}
 \item Instead, we can use a more modern standard:
 	\begin{itemize}
-		\item $1024$ bytes = 1 kibiByte (KiB)
-		\item $1024^2$ bytes = 1 Mebibyte (MiB)
-		\item $1024^3$ bytes = 1 Gibibyte (GiB)
+		\item $2^{10}$ bytes = 1 kibiByte (KiB)
+		\item $2^{20}$ bytes = 1 Mebibyte (MiB)
+		\item $2^{30}$ bytes = 1 Gibibyte (GiB)
 		\item ...etc
 	\end{itemize}
-\item Generally speaking:
+\item Generally speaking, KB (etc) implies:
 	\begin{itemize}
-		\item KB (etc) implies powers of two to \textit{engineers}
-		\item KB (etc) implies powers of ten to \textit{marketing}
+		\item powers of two to \textit{engineers}
+		\item powers of ten to \textit{marketing}
 			\begin{itemize}
 				\item The number is smaller
 				\item Hard drive manufacturers, ISPs, etc like this
 			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Integer Data Types}
+\begin{itemize}
+\item There are several integer data types
+\item They vary by their:
+	\begin{itemize}
+		\item Size
+		\item Support for negative numbers
+	\end{itemize}
+\item C integer types can be 1, 2, 4, or 8 bytes long
+	\begin{itemize}
+		\item \texttt{int} and \texttt{long} sizes vary by platform
+		\item Larger sizes store larger numbers, use more RAM
+	\end{itemize}
+\item Each type can be \textit{signed} or \textit{unsigned}
+	\begin{itemize}
+		\item Unsigned numbers are always positive but you get double the \textit{value range}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -748,7 +743,7 @@ Type & Bytes & Bits & Value Range                               \\
 \begin{itemize}
 \item \textit{Overflow} occurs when the result of a calculation is too big to fit into the target type
 \item Example: \texttt{127 + 1 = -128}
-\begin{lstlisting}[style=CStyle]
+\begin{lstlisting}[style=CStyle,caption=\texttt{overflow.c}]
 #include <stdio.h>
 int main() {
 	char x = 127;
@@ -758,12 +753,21 @@ int main() {
 	return 0;
 }
 \end{lstlisting}
-\item Message: make variables as small as they can be, but no smaller
+
+\end{itemize}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overflow}
+\begin{itemize}
+\item Message: make variables as small you can, but no smaller
 	\begin{itemize}
 		\item Or just use \texttt{long} everywhere are cop the performance hit
 	\end{itemize}
+\item Quite often you need to take a guess at how big a variable needs to be
+\item Typically a good idea to document software limits due to variable choice
 \end{itemize}
-}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -785,6 +789,42 @@ float       & 4    & $1.2\times 10^{-38}$ to $3.4 \times 10^{38}$      & 6 dp   
 double      & 8    & $2.3 \times 10^{-308}$ to $1.7 \times 10^{308}$     & 15 dp     \\   
 \end{tabular}
 \end{table}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Floating Point Problems}
+\begin{itemize}
+\item Q: Why not \textit{always} use \texttt{float} or \texttt{double}?
+\item A: Floating point arithmetic is \textbf{\textit{NOT}} exact
+\item Example 1: Does this code exit?
+\begin{lstlisting}[style=CStyle,caption=\texttt{floatLoop.c}]
+#include <stdio.h>
+int main() {
+	float x = 16000000.0;
+	while(x < 17000000.0) {
+		x = x + 1.0;
+		printf("%f\n", x);
+	}
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Floating Point Problems}
+\begin{itemize}
+\item Example 2: $\tan \left( \frac{\pi}{2} \right)$ is undefined
+\item But using floating point $\pi$ can't be represented exactly, so C produces a result anyway
+\begin{lstlisting}[style=CStyle,caption=\texttt{taninf.c}]
+#include <stdio.h>
+#include <math.h>
+int main() {
+	double pi = 3.141592653589793238;
+	printf("%f\n", tan(pi/2.0));
+	printf("%f\n", ftanf((float)pi/2.0));
+}
+\end{lstlisting}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -921,7 +961,7 @@ printf("%.2f", x); // Prints 1.23
 \begin{frame}[fragile]
 \frametitle{Integer Division Example}
 With \textit{all that} out of the way, what is the output of each \texttt{printf()} statement?
-\begin{lstlisting}[style=CStyle]
+\begin{lstlisting}[style=CStyle,caption=\texttt{intdiv.c}]
 #include <stdio.h>
 int main() {
 	printf("%d\n", 9/10);
@@ -1010,7 +1050,7 @@ num = (double)rand()/RAND_MAX;
 \end{frame}
 
 \begin{frame}
-Probably out of time by now, lets implement a $\pi$ calculator in the lab... In theory you have enough information by now.
+Probably out of time by now, lets implement a $\pi$ calculator in the lab... \textit{In theory} you have enough information by now.
 \end{frame}
 
 \end{document}
