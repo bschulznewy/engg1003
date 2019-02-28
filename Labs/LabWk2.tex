@@ -197,7 +197,31 @@ END
 \textbf{Everyone:} Write a C program which takes the \texttt{a, b,} and \texttt{c} values and outputs the number of real valued solutions which exist (ie: 0, 1, or 2).
 \\ \\
 \textbf{Advanced:} Using the square root algorithm coded previously, implement the full quadratic equation solution algorithm.
+\end{task}
 
+\begin{task}{Mandelbrot Set - Advanced}{}
+\textit{This problem is presented for students interested in mathematics. It may take several lab sessions to correctly implement this task. If you do not understand anything here, do not be troubled. The mathematics is beyond the scope of ENGG1003.} \\ \\
+
+The \textit{Mandelbrot set} is the set of all complex numbers, $C$, which can be iterated with the formula:
+
+\begin{equation}
+z_{n+1} = z^2 + C
+\end{equation}
+
+and initial condition $z_0 = 0$ and have the value of $z_n$ stay bounded (ie: not ``blowing off to infinity'') as $n$ becomes ``very large''. Its calculation can be used to create \underline{\href{https://www.google.com.au/search?q=mandelbrot+set}{mathematical artwork}}.
+\\ \\
+\textbf{Task:} Write a C program which tests a given point $C$ for inclusion in the Mandelbrot set.
+\\ \\
+To do this you will be need to know that:
+\begin{itemize}
+\item $z$ and $C$ are complex numbers with real and imaginary parts
+\item We will use the notation: \\
+$z = x + iy$ \\
+$C = x_0 + iy_0$
+\item Using rules of complex arithmetic it can be shown that: \\
+$z^2 + C= x^2 + i2xy - y^2 + x_0 + iy_0$
+\item In 
+\end{itemize}
 \end{task}
 
 \pagebreak 
@@ -225,6 +249,10 @@ int main() {
    lines
    */
 \end{lstlisting}
+
+\subsection{Code Blocks}
+
+Any section of code encompassed by \texttt{\{...\}} is a \textit{block}.
 
 \subsection{Operators}
 
@@ -331,7 +359,7 @@ Float with \texttt{n} decimal places & \texttt{\%.nf} \\
 \caption{Basic format specifiers}
 \end{table}
 
-\subsection{Type Casting - Advanced}
+\subsection{Type Casting}
 Placing the syntax \texttt{(\textit{type})} before a variable name performs a type cast (ie: data type conversion).
 
 eg: convert \texttt{float} to an \texttt{int} prior to using its value. This forces a rounding-down to the nearest integer.
@@ -381,6 +409,37 @@ Condition Examples:
 
 \textbf{NB:} \textit{NEVER} place a semicolon after an \texttt{if()}, that stops it from having any effect. The block after it will always execute. This bug can take days to find.
 
+If there is only \textit{one} statement after an \texttt{if()} the \{ \} braces are optional:
+
+\begin{lstlisting}[style=CStyle]
+if(x > 10) 
+	printf("x is greater than 10\n");
+\end{lstlisting}
+
+\subsubsection{\texttt{if() ... else if()}}
+
+The C syntax for IF ... ELSE is:
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+} else {
+	// Do stuff
+}
+\end{lstlisting}
+
+IF ... ELSEIF takes the form:
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+} else if(condition) {
+	// Do stuff
+}
+\end{lstlisting}
+
+Multiple ``layers'' of \texttt{else if()} can be written. You don't have to stop at two.
+
 \subsubsection{\texttt{while()}}
 
 The \texttt{while()} flow control statement executes a block of code so long as a condition is true. The condition is checked before the block is executed and before every repeated execution.
@@ -407,7 +466,6 @@ while(1/(x*x) > 1e-6) {
 }
 \end{lstlisting}
 
-\pagebreak
 \subsection{Library Functions}
 \subsubsection{\texttt{rand()}}
 
