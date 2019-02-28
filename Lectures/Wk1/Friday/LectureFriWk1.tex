@@ -433,7 +433,7 @@ END
 \linebreak \linebreak
 The function $\cos (x)$ can be evaluated with arithmetic as:
 \begin{equation}
-\cos (x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!} = \frac{-x^{2}}{2!} + \frac{x^{4}}{4!} + \frac{-x^6}{6!} + \frac{x^8}{8!} ...
+\cos (x) = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!} = 1 + \frac{-x^{2}}{2!} + \frac{x^{4}}{4!} + \frac{-x^6}{6!} + \frac{x^8}{8!} ...
 \end{equation}
 Evaluation of this series needs two things:
 \begin{enumerate}
@@ -511,7 +511,7 @@ BEGIN
 	tmp = 1
 	k = 0
 	sum = 0
-	WHILE (k<10) AND (tmp>1e-6)
+	WHILE (k<10) AND ((tmp>-1e-6) AND (tmp<1e-6)) 
 		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
 		sum = sum + tmp
 		k = k + 1
@@ -520,6 +520,19 @@ END
 \end{lstlisting}
 
 \item Here it loops until 10 \textit{iterations} have occurred OR a precision limit is reached
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+This is where we left off...\\
+Updates:
+\begin{itemize}
+\item Added ``1+'' to the series expansion
+\item Changed series expansion loop condition to be (absolute value(tmp) $<$ 1e-6)
+	\begin{itemize}
+		\item Implemented with tmp greater than -1e-6 AND less than 1e-6 (ie: within the interval (-1e-6, 1e-6) )
+	\end{itemize}
+
 \end{itemize}
 \end{frame}
 
