@@ -954,9 +954,27 @@ float x = 1.23456;
 printf("%.2f", x); // Prints 1.23
 \end{lstlisting}
 	\end{itemize}
+
+\item Format specifiers can appear anywhere in the output text, eg:
+\begin{lstlisting}[style=CStyle]
+printf("%f was the result\n", x);
+printf("The result %f was calculated\n", x);
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Format Specifiers}
+\begin{itemize}
+\item You can print several numbers at once
+\item Separate variables with commas
+\item They are printed in the same order as variables are written
+\item You can put maths inside \texttt{printf();}
+\begin{lstlisting}[style=CStyle]
+printf("%f plus %f is %f\n", x, y, x+y);
+\end{lstlisting}
+\end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Integer Division Example}

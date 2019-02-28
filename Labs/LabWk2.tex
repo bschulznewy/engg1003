@@ -21,17 +21,58 @@ This lab leaves you to perform a series of programming exercises on your own. Th
 
 The example tasks are all ``toy'' programs. They don't do anything particularly useful because most ``real-world'' problems are too advanced for this stage of the course. Things will get more interesting in the coming weeks (I hope...).
 
-Do not expect programs to work (or even \textit{compile}) first go. It is totally normal, even for experienced programmers, for several lines of hand typed code to generate several errors the first time it is compiled. You will gain experience interpreting the error messages, typically it will be a syntax error due to a missing parenthesis, semicolon, or double quote. Don't be afraid to ask for help and work with other students in the lab.
+Do not expect programs to compile (let alone \textit{work}) first go. It is totally normal, even for experienced programmers, for several lines of hand typed code to generate several errors the first time it is compiled.
 
-\section{Basic Exercises}
+You will gain experience interpreting the error messages, typically it will be a syntax error due to a missing parenthesis, semicolon, or double quote. Don't be afraid to ask for help and work with other students in the lab.
 
-(I wanted to use the quadratic equation example here but can't because it needs sqrt() from the maths library...Maybe put that in the Tuesday lecture?)
+\pagebreak
+\section{Input-Processing-Output Exercises}
 
-\begin{lstlisting}[style=pseudo]
+These exercises all require the use of \texttt{scanf();} to read data, some arithmetic to process data, and \texttt{printf();} to print results to the console.
 
+Every task requires the following steps:
+
+\begin{enumerate}
+\item Work out what variables are required
+\item What \textit{type} do the variables need to be?
+\item Convert an equation to C code. Do we need to be careful with data types?
+\item Write a \texttt{scanf();} statement to read the user's input
+\item Write a \texttt{printf();} statement to print the result
+\item (Optional) Do you want the user to be \textit{prompted}? This is when text appears in the console telling the user what to enter. This requires a \texttt{printf();} prior to the \texttt{scanf();}
+\item (Optional) Does the output need to be in a human sentence? Write the \texttt{printf();} statement.
+\item (Optional) Should you limit the precision of the printed result? Are 6 decimal places appropriate? Should it only be 1?
+\end{enumerate}
+
+The following template can be used for all these exercises:
+
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+int main() {
+	// Declare the required variables 
+	
+	// Get input from the user
+	
+	// Do the calculation
+	
+	// Print result to user
+	
+	return 0;
+}
 \end{lstlisting}
 
-\begin{task}{}{}
+\begin{task}{Temperature Conversion}{}
+The formula for converting temperatures in Farenheit, $F$ to Celsius, $C$, is:
+
+\begin{equation}\label{eq:temp}
+C = \frac{5}{9}(F - 32)
+\end{equation}
+
+Given the C template, write a program which performs this conversion. It should read the Farenheit temperature from \texttt{stdin} and print the result to \texttt{stdout}. The program should correctly handle any practical real values (eg: 19.38) input. Print the result to 2 decimal places.
+\\ \\
+Test your code with several values calculated with \underline{\href{https://www.google.com.au/search?q=farenheit+to+celsius}{Google}}.
+
+
 
 \end{task}
 
