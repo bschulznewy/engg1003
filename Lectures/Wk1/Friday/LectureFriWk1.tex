@@ -318,7 +318,7 @@ BEGIN
 	D = b^2 - 4ac
 	IF D < 0
 		N = 0
-	ELSEIF D = 0
+	ELSEIF D == 0
 		N = 1
 		x1 = -b/(2a)
 	ELSEIF D > 0
@@ -527,6 +527,7 @@ END
 This is where we left off...\\
 Updates:
 \begin{itemize}
+\item Changed = to == in ``D == 0'' quadratic algorithm. == means ``is equal to''.
 \item Added ``1+'' to the series expansion
 \item Changed series expansion loop condition to be (absolute value(tmp) $<$ 1e-6)
 	\begin{itemize}
