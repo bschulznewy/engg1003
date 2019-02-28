@@ -19,13 +19,12 @@
 
 This lab leaves you to perform a series of programming exercises on your own. This can be daunting at first but confidence and perseverance will be crucial skills.
 
-The example tasks are all ``toy'' programs. They don't do anything particularly useful because most ``real-world'' problems are too advanced for this stage of the course. Things will get more interesting in the coming weeks (I hope...).
+The example tasks are mostly ``toy'' programs. They don't do anything particularly useful because most ``real-world'' problems are too advanced for this stage of the course. Things will get more interesting in the coming weeks (I hope...).
 
 Do not expect programs to compile (let alone \textit{work}) first go. It is totally normal, even for experienced programmers, for several lines of hand typed code to generate several errors the first time it is compiled.
 
 You will gain experience interpreting the error messages, typically it will be a syntax error due to a missing parenthesis, semicolon, or double quote. Don't be afraid to ask for help and work with other students in the lab.
 
-\pagebreak
 \section{Input-Processing-Output Exercises}
 
 These exercises all require the use of \texttt{scanf();} to read data, some arithmetic to process data, and \texttt{printf();} to print results to the console.
@@ -71,11 +70,38 @@ C = \frac{5}{9}(F - 32)
 Given the C template, write a program which performs this conversion. It should read the Farenheit temperature from \texttt{stdin} and print the result to \texttt{stdout}. The program should correctly handle any practical real values (eg: 19.38) input. Print the result to 2 decimal places.
 \\ \\
 Test your code with several values calculated with \underline{\href{https://www.google.com.au/search?q=farenheit+to+celsius}{Google}}.
+\end{task}
 
+\begin{task}{Variance Calculation}{}
+From statistics, the \textit{sample variance}, $s^2$, of $N$ samples can be calculated as:
 
+\begin{equation}\label{eq:var}
+s^2 = \frac{\sum_{k=1}^{N}(X_k - mean(X))}{N-1}.
+\end{equation}
+
+Write a C program which reads \textbf{four} numbers and outputs their sample variance.
+\\ \\
+Given that $N = 4$ (and some algebra) Equation \ref{eq:var} can be expanded into two steps:
+
+\begin{enumerate}
+\item Calculate the sample mean: $\texttt{mean} = \frac{1}{4} \times \left( X_1 + X_2 + X_3 + X_4 \right)$
+\item Calculate the variance: $\texttt{var} = \frac{1}{3} \times ((X_1 + X_2 + X_3 + X_4 - 4 \times \texttt{mean})$
+\end{enumerate}
+
+Your program will have to declare four \texttt{float} variables to store the four input values. To read four numbers in one instance of \texttt{scanf();} you can do this:
+
+\begin{lstlisting}[style=CStyle]
+float x1, x2, x3, x4;
+scanf("%f %f %f %f", &x1, &x2, &x3, &x4);
+\end{lstlisting}
+
+Test your program given that the variance of the set (1, 2, 3, 4) = 1.6667
+\\ \\
+\textbf{NB:} Be careful with the $\frac{1}{4}$ and $\frac{1}{3}$ constants in the equations above. They may experience integer division problems.
 
 \end{task}
 
+\pagebreak
 \section{Flow Control Exercises}
 
 This first task presents you with all the required building blocks to implement a simple algorithm. All this program will do is read in 2 integers, perform a division, then print the result. A check is performed to make sure a division by zero does not occur.
@@ -125,6 +151,53 @@ return 0;
 
 \item You may start with the default code listing provided by OnlineGDB
 \end{itemize}
+\end{task}
+
+\begin{task}{Square Root Evaluation}{}
+The square root of a number, $x = \sqrt{n}$, can be calculated with the iterative formula:
+\begin{equation}
+x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
+\end{equation}
+Implement an algorithm which uses this formula to calculate square roots of real numbers. The value of $n$ is to be read from the console with \texttt{scanf();} and the result printed with \texttt{printf();}.
+\\ \\
+The choice of $x_0$ is somewhat arbitrary, the algorithm should converge given any sane value (ie: not infinity), but will converge faster if $x_0$ is closer to the true value of $\sqrt{n}$. You may play with this value and observe any differences. Common choices would be setting it to $n$ or zero.
+\\ \\
+The algorithm will require a loop. The exit condition could be one of several choices. In order of difficulty:
+\begin{enumerate}
+\item Exit after a fixed number of iterations (eg: 10)
+\item Exit when $\left| x_k - x_{k-1} \right| < e$ where $e$ is some pre-defined precision
+\item Exit when either of the above conditions are met
+\end{enumerate}
+
+To calculate precision you will need to explicitly save $x_k$ and $x_{k-1}$ in different variables.
+\\ \\
+\textbf{Hint:} You can place \texttt{printf();} statements inside the loop to help you debug. Calculate a particular value (eg: $\sqrt{2}$) by hand with a known $x_0$ so that you can compare your program's output with a known correct output.
+\end{task}
+
+\begin{task}{Quadratic Equation Analysis}{}
+The Friday Week 1 lecture introduced the following pseudocode for solving quadratic equations:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	INPUT: a, b, c
+	D = b^2 - 4ac
+	IF D < 0
+		 N = 0
+	ELSEIF D = 0
+		N = 1
+		x1 = -b/(2a)
+	ELSEIF D > 0
+		N = 2
+		x1 = (-b + sqrt(D))/(2a)
+		x2 = (-b - sqrt(D))/(2a)
+	ENDIF
+	OUTPUT: N, x1, x2
+END
+\end{lstlisting}
+
+\textbf{Everyone:} Write a C program which takes the \texttt{a, b,} and \texttt{c} values and outputs the number of real valued solutions which exist (ie: 0, 1, or 2).
+\\ \\
+\textbf{Advanced:} Using the square root algorithm coded previously, implement the full quadratic equation solution algorithm.
+
 \end{task}
 
 \pagebreak 
@@ -329,7 +402,7 @@ to a precision of $1 \times 10^{-6}$
 float sum = 0.0;
 int x = 0;
 while(1/(x*x) > 1e-6) {
-	sum = sum + 1/(x*x);
+	sum = sum + 1.0/(x*x);
 	x++
 }
 \end{lstlisting}

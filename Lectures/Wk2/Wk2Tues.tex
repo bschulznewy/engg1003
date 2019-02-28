@@ -559,8 +559,23 @@ NOT      & \texttt{!}           \\
 	\end{itemize}
 \item C is a ``strongly-typed'' language
 	\begin{itemize}
-		\item Every variable has a fixed type
+		\item A variable's type doesn't change
 	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variable Declaration}
+\begin{itemize}
+\item You can declare multiple variables in one line:
+\begin{lstlisting}[style=CStyle]
+int a, b, c, d;
+\end{lstlisting}
+\item You can mix initialised and uninitialised variables:
+\begin{lstlisting}[style=CStyle]
+float q, r = 1.0, s = 12e3, t;
+\end{lstlisting}
+\item All variables declared in this way must be of the same type
 \end{itemize}
 \end{frame}
 
