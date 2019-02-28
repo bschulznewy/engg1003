@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{algorithm2e}
+\usepackage{multicol}
 
 \usefonttheme[onlymath]{serif}
 
@@ -15,6 +16,8 @@
 \definecolor{mGray}{rgb}{0.5,0.5,0.5}
 \definecolor{mPurple}{rgb}{0.8,0,0.82}
 \definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
 
 \lstdefinestyle{CStyle}{
     backgroundcolor=\color{backgroundColour},   
@@ -35,9 +38,16 @@
     tabsize=2,
     language=C
 }
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
 
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-\lstset{framextopmargin=50pt,frame=bottomline}
+\lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Friday Week 1}
 \subtitle{Algorithms and Pseudocode}
@@ -47,6 +57,11 @@
 
 \begin{document}
 \titlepage
+
+\begin{frame}
+\centering
+Lab feedback? Yell it out to me.
+\end{frame}
 
 \begin{frame} % Algo defn
 \frametitle{Algorithms}
@@ -86,8 +101,8 @@
 
 \frametitle{Algorithm Example 1}
 {\footnotesize
-\textbf{Example 1:} Algorithm given to mum to start my car (2015 Tarago) \\
-\textbf{Result:}{The vehicle's engine is idling} \\
+\textbf{Name:} Algorithm given to mum to start my car (2015 Tarago) \\
+\textbf{Result:} The vehicle's engine is idling \\
 \textbf{Initialisation:} stand next to the vehicle, key fob in hand 
 \begin{enumerate}
 \setlength{\itemsep}{1pt}
@@ -98,11 +113,12 @@
 \item Enter the vehicle, sit in the driver's seat
 \item Ensure that the gear selector has P engaged
 \item Depress the brake pedal
-\item Observe that the green LED is lit on the engine start button
 \item Press the engine start button
+\item Wait 5 seconds
 \item If engine is not idling
 	\begin{itemize}
-		\item Call me
+		\footnotesize{
+		\item Call me}
 	\end{itemize}
 \end{enumerate}
 }
@@ -119,7 +135,7 @@
 	\begin{itemize}
 		\item The final step (``call me") was \textit{conditional} on the car not starting
 	\end{itemize}
-\item We will discuss logical statements later, but first...
+\item We will discuss conditional logical statements later, but first...
 \end{itemize}
 \end{frame}
 
@@ -142,10 +158,15 @@ The robot replies: ``Unknown instruction: `get 6'. ''
 \end{frame}
 
 \begin{frame}
-\frametitle{Code Blocks}
+\frametitle{Flow Control}
 \begin{itemize}
-\item A \textit{block} is a set of instructions which are, for some reason, grouped together
-\item If a single condition controls multiple instructions they can go together in a block
+\item Instructions in an algorithm execute in an ordered list
+	\begin{itemize}
+		\item ie: top to bottom
+	\end{itemize}
+\item Flow Control is any algorithmic mechanism which changes the default ``top to bottom'' execution behaviour
+\item We will discuss IF statements and \textit{loops}
+\item Flow control (almost) always requires a \textit{condition}
 \end{itemize}
 \end{frame}
 
@@ -165,14 +186,95 @@ The robot replies: ``Unknown instruction: `get 6'. ''
 		\item \texttt{i} is less than 184
 		\item \texttt{x} plus \texttt{y} is not equal to zero
 		\item Input data has been given to the program
-		\item A division by zero occurred
+		\item A division by zero has occurred
 	\end{itemize}
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{IF ... ENDIF and IF ... ELSEIF}
+\begin{frame}[fragile]
+\frametitle{Code Blocks}
+\begin{itemize}
+\item A \textit{block} is a set of instructions which are, for some reason, grouped together
+\item If a single condition controls multiple instructions they can go together in a block
+\item A block is typically indicated via indentation
+\item Eg:
+\begin{lstlisting}[style=pseudo]
+IF it is raining
+	Pack an umbrella
+	Drive to campus instead of walking
+	Leave home 40mins early to find parking
+ENDIF
+\end{lstlisting}
+\end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{IF Variants}
+\begin{itemize}
+\item There are several versions of IF flow control:
+	\begin{itemize}
+		\item IF ... ENDIF
+		\item IF ... ELSE ... ENDIF
+		\item IF ... ELSEIF ... ENDIF
+	\end{itemize}
+\item The IF and ELSEIF keywords indicate conditions
+\item The ELSE keyword is \textit{unconditional}
+\item Which one you choose depends on need
+	\begin{itemize}
+		\item Is there one thing which is conditional?
+		\item Do I need to make a choice between two or more options?
+		\item Could nothing be executed?
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{IF Statement Syntax}
+\begin{multicols}{2}
+\begin{itemize}
+\footnotesize{
+\item The IF ... ENDIF syntax is:
+\begin{lstlisting}[style=pseudo]
+IF condition
+	do some things
+ENDIF
+\end{lstlisting}
+
+\item Likewise: IF ... ELSEIF ... ENDIF syntax is:
+\begin{lstlisting}[style=pseudo]
+IF condition1
+	do some things
+ELSEIF condition2
+	do other things
+ENDIF
+\end{lstlisting}
+\columnbreak
+\item And finally:
+\begin{lstlisting}[style=pseudo]
+IF condition
+	do some things
+ELSE
+	do some things
+ENDIF
+\end{lstlisting}
+}
+\end{itemize}
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{IF ... ELSEIF}
+\begin{itemize}
+\item The IF ... ELSEIF construct can have multiple ELSEIF sections
+\item A \textit{crucial} point:
+	\begin{itemize}
+		\item Conditions are only tested \textit{if the previous ones fail}
+		\item Once a condition is TRUE the others are ignored
+		\item ie: IF - ELSE implements a choice priority
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
 
 \begin{frame} % Quadratic root finding intro
 \frametitle{Algorithm Example 3 - Quadratic Root Finding}
@@ -209,25 +311,24 @@ lets write an algorithm which provides real valued solutions to a quadratic equa
 \begin{frame}[fragile] % Quadratic root finding algorithm
 \frametitle{Algorithm Example 3 - Quadratic Root Finding}
 \begin{columns}
-\column{1.5in}
-{\footnotesize
-\texttt{
-BEGIN\\
-\quad  $D = b^2 - 4 a c$\\
-\quad	IF $D < 0$\\
-\quad\quad		$N = 0$\\
-\quad	ELSE IF $D = 0$\\
-\quad\quad		$N = 1$\\
-\quad\quad		$x_1 = \frac{-b}{2a}$\\
-\quad	ELSE IF $D > 0$\\
-\quad\quad		$N = 2$\\
-\quad\quad		$x_1 = \frac{-b + \sqrt{D}}{2a}$\\
-\quad\quad		$x_2 = \frac{-b - \sqrt{D}}{2a}$\\
-\quad	ENDIF\\
-END\\
-}
-}
-\column{3in}
+\column{2in}
+\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	D = b^2 - 4ac
+	IF D < 0
+		N = 0
+	ELSEIF D = 0
+		N = 1
+		x1 = -b/(2a)
+	ELSEIF D > 0
+		N = 2
+		x1 = (-b + sqrt(D))/(2a)
+		x2 = (-b - sqrt(D))/(2a)
+	ENDIF
+END
+\end{lstlisting}
+\column{2.5in}
+\footnotesize{
 \begin{itemize}
 \item Reasonably formal pseudocode
 \item The IF ... ELSE IF flow control construct forces exclusive execution of only \textit{one} block
@@ -235,6 +336,7 @@ END\\
 \item Subsequent blocks ignored
 \item Contains 3 \textit{conditions}
 \end{itemize}
+}
 \end{columns}
 \end{frame}
 
@@ -293,14 +395,14 @@ END\\
 \begin{frame} % Boolean Operators
 \frametitle{Boolean Operators}
 \begin{itemize}
-\item Observe that OR and AND are \textit{binary} operators
+\item OR and AND are \textit{binary} operators
 	\begin{itemize}
 		\item They operate on two operands
 		\item From Latin ``bini'' meaning ``two together''
 	\end{itemize}
-\item The NOT operator is \textit{unitary}
+\item The NOT operator is \textit{unary}
 	\begin{itemize}
-		\item ie: it only operates on \textit{one} operand
+		\item It only operates on \textit{one} operand
 		\item NB: The operand could be a single variable or complex expression
 	\end{itemize}
 \item NOT performs a logical inversion
@@ -339,6 +441,23 @@ Evaluation of this series needs two things:
 \end{enumerate}
 }
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Factorial}
+\begin{itemize}
+\item Do we know what factorials are?
+\item The product of an integer and all the integers between it and 1
+\item Notation in \textit{mathematics} is the ! symbol
+	\begin{itemize}
+		\item eg: $4! = 4\times 3\times 2\times 1 = 24$
+	\end{itemize}
+\item \textbf{NB:} C uses ! for Boolean NOT
+	\begin{itemize}
+		\item C does not have a factorial operator
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{Algorithm Example 4 - Boolean Conditions}
 {\small
@@ -347,9 +466,9 @@ Evaluation of this series needs two things:
   \setlength{\parskip}{0pt}
   \setlength{\parsep}{0pt}
 	\item Computers can't count to infinity, we need to know when to stop
-	\item Computers have limited precision, around $10^{-16}$ is typical
+	\item Computers have limited precision, 16 significant figures is typical
 	\item Observe that as $k$ increases in Equation \ref{eq:cosseries} the denominator increases \textit{really fast} (4!=24, 10!=3628800)
-	\item This implies that the value of $\frac{(-1)^k x^{2k}}{(2k)}!$ tends to drop as $k$ increases
+	\item This implies that the value of $\frac{(-1)^k x^{2k}}{(2k)!}$ tends to drop as $k$ increases
 	\item Therefore, we can add terms until they are ``too small''
 	\item A maximum value of $k$ can also be specified for safety 
 \end{itemize}
@@ -382,44 +501,167 @@ Evaluation of this series needs two things:
 
 \begin{frame}[fragile]
 \frametitle{Algorithm Example 4 - Boolean Conditions}
-\begin{columns}
-\column{2.9in}
-{\small
-\texttt{
- BEGIN\\
-\quad tmp = 1\\
-\quad k = 0\\
-\quad WHILE (k<10) AND (tmp>1e-6)\\
-\quad \quad $tmp = \frac{(-1)^k x^{2k}}{(2k)!}$\\
-\quad \quad $x = x + tmp$\\
-\quad \quad $k = k + 1$\\
-\quad ENDWHILE \\
- END \\
-}
-}
-\column{2in}
 \begin{itemize}
 \item The \textit{while} loop repeats a block of steps until the \textit{condition} becomes false.
-\item We loop until 10 \textit{iterations} have occurred OR a precision limit is reached
+
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT x
+	tmp = 1
+	k = 0
+	sum = 0
+	WHILE (k<10) AND (tmp>1e-6)
+		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
+		sum = sum + tmp
+		k = k + 1
+	ENDWHILE 
+END
+\end{lstlisting}
+
+\item Here it loops until 10 \textit{iterations} have occurred OR a precision limit is reached
 \end{itemize}
-\end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{Loop Details}
-WHILE condition tested before "entering" loop
-Tested before every repeat
-Variables in the condition should change inside the loop
+\begin{itemize}
+\item WHILE conditions are tested before "entering"
+\item The condition is tested before every repeat
+\item Variables in the condition should change inside the loop
+	\begin{itemize}
+		\item Try to avoid infinite loops \textit{unless you want one}
+	\end{itemize}
+\item What if we want to force the loop to execute \textit{at least once}?
+\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{DO ... WHILE}
-Same as WHILE except executes at least once
+\begin{itemize}
+\item Same as WHILE except executes \textit{at least once}
+\item The condition is tested at the end
+\item Loops repeats if condition is TRUE
+\item Syntax:
+\begin{lstlisting}[style=pseudo]
+DO
+	stuff
+WHILE condition
+\end{lstlisting}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops}
+\begin{itemize}
+\item A FOR loop executes a given number of times
+\item Used when the number of loop repeats is known \textit{before} entering the loop
+	\begin{itemize}
+		\item Repeat count could be ``hard coded'' as a number
+		\item Could also be a variable
+	\end{itemize}
+\item Can be easier to read than WHILE
+\item Example pseudocode syntax:
+\begin{lstlisting}[style=pseudo]
+FOR x = 1 to 10
+	Do something ten times
+ENDFOR
+\end{lstlisting}
+\item The \textit{loop variable} is automatically incremented
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{FOR Loops}
-Used when the number of loop repeats is known before entering the loop
+\frametitle{BREAK Statements}
+\begin{itemize}
+\item Sometimes you want to exit a loop \textit{before} the condition is re-tested
+\item The flow-control mechanism for this is a BREAK statement
+\item If executed, the loop quits
+\item BREAKs typically go inside an IF to control their execution
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Example 1}
+\begin{itemize}
+\item Two equivalent ways to implement the $\cos()$ series from before are:
+\end{itemize}
+\begin{multicols}{2}
+\begin{lstlisting}[style=pseudo,mathescape=true]
+BEGIN
+	INPUT x
+	sum = 0
+	FOR k = 0 to 10
+		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
+		sum = sum + tmp
+		IF tmp < 1e-6
+			BREAK
+		ENDIF
+	ENDWHILE 
+END
+\end{lstlisting}
+\columnbreak
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT x
+	tmp = 1
+	k = 0
+	sum = 0
+	WHILE (k<10) AND (tmp>1e-6)
+		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
+		sum = sum + tmp
+		k = k + 1
+	ENDWHILE 
+END
+\end{lstlisting}
+\end{multicols}
+\end{frame}
+
+\begin{frame}
+\frametitle{GOTO}
+\begin{itemize}
+\item There exists a GOTO flow control mechanism
+	\begin{itemize}
+		\item Sometimes also called a \textit{branch}
+	\end{itemize}
+\item It ``jumps'' from one line to a different line
+\item It exists for a purpose
+\item That purpose does not (typically) exist when writing C code
+	\begin{itemize}
+		\item C \textit{supports} a \texttt{goto} statement
+		\item It results in ``spaghetti code'' which is hard to read
+		\item Don't use it in ENGG1003
+	\end{itemize}
+\item You \textit{can} use GOTO in ELEC1710
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Example 2 - Factorials}
+\begin{itemize}
+\item Use FOR to count from 2 to our input number
+\item Keep a running product as we go
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	INPUT x
+	result = 1
+	FOR k = 2 TO x
+		result = result * k
+	ENDFOR
+END
+\end{lstlisting}
+\item Is this algorithm robust? What happens if:
+	\begin{itemize}
+		\item x = -1
+		\item x = 1
+		\item x = 0 (\textbf{NB:} 0! = 1 because \textit{maths})
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\centering
+Lets end with a \underline{\href{https://twitter.com/brenankeller/status/1068615953989087232?lang=en}{joke}}
 \end{frame}
 
 \if false
