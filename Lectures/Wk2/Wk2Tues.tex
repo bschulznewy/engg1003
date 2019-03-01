@@ -1050,12 +1050,12 @@ produces a \textit{good enough} random number between zero and \texttt{RANGE}
 \item Using the above information, we can roll a standard die with:
 \begin{lstlisting}[style=CStyle]
 int dieRoll;
-dieRoll = rand() % 7;
+dieRoll = (rand() % 6) + 1;
 \end{lstlisting}
 \item Or, if you're a D\&D fan, roll a D20 with:
 \begin{lstlisting}[style=CStyle]
 int D20Roll;
-D20Roll = rand() % 21;
+D20Roll = (rand() % 20) + 1;
 \end{lstlisting}
 \end{itemize}
 \end{frame}

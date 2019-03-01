@@ -8,7 +8,7 @@
 \addtolength{\oddsidemargin}{-.4in}
 \addtolength{\evensidemargin}{-.4in}
 
-\title{ENGG1003 - Lab 2}
+\title{ENGG1003 - Lab 2 (And Beyond)}
 \author{Brenton Schulz}
 \date{\today}
 
@@ -17,14 +17,67 @@
 
 \section{Introduction}
 
-This lab leaves you to perform a series of programming exercises on your own. This can be daunting at first but confidence and perseverance will be crucial skills.
+This set of programming exercises leaves you to perform a series of tasks on your own. This can be daunting at first, but your ability to remain resolute and resourceful in an atmosphere of extreme pessimism\footnote{Yes, this is a reference to the computer game Portal.} will be a useful skill when studying Engineering\footnote{Talk to your demonstrators about how true this is. I write it only partially in jest. I've found it a necessary skill for \textit{life}.}. (In truth, I hope you don't find it \textit{that} hard and that you gain satisfaction and confidence from getting programs to work).
 
 The example tasks are mostly ``toy'' programs. They don't do anything particularly useful because most ``real-world'' problems are too advanced for this stage of the course. Things will get more interesting in the coming weeks (I hope...).
 
-Do not expect programs to compile (let alone \textit{work}) first go. It is totally normal, even for experienced programmers, for several lines of hand typed code to generate several errors the first time it is compiled.
+Do not expect programs to compile (let alone \textit{work}) first go. It is totally normal, even for experienced programmers, for multiple lines of hand typed code to generate several errors the first time compilation is attempted. You will then find \textit{more} errors when they are executed and found to produce the wrong output.
 
-You will gain experience interpreting the error messages, typically it will be a syntax error due to a missing parenthesis, semicolon, or double quote. Don't be afraid to ask for help and work with other students in the lab.
+In time you will learn to interpret and deal with error messages quickly. Typically they will be a syntax error due to a missing parenthesis, semicolon, or double quote. Don't be afraid to ask for help from demonstrators and work with other students in the lab.
 
+In short: all of your time spent programming will be fixing problems because as soon as all the (known) problems are fixed you stop programming and ship the software to your customer.
+
+Generally speaking, the development process follows repeated application of the following steps:
+
+\begin{enumerate}
+\item Make a code change
+\item Compile
+\item Fix compile errors, repeat until code compiles
+\item Test program with known correct input-output data
+\item Repeat whole process until correct output is generated for multiple test inputs
+\end{enumerate}
+
+I don't know how long these problems will take you to complete. With some adjustments, this may become a problem set for weeks 2 and 3.
+\pagebreak
+\section{Getting Started Questions}
+
+Run though these questions quickly and ask your demonstrator if any appear confusing. These all cover basic fundamentals required to complete the lab.
+
+\begin{enumerate}
+\item Write a \texttt{printf();} statement which takes an integer variable \texttt{counter} and prints \texttt{The value of counter is 123} to the screen (with 123 replaced with the actual value).
+\item A variable is required which stores integers with a maximum possible value of ten billion. What C data type is required?
+\item A variable is required to store a real number with 10 significant figures. What C data type is required?
+\item Write C code which implements the following pseudocode:
+\begin{lstlisting}[style=pseudo]
+IF x is not equal to zero
+	decrement x
+ENDIF
+\end{lstlisting}
+In C, decrement implies a reduction of magnitude by 1.
+\item Write C code which implements the following pseudocode:
+\begin{lstlisting}[style=pseudo]
+WHILE x is greater than 1
+	y = y*x;
+	x = x-1;
+ENDWHILE
+\end{lstlisting}
+\item Write C code which implements the following pseudocode:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	integer result
+	READ x from the console
+	IF x is zero
+		result = -1
+	ELSEIF x is -1
+		result = 0
+	ELSE
+		result = 1
+	ENDIF
+END
+\end{lstlisting}
+\end{enumerate}
+
+\pagebreak
 \section{Input-Processing-Output Exercises}
 
 These exercises all require the use of \texttt{scanf();} to read data, some arithmetic to process data, and \texttt{printf();} to print results to the console.
@@ -101,6 +154,45 @@ Test your program given that the variance of the set (1, 2, 3, 4) = 1.6667
 
 \end{task}
 
+\begin{task}{Linear Interpolation}{}
+There are many instances in science and engineering when data needs to be \textit{interpolated}. This is the process of predicting a quantity's value at a point in time (or space) where a measurement doesn't exist. The value at the unknown point needs to be interpolated (predicted) from data nearby.
+\\ \\
+In this task you will be using the \textit{two-point formula} (you saw this in high school, right?) to interpolate between two data points. You can imaging these data points to be measurements of temperature / brightness / sound intensity / pressure / etc as a function of time.\\ \\
+The two-point formula states the equation of a line passing through two points $(x_1, y_1)$ and $(x_2, y_2)$ is:
+\begin{equation}
+y = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1) + y_1.
+\end{equation}
+The value of $y$ at some given $x$ can then be estimated. For the purposes of interpolation $x$ will always be in between the given data points. ie, assuming $x_2 > x_1$:
+\begin{equation}
+x_2 > x > x_1.
+\end{equation}
+Note that $y$ is only an \textit{estimate} of the true value. You will often see this notated as $\hat{y}$, especially in statistics.
+\\ \\
+\textbf{Task:} Write a C program which implements the following pseudocode:
+\begin{lstlisting}[style=CStyle]
+BEGIN
+	READ x1 and y1 from the console
+	READ x2 and y2 from the console
+	READ a point x from the console
+	Estimate the value of y at x using linear interpolation
+	PRINT y
+END
+\end{lstlisting}
+To understand this problem you will find it useful to draw some sketches. Draw an x-y axis, dot two points, draw a line between them. If you pick two neat integer points (eg: 0,0 and 5,5) then the linear interpolation will be easy to see by eye.
+\\ \\
+Program implementation notes:
+\begin{itemize}[itemsep=1mm]
+\item Reading a pair of points can be done with:
+\begin{lstlisting}[style=CStyle]
+float x1, y1;
+printf("Enter point 1: ");
+scanf("%f %f", &x1, &y1);
+\end{lstlisting}
+you would then type two numbers into the console, separated by a space, and press enter.
+\item Keep all variables as \texttt{float} or \texttt{double}. It doesn't \textit{really} matter which, just be consistent.
+\end{itemize}
+\end{task}
+
 \pagebreak
 \section{Flow Control Exercises}
 
@@ -153,7 +245,65 @@ return 0;
 \end{itemize}
 \end{task}
 
-\begin{task}{Square Root Evaluation}{}
+\begin{task}{Rolling Dice}{}
+Using the \texttt{rand();} function, write a C program which estimates the probability that, when two dice are thrown, at least of the dice rolled a 3. This can be done with the following algorithm:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	counter = 0;
+	aThreeHappened = 0
+	WHILE counter < 1000
+		a = random number between 1 and 6
+		b = random number between 1 and 6
+		IF (a == 3) OR (b == 3)
+			aThreeHappened = aThreeHappened + 1
+		END
+		counter = counter + 1
+	ENDWHILE
+	PRINT aThreehappened / counter
+END
+\end{lstlisting}
+
+The theoretical value is $\frac{11}{36} = 0.3055$
+\\ \\
+Generation of a random number between 1 and 6 can be done with:
+\begin{lstlisting}[style=CStyle]
+#include <stdlib.h> // At top of code listing
+...
+a = (rand() % 6) + 1;
+\end{lstlisting}
+
+\end{task}
+
+\begin{task}{Calculating Pi}{}
+Implement the $\pi$ calculation algorithm talked about during lectures. The pseudocode is:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+        integer countTotal = 0
+        integer countInside = 0
+        WHILE countTotal < A large number
+                x = random number between 0 and 1
+                y = random number between 0 and 1
+                countTotal = countTotal + 1
+                IF x*x + y*y < 1
+                        countInside = countInside + 1
+                ENDIF
+        ENDWHILE
+        pi = 4*countInside/countTotal
+        PRINT pi
+END
+\end{lstlisting}
+Remember\footnote{Hopefully this is ``remember'' and not ``I didn't get time to cover this yet''.} that a random number can be created with the \texttt{rand();} library function. To use it be sure to add \texttt{\#include $<$stdlib.h$>$} to the top of your source code.
+\\ \\
+A number between 0 and 1 can then be generated with:
+\begin{lstlisting}[style=CStyle]
+float x;
+x = (float)rand()/RAND_MAX;
+\end{lstlisting}
+
+\textbf{NB:} If running this on OnlineGDB use a ``small'' value for the maximum loop count. Try one million, if this takes longer than around 10 seconds to execute use a smaller value. You are occupying OnlineGDB's shared CPU resources when running this program.
+\end{task}
+
+\begin{task}{Calculating Square Roots}{}
 The square root of a number, $x = \sqrt{n}$, can be calculated with the iterative formula:
 \begin{equation}
 x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
@@ -165,13 +315,13 @@ The choice of $x_0$ is somewhat arbitrary, the algorithm should converge given a
 The algorithm will require a loop. The exit condition could be one of several choices. In order of difficulty:
 \begin{enumerate}
 \item Exit after a fixed number of iterations (eg: 10)
-\item Exit when $\left| x_k - x_{k-1} \right| < e$ where $e$ is some pre-defined precision
+\item Exit when $\left| x_k - x_{k-1} \right| < e$ where $e$ is some pre-defined precision of your choosing
 \item Exit when either of the above conditions are met
 \end{enumerate}
 
 To calculate precision you will need to explicitly save $x_k$ and $x_{k-1}$ in different variables.
 \\ \\
-\textbf{Hint:} You can place \texttt{printf();} statements inside the loop to help you debug. Calculate a particular value (eg: $\sqrt{2}$) by hand with a known $x_0$ so that you can compare your program's output with a known correct output.
+\textbf{Hint:} You can place \texttt{printf();} statements inside the loop to help you debug. Calculate the series of $x_n$'s for a particular value (eg: $\sqrt{2}=1.4142$) by hand (with the same value for $x_0$) so that you can compare your program's output with an output you have confidence in.
 \end{task}
 
 \begin{task}{Quadratic Equation Analysis}{}
@@ -182,7 +332,7 @@ BEGIN
 	D = b^2 - 4ac
 	IF D < 0
 		 N = 0
-	ELSEIF D = 0
+	ELSEIF D == 0
 		N = 1
 		x1 = -b/(2a)
 	ELSEIF D > 0
@@ -199,30 +349,91 @@ END
 \textbf{Advanced:} Using the square root algorithm coded previously, implement the full quadratic equation solution algorithm.
 \end{task}
 
-\begin{task}{Mandelbrot Set - Advanced}{}
-\textit{This problem is presented for students interested in mathematics. It may take several lab sessions to correctly implement this task. If you do not understand anything here, do not be troubled. The mathematics is beyond the scope of ENGG1003.} \\ \\
+\pagebreak
+\section{Mandelbrot Set - Advanced}
+\textit{This problem is presented for students interested in mathematics. It may take several lab sessions to correctly implement this task. If you do not understand anything here, do not be troubled, do not feel the need to attempt this task. The mathematics is beyond the scope of ENGG1003.} \\ \\
+\textit{Demonstrators are not to help you solve this problem. It is intended for students who have advanced beyond expectations, doing it alone is part of the challenge.}\\
 
-The \textit{Mandelbrot set} is the set of all complex numbers, $C$, which can be iterated with the formula:
+A complex number, $C$, exists within the \textit{Mandelbrot set} if, when iterated with the formula:
 
 \begin{equation}
-z_{n+1} = z^2 + C
+z_{n+1} = z^2_n + C,
 \end{equation}
 
-and initial condition $z_0 = 0$ and have the value of $z_n$ stay bounded (ie: not ``blowing off to infinity'') as $n$ becomes ``very large''. Its calculation can be used to create \underline{\href{https://www.google.com.au/search?q=mandelbrot+set}{mathematical artwork}}.
+with initial condition $z_0 = 0$, the value of $\left|z_n\right|$ stays bounded (ie: doesn't ``blow off to infinity'') as $n$ becomes ``very large''. It's calculation can be used to create \underline{\href{https://www.google.com.au/search?q=mandelbrot+set}{mathematical artwork}}. Hanging in my office is a piece of art known as a \underline{\href{https://www.google.com.au/search?q=buddahbrot}{Buddahbrot}}. Calculation took several days on an R9 270X gaming graphics card. Come check it out some time. I have an unhealthy love of this branch of mathematics.
 \\ \\
-\textbf{Task:} Write a C program which tests a given point $C$ for inclusion in the Mandelbrot set.
-\\ \\
-To do this you will be need to know that:
+Purely real examples:
 \begin{itemize}
-\item $z$ and $C$ are complex numbers with real and imaginary parts
-\item We will use the notation: \\
-$z = x + iy$ \\
-$C = x_0 + iy_0$
-\item Using rules of complex arithmetic it can be shown that: \\
-$z^2 + C= x^2 + i2xy - y^2 + x_0 + iy_0$
-\item In 
+\item $C = 0.1$ is \textit{inside} the Mandelbrot set, as:
+\begin{align}
+z_1 &= 0 + 0.1 \\
+z_2 &= 0.1^2 + 0.1 = 0.11 \\
+z_3 &= 0.11^2 + 0.1 = 0.1121 \\
+... \\
+z_{14} &= 0.112701665^2 + 0.1 = 0.112701665 \\
+Z_{15} &= 0.112701665^2 + 0.1 = 0.112701665 
+\end{align}
+...and it just sits at 0.112701665 forever.
+\item $C = 1$ is \textit{outside} the Mandelbrot set, as:
+\begin{align}
+z_1 &= 0 + 1 \\
+z_2 &= 1^2 + 1 = 2 \\
+z_3 &= 2^2 + 1 = 5 \\
+z_4 &= 5^2 + 1 = 26 \\
+z_5 &= 26^2 + 1 = 677 \\
+... \\
+z_{11} &= (3.79 \times 10^{90})^2 + 1 = 1.4 \times 10^{181}
+\end{align}
+...and it just keeps getting bigger. Fast.
 \end{itemize}
+
+\begin{task}{}{} Write a C program which tests a \textit{single} point, $C$, for inclusion in the Mandelbrot set. In the future your code can be expanded to draw an image.
 \end{task}
+
+To do this you will be need to know that:
+\begin{itemize}[itemsep=0mm]
+\item $z$ and $C$ are complex numbers with real and imaginary parts
+
+\item Introducing some notation:
+\begin{align}
+z_n &= x_n + iy_n \\
+C &= x_0 + iy_0
+\end{align}
+Where $x$ denotes a real part and $y$ the imaginary.
+\item Using rules of complex arithmetic it can be shown that:
+\begin{align}
+z_{n+1} &= z^2_{n} + C \\
+&= x^2_n + i2x_ny_n - y^2_n + x_0 + iy_0
+\end{align}
+\item To evaluate this on a computer which only deals with \textit{real} numbers it has to be split into real and imaginary parts:
+\begin{align}
+Re(z_{n+1}) = x_{n+1} &= x^2_n - y^2_n + x_0\\
+Im(z_{n+1}) = y_{n+1} &= 2x_ny_n + y_0
+\end{align}
+\item A complex number's norm (or absolute value, informally its ``size'') can be calculated as:
+\begin{equation}
+\left|z\right| = \sqrt{x^2 + y^2}
+\end{equation}
+and is needed to test if $z_n$ is getting ``too big''. For this problem, ``too big'' is typically defined as ``outside a circle of radius 2''. To avoid having to calculate the square root (which can be slow) you can take the so-called \textit{escape condition} as:
+\begin{equation}
+x^2 + y^2 > 4
+\end{equation}
+In code, this will go inside a loop's exit condition. Either as a ``NOT (x*x+y*y $>$ 4)'' or, more simply, ``x*x + y*y $<$ 4'' as loop conditions need to remain TRUE for the loop to continue.
+\item The loop which implements the iterative equation need to keep track of the iteration count but does \textit{not} need to record a full history of $z_n$'s. You only need the ''next'' and ''current' values of $x_n$ and $y_n$. At some point an assignment causes the ``next'' to become the ``current''.
+\item An \textit{iteration limit} needs to be set. A point, $C$, is considered ``inside'' the set if the iteration limit is hit without $\left|z_n\right|$ exceeding $2$.
+\item If $\left|z_n\right| > 2$ before the iteration limit is hit the point, $C$, is inside the Mandelbrot set
+\item Full, somewhat optimised, pseudocode for this problem can be found on \underline{\href{https://en.wikipedia.org/wiki/Mandelbrot_set}{Wikipedia}}. Independent research may be required to implement this problem.
+\item For testing purposes here are some test points with an iteration limit of 1000:
+	\begin{itemize}
+		\item $C = 0 + i0$ takes 1000 iterations
+		\item $C = 0.5 + i0$ takes 4 iterations
+		\item $C = 0.4 +i0.1$ takes 7 iterations
+		\item $C = 0.38 +i0.1$ takes 35 iterations
+		\item $C = -0.38 +i0.1$ takes 1000 iterations
+		\item If all these test points take an iteration count which is offset by 1 from my solution your code is probably fine. This kind of error happens all the time due to $<$ Vs $<=$ and the like.
+	\end{itemize}
+\end{itemize}
+
 
 \pagebreak 
 \section{C Summary}

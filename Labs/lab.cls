@@ -273,7 +273,7 @@
 \lstdefinestyle{pseudo}{
 	basicstyle=\ttfamily,
 	keywordstyle=\color{lightBlue},
-	morekeywords={BEGIN,END,IF,ELSE,ENDIF,PRINT,WHILE,ENDWHILE,RETURN,DO,FOR,IN,ENDFOR,BREAK,INPUT,TO},
+	morekeywords={BEGIN,END,IF,ELSE,ELSEIF,ENDIF,PRINT,WHILE,ENDWHILE,RETURN,DO,FOR,IN,ENDFOR,BREAK,INPUT,TO,READ},
 	morecomment=[l]{//},
 	commentstyle=\color{mGreen}
 }
