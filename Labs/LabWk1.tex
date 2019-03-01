@@ -532,16 +532,32 @@ If you would like to use the Ubuntu virtual machine follow the instructions in S
 
 \subsection{Getting started with C in MacOS}
 
-I've never used a Mac but under the hood they are very similar to Linux (mostly the same command line, both Unix variants) so \texttt{gcc} should run fine...right??
+\textbf{Update March 1st}: A student has advised me that the 3rd party package manager ``Homebrew'' can be used to install Gcc on macOS. To do so:
 
-Since I don't know what I'm doing here instructions are outsourced to this StackOverflow thread: \url{https://stackoverflow.com/questions/9353444/how-to-use-install-gcc-on-mac-os-x-10-8-xcode-4-4}
+\begin{enumerate}
+\item Navigate to \href{https://brew.sh}{brew.sh} and observe the ``Install Homebrew'' section
+\item Copy and paste this command into a terminal:
 
-If in doubt, run the Ubuntu virtual machine from Section \ref{sec:virtualbox}.
+\footnotesize{\texttt{/usr/bin/ruby -e "\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"}}
 
-Instructions which appear to explain how to install VirtualBox on a Mac can be found here: \url{https://matthewpalmer.net/blog/2017/12/10/install-virtualbox-mac-high-sierra/index.html}.
+\normalsize
+
+\item After installation has finished, type the following to install gcc:
+
+\texttt{brew install gcc}
+
+\item If you wish to use Gedit to edit C files you can install that too:
+
+\texttt{brew install gedit}
+
+\item C programs can then be written, compiled, and executed as per the instructions in Section \ref{sec:ubuntu}
+
+\end{enumerate}
+
+The old instructions have been removed. You can find them in the \underline{\href{https://github.com/bschulznewy/engg1003/blob/dbd720e795fd030cd5e044b95b879bd406fd9702/Labs/LabWk1.pdf}{Github}} history.
 
 \pagebreak
-\subsection{Getting started with C in Ubuntu Linux}
+\subsection{Getting started with C in Ubuntu Linux}\label{sec:ubuntu}
 
 Desktop Linux is not supported by university IT but, personally, I find it to be a fantastic development platform. The following instructions are completely optional, only do this if you are keen to learn.
 
