@@ -17,7 +17,7 @@
 
 \section{Introduction}
 
-This set of programming exercises leaves you to perform a series of tasks on your own. This can be daunting at first, but your ability to remain resolute and resourceful in an atmosphere of extreme pessimism\footnote{Yes, this is a reference to the computer game Portal.} will be a useful skill when studying Engineering\footnote{Talk to your demonstrators about how true this is. I write it only partially in jest. I've found it a necessary skill for \textit{life}.}. (In truth, I hope you don't find it \textit{that} hard and that you gain satisfaction and confidence from getting programs to work).
+This set of programming exercises leaves you to perform a series of tasks on your own. This can be daunting at first, but your ability to remain resolute and resourceful in an atmosphere of extreme pessimism\footnote{Yes, this is a reference to the computer game Portal.} will be a useful skill when studying Engineering\footnote{Talk to your demonstrators about how true this is. I write it only partially in jest. I've found it a necessary skill for \textit{life}.}. %(In truth, I hope you don't find it \textit{that} hard and that you gain satisfaction and confidence from getting programs to work).
 
 The example tasks are mostly ``toy'' programs. They don't do anything particularly useful because most ``real-world'' problems are too advanced for this stage of the course. Things will get more interesting in the coming weeks (I hope...).
 
@@ -41,10 +41,34 @@ I don't know how long these problems will take you to complete. With some adjust
 \pagebreak
 \section{Getting Started Questions}
 
-Run though these questions quickly and ask your demonstrator if any appear confusing. These all cover basic fundamentals required to complete the lab.
+Run though these questions quickly and ask your demonstrator if any appear confusing. These all cover basic fundamentals required to complete the later problems.
 
 \begin{enumerate}
-\item Write a \texttt{printf();} statement which takes an integer variable \texttt{counter} and prints \texttt{The value of counter is 123} to the screen (with 123 replaced with the actual value).
+\item What are the values of \texttt{x, y, v,} and \texttt{z} at the end of this code?
+\begin{lstlisting}[style=CStyle]
+int x = 0;
+int y = 1;
+float v, z;
+x++;
+y = x*2;
+v = y/x; // NB: integer division
+z = (float)y/x; // Forced to floating point division
+\end{lstlisting}
+\item What is printed to the console if the user enters \texttt{13$<$enter$>$} in the console?
+\begin{lstlisting}[style=CStyle]
+int x;
+float k;
+printf("Enter a number: ")
+scanf("%f", &k);
+k = 1.43*k + 84;
+printf("%f\n", k);
+printf("%d\n", (int)k); // Integer truncation
+\end{lstlisting}
+\item Write a \texttt{printf();} statement which takes an integer variable \texttt{temp} and prints:
+
+\texttt{The temperature reading of 123 is dangerous}
+
+to the screen (with 123 replaced with the actual value).
 \item A variable is required which stores integers with a maximum possible value of ten billion. What C data type is required?
 \item A variable is required to store a real number with 10 significant figures. What C data type is required?
 \item Write C code which implements the following pseudocode:
@@ -685,7 +709,7 @@ To generate a random number between \texttt{0} and \texttt{MAX}:
 \begin{lstlisting}[style=CStyle]
 #include <stdlib.h> // For rand()
 // ...
-x = rand() % MAX;
+x = rand() % (MAX + 1);
 \end{lstlisting}
 
 For all work in this course you may assume that the above method works well enough.
