@@ -269,6 +269,34 @@ return 0;
 \end{itemize}
 \end{task}
 
+
+\begin{task}{Quadratic Equation Analysis}{}
+The Friday Week 1 lecture introduced the following pseudocode for solving quadratic equations:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	INPUT: a, b, c
+	D = b^2 - 4ac
+	IF D < 0
+		 N = 0
+	ELSEIF D == 0
+		N = 1
+		x1 = -b/(2a)
+	ELSEIF D > 0
+		N = 2
+		x1 = (-b + sqrt(D))/(2a)
+		x2 = (-b - sqrt(D))/(2a)
+	ENDIF
+	OUTPUT: N, x1, x2
+END
+\end{lstlisting}
+
+\textbf{Everyone:} Write a C program which takes the \texttt{a, b,} and \texttt{c} values and outputs the number of real valued solutions which exist (ie: 0, 1, or 2).
+\\ \\
+\textbf{Everyone:} Introduce a ``temporary'' variable (ie: short lived, one we stop caring about soon after it is used) which explicitly removes the requirement to calculate \texttt{sqrt(D)} twice.
+\\ \\
+\textbf{Advanced:} Using the square root algorithm coded previously, implement the full quadratic equation solution algorithm.
+\end{task}
+
 \begin{task}{Rolling Dice}{}
 Using the \texttt{rand();} function, write a C program which estimates the probability that, when two dice are thrown, at least of the dice rolled a 3. This can be done with the following algorithm:
 \begin{lstlisting}[style=pseudo]
@@ -348,30 +376,6 @@ To calculate precision you will need to explicitly save $x_k$ and $x_{k-1}$ in d
 \textbf{Hint:} You can place \texttt{printf();} statements inside the loop to help you debug. Calculate the series of $x_n$'s for a particular value (eg: $\sqrt{2}=1.4142$) by hand (with the same value for $x_0$) so that you can compare your program's output with an output you have confidence in.
 \end{task}
 
-\begin{task}{Quadratic Equation Analysis}{}
-The Friday Week 1 lecture introduced the following pseudocode for solving quadratic equations:
-\begin{lstlisting}[style=pseudo]
-BEGIN
-	INPUT: a, b, c
-	D = b^2 - 4ac
-	IF D < 0
-		 N = 0
-	ELSEIF D == 0
-		N = 1
-		x1 = -b/(2a)
-	ELSEIF D > 0
-		N = 2
-		x1 = (-b + sqrt(D))/(2a)
-		x2 = (-b - sqrt(D))/(2a)
-	ENDIF
-	OUTPUT: N, x1, x2
-END
-\end{lstlisting}
-
-\textbf{Everyone:} Write a C program which takes the \texttt{a, b,} and \texttt{c} values and outputs the number of real valued solutions which exist (ie: 0, 1, or 2).
-\\ \\
-\textbf{Advanced:} Using the square root algorithm coded previously, implement the full quadratic equation solution algorithm.
-\end{task}
 
 \pagebreak
 \section{Mandelbrot Set - Advanced}
