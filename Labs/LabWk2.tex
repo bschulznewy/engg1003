@@ -17,7 +17,7 @@
 
 \section{Introduction}
 
-This set of programming exercises leaves you to perform a series of tasks on your own. This can be daunting at first, but your ability to remain resolute and resourceful in an atmosphere of extreme pessimism\footnote{Yes, this is a reference to the computer game Portal.} will be a useful skill when studying Engineering\footnote{Talk to your demonstrators about how true this is. I write it only partially in jest. I've found it a necessary skill for \textit{life}.}. (In truth, I hope you don't find it \textit{that} hard and gain satisfaction and confidence from getting programs to work).
+This set of programming exercises leaves you to perform a series of tasks on your own. This can be daunting at first, but your ability to remain resolute and resourceful in an atmosphere of extreme pessimism\footnote{Yes, this is a reference to the computer game \textit{Portal} (2007).} will be a useful skill when studying Engineering\footnote{Talk to your demonstrators about how true this is. I write it only partially in jest. I've found it a necessary skill for \textit{life}.}. (In truth, I hope you don't find it \textit{that} hard and gain satisfaction and confidence from getting programs to work).
 
 The example tasks are mostly ``toy'' programs. They don't do anything particularly useful because most ``real-world'' problems are too advanced for this stage of the course. Things will get more interesting in the coming weeks (I hope...).
 
@@ -49,7 +49,7 @@ Run though these questions quickly and ask your demonstrator if any appear confu
 int x = 0;
 int y = 1;
 float v, z;
-x++;
+x=x+5;
 y = x*2;
 v = y/x; // NB: integer division
 z = (float)y/x; // Forced to floating point division
@@ -101,6 +101,60 @@ END
 \end{lstlisting}
 \end{enumerate}
 
+\section{Usage of \texttt{printf();} and \texttt{scanf();}}
+
+In previous examples you have (likely) only seen \texttt{printf();} and \texttt{scanf();} print and read one variable at a time, eg:
+
+\begin{lstlisting}[style=CStyle]
+scanf("%d", &y);
+printf("Number was: %d\n", k);
+\end{lstlisting}
+
+They can, however, be used to read or print arbitrarily many variables. To do this you:
+
+\begin{enumerate}
+\item Use multiple format specifiers (\texttt{\%d} and \texttt{\%f}) inside the \textit{format string}
+\item List multiple variables, separated by commas, after the format string
+\end{enumerate}
+
+The format string is everything between the pair of double quotes: \texttt{printf("This is the format string\textbackslash n")}.
+
+For example, to read three integers, \texttt{x, y,} and \texttt{z} from the console:
+
+\begin{lstlisting}[style=CStyle]
+int x,y,z; // This declares three int variables on one line
+scanf("%d %d %d", &x, &y, &z);
+\end{lstlisting}
+
+The integers you type need to be separated by spaces (note that spaces are present inside the format string) and \texttt{$<$enter$>$} typed to end the line. The \texttt{scanf();} function won't process any data until an end of line is reached. Note that the order is \textit{crucial}.
+
+The numbers you type will go into \texttt{x, y} and \texttt{z} in the the same order that the variable names are listed in \texttt{scanf();}.
+
+You don't \textit{need} to separate the integers with spaces, \texttt{scanf();} supports incredibly advanced ``pattern matching'' using a system known as \textit{\href{https://xkcd.com/208/}{regular expressions}}. If you want to learn regular expressions be my guest, but it is \textit{well} beyond the scope of ENGG1003.
+
+Note that the numbers don't all need to be integers. You can mix integers and, say, \texttt{double}s:
+
+\begin{lstlisting}[style=CStyle]
+int x,y; // This declares three int variables on one line
+double z;
+scanf("%d %d %f", &x, &y, &z);
+\end{lstlisting}
+
+Likewise, the \texttt{printf();} function can print multiple numbers in arbitrary locations. You can write a mixture of \texttt{\%d} and \texttt{\%f} anywhere inside the format string and values will be pulled from the list of variables in order.
+
+For example:
+
+\begin{lstlisting}[style=CStyle]
+int a = 1, b = 2;
+float c = 1.23;
+double d = 8.2;
+printf("%d is an integer, %d is an integer, have some more numbers: %f %f\n", a, b, c, d);
+\end{lstlisting}
+
+will print:
+
+\texttt{1 is an integer, 2 is an integer, have some more numbers: 1.23 8.2}
+
 \pagebreak
 \section{Input-Processing-Output Exercises}
 
@@ -126,17 +180,23 @@ The following template can be used for all these exercises:
 
 int main() {
 	// Declare the required variables 
+	// eg: int x; float y; etc	
 	
 	// Get input from the user
+	// eg: 	printf("Enter a number: ");
+	// 		scanf("%f", &y);	
 	
 	// Do the calculation
+	// x = ....whatever
 	
 	// Print result to user
-	
+	// eg: Printf("%d times %d is %d\n", x, y, z);
+		
 	return 0;
 }
 \end{lstlisting}
 
+\pagebreak
 \begin{task}{Temperature Conversion}{}
 The formula for converting temperatures in Farenheit, $F$ to Celsius, $C$, is:
 
@@ -178,10 +238,10 @@ Test your program given that the variance of the set (1, 2, 3, 4) = 1.6667
 \end{task}
 
 \begin{task}{Linear Interpolation}{}
-There are many instances in science and engineering when data needs to be \textit{interpolated}. This is the process of predicting a quantity's value at a point in time (or space) where a measurement doesn't exist. The value at the unknown point needs to be interpolated (predicted) from data nearby.
+There are many instances in science and engineering when data needs to be \textit{interpolated}. This is the process of predicting a quantity's value at a point in time (or space) where a measurement doesn't exist by estimating it from data nearby.
 \\ \\
 In this task you will be using the \textit{two-point formula} (you saw this in high school, right?) to interpolate between two data points. You can imaging these data points to be measurements of temperature / brightness / sound intensity / pressure / etc as a function of time.\\ \\
-The two-point formula states the equation of a line passing through two points $(x_1, y_1)$ and $(x_2, y_2)$ is:
+The two-point formula states that the equation of a line passing through two points $(x_1, y_1)$ and $(x_2, y_2)$ is:
 \begin{equation}
 y = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1) + y_1.
 \end{equation}
@@ -191,7 +251,7 @@ x_2 > x > x_1.
 \end{equation}
 Note that $y$ is only an \textit{estimate} of the true value. You will often see this notated as $\hat{y}$, especially in statistics.
 \\ \\
-\textbf{Task:} Write a C program which implements the following pseudocode:
+Given the above, write a C program which implements the following pseudocode:
 \begin{lstlisting}[style=CStyle]
 BEGIN
 	READ x1 and y1 from the console
@@ -201,7 +261,7 @@ BEGIN
 	PRINT y
 END
 \end{lstlisting}
-To understand this problem you will find it useful to draw some sketches. Draw an x-y axis, dot two points, draw a line between them. If you pick two neat integer points (eg: 0,0 and 5,5) then the linear interpolation will be easy to see by eye.
+To understand this problem you will find it useful to draw some sketches. Draw an x-y axis, dot two points and draw a line between them. If you pick two neat integer points (eg: 0,0 and 5,5) then the linear interpolation will be easy to see by eye.
 \\ \\
 Program implementation notes:
 \begin{itemize}[itemsep=1mm]
@@ -268,6 +328,27 @@ return 0;
 \end{itemize}
 \end{task}
 
+\begin{task}{Calculating Square Roots}{}
+The square root of a number, $x = \sqrt{n}$, can be calculated with the iterative formula:
+\begin{equation}\label{eq:sqrt}
+x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
+\end{equation}
+Implement an algorithm which uses this formula to calculate square roots of real numbers. The value of $n$ is to be read from the console with \texttt{scanf();} and the result printed with \texttt{printf();}.
+\\ \\
+The choice of $x_0$ is somewhat arbitrary, the algorithm should converge given any sane value (ie: not infinity), but will converge faster if $x_0$ is closer to the true value of $\sqrt{n}$. You may play with this value and observe any differences. Common choices would be setting it to $n$ or zero.
+\\ \\
+The algorithm will require a loop. The exit condition could be one of several choices. In order of difficulty:
+\begin{enumerate}
+\item Exit after a fixed number of iterations (eg: 10)
+\item Exit when $\left| x_k - x_{k-1} \right| < e$ where $e$ is some pre-defined precision of your choosing
+\item Exit when either of the above conditions are met
+\end{enumerate}
+
+To calculate precision you will need to explicitly save $x_k$ and $x_{k-1}$ in different variables.
+\\ \\
+\textbf{Hint:} You can place \texttt{printf();} statements inside the loop to help you debug. Calculate the series of $x_n$'s for a particular value (eg: $\sqrt{2}=1.4142$) by hand (with the same value for $x_0$) so that you can compare your program's output with an output you have confidence in.
+\end{task}\label{tsk:sqrt}
+
 \begin{task}{Quadratic Equation Analysis}{}
 The Friday Week 1 lecture introduced the following pseudocode for solving quadratic equations:
 \begin{lstlisting}[style=pseudo]
@@ -292,7 +373,68 @@ END
 \\ \\
 \textbf{Everyone:} Introduce a ``temporary'' variable (ie: short lived, one we stop caring about soon after it is used) which explicitly removes the requirement to calculate \texttt{sqrt(D)} twice.
 \\ \\
-\textbf{Advanced:} Using the square root algorithm documented below, implement the full quadratic equation solution algorithm.
+\textbf{Advanced:} Using the square root algorithm in Equation \ref{eq:sqrt}, implement the full quadratic equation solution algorithm.
+\end{task}
+
+\pagebreak
+\section{Random Numbers}
+
+The following tasks involve generating and using random numbers. The standard C library (glibc, in Linux and MinGW, provided by the \underline{\href{https://en.wikipedia.org/wiki/GNU_Project}{GNU project}}) contains a function called \texttt{rand();} which creates a random number between 0 and a constant called \texttt{RAND\_MAX}. In glibc \texttt{RAND\_MAX} is 2147483647, or the maximum value an \texttt{int} can store. It may vary between implementations (older systems may use 32767, for example).
+
+Because \texttt{rand();} is part of a ``library'' and not built into the C language you need to include a \textit{header file} which describes to the compiler what \texttt{rand();} is before it is used. To do this, type the following line at the top of your source listing (anywhere above \texttt{main()}):
+
+\begin{lstlisting}[style=CStyle]
+#include <stdlib.h>
+\end{lstlisting}
+
+The \texttt{rand();} function can then be included in your code. You can write it in all the same places that you would write a variable or literal. All of the following statements are valid:
+
+\begin{lstlisting}[style=CStyle]
+x = rand();
+y = 10 + rand() % 5;
+printf("A random number is: %d\n", rand() );
+\end{lstlisting}
+
+Generally you aren't after a random number between 0 and \texttt{RAND\_MAX}. To limit the rand of integers generated we can use the modulus (\texttt{\%}) operator. For the purposes of this course the following methods can be used to generate:
+
+\begin{itemize}
+\item A number between 0 and \texttt{MAX}:
+\begin{lstlisting}[style=CStyle]
+x = rand() % (MAX + 1);
+\end{lstlisting}
+
+\item A number between 1 and \texttt{MAX}:
+\begin{lstlisting}[style=CStyle]
+x = rand() % MAX + 1;
+\end{lstlisting}
+
+\item A floating point number between 0 and \texttt{MAX}:
+\begin{lstlisting}[style=CStyle]
+x = (float)rand()/RAND_MAX * MAX;
+\end{lstlisting}
+\textbf{NB:} \texttt{rand();} becomes an \texttt{int} so an explicit cast to \texttt{float} (or \texttt{double}) is required to avoid integer division errors.
+
+\end{itemize}
+
+\begin{task}{Rolling Dice}{}
+Using the \texttt{rand();} function, write a C program which estimates the probability that, when two dice are thrown, at least of the dice rolled a 3. This can be done with the following algorithm:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	counter = 0;
+	aThreeHappened = 0
+	WHILE counter < 1000
+		a = random number between 1 and 6
+		b = random number between 1 and 6
+		IF (a == 3) OR (b == 3)
+			aThreeHappened = aThreeHappened + 1
+		END
+		counter = counter + 1
+	ENDWHILE
+	PRINT aThreehappened / counter
+END
+\end{lstlisting}
+
+The theoretical value is $\frac{11}{36} = 0.3055$
 \end{task}
 
 \begin{task}{Arithmetic Tutor}{}
@@ -318,35 +460,8 @@ END
 \textbf{Extension 1:} Modify the algorithm so that it keeps generating problems until the user gets one wrong. (ie: Chuck a \texttt{while()} around the appropriate lines, create a variable which records if the answer was wrong or correct, and test that variable in the \texttt{while()} condition).
 \\ \\
 \textbf{Extension 2:} Add a variable which keeps score and prints the number of correctly answered questions on program exit.
-\end{task}
-
-\begin{task}{Rolling Dice}{}
-Using the \texttt{rand();} function, write a C program which estimates the probability that, when two dice are thrown, at least of the dice rolled a 3. This can be done with the following algorithm:
-\begin{lstlisting}[style=pseudo]
-BEGIN
-	counter = 0;
-	aThreeHappened = 0
-	WHILE counter < 1000
-		a = random number between 1 and 6
-		b = random number between 1 and 6
-		IF (a == 3) OR (b == 3)
-			aThreeHappened = aThreeHappened + 1
-		END
-		counter = counter + 1
-	ENDWHILE
-	PRINT aThreehappened / counter
-END
-\end{lstlisting}
-
-The theoretical value is $\frac{11}{36} = 0.3055$
 \\ \\
-Generation of a random number between 1 and 6 can be done with:
-\begin{lstlisting}[style=CStyle]
-#include <stdlib.h> // At top of code listing
-...
-a = (rand() % 6) + 1;
-\end{lstlisting}
-
+\textbf{Advanced:} Add a menu to the start of the program which allows the user to select between addition, subtraction, multiplication, and division. Implement integer division where the user must enter the result as quotient and remainder.
 \end{task}
 
 \begin{task}{Calculating Pi}{}
@@ -367,38 +482,8 @@ BEGIN
         PRINT pi
 END
 \end{lstlisting}
-Remember\footnote{Hopefully this is ``remember'' and not ``I didn't get time to cover this yet''.} that a random number can be created with the \texttt{rand();} library function. To use it be sure to add \texttt{\#include $<$stdlib.h$>$} to the top of your source code.
-\\ \\
-A number between 0 and 1 can then be generated with:
-\begin{lstlisting}[style=CStyle]
-float x;
-x = (float)rand()/RAND_MAX;
-\end{lstlisting}
-
 \textbf{NB:} If running this on OnlineGDB use a ``small'' value for the maximum loop count. Try one million, if this takes longer than around 10 seconds to execute use a smaller value. You are occupying OnlineGDB's shared CPU resources when running this program.
 \end{task}
-
-\begin{task}{Calculating Square Roots}{}
-The square root of a number, $x = \sqrt{n}$, can be calculated with the iterative formula:
-\begin{equation}
-x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
-\end{equation}
-Implement an algorithm which uses this formula to calculate square roots of real numbers. The value of $n$ is to be read from the console with \texttt{scanf();} and the result printed with \texttt{printf();}.
-\\ \\
-The choice of $x_0$ is somewhat arbitrary, the algorithm should converge given any sane value (ie: not infinity), but will converge faster if $x_0$ is closer to the true value of $\sqrt{n}$. You may play with this value and observe any differences. Common choices would be setting it to $n$ or zero.
-\\ \\
-The algorithm will require a loop. The exit condition could be one of several choices. In order of difficulty:
-\begin{enumerate}
-\item Exit after a fixed number of iterations (eg: 10)
-\item Exit when $\left| x_k - x_{k-1} \right| < e$ where $e$ is some pre-defined precision of your choosing
-\item Exit when either of the above conditions are met
-\end{enumerate}
-
-To calculate precision you will need to explicitly save $x_k$ and $x_{k-1}$ in different variables.
-\\ \\
-\textbf{Hint:} You can place \texttt{printf();} statements inside the loop to help you debug. Calculate the series of $x_n$'s for a particular value (eg: $\sqrt{2}=1.4142$) by hand (with the same value for $x_0$) so that you can compare your program's output with an output you have confidence in.
-\end{task}\label{tsk:sqrt}
-
 
 \pagebreak
 \section{Mandelbrot Set - Advanced}
