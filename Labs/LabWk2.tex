@@ -59,11 +59,12 @@ Run though these questions quickly and ask your demonstrator if any appear confu
 \item What are the values of \texttt{x, y, v,} and \texttt{z} after this code has executed?
 \begin{lstlisting}[style=CStyle]
 int x = 2;
-int y, v;
+int y, v, r;
 float z;
 x = x+5;
 y = 2*x + 3;
 v = y/x; // NB: integer division
+r = y%x;
 z = (float)y/x; // Forced to floating point division
 \end{lstlisting}
 \item What is printed to the console if the user enters \texttt{13$<$enter$>$}?
