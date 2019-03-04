@@ -753,7 +753,6 @@ Flow control allows selected blocks of code to execute multiple times or only un
 \subsubsection{\texttt{if()}}
 
 The \texttt{if()} statement executes a block of code only if the \textit{condition} is true. The condition is an arithmetic statement which evaluates to either zero (false) or non-zero (true).
-\columnbreak
 
 Syntax:
 
@@ -787,6 +786,39 @@ If there is only \textit{one} statement after an \texttt{if()} the \{ \} braces 
 if(x > 10) 
 	printf("x is greater than 10\n");
 \end{lstlisting}
+
+\subsubsection{\texttt{for(;;)}}
+
+The \texttt{for(;;)} loop syntax is:
+
+\begin{lstlisting}[style=CStyle]
+for( initial ; condition ; increment ) {
+	// Do stuff
+}
+\end{lstlisting}
+
+The three sub-parts have the following behaviour:
+
+\begin{itemize}
+\item \textbf{Initial:} Code which is executed \textit{once}, before the loop is entered
+\item \textbf{Condition:} A condition which is tested \textit{before} every loop iteration
+\item \textbf{Increment:} Code which is executed \textit{after} every iteration
+\end{itemize}
+
+\texttt{for(;;)} Example:
+
+\begin{lstlisting}[style=CStyle]
+int x;
+for( x = 0 ; x < 10 ; x++ ) {
+	printf("%d ", x);
+}
+\end{lstlisting}
+
+will print:
+
+\texttt{0 1 2 3 4 5 6 7 8 9}
+
+The \texttt{for(;;)} loop example doesn't print \texttt{10} because the condition is ``strictly less than 10''. When x is incremented to 10 the condition fails and the loop exits. It prints 0 because the increment is only applied \textit{after} the loop has run once.
 
 \subsubsection{\texttt{if() ... else if()}}
 
