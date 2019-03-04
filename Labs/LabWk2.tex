@@ -137,7 +137,7 @@ scanf("%d:%d", &hours, &minutes);
 
 and \texttt{scanf();} will match the integer-colon-integer pattern with the input and extract hours and minutes.
 
-\texttt{scanf();} even supports incredibly advanced ``pattern matching'' system known as \textit{\href{https://xkcd.com/208/}{regular expressions}}. If you want to learn regular expressions be my guest, but it is \textit{well} beyond the scope of ENGG1003.
+\texttt{scanf();} even supports incredibly advanced ``pattern matching'' but it is \textit{well} beyond the scope of ENGG1003.
 
 Note that the numbers don't all need to be integers. You can mix integers and, say, \texttt{double}s:
 
@@ -218,10 +218,10 @@ int main() {
 The formula for converting temperatures in Farenheit, $F$ to Celsius, $C$, is:
 
 \begin{equation}\label{eq:temp}
-C = \frac{5}{9}(F - 32)
+C = \frac{5}{9}(F - 32).
 \end{equation}
 
-Given the C template, write a program which performs this conversion. It should read the Farenheit temperature from \texttt{stdin} and print the result to \texttt{stdout}. The program should correctly handle any practical real values (eg: 19.38) input. Print the result to 2 decimal places.
+Given the C template, write a program which performs this conversion. It should read the Farenheit temperature from \texttt{stdin} and print the result to \texttt{stdout}. The program should correctly handle any practical real values (eg: 19.38) as input. Print the result to 2 decimal places.
 \\ \\
 Test your code with several values calculated with \underline{\href{https://www.google.com.au/search?q=farenheit+to+celsius}{Google}}.
 \end{task}
@@ -251,13 +251,13 @@ scanf("%f %f %f %f", &x1, &x2, &x3, &x4);
 
 Test your program given that the variance of the set (1, 2, 3, 4) = 1.6667
 \\ \\
-\textbf{NB:} Be careful with the $\frac{1}{4}$ and $\frac{1}{3}$ constants in the equations above. They may experience integer division problems.
+\textbf{NB:} Be careful with the $\frac{1}{4}$ and $\frac{1}{3}$ constants in the equations above. They may experience integer division problems. If in doubt, convert them to floating point literals.
 \end{task}
 
 \begin{task}{Linear Interpolation}{}
-There are many instances in science and engineering when data needs to be \textit{interpolated}. This is the process of predicting a quantity's value at a point in time (or space) where a measurement doesn't exist by estimating it from data nearby.
+There are many instances in science and engineering when data needs to be \textit{interpolated}. Informally, this is the process of predicting a quantity's value somewhere between two (or more) data points.
 \\ \\
-In this task you will be using the \textit{two-point formula} (you saw this in high school, right?) to interpolate between two data points. You can imaging these data points to be measurements of temperature / brightness / sound intensity / pressure / etc as a function of time.\\ \\
+In this task you will be using the \textit{two-point formula} (you saw this in high school, right?) to interpolate between two data points. You can imagine these data points to be measurements of temperature / brightness / sound intensity / pressure / etc as a function of time.\\ \\
 The two-point formula states that the equation of a line passing through two points $(x_1, y_1)$ and $(x_2, y_2)$ is:
 \begin{equation}
 y = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1) + y_1.
@@ -267,6 +267,8 @@ The value of $y$ at some given $x$ can then be estimated. For the purposes of in
 x_2 > x > x_1.
 \end{equation}
 Note that $y$ is only an \textit{estimate} of the true value. You will often see this notated as $\hat{y}$, especially in statistics.
+\\ \\
+The process of estimating values outside the $[x_1, x_2]$ interval is known as \textit{extrapolation}\footnote{\url{https://xkcd.com/605/}} and is beyond the scope of this task.
 \\ \\
 Given the above, write a C program which implements the following pseudocode:
 \begin{lstlisting}[style=CStyle]
@@ -278,7 +280,7 @@ BEGIN
 	PRINT y
 END
 \end{lstlisting}
-To understand this problem you will find it useful to draw some sketches. Draw an x-y axis, dot two points and draw a line between them. If you pick two neat integer points (eg: 0,0 and 5,5) then the linear interpolation will be easy to see by eye.
+To understand this problem you will find it useful to draw some sketches. Draw an x-y axis, dot two points and draw a line between them. If you pick two neat integer points (eg: 0,0 and 5,5) then the linear interpolation will be easy to see by eye. Perform several tests with known-correct sets of values to confirm that your code is correct.
 \\ \\
 Program implementation notes:
 \begin{itemize}[itemsep=1mm]
@@ -306,14 +308,14 @@ BEGIN
 	Integer a 
 	Integer b
 	Integer c
-	Read an integer from standard input, store in a
-	Read an integer from standard input, store in b
+	Read an integer from standard input, store it in a
+	Read an integer from standard input, store it in b
 	IF b is zero
 		PRINT "Division by zero error"
-		RETURN // stop executing
+	ELSE
+		c = a/b
+		PRINT "a divided by b is" <the value of c>
 	ENDIF
-	c = a/b
-	PRINT "a divided by b is" <the value of c>
 END
 \end{lstlisting}
 
@@ -333,12 +335,6 @@ scanf("%d", &a);
 printf("a divided by b is %d\n", c);
 \end{lstlisting}
 
-
-\item The \texttt{RETURN} pseudocode can be implemented with:
-\begin{lstlisting}[style=CStyle]
-return 0;
-\end{lstlisting}
-
 \item The condition "b is zero" needs to be implemented with the \texttt{==} (\textit{two} equals symbols) operator.
 
 \item You may start with the default code listing provided by OnlineGDB
@@ -352,7 +348,7 @@ x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
 \end{equation}
 Implement an algorithm which uses this formula to calculate square roots of real numbers. The value of $n$ is to be read from the console with \texttt{scanf();} and the result printed with \texttt{printf();}.
 \\ \\
-The choice of $x_0$ is somewhat arbitrary, the algorithm should converge given any sane value (ie: not infinity), but will converge faster if $x_0$ is closer to the true value of $\sqrt{n}$. You may play with this value and observe any differences. Common choices would be setting it to $n$ or zero.
+The choice of $x_0$ is somewhat arbitrary, the algorithm should converge given any sane value (ie: not infinity), but will converge faster if $x_0$ is closer to the true value of $\sqrt{n}$. You may play with this value and observe any differences. Common choices would be setting it to $n$ or 1.
 \\ \\
 The algorithm will require a loop. The exit condition could be one of several choices. In order of difficulty:
 \begin{enumerate}
@@ -434,7 +430,7 @@ x = (float)rand()/RAND_MAX * MAX;
 \end{itemize}
 
 \begin{task}{Rolling Dice}{}
-Using the \texttt{rand();} function, write a C program which estimates the probability that, when two dice are thrown, at least of the dice rolled a 3. This can be done with the following algorithm:
+Using the \texttt{rand();} function, write a C program which estimates the probability that, when two dice are thrown, at least one of the dice rolled a 3. This can be done with the following algorithm:
 \begin{lstlisting}[style=pseudo]
 BEGIN
 	counter = 0;
@@ -467,7 +463,7 @@ BEGIN
 	integer c = a + b
 	PRINT What is a + b? // a and b the numerical values
 	READ an integer d
-	if c == d
+	IF c == d
 		PRINT "Correct!"
 	ELSE
 		PRINT "Wrong :(. The correct answer is " c
@@ -499,12 +495,12 @@ BEGIN
         PRINT pi
 END
 \end{lstlisting}
-\textbf{NB:} If running this on OnlineGDB use a ``small'' value for the maximum loop count. Try one million, if this takes longer than around 10 seconds to execute use a smaller value. You are occupying OnlineGDB's shared CPU resources when running this program.
+\textbf{NB:} If running this on OnlineGDB use a ``small'' value for the maximum loop count. Try one million. If this takes longer than around 10 seconds to execute use a smaller value. You are occupying OnlineGDB's shared CPU resources when running this program.
 \end{task}
 
 \pagebreak
 \section{Mandelbrot Set - Advanced}
-\textit{This problem is presented for students interested in mathematics. It may take several lab sessions to correctly implement this task. If you do not understand anything here, do not be troubled, do not feel the need to attempt this task. The mathematics is beyond the scope of ENGG1003.} \\ \\
+\textit{This problem is presented for students interested in mathematics. It may take several lab sessions to correctly implement this task. If you do not understand anything here, do not be troubled. Do not feel the need to attempt this task. The mathematics is beyond the scope of ENGG1003.} \\ \\
 \textit{Demonstrators are not to help you solve this problem. It is intended for students who have advanced beyond expectations, doing it alone is part of the challenge.}\\
 
 A complex number, $C$, exists within the \textit{Mandelbrot set} if, when iterated with the formula:
@@ -572,7 +568,7 @@ and is needed to test if $z_n$ is getting ``too big''. For this problem, ``too b
 x^2 + y^2 > 4
 \end{equation}
 In code, this will go inside a loop's exit condition. Either as a ``NOT (x*x+y*y $>$ 4)'' or, more simply, ``x*x + y*y $<$ 4'' as loop conditions need to remain TRUE for the loop to continue.
-\item The loop which implements the iterative equation need to keep track of the iteration count but does \textit{not} need to record a full history of $z_n$'s. You only need the ''next'' and ''current' values of $x_n$ and $y_n$. At some point an assignment causes the ``next'' to become the ``current''.
+\item The loop which implements the iterative equation needs to keep track of the iteration count but does \textit{not} need to record a full history of $z_n$'s. You only need the ''next'' and ''current' values of $x_n$ and $y_n$. At some point an assignment causes the ``next'' to become the ``current''.
 \item An \textit{iteration limit} needs to be set. A point, $C$, is considered ``inside'' the set if the iteration limit is hit without $\left|z_n\right|$ exceeding $2$.
 \item If $\left|z_n\right| > 2$ before the iteration limit is hit the point, $C$, is inside the Mandelbrot set
 \item Full, somewhat optimised, pseudocode for this problem can be found on \underline{\href{https://en.wikipedia.org/wiki/Mandelbrot_set}{Wikipedia}}. Independent research may be required to implement this problem.
