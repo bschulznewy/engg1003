@@ -8,6 +8,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{algorithm2e}
+\usepackage{multicol}
 
 \usefonttheme[onlymath]{serif}
 
@@ -15,6 +16,7 @@
 \definecolor{mGray}{rgb}{0.5,0.5,0.5}
 \definecolor{mPurple}{rgb}{0.8,0,0.82}
 \definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
 
 \lstdefinestyle{CStyle}{
     backgroundcolor=\color{backgroundColour},   
@@ -36,8 +38,16 @@
     language=C
 }
 
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-\lstset{framextopmargin=50pt,frame=bottomline}
+\lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Friday Week 2}
 \subtitle{}
@@ -47,6 +57,145 @@
 
 \begin{document}
 \titlepage
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item Same as WHILE except executes \textit{at least once}
+\item The condition is tested at the end
+\item Loops repeats if condition is TRUE
+\item Syntax:
+\begin{lstlisting}[style=pseudo]
+DO
+	stuff
+WHILE condition
+\end{lstlisting}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops}
+\begin{itemize}
+\item A FOR loop executes a given number of times
+\item Used when the number of loop repeats is known \textit{before} entering the loop
+	\begin{itemize}
+		\item Repeat count could be ``hard coded'' as a number
+		\item Could also be a variable
+	\end{itemize}
+\item Can be easier to read than WHILE
+\item Example pseudocode syntax:
+\begin{lstlisting}[style=pseudo]
+FOR x = 1 to 10
+	Do something ten times
+ENDFOR
+\end{lstlisting}
+\item The \textit{loop variable} is automatically incremented
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{BREAK Statements}
+\begin{itemize}
+\item Sometimes you want to exit a loop \textit{before} the condition is re-tested
+\item The flow-control mechanism for this is a BREAK statement
+\item If executed, the loop quits
+\item BREAKs typically go inside an IF to control their execution
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Loop \texttt{continue} Statements}
+\begin{itemize}
+	\item Previously we saw loop \texttt{break} statements
+		\begin{itemize}
+			\item Caused loop to exit
+		\end{itemize}
+	\item A \texttt{continue} causes execution to jump back to the loop start
+	\item The \textit{condition} is tested before reentry
+	
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Example 1}
+\begin{itemize}
+\item Two equivalent ways to implement the $\cos()$ series from before are:
+\end{itemize}
+{\small\textbf{NB:} $|$\texttt{tmp}$|$ means ``absolute value of tmp''.}
+\begin{multicols}{2}
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT x
+	sum = 0
+	FOR k = 0 to 10
+		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
+		sum = sum + tmp
+		IF |tmp| < 1e-6
+			BREAK
+		ENDIF
+	ENDWHILE 
+END
+\end{lstlisting}
+\columnbreak
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT x
+	tmp = 1
+	k = 0
+	sum = 0
+	WHILE (k<10)AND(|tmp|>1e-6)
+		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
+		sum = sum + tmp
+		k = k + 1
+	ENDWHILE 
+END
+\end{lstlisting}
+
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Example 2 - Factorials}
+\begin{itemize}
+\item Use FOR to count from 2 to our input number
+\item Keep a running product as we go
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	INPUT x
+	result = 1
+	FOR k = 2 TO x
+		result = result * k
+	ENDFOR
+END
+\end{lstlisting}
+\item Is this algorithm robust? What happens if:
+	\begin{itemize}
+		\item x = -1
+		\item x = 1
+		\item x = 0 (\textbf{NB:} 0! = 1 because \textit{maths})
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{GOTO}
+\begin{itemize}
+\item There exists a GOTO flow control mechanism
+	\begin{itemize}
+		\item Sometimes also called a \textit{branch}
+	\end{itemize}
+\item It ``jumps'' from one line to a different line
+\item It exists for a purpose
+\item That purpose does not (typically) exist when writing C code
+	\begin{itemize}
+		\item C \textit{supports} a \texttt{goto} statement
+		\item It results in ``spaghetti code'' which is hard to read
+		\item Don't use it in ENGG1003
+	\end{itemize}
+\item You \textit{can} use GOTO in ELEC1710
+\end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Increment Example}
@@ -193,17 +342,6 @@ int main() {
 \frametitle{\texttt{for(;;)} Loops}
 \end{frame}
 
-\begin{frame}
-\frametitle{Loop \texttt{continue} Statements}
-\begin{itemize}
-	\item Previously we saw loop \texttt{break} statements
-		\begin{itemize}
-			\item Caused loop to exit
-		\end{itemize}
-	\item A \texttt{continue} causes execution to jump back to the loop start
-	\item The \textit{condition} is tested before reentry
-	
-\end{itemize}
-\end{frame}
+
 
 \end{document}
