@@ -44,7 +44,7 @@ I don't know how long these problems will take you to complete. With some adjust
 Run though these questions quickly and ask your demonstrator if any appear confusing. These all cover basic fundamentals required to complete the later problems.
 
 \begin{enumerate}
-\item What are the values of \texttt{x, y, v,} and \texttt{z} at the end of this code?
+\item What are the values of \texttt{x, y, v,} and \texttt{z} after this code has executed?
 \begin{lstlisting}[style=CStyle]
 int x = 0;
 int y = 1;
@@ -54,9 +54,8 @@ y = x*2;
 v = y/x; // NB: integer division
 z = (float)y/x; // Forced to floating point division
 \end{lstlisting}
-\item What is printed to the console if the user enters \texttt{13$<$enter$>$} in the console?
+\item What is printed to the console if the user enters \texttt{13$<$enter$>$}?
 \begin{lstlisting}[style=CStyle]
-int x;
 float k;
 printf("Enter a number: ")
 scanf("%f", &k);
@@ -71,21 +70,21 @@ printf("%d\n", (int)k); // Integer truncation
 to the screen (with 123 replaced with the actual value).
 \item A variable is required which stores integers with a maximum possible value of ten billion. What C data type is required?
 \item A variable is required to store a real number with 10 significant figures. What C data type is required?
-\item Write C code which implements the following pseudocode:
+\item Write a C code snippet which implements the following pseudocode (decrement implies a subtraction by 1):
 \begin{lstlisting}[style=pseudo]
 IF x is not equal to zero
 	decrement x
 ENDIF
 \end{lstlisting}
-In C, decrement implies a reduction of magnitude by 1.
-\item Write C code which implements the following pseudocode:
+ 
+\item Write a C code snippet which implements the following pseudocode:
 \begin{lstlisting}[style=pseudo]
 WHILE x is greater than 1
 	y = y*x;
 	x = x-1;
 ENDWHILE
 \end{lstlisting}
-\item Write C code which implements the following pseudocode:
+\item Write a C code snippet which implements the following pseudocode:
 \begin{lstlisting}[style=pseudo]
 BEGIN
 	integer result
@@ -126,11 +125,19 @@ int x,y,z; // This declares three int variables on one line
 scanf("%d %d %d", &x, &y, &z);
 \end{lstlisting}
 
-The integers you type need to be separated by spaces (note that spaces are present inside the format string) and \texttt{$<$enter$>$} typed to end the line. The \texttt{scanf();} function won't process any data until an end of line is reached. Note that the order is \textit{crucial}.
+The integers you type need to be separated by spaces (note that spaces are present inside the format string) and \texttt{$<$enter$>$} typed to end the line. The \texttt{scanf();} function won't process any data until an end of line is read.
 
-The numbers you type will go into \texttt{x, y} and \texttt{z} in the the same order that the variable names are listed in \texttt{scanf();}.
+Note that the order is \textit{crucial}; the numbers you type will go into \texttt{x, y} and \texttt{z} in the the same order that the variable names are listed in \texttt{scanf();}.
 
-You don't \textit{need} to separate the integers with spaces, \texttt{scanf();} supports incredibly advanced ``pattern matching'' using a system known as \textit{\href{https://xkcd.com/208/}{regular expressions}}. If you want to learn regular expressions be my guest, but it is \textit{well} beyond the scope of ENGG1003.
+You don't \textit{need} to separate the input with spaces. You can, for example, read an hh:mm time with:
+
+\begin{lstlisting}[style=CStyle]
+scanf("%d:%d", &hours, &minutes);
+\end{lstlisting}
+
+and \texttt{scanf();} will match the integer-colon-integer pattern with the input and extract hours and minutes.
+
+\texttt{scanf();} even supports incredibly advanced ``pattern matching'' system known as \textit{\href{https://xkcd.com/208/}{regular expressions}}. If you want to learn regular expressions be my guest, but it is \textit{well} beyond the scope of ENGG1003.
 
 Note that the numbers don't all need to be integers. You can mix integers and, say, \texttt{double}s:
 
@@ -155,6 +162,16 @@ will print:
 
 \texttt{1 is an integer, 2 is an integer, have some more numbers: 1.23 8.2}
 
+Lastly, if you get this compiler warning:
+
+
+\texttt{main.c:6:13: warning: format ‘\%d’ expects argument of type ‘int *’, but argument 3 has type ‘float *’ [-Wformat=]
+  scanf("\%d:\%d", \&h, \&m);}
+
+
+it means that the data type and format specifier don't match. You have made a mistake, fix it.
+
+
 \pagebreak
 \section{Input-Processing-Output Exercises}
 
@@ -170,7 +187,7 @@ Every task requires the following steps:
 \item Write a \texttt{printf();} statement to print the result
 \item (Optional) Do you want the user to be \textit{prompted}? This is when text appears in the console telling the user what to enter. This requires a \texttt{printf();} prior to the \texttt{scanf();}
 \item (Optional) Does the output need to be in a human sentence? Write the \texttt{printf();} statement.
-\item (Optional) Should you limit the precision of the printed result? Are 6 decimal places appropriate? Should it only be 1?
+\item (Optional) Should you limit the precision of the printed result? Are 6 decimal places appropriate? Should it only be 1? Use the \texttt{\%.nf} format specifier to limit floating point precision to \texttt{n} decimal places
 \end{enumerate}
 
 The following template can be used for all these exercises:
