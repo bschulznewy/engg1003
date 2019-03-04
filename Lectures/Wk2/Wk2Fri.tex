@@ -22,7 +22,7 @@
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{mGray},
     stringstyle=\color{mPurple},
-    basicstyle=\footnotesize,
+    basicstyle=\footnotesize\ttfamily,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
@@ -40,7 +40,7 @@
 \lstset{framextopmargin=50pt,frame=bottomline}
 
 \title{ENGG1003 - Friday Week 2}
-\subtitle{The Software Development Process}
+\subtitle{}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
@@ -48,5 +48,149 @@
 \begin{document}
 \titlepage
 
+\begin{frame}[fragile]
+\frametitle{Increment Example}
+\begin{lstlisting}[style=CStyle,caption=\texttt{increment.c}]
+#include <stdio.h>
+int main() {
+	int x = 0;
+	int y = 0;
+	int z = 0;
+	y = ++x + 10;
+	printf("Pre-increment: %d\n", y);
+	y = z++ + 10;
+	printf("Post-increment: %d\n", y);
+	return 0;
+}
+\end{lstlisting}
+Pre/post-inc/decrements have many applications, more details in coming weeks.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Factor Testing}
+\begin{lstlisting}[style=CStyle,caption=\texttt{factorTest.c}]
+#include <stdio.h>
+int main() {
+	int x, y;
+	printf("Enter an integer: ");
+	scanf("%d", &x);
+	printf("Enter another integer: ");
+	scanf("%d", &y);
+	if(x % y == 0) { // ie: if the remainder is zero
+		printf("%d is a factor of %d\n", y, x);
+	} else {
+		printf("%d is NOT a factor of %d\n", y, x);
+	}
+	return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Finding Factors}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\footnotesize,caption=\texttt{factors.c}]
+#include <stdio.h>
+int main() {
+	int input, x;
+	printf("Enter an integer to factorise: ");
+	scanf("%d", &input);
+	x = input;
+	while(x > 0) {
+		if(input % x == 0) // ie: if the remainder is zero
+			printf("%d is a factor of %d\n", x, input);
+		x--;
+	}
+	return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Nomenclature}
+\begin{itemize}
+\item The value range is a result of the underlying binary storage mechanism
+\item A single binary digit is called a \textit{bit}
+\item There are 8 bits in a \textit{byte}
+\item In programming we use the ``power of two'' definitions of kB, MB, etc:
+	\begin{itemize}
+		\item 1 kilobyte is $2^{10} = 1024$ bytes
+		\item 1 Megabyte is $2^{20} = 1048576$ bytes
+		\item 1 Gigabyte is $2^{30} = 1073741824$ bytes
+		\item (Advanced) These numbers look better in hex: \texttt{0x3FF}, \texttt{0xFFFFF}, etc.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Nomenclature}
+\begin{itemize}
+\item Observe that kilobyte, Megabyte, Gigabyte, etc use scientific prefixes
+\item These \textit{normally} mean a power of 10:
+	\begin{itemize}
+		\item kilo- = $10^3$
+		\item Mega- = $10^6$
+		\item Giga- = $10^9$
+		\item ...etc (see the inside cover of a physics text)
+	\end{itemize}
+\item Computer science stole these terms and re-defined them
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Nomenclature}
+\begin{itemize}
+\item This has made some people \textit{illogically angry}
+\item Instead, we can use a more modern standard:
+	\begin{itemize}
+		\item $2^{10}$ bytes = 1 kibiByte (KiB)
+		\item $2^{20}$ bytes = 1 Mebibyte (MiB)
+		\item $2^{30}$ bytes = 1 Gibibyte (GiB)
+		\item ...etc
+	\end{itemize}
+\item Generally speaking, KB (etc) implies:
+	\begin{itemize}
+		\item powers of two to \textit{engineers}
+		\item powers of ten to \textit{marketing}
+			\begin{itemize}
+				\item The number is smaller
+				\item Hard drive manufacturers, ISPs, etc like this
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Unambiguous Integer Data Types}
+\begin{itemize}
+\item Because the standard \texttt{int} and \texttt{long} data types don't have fixed size unambiguous types exist
+\item Under OnlineGDB (ie: Linux with \texttt{gcc}) these are defined in \texttt{stdint.h} (\texttt{\#include} it)
+\item You will see them used commonly in embedded systems programming (eg: Arduino code)
+\item The types are:
+	\begin{itemize}
+		\item \texttt{int8\_t}
+		\item \texttt{uint8\_t}
+		\item \texttt{int16\_t}
+		\item ...etc
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Code Blocks in C}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variable Scope}
+\end{frame}
+
+\begin{frame}
+\frametitle{\#define Constants}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{for(;;)} Loops}
+\end{frame}
 
 \end{document}

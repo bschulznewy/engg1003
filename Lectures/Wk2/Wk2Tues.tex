@@ -336,26 +336,11 @@ What's the difference between \texttt{x++} and \texttt{++x}?
 \item \texttt{++x} is a \textit{pre-increment}
 \item If they appear in an arithmetic expression, pre-increment is processed \textit{before} the variable is used and post-increment is processed \textit{after} it is used.
 \item In isolation there is no difference.
+\item Details on Friday
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Increment Example}
-\begin{lstlisting}[style=CStyle,caption=\texttt{increment.c}]
-#include <stdio.h>
-int main() {
-	int x = 0;
-	int y = 0;
-	int z = 0;
-	y = ++x + 10;
-	printf("Pre-increment: %d\n", y);
-	y = z++ + 10;
-	printf("Post-increment: %d\n", y);
-	return 0;
-}
-\end{lstlisting}
-Pre/post-inc/decrements have many applications, more details in coming weeks.
-\end{frame}
+
 
 \begin{frame}
 \frametitle{Modulus}
@@ -375,7 +360,7 @@ Pre/post-inc/decrements have many applications, more details in coming weeks.
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Modulus Example 1 - Printing Every \textit{nth} Loop}
+\frametitle{Modulus Example - Printing Every \textit{nth} Loop}
 \begin{lstlisting}[style=CStyle,caption=\texttt{loopmod.c}]
 #include <stdio.h>
 int main() {
@@ -386,46 +371,6 @@ int main() {
 		// inside this loop
 		if(x%100 == 0)
 			printf("%d\n", x);
-	}
-	return 0;
-}
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Modulus Example 2 - Factor Testing}
-\begin{lstlisting}[style=CStyle,caption=\texttt{factorTest.c}]
-#include <stdio.h>
-int main() {
-	int x, y;
-	printf("Enter an integer: ");
-	scanf("%d", &x);
-	printf("Enter another integer: ");
-	scanf("%d", &y);
-	if(x % y == 0) { // ie: if the remainder is zero
-		printf("%d is a factor of %d\n", y, x);
-	} else {
-		printf("%d is NOT a factor of %d\n", y, x);
-	}
-	return 0;
-}
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Modulus Example 3 - Finding Factors}
-
-\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\footnotesize,caption=\texttt{factors.c}]
-#include <stdio.h>
-int main() {
-	int input, x;
-	printf("Enter an integer to factorise: ");
-	scanf("%d", &input);
-	x = input;
-	while(x > 0) {
-		if(input % x == 0) // ie: if the remainder is zero
-			printf("%d is a factor of %d\n", x, input);
-		x--;
 	}
 	return 0;
 }
@@ -602,61 +547,6 @@ float q, r = 1.0, s = 12e3, t;
 \end{frame}
 
 \begin{frame}
-\frametitle{Diversion: Binary Nomenclature}
-\begin{itemize}
-\item The value range is a result of the underlying binary storage mechanism
-\item A single binary digit is called a \textit{bit}
-\item There are 8 bits in a \textit{byte}
-\item In programming we use the ``power of two'' definitions of kB, MB, etc:
-	\begin{itemize}
-		\item 1 kilobyte is $2^{10} = 1024$ bytes
-		\item 1 Megabyte is $2^{20} = 1048576$ bytes
-		\item 1 Gigabyte is $2^{30} = 1073741824$ bytes
-		\item (Advanced) These numbers look better in hex: \texttt{0x3FF}, \texttt{0xFFFFF}, etc.
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Diversion: Binary Nomenclature}
-\begin{itemize}
-\item Observe that kilobyte, Megabyte, Gigabyte, etc use scientific prefixes
-\item These \textit{normally} mean a power of 10:
-	\begin{itemize}
-		\item kilo- = $10^3$
-		\item Mega- = $10^6$
-		\item Giga- = $10^9$
-		\item ...etc (see the inside cover of a physics text)
-	\end{itemize}
-\item Computer science stole these terms and re-defined them
-
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Diversion: Binary Nomenclature}
-\begin{itemize}
-\item This has made some people \textit{illogically angry}
-\item Instead, we can use a more modern standard:
-	\begin{itemize}
-		\item $2^{10}$ bytes = 1 kibiByte (KiB)
-		\item $2^{20}$ bytes = 1 Mebibyte (MiB)
-		\item $2^{30}$ bytes = 1 Gibibyte (GiB)
-		\item ...etc
-	\end{itemize}
-\item Generally speaking, KB (etc) implies:
-	\begin{itemize}
-		\item powers of two to \textit{engineers}
-		\item powers of ten to \textit{marketing}
-			\begin{itemize}
-				\item The number is smaller
-				\item Hard drive manufacturers, ISPs, etc like this
-			\end{itemize}
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
 \frametitle{Integer Data Types}
 \begin{itemize}
 \item There are several integer data types
@@ -721,37 +611,6 @@ Type & Bytes & Bits & Value Range                               \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Unambiguous Integer Data Types}
-\begin{itemize}
-\item Because the standard \texttt{int} and \texttt{long} data types don't have fixed size unambiguous types exist
-\item Under OnlineGDB (ie: Linux with \texttt{gcc}) these are defined in \texttt{stdint.h} (\texttt{\#include} it)
-\item You will see them used commonly in embedded systems programming (eg: Arduino code)
-\item The types are:
-	\begin{itemize}
-		\item \texttt{int8\_t}
-		\item \texttt{uint8\_t}
-		\item \texttt{int16\_t}
-		\item ...etc
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Why Care About Data Types?}
-\begin{itemize}
-\item You may be thinking ``why not make everything a \texttt{long}?''
-\item Answer: speed and memory
-\item Smaller types use less RAM
-\item Arithmetic on a type larger than the target platform's \textit{native size} is slow
-\item Matters if you store millions of the same type
-\item Makes a \textit{huge} difference on embedded targets
-\begin{itemize}
-	\item Don't declare 32-bit variables on an 8-bit AVR microcontroller \textit{unless you have to}
-\end{itemize}
-\end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]
 \frametitle{Overflow}
 \small{
@@ -785,15 +644,29 @@ int main() {
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Why Care About Data Types?}
+\begin{itemize}
+\item You may be thinking ``why not make everything a \texttt{long}?''
+\item Answer: speed and memory
+\item Smaller types use less RAM
+\item Arithmetic on a type larger than the target platform's \textit{native size} is slow
+\item Matters if you store millions of the same type
+\item Makes a \textit{huge} difference on embedded targets
+\begin{itemize}
+	\item Don't declare 32-bit variables on an 8-bit AVR microcontroller \textit{unless you have to}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
 \begin{frame}[fragile]
 \frametitle{Floating Point Data Types}
 \begin{itemize}
 \item To store real numbers C has several \textit{floating point} data types
 \item As with integers, try to use the smallest you can get away with
-\item Quad precision (\texttt{\_\_float128}) is supported in gcc but \textit{very} slow
-	\begin{itemize}
-		\item Not used in this course
-	\end{itemize}
+\item \texttt{long double} is supported in gcc but...\underline{\href{https://en.wikipedia.org/wiki/Long_double}{complicated}}
 \item Run benchmark demonstration
 \end{itemize}
 
@@ -806,10 +679,20 @@ double      & 8    & $2.3 \times 10^{-308}$ to $1.7 \times 10^{308}$     & 15 dp
 \end{table}
 \end{frame}
 
+\begin{frame}
+\frametitle{How good is 15 decimal places?}
+Paraphrasing \underline{\href{https://www.jpl.nasa.gov/edu/news/2016/3/16/how-many-decimals-of-pi-do-we-really-need/}{NASA}}: \\
+\vspace{5mm}
+Calculating the circumference of Earth using 15 decimal places for $\pi$ results in a truncation error about the size of a molecule.\\
+\vspace{5mm}
+39 digits of $\pi$ calculates the circumference of the \textit{visible universe} to within the width of a hydrogen atom ($\approx10^{-10}$~m).
+
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{Floating Point Problems}
 \begin{itemize}
-\item Q: Why not \textit{always} use \texttt{float} or \texttt{double}?
+\item Q: Why not \textit{always} use \texttt{float} or \texttt{double} instead of \texttt{int}?
 \item A: Floating point arithmetic is \textbf{\textit{NOT}} exact
 \item Example 1: Does this code exit?
 \begin{lstlisting}[style=CStyle,caption=\texttt{floatLoop.c}]
@@ -913,7 +796,7 @@ int main() {
 \frametitle{Mixing Data Types}
 \begin{itemize}
 \item C supports arithmetic between different types
-\item Changing a data type is called \textit{casting}
+\item Type conversion is called \textit{casting}
 \item When types are mixed two things can happen:
 	\begin{itemize}
 		\item Types get upgraded automatically (\textit{implicit} type casting)
