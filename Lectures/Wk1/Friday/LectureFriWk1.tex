@@ -601,15 +601,16 @@ ENDFOR
 \begin{itemize}
 \item Two equivalent ways to implement the $\cos()$ series from before are:
 \end{itemize}
+{\small\textbf{NB:} $|$\texttt{tmp}$|$ means ``absolute value of tmp''.}
 \begin{multicols}{2}
-\begin{lstlisting}[style=pseudo,mathescape=true]
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
 BEGIN
 	INPUT x
 	sum = 0
 	FOR k = 0 to 10
 		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
 		sum = sum + tmp
-		IF tmp < 1e-6
+		IF |tmp| < 1e-6
 			BREAK
 		ENDIF
 	ENDWHILE 
@@ -622,33 +623,15 @@ BEGIN
 	tmp = 1
 	k = 0
 	sum = 0
-	WHILE (k<10) AND (tmp>1e-6)
+	WHILE (k<10)AND(|tmp|>1e-6)
 		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
 		sum = sum + tmp
 		k = k + 1
 	ENDWHILE 
 END
 \end{lstlisting}
-\end{multicols}
-\end{frame}
 
-\begin{frame}
-\frametitle{GOTO}
-\begin{itemize}
-\item There exists a GOTO flow control mechanism
-	\begin{itemize}
-		\item Sometimes also called a \textit{branch}
-	\end{itemize}
-\item It ``jumps'' from one line to a different line
-\item It exists for a purpose
-\item That purpose does not (typically) exist when writing C code
-	\begin{itemize}
-		\item C \textit{supports} a \texttt{goto} statement
-		\item It results in ``spaghetti code'' which is hard to read
-		\item Don't use it in ENGG1003
-	\end{itemize}
-\item You \textit{can} use GOTO in ELEC1710
-\end{itemize}
+\end{multicols}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -673,6 +656,26 @@ END
 	\end{itemize}
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{GOTO}
+\begin{itemize}
+\item There exists a GOTO flow control mechanism
+	\begin{itemize}
+		\item Sometimes also called a \textit{branch}
+	\end{itemize}
+\item It ``jumps'' from one line to a different line
+\item It exists for a purpose
+\item That purpose does not (typically) exist when writing C code
+	\begin{itemize}
+		\item C \textit{supports} a \texttt{goto} statement
+		\item It results in ``spaghetti code'' which is hard to read
+		\item Don't use it in ENGG1003
+	\end{itemize}
+\item You \textit{can} use GOTO in ELEC1710
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \centering
