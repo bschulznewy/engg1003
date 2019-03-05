@@ -243,7 +243,7 @@ Test your code with several values calculated with \underline{\href{https://www.
 From statistics, the \textit{sample variance}, $s^2$, of $N$ samples can be calculated as:
 
 \begin{equation}\label{eq:var}
-s^2 = \frac{\sum_{k=1}^{N}(X_k - mean(X))}{N-1}.
+s^2 = \frac{\sum_{k=1}^{N}(X_k - mean(X))^2}{N-1}.
 \end{equation}
 
 Write a C program which reads \textbf{four} numbers and outputs their sample variance.
@@ -252,7 +252,7 @@ Given that $N = 4$ (and some algebra) Equation \ref{eq:var} can be expanded into
 
 \begin{enumerate}
 \item Calculate the sample mean: $\texttt{mean} = \frac{1}{4} \times \left( X_1 + X_2 + X_3 + X_4 \right)$
-\item Calculate the variance: $\texttt{var} = \frac{1}{3} \times ((X_1 + X_2 + X_3 + X_4 - 4 \times \texttt{mean})$
+\item Calculate the variance: $\texttt{var} = \frac{1}{3} \times ((X_1-\texttt{mean})^2 + (X_2-\texttt{mean})^2 + (X_3-\texttt{mean})^2 + (X_4-\texttt{mean})^2)$
 \end{enumerate}
 
 Your program will have to declare four \texttt{float} variables to store the four input values. To read four numbers in one instance of \texttt{scanf();} you can do this:
