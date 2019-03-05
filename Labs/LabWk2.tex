@@ -129,10 +129,10 @@ it means that the data type and format specifier don't match. You have made a mi
 \pagebreak
 \section{Getting Started Questions}
 
-These problems are \textit{not} meant to be executed in a C compiler. Read through them and write answers on paper (or Word etc). Solutions can be found on the last page of this document.
+These problems are \textit{not} meant to be executed in a C compiler. Read through them and write your answers on paper (or Word etc). Solutions can be found on the last page of this document.
 
 \begin{enumerate}
-\item What are the values of \texttt{x, y, v,} and \texttt{z} execution of each line? On which lines are each variable undeclared (ie: their value is known)?
+\item What are the values of \texttt{x, y, v,} and \texttt{z} after execution of each line? On which lines are each variable undeclared (ie: their value is known)? You don't need to run this code, only read and think about it.
 \begin{lstlisting}[style=CStyle]
 int x = 2;
 int y, v, r;
@@ -143,7 +143,7 @@ v = y/x; // NB: integer division
 r = y%x;
 z = (float)y/x; // Forced to floating point division
 \end{lstlisting}
-\item What is printed to the console if the user enters \texttt{13$<$enter$>$}?
+\item What is printed to the console if the user enters \texttt{13$<$enter$>$}? You don't need to run this code, only read and think about it.
 \begin{lstlisting}[style=CStyle]
 float k;
 printf("Enter a number: ")
@@ -154,16 +154,24 @@ printf("%d\n", (int)k); // Integer truncation
 \end{lstlisting}
 \item Write a \texttt{printf();} statement which takes an integer variable \texttt{temp} and prints:
 
-\texttt{The temperature reading of 123 is dangerous}
+\texttt{The temperature reading of $<$temp$>$ is dangerous}
 
-to the screen (with 123 replaced with the actual value).
-\item A variable is required which stores integers with a maximum possible value of ten billion. What C data type is required?
-\item A variable is required to store a real number with 10 significant figures. What C data type is required?
-\item Write a C code snippet which implements the following pseudocode (decrement implies a subtraction by 1):
+to the screen (with \texttt{$<$temp$>$} replaced with the actual value, ie: write the \%d format specifier in that spot).
+\item A variable is required which stores integers with a maximum possible value of ten billion. What C data type is required? Why can't you use an \texttt{int}? See Section \ref{sec:datatypes} for a list of C data types.
+\item A variable is required to store a real number with 10 significant figures. What C data type is required? See Section \ref{sec:datatypes} for a list of C data types.
+\item Write a C ``code snippet'' which implements the following pseudocode (decrement implies a subtraction by 1):
 \begin{lstlisting}[style=pseudo]
 IF x is not equal to zero
 	decrement x
 ENDIF
+\end{lstlisting}
+
+A ``code snippet'' is just the code required to implement the pseudocode, you don't need to write a full program. In this case, you are only converting the pseudocode \texttt{IF..ENDIF} into something that looks like:
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	/* stuff */ 
+}
 \end{lstlisting}
  
 \item Write a C code snippet which implements the following pseudocode:
@@ -284,10 +292,10 @@ Test your code with several values calculated with \underline{\href{https://www.
 \end{task}
 
 \begin{task}{Variance Calculation}{}
-From statistics, the \textit{sample variance}, $s^2$, of $N$ samples can be calculated as:
+From statistics, the \textit{sample variance}, $s^2$, of $N$ samples, $X_1, X_2, ... , X_N$, can be calculated as:
 
 \begin{equation}\label{eq:var}
-s^2 = \frac{\sum_{k=1}^{N}(X_k - mean(X))^2}{N-1}.
+s^2 = \frac{1}{N-1}\sum_{k=1}^{N}(X_k - mean(X))^2.
 \end{equation}
 
 Write a C program which reads \textbf{four} numbers and outputs their sample variance.
@@ -308,7 +316,9 @@ scanf("%f %f %f %f", &x1, &x2, &x3, &x4);
 
 Test your program given that the variance of the set (1, 2, 3, 4) = 1.6667
 \\ \\
-\textbf{NB:} Be careful with the $\frac{1}{4}$ and $\frac{1}{3}$ constants in the equations above. They may experience integer division problems. If in doubt, convert them to floating point literals.
+\textbf{NB 1:} Be careful with the $\frac{1}{4}$ and $\frac{1}{3}$ constants in the equations above. They may experience integer division problems. If in doubt, convert them to floating point literals.
+\\ \\
+\textbf{Observation:} Did you find programming this task is really tedious? What if you had 100 samples? Or a million? In later weeks we will learn about \textit{arrays}. These are a C language feature which greatly simplify the code when you need to keep track of a lot of data.
 \end{task}
 
 \begin{task}{Linear Interpolation}{}
@@ -354,6 +364,8 @@ you would then type two numbers into the console, separated by a space, and pres
 
 \pagebreak
 \section{Flow Control Exercises}
+
+A template is not explicitly provided for these tasks. You can, however, use the "hello world" template provided by OnlineGDB or the code written for previous tasks as a starting point.
 
 This first task presents you with all the required building blocks to implement a simple algorithm. All this program will do is read in 2 integers, perform a division, then print the result. A check is performed to make sure a division by zero does not occur.
 
@@ -418,6 +430,23 @@ To calculate precision you will need to explicitly save $x_k$ and $x_{k-1}$ in d
 \\ \\
 \textbf{Hint:} You can place \texttt{printf();} statements inside the loop to help you debug. Calculate the series of $x_n$'s for a particular value (eg: $\sqrt{2}=1.4142$) by hand (with the same value for $x_0$) so that you can compare your program's output with an output you have confidence in.
 \end{task}\label{tsk:sqrt}
+
+\pagebreak
+\subsection{Else-If}
+
+The C syntax for an \texttt{IF .. ELSEIF .. ENDIF} flow control structure is:
+
+\begin{lstlisting}[style=CStyle]
+if( condition ) {
+	// Statements
+} else if( condition ) {
+	// Statements
+}
+\end{lstlisting}
+
+There are many variants, for more examples see Section \ref{sec:if}.
+
+Please be aware of a common mistake: a semicolon should \textit{not} be placed after an \texttt{if()} statement. Doing so tells the compiler ``if this condition is true, do nothing''. C will always do exactly what you tell it to, even if you tell it to do something that appears to be useless.
 
 \begin{task}{Quadratic Equation Analysis}{}
 The Friday Week 1 lecture introduced the following pseudocode for solving quadratic equations:
@@ -717,7 +746,7 @@ Many arithmetic operators support the following shorthand syntax. The left and r
 \end{tabular}
 \end{table}
 
-\subsection{Data Types}
+\subsection{Data Types}\label{sec:datatypes}
 
 \begin{table}[H]
 \begin{tabular}{|l|l|l|l|}
@@ -807,7 +836,7 @@ Data type ``upgrades'' are done automatically by the compiler but sometimes it i
 
 Flow control allows selected blocks of code to execute multiple times or only under a specified condition.
 
-\subsubsection{\texttt{if()}}
+\subsubsection{\texttt{if()}}\label{sec:if}
 
 The \texttt{if()} statement executes a block of code only if the \textit{condition} is true. The condition is an arithmetic statement which evaluates to either zero (false) or non-zero (true).
 
