@@ -158,7 +158,7 @@ END
 \frametitle{Modulus Example - Factor Testing}
 ...and convert each line to C:\\
 \vspace{4mm}
-(Program output changed to fit on slide)
+(\texttt{printf();} output changed to fit on slide)
 \vspace{-2mm}
 \begin{table}[H]
 \centering
@@ -174,9 +174,9 @@ BEGIN
 	READ x from the user
 	READ y from the user
 	IF (x % y) == 0
-		PRINT x is a factor
+		PRINT y is a factor
 	ELSE
-		PRINT x isn't a factor
+		PRINT y isn't a factor
 	ENDIF
 END
 \end{lstlisting} &
@@ -188,9 +188,9 @@ int main() {
 	scanf("%d", &x);
 	scanf("%d", &y);
 	if( (x % y) == 0) {
-		printf("%d is a factor\n", x, y);
+		printf("%d is a factor\n", y);
 	} else {
-		printf("%d isn't factor\n", x, y);
+		printf("%d isn't factor\n", y);
 	}
 }
 \end{lstlisting}
@@ -221,6 +221,64 @@ int main() {
 	return 0;
 }
 \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Factor Testing Discussion}
+\begin{itemize}
+\item Is this code \textit{robust}?
+\item Can the user enter numbers which make the code produce the wrong number?
+\item What happens if $\texttt{y}>\texttt{x}$?
+	\begin{itemize}
+		\item It might be fine, it might not. Have a think about it and do some testing in the lab
+	\end{itemize}
+\item Get in the habit of testing code, both with ``expected'' input and ``weird'' input
+\item What happens if you enter letters instead of numbers?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Modulus Example 2 - Finding Factors}
+\begin{itemize}
+\item We now know how to test if a number is a factor of another
+\item What about a full factorisation?
+\end{itemize}
+
+\textbf{Task:} Write a C program which reads an integer from the user and outputs all of its factors.
+\end{frame}
+
+\begin{frame}
+\frametitle{Modulus Example 2 - Finding Factors}
+\begin{itemize}
+\item How does factorisation happen, anyway?
+	\begin{itemize}
+		\item Normally? In your head. ``Dream up'' the answer.
+		\item On a computer? We need to \textit{brute force} it.
+			\begin{itemize}
+				\item ie: Simply test every integer which might work	
+			\end{itemize}
+		\item All factors of a number, $k$ are in the range [0,k]
+		\item They are also all integers
+		\item Thankfully, this is a finite number of tests
+	\end{itemize}
+\item Faster algorithms might exist
+	\begin{itemize}
+		\item You would need to consult number theory literature
+		\item This is beyond my (Brenton's) knowledge
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Modulus Example 2 - Finding Factors}
+\begin{itemize}
+\item How can we test lots of numbers?
+	\begin{itemize}
+		\item The program need to count
+		\item The input is unknown, so we need a loop
+		\item ie: we can't ``hard code'' counting when  we don't know when to stop!
+	\end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
