@@ -1149,10 +1149,14 @@ For more crucial work (eg: cryptography, serious mathematics) this method is con
 \item \textbf{Compiler:} The software package which converts \textit{source code} into a \textit{binary}.
 \item \textbf{Source Code:} The text which you type into a programming environment (eg: OnlineGDB) which is sent to the \textit{compiler}.
 \item \textbf{Binary:} A program data file which can be executed on a computer.
-\item \textbf{Variable:} A ``thing'' which remembers a number within your program. In C they have a \textit{type}, a name, and (optionally) an initial value.
+\item \textbf{Variable:} A ``thing'' which remembers a number within your program. In C they have a \textit{type}, a name, (optionally) an initial value, and (for future reference) a \textit{memory address}. Variables change when they are on the left side of an \textit{assignment}.
 \item \textbf{Pseudocode:} Any hand-written or typed notes which document the behaviour of a computer program. Pseudocode is for humans to read, not computers.
 \item \textbf{Flow Control:} Any algorithmic statement which breaks the ``top-to-bottom, line-by-line'' execution pattern of a computer program.
+\columnbreak
 \item \textbf{Statement:} A line of C code which performs a task and ends with a semicolon. Arithmetic lines, \texttt{printf();}, \texttt{scanf();}, and \texttt{rand();} are all examples of statements.
+\item \textbf{Assignment:} The process of changing a variable's value as your program executes. In C, this is typically performed with the \texttt{=} symbol. Eg: \texttt{x = y + 5} calculates the value of ``\texttt{y + 5}'' then allocates the result to the variable \texttt{x}.
+\item \textbf{Block:} A section of code ``grouped together'' by curly braces \{ ... \}. Typically applies to flow control, where a single, say, \texttt{if()} controls a block of code listed inside \{ and \}.
+\item \textbf{Literal:} Any numerical constant written in your code. Eg: In \texttt{x < 2.0} the ``\texttt{2.0}'' is a literal. Unless otherwise stated, integer literals are treated as \texttt{int} data types (ie: they inherit the \texttt{int}'s value range limit) and real valued literals are treated as \texttt{double}s.
 \end{itemize}
 
 \end{multicols}
