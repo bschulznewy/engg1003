@@ -237,7 +237,7 @@
 \definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
 \definecolor{funcC}{rgb}{0.9, 0.0, 0.0}
 \definecolor{flowControl}{rgb}{0.1, 0.1, 0.9}
-\definecolor{keywordCol}{rgb}{0.2, 0.4, 0.6}
+\definecolor{keywordCol}{rgb}{0.0, 0.2, 0.5}
 \definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
 
 \lstdefinestyle{CStyle}{
@@ -281,3 +281,34 @@
 %\lstset{basicstyle=\ttfamily}
 %\lstset{framextopmargin=50pt,frame=bottomline}
 \lstset{captionpos=b,tabsize=2}
+
+\lstdefinestyle{Ctable}{
+    language=C,
+    keywordstyle=\color{keywordCol},
+    deletekeywords={for,while,do,if},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[s]{"}{"},
+%    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+%    numbers=left,                    
+%    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=3,
+    classoffset=1,
+    morekeywords={printf,scanf},keywordstyle=\color{funcC},
+    classoffset=2,
+    morekeywords={for,while,do,if},
+    keywordstyle=\color{flowControl},
+    classoffset=0
+}
+

@@ -50,6 +50,166 @@ Generally speaking, the development process follows repeated application of the 
 \end{enumerate}
 
 I don't know how long these problems will take you to complete. With some adjustments, this may become a problem set for weeks 2 and 3.
+
+\pagebreak
+\section{Pseudocode - C conversion examples}
+
+Pseudocode is any rough working out which you write (or are given) which describes a computer algorithm in the most human-readable form practical. It will \textit{not} run when typed into a C compiler. It only exists to document algorithms and assist in helping you convert a ``real world'' problem into computer code.
+
+The table below covers the flow control structures seen so far. The first entry is what I consider to be the \textit{absolute minimum} required for all code in this course. The \texttt{main()} function is required, it is where program execution begins.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+Pseudocode & C Code \\
+\hline
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	// do things
+END
+\end{lstlisting}&
+
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+int main() {
+	// do things
+	return 0;
+}
+\end{lstlisting}\\
+\hline
+
+\begin{lstlisting}[style=pseudo]
+IF condition
+	// do things
+ENDIF
+\end{lstlisting}&
+
+\begin{lstlisting}[style=Ctable]
+if(condition) {
+	// do things
+}
+\end{lstlisting}\\
+\hline
+
+\begin{lstlisting}[style=pseudo]
+IF condition
+	// do things
+ELSE
+	// do things
+ENDIF
+\end{lstlisting}&
+
+\begin{lstlisting}[style=Ctable]
+if(condition) {
+	// do things
+} else {
+	// do things
+}
+\end{lstlisting}\\
+\hline
+
+\begin{lstlisting}[style=pseudo]
+IF condition
+	// do things
+ELSE IF condition
+	// do things
+ELSE
+	// do things
+ENDIF
+\end{lstlisting}&
+
+\begin{lstlisting}[style=Ctable]
+if(condition) {
+	// do things
+} else if(condition) {
+	// do things
+} else {
+	// do things
+}
+\end{lstlisting}\\
+\hline
+
+\begin{lstlisting}[style=pseudo]
+WHILE condition
+	// do things
+ENDWHILE
+\end{lstlisting}&
+
+\begin{lstlisting}[style=Ctable]
+while(condition) {
+	// do things
+}
+\end{lstlisting}\\
+\hline
+
+\end{tabular}
+\end{table}
+
+\pagebreak
+\section{Data Type Subset and Format Specifiers}
+
+Although C contains many data types you only need to consider the following subset when completing this lab:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+Type &  Value Range   & Format Specifier         \\
+\hline
+\texttt{int}         & -2 147 483 647 to +2 147 483 647 & \texttt{\%d}\\
+\texttt{float}   & $1.2\times 10^{-38}$ to $3.4 \times 10^{38}$ & \texttt{\%f}   \\
+\hline
+\end{tabular}
+\end{table}
+
+The \textit{Value Range} indicates the maximum and minimum values which can be stored in each type. For the  \texttt{float} data type both positive and negative numbers can be stored. If an arithmetic statement causes an \texttt{int} to exceed the value range the result will ``wrap around''; a behaviour known as \textit{overflow} or \textit{underflow}. If you type in a number which is too big and read it with \texttt{scanf("\%d", \&x);} the number stored will be different to that which you typed in.
+
+The \textit{format specifier} is the text which goes inside \texttt{scanf();} and \texttt{printf();} when reading or printing numbers, respectively. It tells the compiler how ASCII text should be converted into a number (and back again).
+
+Eg, to read and print an \texttt{int}:
+
+\begin{lstlisting}[style=CStyle]
+int value;
+scanf("%d", &value);
+printf("You entered: %d\n", value);
+\end{lstlisting}
+
+Change the two \texttt{\%d}'s to \texttt{\%f} to read and print a \texttt{float}. Always consider what data type is being read or written when typing format specifiers.
+
+If you write the wrong format specifier it will result in garbage. For example, the following code uses \texttt{\%f} inside \texttt{scanf();} when it should have been \texttt{\%d}:
+
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+int main() {
+	int x;
+	printf("Enter an integer: ");
+	scanf("%f", &x); // %f is incorrect!
+	printf("You entered: %d\n", x); 
+	return 0;
+}
+\end{lstlisting}
+
+It exhibits the following behaviour on when executed:
+
+\begin{lstlisting}[style=pseudo]
+Enter an integer: 1
+You entered: 1065353216
+\end{lstlisting}
+
+The compiler, gcc, produces a \textit{warning} when the code is compiled:
+
+\begin{lstlisting}[style=CStyle]
+format.c: In function ‘main’:
+format.c:6:10: warning: format ‘%f’ expects argument of type ‘float *’, but argument 2 has type ‘int *’ [-Wformat=]
+  scanf("%f", &x);
+         ~^   ~~
+         %d
+\end{lstlisting}
+
+but, unfortunately, OnlineGDB does not show it to you. It only displays warnings if errors also occurred. We will be moving to a more advanced development environment which \textit{does} print warnings as soon as IT has made it work on the lab machines.
+
+
 \pagebreak
 \section{Usage of \texttt{printf();} and \texttt{scanf();}}
 
@@ -840,11 +1000,12 @@ Flow control allows selected blocks of code to execute multiple times or only un
 
 The \texttt{if()} statement executes a block of code only if the \textit{condition} is true. The condition is an arithmetic statement which evaluates to either zero (false) or non-zero (true).
 
-Syntax:
+\texttt{if()} Syntax:
 
 \texttt{if(\textit{condition}) \{/* other code */\}}
 
-Full example:
+\columnbreak
+Full \texttt{if()} example:
 
 \begin{lstlisting}[style=CStyle]
 if(x > 10) {
@@ -873,7 +1034,65 @@ if(x > 10)
 	printf("x is greater than 10\n");
 \end{lstlisting}
 
+
+\subsubsection{\texttt{if() ... else if()}}
+
+The C syntax for IF ... ELSE is:
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+} else {
+	// Do stuff
+}
+\end{lstlisting}
+
+IF ... ELSEIF takes the form:
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+} else if(condition) {
+	// Do stuff
+}
+\end{lstlisting}
+
+Multiple ``layers'' of \texttt{else if()} can be written. You don't have to stop at two.
+
+\textbf{NB:} \textit{NEVER} place a semicolon directly after  the \texttt{else if()}. Semicolons only go after the statements inside the \texttt{if()} block (ie: between the curly braces \{ \}).
+
+\columnbreak
+\subsubsection{\texttt{while()}}
+
+The \texttt{while()} flow control statement executes a block of code so long as a condition is true. The condition is checked before the block is executed and before every repeated execution.
+
+The condition rules and examples are the same as for those listed under the \texttt{if()} statement.
+
+Syntax:
+
+\texttt{while(\textit{condition)} \{/* other code */\}}
+
+Example:
+
+Evaluate the infinite sum:
+\begin{equation}
+\sum_{n=0}^{\infty} \frac{1}{n^2}
+\end{equation}
+to a precision of $1 \times 10^{-6}$
+\begin{lstlisting}[style=CStyle]
+float sum = 0.0;
+int x = 0;
+while(1/(x*x) > 1e-6) {
+	sum = sum + 1.0/(x*x);
+	x++
+}
+\end{lstlisting}
+
+\textbf{NB:} \textit{NEVER} place a semicolon directly after a \texttt{while()} line. Semicolons only go after the statements inside the loop.
+
 \subsubsection{\texttt{for(;;)}}
+
+\textit{As of week 2 this has not yet been covered in lectures.}
 
 The \texttt{for(;;)} loop syntax is:
 
@@ -906,55 +1125,6 @@ will print:
 
 The \texttt{for(;;)} loop example doesn't print \texttt{10} because the condition is ``strictly less than 10''. When x is incremented to 10 the condition fails and the loop exits. It prints 0 because the increment is only applied \textit{after} the loop has run once.
 
-\subsubsection{\texttt{if() ... else if()}}
-
-The C syntax for IF ... ELSE is:
-
-\begin{lstlisting}[style=CStyle]
-if(condition) {
-	// Do stuff
-} else {
-	// Do stuff
-}
-\end{lstlisting}
-
-IF ... ELSEIF takes the form:
-
-\begin{lstlisting}[style=CStyle]
-if(condition) {
-	// Do stuff
-} else if(condition) {
-	// Do stuff
-}
-\end{lstlisting}
-
-Multiple ``layers'' of \texttt{else if()} can be written. You don't have to stop at two.
-
-\subsubsection{\texttt{while()}}
-
-The \texttt{while()} flow control statement executes a block of code so long as a condition is true. The condition is checked before the block is executed and before every repeated execution.
-
-The condition rules and examples are the same as for those listed under the \texttt{if()} statement.
-
-Syntax:
-
-\texttt{while(\textit{condition)} \{/* other code */\}}
-
-Example:
-
-Evaluate the infinite sum:
-\begin{equation}
-\sum_{n=0}^{\infty} \frac{1}{n^2}
-\end{equation}
-to a precision of $1 \times 10^{-6}$
-\begin{lstlisting}[style=CStyle]
-float sum = 0.0;
-int x = 0;
-while(1/(x*x) > 1e-6) {
-	sum = sum + 1.0/(x*x);
-	x++
-}
-\end{lstlisting}
 
 \subsection{Library Functions}
 \subsubsection{\texttt{rand()}}
@@ -971,17 +1141,24 @@ For all work in this course you may assume that the above method works well enou
 
 For more crucial work (eg: cryptography, serious mathematics) this method is considered problematic. Very advanced discussion \underline{\href{http://www.azillionmonkeys.com/qed/random.html}{Here}}.
 
-\begin{lstlisting}[style=CStyle]
-\end{lstlisting}
+\subsubsection{Glossary of Terms}
 
+\textit{I'll sort these alphabetically later, just a brain dump for now. Sorry.}
 
-\begin{lstlisting}[style=CStyle]
-\end{lstlisting}
+\begin{itemize}
+\item \textbf{Compiler:} The software package which converts \textit{source code} into a \textit{binary}.
+\item \textbf{Source Code:} The text which you type into a programming environment (eg: OnlineGDB) which is sent to the \textit{compiler}.
+\item \textbf{Binary:} A program data file which can be executed on a computer.
+\item \textbf{Variable:} A ``thing'' which remembers a number within your program. In C they have a \textit{type}, a name, and (optionally) an initial value.
+\item \textbf{Pseudocode:} Any hand-written or typed notes which document the behaviour of a computer program. Pseudocode is for humans to read, not computers.
+\item \textbf{Flow Control:} Any algorithmic statement which breaks the ``top-to-bottom, line-by-line'' execution pattern of a computer program.
+\item \textbf{Statement:} A line of C code which performs a task and ends with a semicolon. Arithmetic lines, \texttt{printf();}, \texttt{scanf();}, and \texttt{rand();} are all examples of statements.
+\end{itemize}
 
 \end{multicols}
 
 \pagebreak
-
+\section{Getting Started Question Solutions}
 \begin{enumerate}
 \item What are the values of \texttt{x, y, v,} and \texttt{z} execution of each line? On which lines are each variable undeclared (ie: their value is known)?
 \begin{lstlisting}[style=CStyle]
