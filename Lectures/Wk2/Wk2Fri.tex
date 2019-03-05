@@ -38,6 +38,24 @@
     language=C
 }
 
+\lstdefinestyle{Ctable}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
 \lstdefinestyle{pseudo}{
         basicstyle=\ttfamily\footnotesize,
         keywordstyle=\color{lightBlue},
@@ -50,13 +68,180 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Friday Week 2}
-\subtitle{}
+\subtitle{Fixing the Mistakes I Made on Tuesday}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
 
 \begin{document}
 \titlepage
+
+\begin{frame}
+Rick is likely presenting this lecture. \\
+\vspace{5mm}
+My voice was destroyed by being over-enthusiastic while presenting 6 hours of material Monday and Tuesday. Oops.
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Testing Factors}
+Task: Write a C program which reads two integers from the user and tests if the second is a factor of the first.\\
+\vspace{5mm}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example: Testing Factors}
+Lets break the problem down into pseudocode:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	integer x
+	integer y
+	READ x from the user
+	READ y from the user
+	Test if x is a factor of y
+	Tell the user the result
+END
+\end{lstlisting}
+Can every line of pseudocode be turned into C? How are we going to test if one number is a factor of another?
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Testing Factors}
+Lets make an attempt at factor testing, perhaps start with:\\
+\vspace{5mm}
+Definition: \textit{Factors} are numbers we can multiply together to make another number. Eg: 2 and 3 are factors of 6 as $2 \times 3 = 6$.\\
+\vspace{5mm}
+Is this definition useful for this problem? Is it easy to turn this fact into C code?
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Testing Factors}
+No, not really. C can't easily do ``can I find another integer that multiplies with $x$ to make $y$''. That instruction is not \textit{executable}. \\
+\vspace{5mm}
+Lets try again: \\
+\vspace{5mm}
+An integer, $x$, is a factor of a number, $y$, if the integer evaluation of $y\div x$ has no remainder.\\
+\vspace{5mm}
+Can \textit{this} become C code?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example: Testing Factors}
+YES! We can use the modulus operator, \texttt{\%}, to test if a division has a remainder with the code:
+
+\begin{lstlisting}[style=CStyle]
+if( (x % y) == 0) {
+	// x is a factor of y
+}
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Factor Testing}
+With this fact, lets tweak the pseudocode:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	integer x
+	integer y
+	READ x from the user
+	READ y from the user
+	IF (x % y) == 0
+		PRINT x is a factor of y
+	ELSE
+		PRINT x is NOT a factor of y
+	ENDIF
+END
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Factor Testing}
+...and convert each line to C:\\
+\vspace{4mm}
+(Program output changed to fit on slide)
+\vspace{-2mm}
+\begin{table}[H]
+\centering
+
+\begin{tabular}{ll}
+Pseudocode & C Code \\
+\hline
+
+\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	integer x
+	integer y
+	READ x from the user
+	READ y from the user
+	IF (x % y) == 0
+		PRINT x is a factor
+	ELSE
+		PRINT x isn't a factor
+	ENDIF
+END
+\end{lstlisting} &
+
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\scriptsize]
+int main() {
+	int x;
+	int y;
+	scanf("%d", &x);
+	scanf("%d", &y);
+	if( (x % y) == 0) {
+		printf("%d is a factor\n", x, y);
+	} else {
+		printf("%d isn't factor\n", x, y);
+	}
+}
+\end{lstlisting}
+\\
+
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Code with Prompt}
+\begin{lstlisting}[style=CStyle,caption=\texttt{factorTest.c}]
+#include <stdio.h>
+int main() {
+	int x, y;
+	printf("Enter an integer: ");
+	scanf("%d", &x);
+	printf("Enter another integer: ");
+	scanf("%d", &y);
+	if(x % y == 0) { // ie: if the remainder is zero
+		printf("%d is a factor of %d\n", y, x);
+	} else {
+		printf("%d is NOT a factor of %d\n", y, x);
+	}
+	return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Finding Factors}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\footnotesize,caption=\texttt{factors.c}]
+#include <stdio.h>
+int main() {
+	int input, x;
+	printf("Enter an integer to factorise: ");
+	scanf("%d", &input);
+	x = input;
+	while(x > 0) {
+		if(input % x == 0) // ie: if the remainder is zero
+			printf("%d is a factor of %d\n", x, input);
+		x--;
+	}
+	return 0;
+}
+\end{lstlisting}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{DO ... WHILE}
@@ -213,46 +398,6 @@ int main() {
 }
 \end{lstlisting}
 Pre/post-inc/decrements have many applications, more details in coming weeks.
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Modulus Example - Factor Testing}
-\begin{lstlisting}[style=CStyle,caption=\texttt{factorTest.c}]
-#include <stdio.h>
-int main() {
-	int x, y;
-	printf("Enter an integer: ");
-	scanf("%d", &x);
-	printf("Enter another integer: ");
-	scanf("%d", &y);
-	if(x % y == 0) { // ie: if the remainder is zero
-		printf("%d is a factor of %d\n", y, x);
-	} else {
-		printf("%d is NOT a factor of %d\n", y, x);
-	}
-	return 0;
-}
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Modulus Example - Finding Factors}
-
-\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\footnotesize,caption=\texttt{factors.c}]
-#include <stdio.h>
-int main() {
-	int input, x;
-	printf("Enter an integer to factorise: ");
-	scanf("%d", &input);
-	x = input;
-	while(x > 0) {
-		if(input % x == 0) // ie: if the remainder is zero
-			printf("%d is a factor of %d\n", x, input);
-		x--;
-	}
-	return 0;
-}
-\end{lstlisting}
 \end{frame}
 
 \begin{frame}
