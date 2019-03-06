@@ -59,7 +59,7 @@
 \lstdefinestyle{pseudo}{
         basicstyle=\ttfamily\footnotesize,
         keywordstyle=\color{lightBlue},
-        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT,READ},
         morecomment=[l]{//},
         commentstyle=\color{mGreen}
 }
@@ -238,7 +238,7 @@ int main() {
 \end{frame}
 
 \begin{frame}
-\frametitle{Modulus Example 2 - Finding Factors}
+\frametitle{Modulus Example 2 - Factorisation}
 \begin{itemize}
 \item We now know how to test if a number is a factor of another
 \item What about a full factorisation?
@@ -248,7 +248,7 @@ int main() {
 \end{frame}
 
 \begin{frame}
-\frametitle{Modulus Example 2 - Finding Factors}
+\frametitle{Modulus Example 2 - Factorisation}
 \begin{itemize}
 \item How does factorisation happen, anyway?
 	\begin{itemize}
@@ -257,7 +257,10 @@ int main() {
 			\begin{itemize}
 				\item ie: Simply test every integer which might work	
 			\end{itemize}
-		\item All factors of a number, $k$ are in the range [0,k]
+		\item All factors of a number, $k$ are in the range [1,k]
+			\begin{itemize}
+				\item 1 and k are always factors, so explicitly testing them is optional
+			\end{itemize}
 		\item They are also all integers
 		\item Thankfully, this is a finite number of tests
 	\end{itemize}
@@ -270,7 +273,7 @@ int main() {
 \end{frame}
 
 \begin{frame}
-\frametitle{Modulus Example 2 - Finding Factors}
+\frametitle{Modulus Example 2 - Factorisation}
 \begin{itemize}
 \item How can we test lots of numbers?
 	\begin{itemize}
@@ -281,9 +284,37 @@ int main() {
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Modulus Example - Finding Factors}
 
+
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Factorisation}
+Lets write some pseudocode for the factorisation problem. We start with something really ``high level'':
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	Integer x
+	READ a value for x from the user
+	Calculate x's factors
+	PRINT x's factors
+END
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Factorisation}
+Now lets \textit{imply} a loop, but not explicitly write it:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	Integer x
+	READ a value for x from the user
+	Test if all integers from 2 to x-1 is a factor of x
+	PRINT x's factors
+END
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Factorisation}
 \begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\footnotesize,caption=\texttt{factors.c}]
 #include <stdio.h>
 int main() {
@@ -314,8 +345,8 @@ DO
 WHILE condition
 \end{lstlisting}
 \end{itemize}
-
 \end{frame}
+
 
 \begin{frame}[fragile]
 \frametitle{FOR Loops}
