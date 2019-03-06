@@ -297,6 +297,7 @@ END
 \end{lstlisting}
 \end{frame}
 
+
 \begin{frame}[fragile]
 \frametitle{Modulus Example - Factorisation}
 Now lets \textit{imply} a loop, but not explicitly write it:
@@ -312,7 +313,24 @@ END
 
 \begin{frame}[fragile]
 \frametitle{Modulus Example - Factorisation}
-... getting closer, lets write a loop:
+\begin{itemize}
+	\item How do we code ``Test if every integer from 1 to x is a factor of x''?
+	\item Well, we know how to test one integer, \texttt{n}:\\ \texttt{if( x \% n == 0)}
+	\item How do we \textit{count?}
+	\item With what we know so far? A \texttt{while()} loop!
+
+\begin{lstlisting}[style=pseudo]
+integer count = 1
+WHILE count <= n
+	count = count + 1 // Counts from 1 to n
+ENDWHILE
+\end{lstlisting}
+	\item A ``better'' method will be shown later
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Factorisation}
 \begin{lstlisting}[style=pseudo]
 BEGIN
 	integer x

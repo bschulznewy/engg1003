@@ -534,16 +534,19 @@ Write a program which implements the following pseudocode:
 
 \begin{lstlisting}[style=pseudo]
 BEGIN 
-	Integer a 
-	Integer b
-	Integer c
+	Iinteger a 
+	integer b
+	integer q
+	integer r
 	Read an integer from standard input, store it in a
 	Read an integer from standard input, store it in b
 	IF b is zero
 		PRINT "Division by zero error"
 	ELSE
-		c = a/b
+		q = a/b
+		r = a%b
 		PRINT "a divided by b is" <the value of c>
+		PRINT "and the remainder is" <the value of r>
 	ENDIF
 END
 \end{lstlisting}
