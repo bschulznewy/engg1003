@@ -68,7 +68,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Friday Week 2}
-\subtitle{Fixing the Mistakes I Made on Tuesday}
+\subtitle{Fixing the Mistakes I Made on Tuesday\\Lets do Some Examples}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
@@ -97,7 +97,7 @@ BEGIN
 	integer y
 	READ x from the user
 	READ y from the user
-	Test if x is a factor of y
+	Test if y is a factor of x
 	Tell the user the result
 END
 \end{lstlisting}
@@ -110,16 +110,16 @@ Lets make an attempt at factor testing, perhaps start with:\\
 \vspace{5mm}
 Definition: \textit{Factors} are numbers we can multiply together to make another number. Eg: 2 and 3 are factors of 6 as $2 \times 3 = 6$.\\
 \vspace{5mm}
-Is this definition useful for this problem? Is it easy to turn this fact into C code?
+Is this definition useful for this problem? Is it easy to turn this definition into C code?
 \end{frame}
 
 \begin{frame}
 \frametitle{Example: Testing Factors}
-No, not really. C can't easily do ``can I find another integer that multiplies with $x$ to make $y$''. That instruction is not \textit{executable}. \\
+No, not really. C can't easily do ``can I find another integer that multiplies with $y$ to make $x$''. That instruction is not \textit{executable}. \\
 \vspace{5mm}
 Lets try again: \\
 \vspace{5mm}
-An integer, $x$, is a factor of a number, $y$, if the integer evaluation of $y\div x$ has no remainder.\\
+An integer, $y$, is a factor of a number, $x$, if the integer evaluation of $x\div y$ has no remainder.\\
 \vspace{5mm}
 Can \textit{this} become C code?
 \end{frame}
@@ -130,7 +130,7 @@ YES! We can use the modulus operator, \texttt{\%}, to test if a division has a r
 
 \begin{lstlisting}[style=CStyle]
 if( (x % y) == 0) {
-	// x is a factor of y
+	// y is a factor of x
 }
 \end{lstlisting}
 
@@ -146,9 +146,9 @@ BEGIN
 	READ x from the user
 	READ y from the user
 	IF (x % y) == 0
-		PRINT x is a factor of y
+		PRINT y is a factor of x
 	ELSE
-		PRINT x is NOT a factor of y
+		PRINT y is NOT a factor of x
 	ENDIF
 END
 \end{lstlisting}
@@ -233,7 +233,7 @@ int main() {
 		\item It might be fine, it might not. Have a think about it and do some testing in the lab
 	\end{itemize}
 \item Get in the habit of testing code, both with ``expected'' input and ``weird'' input
-\item What happens if you enter letters instead of numbers?
+\item What happens if you enter letters instead of numbers? Or negatives? Or ask where the bathroom is?
 \end{itemize}
 \end{frame}
 
@@ -305,12 +305,46 @@ END
 Now lets \textit{imply} a loop, but not explicitly write it:
 \begin{lstlisting}[style=pseudo]
 BEGIN
-	Integer x
-	READ a value for x from the user
-	Test if all integers from 2 to x-1 is a factor of x
-	PRINT x's factors
+ Integer x
+ READ a value for x from the user
+ Test if every integer from 1 to x is a factor of x
+ PRINT x's factors
 END
 \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Factorisation}
+... getting closer, lets write a loop:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	integer x
+	integer count = 1
+	READ a value for x from the user
+	WHILE (count <= x)
+ 		IF (x % count) == 0
+ 			PRINT <count> is a factor of <x>
+		ENDIF
+		count = count + 1
+	ENDWHILE
+END
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Modulus Example - Factorisation}
+\begin{itemize}
+\item Notice the \texttt{PRINT} statement \textit{inside} the loop
+	\begin{itemize}
+		\item Previous pseudocode has factorisation and printing as different steps
+	\end{itemize}
+\item This means we don't need to remember a list of factors as we go
+\item We will learn how to work with lists later
+	\begin{itemize}
+		\item C calls a list of variables an \textit{array}
+	\end{itemize}
+\item Lets read and run the final program...
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -318,18 +352,49 @@ END
 \begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\footnotesize,caption=\texttt{factors.c}]
 #include <stdio.h>
 int main() {
-	int input, x;
+	int count = 1, x;
 	printf("Enter an integer to factorise: ");
-	scanf("%d", &input);
-	x = input;
-	while(x > 0) {
-		if(input % x == 0) // ie: if the remainder is zero
-			printf("%d is a factor of %d\n", x, input);
-		x--;
+	scanf("%d", &x);
+	while(count <= x) {
+		if(x % count == 0) // If the remainder is zero
+			printf("%d is a factor of %d\n", count, x);
+		count++;
 	}
 	return 0;
 }
 \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modulus Example - Factorisation}
+Example output:
+\begin{lstlisting}[style=pseudo]
+Enter an integer to factorise: 76545478
+1 is a factor of 76545478
+2 is a factor of 76545478
+38272739 is a factor of 76545478
+76545478 is a factor of 76545478
+\end{lstlisting}
+
+Is it correct? Check output with \underline{\href{https://www.wolframalpha.com/input/?i=factors+of+76545478}{Wolfram Alpha}}
+\\
+\vspace{5mm}
+Observation: A modified version of this code (with \texttt{unsigned int}) only takes 15 seconds to factorise 4294967294
+\end{frame}
+
+\begin{frame}
+\frametitle{Discussion}
+\item Pay close attention to the value of \texttt{count}
+\item It is initialised to 1
+\item It is used \textit{before} incrementing it
+\item Incrementing is the last thing in the loop
+\item The loop \textit{condition} is ``less than \textit{or equal to}'' so that the number itself is explicitly tested as a factor
+	\begin{itemize}
+		\item Remember that 1 and x are always factors of x? 
+	\end{itemize}
+\begin{itemize}
+
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -381,13 +446,8 @@ ENDFOR
 \begin{frame}
 \frametitle{Loop \texttt{continue} Statements}
 \begin{itemize}
-	\item Previously we saw loop \texttt{break} statements
-		\begin{itemize}
-			\item Caused loop to exit
-		\end{itemize}
 	\item A \texttt{continue} causes execution to jump back to the loop start
-	\item The \textit{condition} is tested before reentry
-	
+	\item The \textit{condition} is tested before reentry	
 \end{itemize}
 \end{frame}
 
@@ -562,18 +622,22 @@ Pre/post-inc/decrements have many applications, more details in coming weeks.
 
 \begin{frame}
 \frametitle{Code Blocks in C}
+TODO
 \end{frame}
 
 \begin{frame}
 \frametitle{Variable Scope}
+TODO
 \end{frame}
 
 \begin{frame}
 \frametitle{\#define Constants}
+TODO
 \end{frame}
 
 \begin{frame}
 \frametitle{\texttt{for(;;)} Loops}
+TODO
 \end{frame}
 
 

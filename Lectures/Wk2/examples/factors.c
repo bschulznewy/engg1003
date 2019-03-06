@@ -1,14 +1,13 @@
 #include <stdio.h>
 int main() {
-	int input;
-	int x;
+	unsigned int count = 1, x;
 	printf("Enter an integer to factorise: ");
-	scanf("%d", &input);
-	x = input;
-	while(x > 0) {
-		if(input % x == 0) // ie: if the remainder is zero
-			printf("%d is a factor of %d", x, input);
-		x--;
+	scanf("%d", &x);
+	while(count <= x) {
+		if(x % count == 0) // ie: if the remainder is zero
+			printf("%u\n", count);
+		count++;
 	}
+	printf("\n");
 	return 0;
 }
