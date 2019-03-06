@@ -575,9 +575,9 @@ The square root of a number, $x = \sqrt{n}$, can be calculated with the iterativ
 \begin{equation}\label{eq:sqrt}
 x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
 \end{equation}
-Implement an algorithm which uses this formula to calculate square roots of real numbers. The value of $n$ is to be read from the console with \texttt{scanf();} and the result printed with \texttt{printf();}.
+\textbf{Task:} Write a C program which implement this formula to calculate square roots of real numbers. The value of $n$ is to be read from the console with \texttt{scanf();} and the result printed with \texttt{printf();}.
 \\ \\
-The choice of $x_0$ is somewhat arbitrary, the algorithm should converge given any sane value (ie: not infinity), but will converge faster if $x_0$ is closer to the true value of $\sqrt{n}$. You may play with this value and observe any differences. Common choices would be setting it to $n$ or 1.
+The choice of $x_0$ is somewhat arbitrary, the algorithm should \textit{converge} ($x_n$ will move towards the result, not away) given any sane value (eg: not infinity), but will converge \texttt{faster} (ie: in fewer iterations) if $x_0$ is closer to the true value of $\sqrt{n}$. You may play with this value and observe how accurate the result is after a fixed number of iterations (say, 5). Common choices for $x_0$ would be $x_0 = n$ or $x_0 = 1$.
 \\ \\
 The algorithm will require a loop. The exit condition could be one of several choices. In order of difficulty:
 \begin{enumerate}
@@ -587,6 +587,8 @@ The algorithm will require a loop. The exit condition could be one of several ch
 \end{enumerate}
 
 To calculate precision you will need to explicitly save $x_k$ and $x_{k-1}$ in different variables.
+\\ \\
+\textbf{Sketch out pseudocode (either on \textit{actual dead tree paper} or in Word/text editor/in code comments) before attempting to write the C program.}
 \\ \\
 \textbf{Hint:} You can place \texttt{printf();} statements inside the loop to help you debug. Calculate the series of $x_n$'s for a particular value (eg: $\sqrt{2}=1.4142$) by hand (with the same value for $x_0$) so that you can compare your program's output with an output you have confidence in.
 \end{task}\label{tsk:sqrt}

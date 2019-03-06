@@ -77,16 +77,20 @@
 \titlepage
 
 \begin{frame}
-\frametitle{Example: Testing Factors}
-Task: Write a C program which reads two integers from the user and tests if the second is a factor of the first, printing the result.\\
+Rick is likely presenting this lecture. \\
 \vspace{5mm}
-Eg: If the user enters 12 and 3 the program would print something like:\\
-\texttt{3 is a factor of 12}
+My voice was destroyed by being over-enthusiastic while presenting 6 hours of material Monday and Tuesday. Oops.
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Testing Factors}
+Task: Write a C program which reads two integers from the user and tests if the second is a factor of the first.\\
+\vspace{5mm}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Example: Testing Factors}
-Lets convert the problem down into ``high level'' pseudocode:
+Lets break the problem down into pseudocode:
 \begin{lstlisting}[style=pseudo]
 BEGIN
 	integer x
@@ -154,8 +158,7 @@ END
 \frametitle{Modulus Example - Factor Testing}
 ...and convert each line to C:\\
 \vspace{4mm}
-\small{(\texttt{printf();} output changed to fit on slide)}\\
-\small{(C Code is almost missing \texttt{\#include <stdio.h>})}
+\small{(\texttt{printf();} output changed to fit on slide)}
 \vspace{-2mm}
 \begin{table}[H]
 \centering
@@ -393,72 +396,249 @@ Observation: A modified version of this code (with \texttt{unsigned int}) only t
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Case Study: Calulating $\pi$}
-Consider a quadrant of a unit circle ($r=1$) with a square around it:
-\begin{columns}
-\begin{column}{0.5\textwidth}
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
 \begin{itemize}
-\small{
-\item Area of the square $A_1 = 1$\\
-\item Area of the circle quadrant $A_2 =\frac{\pi r^2}{4} = \frac{\pi}{4}$ \\
-\item Ratio of areas $\frac{A_2}{A_1} = \frac{\pi}{4}$
-\item Therefore $\pi = 4\times \frac{A2}{A1}$
-}
+\item Same as WHILE except executes \textit{at least once}
+\item The condition is tested at the end
+\item Loops repeats if condition is TRUE
+\item Syntax:
+\begin{lstlisting}[style=pseudo]
+DO
+	stuff
+WHILE condition
+\end{lstlisting}
 \end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{figure}
-\includegraphics[width=0.9\textwidth]{pi.png}
-\end{figure}
-\end{column}
-\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops}
+\begin{itemize}
+\item A FOR loop executes a given number of times
+\item Used when the number of loop repeats is known \textit{before} entering the loop
+	\begin{itemize}
+		\item Repeat count could be ``hard coded'' as a number
+		\item Could also be a variable
+	\end{itemize}
+\item Can be easier to read than WHILE
+\item Example pseudocode syntax:
+\begin{lstlisting}[style=pseudo]
+FOR x = 1 to 10
+	Do something ten times
+ENDFOR
+\end{lstlisting}
+\item The \textit{loop variable} is automatically incremented
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Case Study: Calulating $\pi$}
-\begin{columns}
-\begin{column}{0.6\textwidth}
+\frametitle{BREAK Statements}
 \begin{itemize}
-\small{
-\item We can't calculate the area ratio without knowing $\pi$
-\item Estimate it by:
-\begin{itemize}
-	\item Randomly picking many points inside the square
-	\item Test if the point is inside the circle with $x^2 + y^2 < 1$
-	\end{itemize}
-}
+\item Sometimes you want to exit a loop \textit{before} the condition is re-tested
+\item The flow-control mechanism for this is a BREAK statement
+\item If executed, the loop quits
+\item BREAKs typically go inside an IF to control their execution
 \end{itemize}
-\end{column}
-\begin{column}{0.4\textwidth}
-\begin{figure}
-\includegraphics[width=0.9\textwidth]{pi-dots.png}
-\end{figure}
-\end{column}
-\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Loop \texttt{continue} Statements}
 \begin{itemize}
-\item $\pi \approx 4 \times \frac{\textrm{Number of points which land inside circle}}{\textrm{Total number of points tested}} = 4 \times \frac{9}{12} = 3$
+	\item A \texttt{continue} causes execution to jump back to the loop start
+	\item The \textit{condition} is tested before reentry	
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Algorithm for Calculating $\pi$}
-\begin{lstlisting}[style=pseudo]
+\frametitle{FOR Example 1}
+\begin{itemize}
+\item Two equivalent ways to implement the $\cos()$ series from before are:
+\end{itemize}
+{\small\textbf{NB:} $|$\texttt{tmp}$|$ means ``absolute value of tmp''.}
+\begin{multicols}{2}
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
 BEGIN
-	integer countTotal = 0
-	integer countInside = 0
-	WHILE countTotal < A large number
-		x = random number between 0 and 1
-		y = random number between 0 and 1
-		countTotal = countTotal + 1
-		IF x*x + y*y < 1
-			countInside = countInside + 1
+	INPUT x
+	sum = 0
+	FOR k = 0 to 10
+		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
+		sum = sum + tmp
+		IF |tmp| < 1e-6
+			BREAK
 		ENDIF
-	ENDWHILE
-	pi = 4*countInside/countTotal
-	PRINT pi
+	ENDWHILE 
 END
 \end{lstlisting}
+\columnbreak
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT x
+	tmp = 1
+	k = 0
+	sum = 0
+	WHILE (k<10)AND(|tmp|>1e-6)
+		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
+		sum = sum + tmp
+		k = k + 1
+	ENDWHILE 
+END
+\end{lstlisting}
+
+\end{multicols}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Example 2 - Factorials}
+\begin{itemize}
+\item Use FOR to count from 2 to our input number
+\item Keep a running product as we go
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	INPUT x
+	result = 1
+	FOR k = 2 TO x
+		result = result * k
+	ENDFOR
+END
+\end{lstlisting}
+\item Is this algorithm robust? What happens if:
+	\begin{itemize}
+		\item x = -1
+		\item x = 1
+		\item x = 0 (\textbf{NB:} 0! = 1 because \textit{maths})
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{GOTO}
+\begin{itemize}
+\item There exists a GOTO flow control mechanism
+	\begin{itemize}
+		\item Sometimes also called a \textit{branch}
+	\end{itemize}
+\item It ``jumps'' from one line to a different line
+\item It exists for a purpose
+\item That purpose does not (typically) exist when writing C code
+	\begin{itemize}
+		\item C \textit{supports} a \texttt{goto} statement
+		\item It results in ``spaghetti code'' which is hard to read
+		\item Don't use it in ENGG1003
+	\end{itemize}
+\item You \textit{can} use GOTO in ELEC1710
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Increment Example}
+\begin{lstlisting}[style=CStyle,caption=\texttt{increment.c}]
+#include <stdio.h>
+int main() {
+	int x = 0;
+	int y = 0;
+	int z = 0;
+	y = ++x + 10;
+	printf("Pre-increment: %d\n", y);
+	y = z++ + 10;
+	printf("Post-increment: %d\n", y);
+	return 0;
+}
+\end{lstlisting}
+Pre/post-inc/decrements have many applications, more details in coming weeks.
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Nomenclature}
+\begin{itemize}
+\item The value range is a result of the underlying binary storage mechanism
+\item A single binary digit is called a \textit{bit}
+\item There are 8 bits in a \textit{byte}
+\item In programming we use the ``power of two'' definitions of kB, MB, etc:
+	\begin{itemize}
+		\item 1 kilobyte is $2^{10} = 1024$ bytes
+		\item 1 Megabyte is $2^{20} = 1048576$ bytes
+		\item 1 Gigabyte is $2^{30} = 1073741824$ bytes
+		\item (Advanced) These numbers look better in hex: \texttt{0x3FF}, \texttt{0xFFFFF}, etc.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Nomenclature}
+\begin{itemize}
+\item Observe that kilobyte, Megabyte, Gigabyte, etc use scientific prefixes
+\item These \textit{normally} mean a power of 10:
+	\begin{itemize}
+		\item kilo- = $10^3$
+		\item Mega- = $10^6$
+		\item Giga- = $10^9$
+		\item ...etc (see the inside cover of a physics text)
+	\end{itemize}
+\item Computer science stole these terms and re-defined them
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Nomenclature}
+\begin{itemize}
+\item This has made some people \textit{illogically angry}
+\item Instead, we can use a more modern standard:
+	\begin{itemize}
+		\item $2^{10}$ bytes = 1 kibiByte (KiB)
+		\item $2^{20}$ bytes = 1 Mebibyte (MiB)
+		\item $2^{30}$ bytes = 1 Gibibyte (GiB)
+		\item ...etc
+	\end{itemize}
+\item Generally speaking, KB (etc) implies:
+	\begin{itemize}
+		\item powers of two to \textit{engineers}
+		\item powers of ten to \textit{marketing}
+			\begin{itemize}
+				\item The number is smaller
+				\item Hard drive manufacturers, ISPs, etc like this
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Unambiguous Integer Data Types}
+\begin{itemize}
+\item Because the standard \texttt{int} and \texttt{long} data types don't have fixed size unambiguous types exist
+\item Under OnlineGDB (ie: Linux with \texttt{gcc}) these are defined in \texttt{stdint.h} (\texttt{\#include} it)
+\item You will see them used commonly in embedded systems programming (eg: Arduino code)
+\item The types are:
+	\begin{itemize}
+		\item \texttt{int8\_t}
+		\item \texttt{uint8\_t}
+		\item \texttt{int16\_t}
+		\item ...etc
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Code Blocks in C}
+TODO
+\end{frame}
+
+\begin{frame}
+\frametitle{Variable Scope}
+TODO
+\end{frame}
+
+\begin{frame}
+\frametitle{\#define Constants}
+TODO
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{for(;;)} Loops}
+TODO
+\end{frame}
+
+
 
 \end{document}
