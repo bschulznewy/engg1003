@@ -82,15 +82,148 @@
 \item Same as WHILE except executes \textit{at least once}
 \item The condition is tested at the end
 \item Loops repeats if condition is TRUE
-\item Syntax:
+\item Pseudocode syntax:
 \begin{lstlisting}[style=pseudo]
 DO
 	stuff
 WHILE condition
 \end{lstlisting}
+\item C syntax:
+\begin{lstlisting}[style=CStyle]
+do {
+	// do stuff
+} while(condition)
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item A toy example in C:
+\begin{lstlisting}[style=CStyle]
+int main() {
+	int x = 0;
+	do {
+		x = x - 1;
+	} while(x > 0)
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item A slightly less toy example:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	int x;
+	do {
+		printf("Enter an integer: ");
+		scanf("%d", &x);
+		if(x%2==0)
+			printf("%d is even\n", x);
+		else
+			printf("%d is odd\n", x);
+	} while(x >= 0);
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item \textbf{NB:} The previous example had:
+\begin{lstlisting}[style=CStyle]
+		if(x%2==0)
+			printf("%d is even\n", x);
+		else
+			printf("%d is odd\n", x);
+\end{lstlisting}
+\item The \{ \} block is optional if \textit{only one statement} is after an \texttt{if()}, \texttt{while()}, etc
+\item I omitted it to reduce line count so that the code would fit on the slide
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item The \textit{Fibonacci Sequence} is the series of numbers, starting with 0 and 1, where each number is the sum of the two which came before it
+
+\item ie: 0, 1, 1, 2, 3, 5, 8, 12, 21, ...
+
+\item \textbf{Task:} Write a C program which outputs the Fibonacci Sequence for all integers small enough to fit into an \texttt{int}.
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Lets break this into two problems:
+	\begin{enumerate}
+		\item Calculate the Fibonacci Sequence
+		\item Worry about the stop condition
+	\end{enumerate}
+\item Always try to break programming problems down into small chunks
+\item Real-world problems are too difficult to complete ``all in one go''
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+	\item How do we calculate the Fibonacci Sequence?
+	\item Note that we need to keep track of \textit{three} numbers:
+		\begin{itemize}
+			\item The next number
+			\item The previous two numbers
+		\end{itemize}
+	\item I will use these variable names:
+		\begin{lstlisting}[style=CStyle]
+int xN;		// x N
+int xNm1; // N minus 1
+int xNm2; // N minus 2
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Each time a new number is calculated, what happens to the variables?
+\item All 3 variables change, the sequence in which they change is crucial:
+	\begin{lstlisting}[style=CStyle]
+xN = xNm1 + xNm2; // Calculate next value
+xNm2 = xNm1;//Move old values "down the chain"
+xNm1 = xN;
+\end{lstlisting}
+\item Note that the \textit{oldest} value is overwritten first
+	\begin{itemize}
+		\item It is the one which is no longer needed for calculation
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+	\item Lets sketch some pseudocode:
+	\begin{lstlisting}[style=pseudo]
+BEGIN
+	int xNm2 = 0
+	int xNm1 = 1
+	int xNext
+END
+	\end{lstlisting}
+\end{itemize}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{FOR Loops}
@@ -197,6 +330,7 @@ END
 \item There exists a GOTO flow control mechanism
 	\begin{itemize}
 		\item Sometimes also called a \textit{branch}
+		\item An ability some consider to be unnatural
 	\end{itemize}
 \item It ``jumps'' from one line to a different line
 \item It exists for a purpose
@@ -206,7 +340,7 @@ END
 		\item It results in ``spaghetti code'' which is hard to read
 		\item Don't use it in ENGG1003
 	\end{itemize}
-\item You \textit{can} use GOTO in ELEC1710
+\item You \textit{can} use branch instructions in ELEC1710
 \end{itemize}
 \end{frame}
 
@@ -299,14 +433,66 @@ Pre/post-inc/decrements have many applications, more details in coming weeks.
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Code Blocks in C}
-TODO
+\begin{itemize}
+\item Semi-revision:
+\item The curly braces \{ \} encompass a \textit{block}
+\item You have used these with \texttt{if()} and \texttt{while()}
+\item They define the set of lines executed inside the \texttt{if()} or \texttt{while()}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code Blocks in C}
+\begin{itemize}
+\item You can place blocks anywhere you like
+\item Nothing wrong with:
+\begin{lstlisting}[style=CStyle]
+int main() {
+	int x;
+	{
+		printf("%d\n", x);
+	}
+	return 0;
+}
+\end{lstlisting}
+\item This just places the \texttt{printf();} inside a block
+\item It doesn't do anything useful, but...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variable Scope}
+\begin{itemize}
+\item A variable's ``existence'' is limited to the block where it is declared
+	\begin{itemize}
+		\item Plus any blocks within that one
+	\end{itemize}
+\item Example this code won't compile:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	int x = 2;
+	if(x == 2) {
+		int k;
+		k = 2*x;
+	}
+	printf("%d\n", k);
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Variable Scope}
-TODO
+\begin{itemize}
+\item Note that \texttt{k} was declared inside the \texttt{if()}
+\item That means that it no longer exists when the \texttt{if()} has finished
+\item This generates a compiler error
+\end{itemize}
 \end{frame}
 
 \begin{frame}
