@@ -122,7 +122,7 @@ Can \textit{this} become C code?
 
 \begin{frame}[fragile]
 \frametitle{Example: Testing Factors}
-YES! We can use the modulus operator, \texttt{\%}, to test if a division has a remainder with the code:
+YES! We can use the modulus operator, \texttt{\%}, to test if a division has no remainder with the code:
 
 \begin{lstlisting}[style=CStyle]
 if( (x % y) == 0) {
@@ -235,14 +235,30 @@ int main() {
 \end{frame}
 
 \begin{frame}
+\frametitle{Confused so Far?}
+\begin{center}
+\huge{Go to PASS!}
+\end{center}
+\begin{table}[]
+\begin{tabular}{lll}
+Monday    & 2-3pm    & ES238  \\
+Wednesday & 12-1pm & ES238  \\
+Thursday  & 10-11am  & MCLG42
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
 \frametitle{Modulus Example 2 - Factorisation}
 \begin{itemize}
 \item We now know how to test if a number is a factor of another
 \item What about a full factorisation?
 \end{itemize}
 
-\textbf{Task:} Write a C program which reads an integer from the user and outputs all of its factors.
+\textbf{Task:} Write a C program which outputs all of the factors of a given integer.
 \end{frame}
+
+
 
 \begin{frame}
 \frametitle{Modulus Example 2 - Factorisation}
@@ -250,18 +266,18 @@ int main() {
 \item How does factorisation happen, anyway?
 	\begin{itemize}
 		\item Normally? In your head. ``Dream up'' the answer.
-		\item On a computer? We need to \textit{brute force} it.
+		\item On a computer? We can \textit{brute force} it.
 			\begin{itemize}
 				\item ie: Simply test every integer which might work	
 			\end{itemize}
-		\item All factors of a number, $k$ are in the range [1,k]
+		\item All factors of a number, $k$, are in the range [1,k]
 			\begin{itemize}
 				\item 1 and k are always factors, so explicitly testing them is optional
 			\end{itemize}
 		\item They are also all integers
 		\item Thankfully, this is a finite number of tests
 	\end{itemize}
-\item Faster algorithms \textit{might} exist
+\item Faster algorithms probably exist
 	\begin{itemize}
 		\item You would need to consult number theory literature
 		\item This is beyond my (Brenton's) knowledge
@@ -276,7 +292,7 @@ int main() {
 	\begin{itemize}
 		\item The program needs to count
 		\item The input is unknown, so we need a loop
-		\item ie: we can't ``hard code'' counting when  we don't know when to stop!
+		\item ie: we can't ``hard code'' counting when  we don't know when counting needs start and/or stop!
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -412,6 +428,57 @@ Observation: A modified version of this code (with \texttt{unsigned int}) only t
 \end{frame}
 
 \begin{frame}
+\frametitle{Square Root Algorithm}
+\begin{itemize}
+\item The square root lab task included the following formula:
+\begin{equation}\label{eq:sqrt}
+x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
+\end{equation}
+\item Lots of people didn't know what to do with it
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Square Root Algorithm}
+\begin{equation}\label{eq:sqrt}
+x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
+\end{equation}
+\begin{itemize}
+\item It describes how $x$ changes with ``time''
+\item $x$ ``now'' is $x_n$
+\item $x$ in the future is $x_{n+1}$
+\item The equation describes how the \texttt{=} symbol behaves on a computer
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Another Simple Example}
+\begin{equation}
+x_{k+1} = x_k + 1
+\end{equation}
+\begin{itemize}
+\item In C: \texttt{x = x + 1}
+\item Before the line is executed \texttt{x} has a value
+\item The calculation of \texttt{x + 1} is done
+\item The result then becomes the \textit{new} value of \texttt{x}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Square Root Algorithm}
+\begin{equation}
+x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
+\end{equation}
+\begin{itemize}
+\item In C: \texttt{x = 0.5*(x + n/x)}
+\item Before the line is executed \texttt{x} has a value
+\item The calculation of \texttt{0.5*(x+n/x)} is done
+\item The result then becomes the \textit{new} value of \texttt{x}
+\item Lets run the code...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Case Study: Calulating $\pi$}
 Consider a quadrant of a unit circle ($r=1$) with a square around it:
 \begin{columns}
@@ -431,12 +498,6 @@ Consider a quadrant of a unit circle ($r=1$) with a square around it:
 \end{figure}
 \end{column}
 \end{columns}
-\end{frame}
-
-\begin{frame}
-\frametitle{Square Root Algorithm}
-TODO: Present a solution to the sqrt() task.
-Concentrate of how the variable changes when iterating
 \end{frame}
 
 \begin{frame}
