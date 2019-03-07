@@ -534,7 +534,7 @@ Write a program which implements the following pseudocode:
 
 \begin{lstlisting}[style=pseudo]
 BEGIN 
-	Iinteger a 
+	integer a 
 	integer b
 	integer q
 	integer r
@@ -1232,7 +1232,7 @@ printf("The temperature reading of %d is dangerous", temp);
 
 \item A variable is required which stores integers with a maximum possible value of ten billion. What C data type is required?
 
-\texttt{long}. An \texttt{int} only stores up to approx 2.1 billion so it can't be used
+\texttt{long}. An \texttt{int} only stores up to approx 2.1 billion so it can't be used. Some C documentation claims that \texttt{long} is the same size as \texttt{int}. On some systems that is true, but not for the systems you are compiling on. OnlineGDB (and, later, Eclipse Che) are running on 64-bit machines on which \texttt{long} is an 8-byte data type consistent with the table in Section \ref{sec:datatypes}.
 
 \item A variable is required to store a real number with 10 significant figures. What C data type is required?
 
