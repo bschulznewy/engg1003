@@ -8,7 +8,7 @@
 \addtolength{\oddsidemargin}{-.4in}
 \addtolength{\evensidemargin}{-.4in}
 
-\title{ENGG1003 - Lab 2 (And Beyond)}
+\title{ENGG1003 - Lab 3}
 \author{Brenton Schulz}
 \date{\today}
 
@@ -176,7 +176,7 @@ Output:
 \end{task}
 
 \begin{task}{Second Order Sequences Pt II (Advanced)}{}
-The values of $b_1$ and $b_2$ will greatly influence the behaviour of a second order sequence. For example:
+The initial condition, $x_1$ and $x_2$, and the values of $b_1$ and $b_2$ will greatly influence the behaviour of a second order sequence. For example:
 
 \begin{itemize}
 \item It may converge towards zero
@@ -184,7 +184,7 @@ The values of $b_1$ and $b_2$ will greatly influence the behaviour of a second o
 \item It may diverge to infinity like the Fibonacci sequence
 \item It may \textit{oscillate}
 	\begin{itemize}
-		\item ie: Wiggle above and below zero in a sinusoidal pattern
+		\item ie: Wiggle up and down in a sinusoidal pattern
 		\item This oscillation may converge to zero or diverge to infinity
 	\end{itemize}
 \end{itemize}
@@ -195,7 +195,7 @@ To complete this task will need to declare a ``flag'' variable. It can be of typ
 \\ \\
 Each time a new entry in the sequence is generated re-calculate the value $x_n - x_{n-1}$. If, at any point, the sign of this calculation is different to the sign of $x_2 - x_1$ the program should print that the sequence oscillates and exit.
 \\ \\
-If, after 20 iterations, no change of sign has been observed the program should print that no oscillation occurred and exit\footnote{This does not prove that oscillation will \textit{never} occur, just that if it does it takes a ``long time'' to be visible}.
+If, after 20 iterations, no change of sign has been observed the program should print that no oscillation occurred and exit\footnote{This does not prove that oscillation will \textit{never} occur, just that if it does it takes a ``long time'' to be detected}.
 \\ \\
 \textbf{Example 1:} For the initial values \texttt{x1 = 1, x2 = -0.5} and coefficients \texttt{b1 = 0.2, b2 = 0.2} the sequence is:
 \begin{lstlisting}[style=pseudo]
@@ -206,7 +206,7 @@ If, after 20 iterations, no change of sign has been observed the program should 
  0.00400
 -0.01520
 \end{lstlisting}
-This sequence oscillates (first difference is -1.5, then +0.6).
+and the sequence oscillates (first difference is -1.5, then +0.6).
 \\ \\
 \textbf{Example 2:} For the same coefficients as above but initial values \texttt{x1 = 1, x2 = 0.5} the sequence is:
 \begin{lstlisting}[style=pseudo]
