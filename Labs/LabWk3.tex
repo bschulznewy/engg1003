@@ -19,14 +19,23 @@
 
 This lab is written to prepare you for the week 4 assessment. The assessment task will be closely related to material in this lab. Every lab time will be given a different problem to solve.
 
-\begin{task}{Arithmetic series}{}
-An arithmetic series is a sequence of numbers, $x_1, x_2, x_3, ...$ where each number, $x_n$, is a fixed increase from the previous one, $x_{n-1}$. An arithmetic series is defined by the initial value, $x_0$, and the difference, $d = x_n - x_{n-1}$.
+All these tasks are based on pure mathematics which I \textit{believe} to be understood by a high school graduate who has been admitted to engineering (ie: 2 unit Advanced Mathematics or higher). Sequences and series are described in Section 7 of the NSW \underline{\href{https://educationstandards.nsw.edu.au/wps/portal/nesa/11-12/stage-6-learning-areas/stage-6-mathematics/mathematics-syllabus}{Mathematics 2/3 Unit syllabus}}.
+
+These tasks may not create the most interesting programs in the world, but I need to set a solid foundation of knowledge among the whole cohort before we can tackle more complicated (and realistic) problems.
+
+\begin{task}{Arithmetic sequence}{}
+An arithmetic sequence is a list of numbers, $x_1, x_2, x_3, ...$ where each number, $x_n$, is a fixed increase, $d$, from the previous one:
+
+\begin{equation}
+x_{n+1} = x_n + d.
+\end{equation}
+An arithmetic series can be defined by the initial value, $x_1$, and the difference, $d = x_n - x_{n-1}$.
 \\ \\
 For example, the sequence:
 \begin{equation}
 0, 2, 4, 6, ...
 \end{equation}
-is defined by $x_0 = 0$ and $d = 2$.
+is defined by $x_1 = 0$ and $d = 2$.
 \\ \\
 Write a C program which takes two initial values, $x_0$ and $x_1$ and generates further numbers in that arithmetic series.
 \\ \\
@@ -35,9 +44,261 @@ Your program should follow the following rules:
 \item It should print the initial values
 \item It should print a total of 10 numbers
 \item It should print each number on a new line
+\item Numbers in the sequence can be positive or negative
+\item Numbers in the sequence must be integers
 \end{itemize}
 ~ \\
-The initial values are to be ``hard coded'' as variable initialisations. Do not read them from the console.
+The initial values are to be ``hard coded'' as variable initialisations. Do not read them from the console. Your program is only given the first two numbers, it needs to calculate everything else required to print the following 8 values.
+\\ \\
+Check if your code works by comparing its output with a sequence calculated by hand.
+\end{task}
+
+\begin{task}{Arithmetic Series}{}
+An arithmetic \textit{series} is the sum of the numbers in an arithmetic sequence.
+\\ \\
+Modify your code from the previous task to calculate the sum of the first 10 numbers in the arithmetic sequence.
+\\ \\
+Test your result given the following formula for the sum, $S_n$, of the first $n$ terms, $x_1$ to $x_n$, being:
+
+\begin{equation}
+S_n = \frac{1}{2} n (x_1 + x_n)
+\end{equation}
+\end{task}
+
+\begin{task}{Geometric Sequence}{}
+A geometric sequence is a set of numbers, $x_1, x_2, x_3, ...$, where each number is a constant \textit{multiple} of the previous one:
+\begin{equation}
+x_{n+1} = kx_n.
+\end{equation}
+The value of $k$ can be calculated given any two successive numbers in a geometric sequence:
+\begin{equation}
+k = \frac{x_{n+1}}{x_n}.
+\end{equation}
+Write a C program which is given two numbers, $x_1$ and $x_2$, and generates further numbers in their geometric sequence.
+\\ \\
+Your program should follow the following rules:
+\begin{itemize}
+\item It should print the initial values
+\item It should print a total of 10 numbers
+\item It should print each number on a new line
+\item Numbers in the sequence can be positive or negative
+\item Numbers in the sequence may be any real number
+\end{itemize}
+\end{task}
+
+\begin{task}{Geometric Series Pt I}{}
+A geometric \textit{series} is the sum of a geometric sequence.
+\\ \\
+Modify your geometric sequence program to calculate the sum of the first $n$ terms. The value of $n$ must be declared as a variable with a given initial value. Test your program with a variety of values for $n$. You should also test with a variety of different initial values, $x_1$ and $x_2$.
+\\ \\
+For testing, you should know that given an initial value, $x_1$, and the constant multiplier, $k$, the sum of the first $n$ terms, $S_n$, of a geometric series can be calculated as:
+\begin{equation}
+S_n = x_1\frac{1-k^{n+1}}{1-k}.
+\end{equation}
+
+Evaluate this formula \textit{by hand} to generate test values.
+\end{task}
+
+\begin{task}{Geometric Series Pt II}{}
+If the value of the multiplier, $k$, in a geometric series is between (but not equal to) -1 and 1 then the series is said to \textit{converge}. This means that, as $n$ increases towards infinity, the sum of the series moves towards a fixed, finite, value. A geometric series which never stops growing is said to be \textit{divergent}.
+\\ \\
+Modify your geometric series program with the following rules:
+\begin{itemize}
+\item All numbers in the geometric sequence can be assumed to be positive
+\item Given the values of $x_1$ and $x_2$ it decides if the series converges or diverges
+\item If the series diverges the program prints the first 10 values then exits
+\item If the series converges the program calculates the sum to within the following limits:
+	\begin{itemize}
+		\item A precision of $1 \times 10^{-4}$, OR
+		\item A maximum of 100 terms
+	\end{itemize}
+\end{itemize}
+
+Compare your program's output with the theoretical formula:
+
+\begin{equation}
+S_\infty = x_1 \frac{1}{1-k}
+\end{equation}
+\textbf{NB:} The precision limit can be implemented by testing the size of each term before it is added to the running sum.
+\end{task}
+
+
+\begin{task}{Second Order Sequences}{}
+All previous sequences have been of \textit{first order}\footnote{Although not as compelling as the Galactic Empire the First Order still provides an entertaining plot for the Star Wars universe. Change my view.}. This means that a sequence value, $x_n$, only depends on $x_{n-1}$. A \textit{second order} sequence is one in which $x_n = f(x_{n-1}, x_{n-2})$. See footnote\footnote{This is read aloud as ``$x_n$ is a function of $x_{n-1}$ and $x_{n-2}$''}. Each value depends on the previous \textit{two} values.
+\\ \\
+As seen in lectures, the Fibonacci sequence is an example of a second order sequence. It follows the rule:
+\begin{equation}\label{eq:fib}
+x_n = x_{n-1} + x_{n-2}
+\end{equation}
+with the initial values of $x_1 = 1$ and $x_2 = 1$.
+\\ \\
+Equation \eqref{eq:fib} can be extended by introducing two arbitrary coefficients $b_1$ and $b_2$\footnote{Great, now I have the \textit{Bananas in Pajamas} theme in my head.}:
+\begin{equation}
+x_n = b_1x_{n-1} + b_2x_{n-2}.
+\end{equation}
+Although the Fibonacci sequence is restricted to integers assume any code written for this task requires \texttt{double} data types.
+\\ \\
+\textbf{The actual task:} Write a C program which is given initial values for $x_1$, $x_2$, $b_1$ and $b_2$ and calculates the resulting second order sequence.
+
+You may use the following template (should be copy+past'able):
+\begin{lstlisting}[style=pseudo]
+#include <stdio.h>
+int main() {
+	float b1 = 1, b2 = 1;
+	float x1 = 1, x2 = 1;
+	// Declare other variables needed
+		
+	while( /* condition */) {
+		// Calculate and print the sequence
+	}	
+	
+	return 0;
+}
+\end{lstlisting}
+Exit conditions for your program are not specified. You need to come up with exit conditions which allow you to test if your program is correct.
+\\ \\
+Apart from the Fibonacci sequence, you may use the following test numbers:
+\begin{lstlisting}[style=pseudo]
+b1 = 0.2, b2 = 0.8
+x1 = 1, x2 = 0.5
+Output:
+1.000000
+0.500000
+0.900000
+0.580000
+0.836000
+0.631200
+0.795040
+0.663968
+0.768826
+0.684940
+\end{lstlisting}
+\end{task}
+
+\begin{task}{Second Order Sequences Pt II (Advanced)}{}
+The values of $b_1$ and $b_2$ will greatly influence the behaviour of a second order sequence. For example:
+
+\begin{itemize}
+\item It may converge towards zero
+\item It may converge to some fixed, non-zero, value
+\item It may diverge to infinity like the Fibonacci sequence
+\item It may \textit{oscillate}
+	\begin{itemize}
+		\item ie: Wiggle above and below zero in a sinusoidal pattern
+		\item This oscillation may converge to zero or diverge to infinity
+	\end{itemize}
+\end{itemize}
+~\\
+\textbf{Task: }Modify your second order sequence code to test for \textit{oscillation}. This can be done by calculating the \textit{difference} between subsequent numbers in the sequence and observing whether the difference changes sign (ie: goes positive and negative or is \textit{always} positive or negative).
+\\ \\
+To complete this task will need to declare a ``flag'' variable. It can be of type \texttt{int} and have any name of your choosing. Given the initial values of $x_1$ and $x_2$ calculate the difference: $x_2 - x_1$. If it is positive, make the flag zero. If it is negative, make the flag one. You may assume that the difference will always be non-zero (ie: the initial values will never be equal).
+\\ \\
+Each time a new entry in the sequence is generated re-calculate the value $x_n - x_{n-1}$. If, at any point, the sign of this calculation is different to the sign of $x_2 - x_1$ the program should print that the sequence oscillates and exit.
+\\ \\
+If, after 20 iterations, no change of sign has been observed the program should print that no oscillation occurred and exit\footnote{This does not prove that oscillation will \textit{never} occur, just that if it does it takes a ``long time'' to be visible}.
+\\ \\
+\textbf{Example 1:} For the initial values \texttt{x1 = 1, x2 = -0.5} and coefficients \texttt{b1 = 0.2, b2 = 0.2} the sequence is:
+\begin{lstlisting}[style=pseudo]
+ 1.00000
+-0.50000
+ 0.10000
+-0.08000
+ 0.00400
+-0.01520
+\end{lstlisting}
+This sequence oscillates (first difference is -1.5, then +0.6).
+\\ \\
+\textbf{Example 2:} For the same coefficients as above but initial values \texttt{x1 = 1, x2 = 0.5} the sequence is:
+\begin{lstlisting}[style=pseudo]
+1.000000
+0.500000
+0.300000
+0.160000
+0.092000
+\end{lstlisting}
+and no oscillation occurs as the difference is always negative (ie: the sequence only gets smaller and moves towards zero).
+\end{task}
+
+
+
+
+\begin{task}{Mandelbrot Fractal Generator (Advanced)}{}
+\textit{Only attempt this task if everything else has been completed. It does not related to the upcoming assessment task and is only provided for interested students to extend their skill beyond reasonable expectations.\\ \\Demonstrators are not to help with this task. Please do not take their time away from students who need help with the other tasks.}
+\\ \\
+This task assumes that you have completed the Mandelbrot task in Lab 2.
+\\ \\
+Extend your code to test a grid of points and print an ``ASCII art'' Mandelbrot set.
+\\ \\
+To do this you should use two \textit{nested} WHILE loops:
+
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	float x = -2
+	float y = 1
+	WHILE y > -1
+		x = -2
+		WHILE x < 2
+			Re-initialise the Mandelbrot iterator test variables
+			Test if the point (x,y)	is inside the Mandelbrot set
+			IF (x,y) is inside the set
+				PRINT #
+			ELSE
+				PRINT " " (a space character)
+			ENDIF
+			x = x + 0.05
+		ENDWHILE
+		PRINT a new line
+		y = y - 0.05
+	ENDWHILE
+END
+\end{lstlisting}
+
+If you understand how, the WHILE loops may be replaced with FOR loops. The C syntax for FOR loops is documented in Section \ref{sec:for}.
+\\ \\
+When correctly implemented, the pseudocode above will draw the following 80 x 40 pixel image of the Mandelbrot set:
+
+\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\tiny]
+                                                                                 
+                                                                                 
+                                                                                 
+                                      #                                          
+                                    ####                                         
+                                    ####                                         
+                                    ####                                         
+                                                                                 
+                              #  ##########                                      
+                              ############## ##                                  
+                              #################                                  
+                             #################                                   
+                            ###################                                  
+                           #####################                                 
+                           #####################                                 
+                 #  #     ######################                                 
+                 #######  ######################                                 
+                ######### ######################                                 
+                ######### ######################                                 
+              # ######### #####################                                  
+            ##################################                                   
+              # ######### #####################                                  
+                ######### ######################                                 
+                ######### ######################                                 
+                 #######  ######################                                 
+                 #  #     ######################                                 
+                           #####################                                 
+                           #####################                                 
+                            ###################                                  
+                             #################                                   
+                              #################                                  
+                              ############## ##                                  
+                              #  ##########                                      
+                                                                                 
+                                    ####                                         
+                                    ####                                         
+                                    ####                                         
+                                      #                                          
+                                                                                 
+                                                                                 
+\end{lstlisting}
 \end{task}
 
 \pagebreak 
@@ -302,7 +563,7 @@ while(1/(x*x) > 1e-6) {
 
 \textbf{NB:} \textit{NEVER} place a semicolon directly after a \texttt{while()} line. Semicolons only go after the statements inside the loop.
 
-\subsubsection{\texttt{for(;;)}}
+\subsubsection{\texttt{for(;;)}}\label{sec:for}
 
 \textit{As of week 2 this has not yet been covered in lectures.}
 
