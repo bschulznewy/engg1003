@@ -17,27 +17,63 @@
 
 \section{Introduction}
 
-This lab is written to prepare you for the week 4 assessment. The assessment task will be closely related to material in this lab. Every lab time will be given a different problem to solve.
+This lab is written to prepare you for the week 4 assessment, it covers material similar to that in the assessment task.
 
-All these tasks are based on pure mathematics which I \textit{believe} to be understood by a high school graduate who has been admitted to engineering (ie: 2 unit Advanced Mathematics or higher). Sequences and series are described in Section 7 of the NSW \underline{\href{https://educationstandards.nsw.edu.au/wps/portal/nesa/11-12/stage-6-learning-areas/stage-6-mathematics/mathematics-syllabus}{Mathematics 2/3 Unit syllabus}}.
+All these tasks are based on pure mathematics which I can reasonably expect you understand from high school. Sequences and series are described in Section 7 of the NSW \underline{\href{https://educationstandards.nsw.edu.au/wps/portal/nesa/11-12/stage-6-learning-areas/stage-6-mathematics/mathematics-syllabus}{Mathematics 2/3 Unit syllabus}}. I understand that some of you have only completed General mathematics or have not studied mathematics for many years. To achieve a passing grade you will only need to understand very basic examples.
 
-These tasks may not create the most interesting programs in the world, but I need to set a solid foundation of knowledge among the whole cohort before we can tackle more complicated (and realistic) problems.
+These tasks may not create the most \textit{interesting} programs but I need to set a solid foundation of knowledge among the whole cohort before we can tackle more complicated (and realistic) problems.
+
+\section{Change: \texttt{scanf();} Not Used This Week}
+
+In order to reduce the amount of C language features you will require for the assessment task I have decided to not include user input via \texttt{scanf();} in this week's lab.
+
+Instead, use variable initialisation as ``input''. Type input values directly into your code when variables are declared.
+
+For an example please see the Friday Week 2 lecture at timestamp 29~min 41~sec where this technique is used in the code which factorises a number.
+
+\section{Eclipse Che (Advanced)}
+
+If you wish to use Eclipse Che to complete this lab you are welcome to. As noted in last Friday's lecture it does not, by default, accept \texttt{stdin} but as seen above this will not be required yet.
+
+Please note that a Che server has a hard limit of 30 concurrent users (thanks for discovering that on Friday!). As such, I have deployed a second server (they are named \texttt{che1} and \texttt{che2}). If your ``workspace'' doesn't load then please try the second server.
+
+The \textit{\textbf{first time}} you use either of the Che servers click either of these links and login via the ``GitHub'' link at the bottom of the login page:
+
+\url{http://che1.vk2dds.net:8080/f?id=factorypqq4zicbo4hin59w} \\
+\\
+\url{http://che2.vk2dds.net:8080/f?id=factorynhhgh4tkbklv5t4j} \\
+
+That link will create a workspace in your account and load several code examples from GitHub. \textit{You only need to do this once!}
+
+On subsequent logins please use these links:
+
+\url{http://che1.vk2dds.net:8080} \\ \\
+\url{http://che2.vk2dds.net:8080} \\
+
+For now the only documentation is the demonstration given in lectures. More will be created in the future as I have time.
+
+At time of writing university IT claims to have fixed Che on the laboratory computers but I have not yet tested it personally.
 
 \begin{task}{Arithmetic sequence}{}
-An arithmetic sequence is a list of numbers, $x_1, x_2, x_3, ...$ where each number, $x_n$, is a fixed increase, $d$, from the previous one:
+An arithmetic sequence is a list of numbers, $x_1, x_2, x_3, ...$, where each number, $x_n$, is a fixed increase, $d$, from the previous one:
 
 \begin{equation}
-x_{n+1} = x_n + d.
+x_{n} = x_{n-1} + d.
 \end{equation}
-An arithmetic series can be defined by the initial value, $x_1$, and the difference, $d = x_n - x_{n-1}$.
-\\ \\
+The difference, $d$, is therefore:
+\begin{equation}
+d = x_n - x_{n-1}.
+\end{equation}
+Given an initial value, $x_1$, and \textit{either} the difference, $d$, or second value, $x_2$, the series can be uniquely described.
 For example, the sequence:
 \begin{equation}
 0, 2, 4, 6, ...
 \end{equation}
-is defined by $x_1 = 0$ and $d = 2$.
+is described by $x_1 = 0$ and $d = 2$. It could also be calculated given $x_1 = 0$ and $x_2 = 2$ and the value of $d$ calculated to be: $d = x_2 - x_1 = 2$.
 \\ \\
-Write a C program which takes two initial values, $x_0$ and $x_1$ and generates further numbers in that arithmetic series.
+In more human language: an arithmetic sequence is counting in steps of $d$.
+\\ \\
+\textbf{Task:} Write a C program which takes two initial values, $x_0$ and $x_1$ and generates further numbers in their arithmetic series.
 \\ \\
 Your program should follow the following rules:
 \begin{itemize}
@@ -50,7 +86,29 @@ Your program should follow the following rules:
 ~ \\
 The initial values are to be ``hard coded'' as variable initialisations. Do not read them from the console. Your program is only given the first two numbers, it needs to calculate everything else required to print the following 8 values.
 \\ \\
-Check if your code works by comparing its output with a sequence calculated by hand.
+Check if your code works by comparing its output with a sequence calculated by hand. Test several combinations of $x_1$ and $x_2$.
+\\ \\
+The following template can be used (if you are using a new Che factory it is already loaded or you can pull it from \url{https://github.com/bschulznewy/seriesTemplate.git}):
+\begin{lstlisting}[style=pseudo]
+#include <stdio.h>
+int main() {
+	int x1 = 0;
+	int x2 = 2;
+	int d;
+	int xn; // the current x value
+	int xnm1; // xn minus 1, the previous value
+
+	// d = ... COMPLETE THIS EXPRESSION
+
+	while ( /*condition*/ ) {
+		// Calculate current x value
+		xn /* = ... */;
+		// printf(" ");	// FILL ME IN			
+		xnm1 = xn; // Make past value into present value
+	}	
+	return 0;
+}
+\end{lstlisting}
 \end{task}
 
 \begin{task}{Arithmetic Series}{}
@@ -63,23 +121,26 @@ Test your result given the following formula for the sum, $S_n$, of the first $n
 \begin{equation}
 S_n = \frac{1}{2} n (x_1 + x_n)
 \end{equation}
+
+You will need to declare a new variable, \texttt{sum}, to ``accumulate'' the sum as the series is calculated.
 \end{task}
 
 \begin{task}{Geometric Sequence}{}
 A geometric sequence is a set of numbers, $x_1, x_2, x_3, ...$, where each number is a constant \textit{multiple} of the previous one:
 \begin{equation}
-x_{n+1} = kx_n.
+x_{n} = kx_{n-1}.
 \end{equation}
 The value of $k$ can be calculated given any two successive numbers in a geometric sequence:
 \begin{equation}
-k = \frac{x_{n+1}}{x_n}.
+k = \frac{x_{n}}{x_{n-1}}.
 \end{equation}
-Write a C program which is given two numbers, $x_1$ and $x_2$, and generates further numbers in their geometric sequence.
+
+Write a C program which is given two numbers, $x_0$ and $x_1$, and generates further numbers in their geometric sequence. You will need to calculate $k$ inside the program.
 \\ \\
 Your program should follow the following rules:
 \begin{itemize}
 \item It should print the initial values
-\item It should print a total of 10 numbers
+\item It should print a total of 10 numbers (ie: n = 0 to 9)
 \item It should print each number on a new line
 \item Numbers in the sequence can be positive or negative
 \item Numbers in the sequence may be any real number
@@ -89,23 +150,22 @@ Your program should follow the following rules:
 \begin{task}{Geometric Series Pt I}{}
 A geometric \textit{series} is the sum of a geometric sequence.
 \\ \\
-Modify your geometric sequence program to calculate the sum of the first $n$ terms. The value of $n$ must be declared as a variable with a given initial value. Test your program with a variety of values for $n$. You should also test with a variety of different initial values, $x_1$ and $x_2$.
+Modify your geometric sequence program to calculate the sum of the first $n$ terms (ie:~$x_1+x_2+ ... + x_n$). The value of $n$ must be declared as a variable with a given initial value. Test your program with a variety of values for $n$ and initial values, $x_1$ and $x_2$.
 \\ \\
 For testing, you should know that given an initial value, $x_1$, and the constant multiplier, $k$, the sum of the first $n$ terms, $S_n$, of a geometric series can be calculated as:
 \begin{equation}
-S_n = x_1\frac{1-k^{n+1}}{1-k}.
+S_n = x_1\frac{1-k^{n}}{1-k}.
 \end{equation}
 
-Evaluate this formula \textit{by hand} to generate test values.
+Evaluate this formula \textit{by hand} (or with Google / Wolfram Alpha / etc) to generate test values.
 \end{task}
 
 \begin{task}{Geometric Series Pt II}{}
-If the value of the multiplier, $k$, in a geometric series is between (but not equal to) -1 and 1 then the series is said to \textit{converge}. This means that, as $n$ increases towards infinity, the sum of the series moves towards a fixed, finite, value. A geometric series which never stops growing is said to be \textit{divergent}.
+If the value of the multiplier, $k$, in a geometric series is between (but not equal to) -1 and 1 then the series is said to \textit{converge}. This means that, as $n$ increases towards infinity, the sum of the series moves towards a fixed, finite, value. If the series grows towards infinity then it is said to \textit{diverge}. The case of $k = 1$ is not considered here.
 \\ \\
-Modify your geometric series program with the following rules:
+Write a C program which, given $x_1$ and $x_2$, calculates their geometric series and decides if the series is convergent or divergent. Your program should exhibit the following behaviours: 
 \begin{itemize}
 \item All numbers in the geometric sequence can be assumed to be positive
-\item Given the values of $x_1$ and $x_2$ it decides if the series converges or diverges
 \item If the series diverges the program prints the first 10 values then exits
 \item If the series converges the program calculates the sum to within the following limits:
 	\begin{itemize}
@@ -114,31 +174,32 @@ Modify your geometric series program with the following rules:
 	\end{itemize}
 \end{itemize}
 
-Compare your program's output with the theoretical formula:
+Compare your program's 100th output with the theoretical formula:
 
 \begin{equation}
 S_\infty = x_1 \frac{1}{1-k}
 \end{equation}
-\textbf{NB:} The precision limit can be implemented by testing the size of each term before it is added to the running sum.
+\textbf{NB:} The precision limit can be implemented by testing the size of each term before it is added to the running sum. If it is less than the specified precision value the program may assume that the series has converged and exit.
 \end{task}
 
+{\huge\textit{At this point I believe that you have completed enough content to comfortably complete the week 4 assessment task. Continue below if you want to easily achieve a high distinction grade.}}
 
-\begin{task}{Second Order Sequences}{}
-All previous sequences have been of \textit{first order}\footnote{Although not as compelling as the Galactic Empire the First Order still provides an entertaining plot for the Star Wars universe. Change my view.}. This means that a sequence value, $x_n$, only depends on $x_{n-1}$. A \textit{second order} sequence is one in which $x_n = f(x_{n-1}, x_{n-2})$. See footnote\footnote{This is read aloud as ``$x_n$ is a function of $x_{n-1}$ and $x_{n-2}$''}. Each value depends on the previous \textit{two} values.
+\begin{task}{More Complicated Sequences Pt I (Advanced)}{}
+All previous sequences have had the property that a sequence value, $x_n$, only depends on $x_{n-1}$. Here we extend that idea to sequences for which $x_n = f(x_{n-1}, x_{n-2})$. See footnote\footnote{This is read aloud as ``$x_n$ is a function of $x_{n-1}$ and $x_{n-2}$''}. Each value depends on the previous \textit{two} values.
 \\ \\
-As seen in lectures, the Fibonacci sequence is an example of a second order sequence. It follows the rule:
+As seen in lectures, the Fibonacci sequence is an example of this kind of sequence. It follows the rule:
 \begin{equation}\label{eq:fib}
 x_n = x_{n-1} + x_{n-2}
 \end{equation}
 with the initial values of $x_1 = 1$ and $x_2 = 1$.
 \\ \\
-Equation \eqref{eq:fib} can be extended by introducing two arbitrary coefficients $b_1$ and $b_2$\footnote{Great, now I have the \textit{Bananas in Pajamas} theme in my head.}:
-\begin{equation}
+We will extend Equation \eqref{eq:fib} by introducing two coefficients: $b_1$ and $b_2$\footnote{Great, now I have the \textit{Bananas in Pajamas} theme in my head.}:
+\begin{equation}\label{eq:seq2}
 x_n = b_1x_{n-1} + b_2x_{n-2}.
 \end{equation}
-Although the Fibonacci sequence is restricted to integers assume any code written for this task requires \texttt{double} data types.
+Although the Fibonacci sequence is restricted to integers, assume any code written for this task requires \texttt{float} data types.
 \\ \\
-\textbf{The actual task:} Write a C program which is given initial values for $x_1$, $x_2$, $b_1$ and $b_2$ and calculates the resulting second order sequence.
+\textbf{The actual task:} Write a C program which is given initial values for $x_1$, $x_2$, $b_1$ and $b_2$ and calculates the resulting sequence as-per Equation \eqref{eq:seq2}.
 
 You may use the following template (should be copy+past'able):
 \begin{lstlisting}[style=pseudo]
@@ -157,7 +218,7 @@ int main() {
 \end{lstlisting}
 Exit conditions for your program are not specified. You need to come up with exit conditions which allow you to test if your program is correct.
 \\ \\
-Apart from the Fibonacci sequence, you may use the following test numbers:
+Apart from the Fibonacci sequence, you may use the following test sequence with its first ten values:
 \begin{lstlisting}[style=pseudo]
 b1 = 0.2, b2 = 0.8
 x1 = 1, x2 = 0.5
@@ -175,7 +236,7 @@ Output:
 \end{lstlisting}
 \end{task}
 
-\begin{task}{Second Order Sequences Pt II (Advanced)}{}
+\begin{task}{More Complicated Sequences Pt II (Advanced)}{}
 The initial condition, $x_1$ and $x_2$, and the values of $b_1$ and $b_2$ will greatly influence the behaviour of a second order sequence. For example:
 
 \begin{itemize}
@@ -189,7 +250,7 @@ The initial condition, $x_1$ and $x_2$, and the values of $b_1$ and $b_2$ will g
 	\end{itemize}
 \end{itemize}
 ~\\
-\textbf{Task: }Modify your second order sequence code to test for \textit{oscillation}. This can be done by calculating the \textit{difference} between subsequent numbers in the sequence and observing whether the difference changes sign (ie: goes positive and negative or is \textit{always} positive or negative).
+\textbf{Task: }Modify your second order sequence code to test for \textit{oscillation}. This can be done by calculating the \textit{difference} between subsequent numbers in the sequence and observing whether the difference changes sign (ie: Do they swap from positive to negative or are they \textit{always} positive or negative?).
 \\ \\
 To complete this task will need to declare a ``flag'' variable. It can be of type \texttt{int} and have any name of your choosing. Given the initial values of $x_1$ and $x_2$ calculate the difference: $x_2 - x_1$. If it is positive, make the flag zero. If it is negative, make the flag one. You may assume that the difference will always be non-zero (ie: the initial values will never be equal).
 \\ \\

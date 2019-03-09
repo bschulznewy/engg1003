@@ -275,6 +275,7 @@
 	keywordstyle=\color{lightBlue},
 	morekeywords={BEGIN,END,IF,ELSE,ELSEIF,ENDIF,PRINT,WHILE,ENDWHILE,RETURN,DO,FOR,IN,ENDFOR,BREAK,INPUT,TO,READ},
 	morecomment=[l]{//},
+    	morecomment=[s]{/*}{*/},
 	commentstyle=\color{mGreen}
 }
 
