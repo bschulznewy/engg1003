@@ -150,6 +150,52 @@ int main() {
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{\texttt{do ... while();} is Optional}
+\begin{itemize}
+	\item It is never \textit{absolutely necessary} to use \texttt{do ... while();}
+	\item Sometimes it is easier
+	\item eg: Initial value irrelevant with \texttt{do while();}
+\end{itemize}
+\vspace{-5mm}
+\begin{table}[H]
+\centering
+
+\begin{tabular}{ll}
+\texttt{while()} & \texttt{do while();} \\
+\hline
+
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\scriptsize]
+int x = 1;
+while(x >= 0) {
+	printf("Enter an integer: ");
+	scanf("%d", &x);
+	if(x%2==0)
+		printf("%d is even\n", x);
+	else
+		printf("%d is odd\n", x);
+}
+\end{lstlisting} &
+
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\scriptsize]
+int x;
+do {
+	printf("Enter an integer: ");
+	scanf("%d", &x);
+	if(x%2==0)
+		printf("%d is even\n", x);
+	else
+		printf("%d is odd\n", x);
+} while(x >= 0);
+\end{lstlisting}
+\\
+
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
 \begin{frame}
 \frametitle{Fibonacci Sequence}
 \begin{itemize}
