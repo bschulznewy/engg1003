@@ -43,16 +43,63 @@ The \textit{\textbf{first time}} you use either of the Che servers click either 
 \\
 \url{http://che2.vk2dds.net:8080/f?id=factorynhhgh4tkbklv5t4j} \\
 
-That link will create a workspace in your account and load several code examples from GitHub. \textit{You only need to do this once!}
-
-On subsequent logins please use these links:
+That link will create a workspace in your account and load several code examples from GitHub. \textit{You only need to do this once!} On subsequent logins please use these links:
 
 \url{http://che1.vk2dds.net:8080} \\ \\
 \url{http://che2.vk2dds.net:8080} \\
 
-For now the only documentation is the demonstration given in lectures. More will be created in the future as I have time.
+For now the only documentation is the demonstration given in lectures. More will be created in the future as I have time. At time of writing university IT claims to have fixed Che on the laboratory computers but I have not yet tested it personally.
 
-At time of writing university IT claims to have fixed Che on the laboratory computers but I have not yet tested it personally.
+\pagebreak
+\section{C Language Subset}
+
+\begin{center}
+\textit{I fear not the man who has practiced 10,000 kicks once,\\but I fear the man who has practiced one kick 10,000 times.}\\- Bruce Lee
+\end{center}
+
+For this lab, and the Week 4 assessment task, you need only consider the C language subset below. It is not a hard restriction (want to use \texttt{for(;;)}? Go for it.) but lack of understanding of the topics below will make the task difficult to impossible to solve.
+
+You need to understand the following:
+
+\begin{itemize}
+\item The minimum template is:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+int main() {
+	// write your code here
+	return 0;
+}
+\end{lstlisting}
+\item All mathematical operators listed in Section \ref{sec:operators} should be understood
+\item You must understand the behaviour of the \texttt{=} symbol as the \textit{assignment} operator
+\item Variables must be declared before use and may be of type \texttt{int} for integers and \texttt{float} for real numbers
+\item You must be aware of the data type limits for \texttt{int} and \texttt{float} as listed in Section \ref{sec:datatypes}
+\item Variables may be initialised when they are declared, eg:
+\begin{lstlisting}[style=CStyle]
+int x = 5;
+\end{lstlisting}
+\item A block of code which is only executed if certain conditions are met is implemented with the \texttt{if()} statement, eg:
+\begin{lstlisting}[style=CStyle]
+if(x > 5) {
+	x = x - 1;
+}
+\end{lstlisting}
+\item A block of code which repeats multiple times can be implemented with a \texttt{while()} statement, eg:
+\begin{lstlisting}[style=CStyle]
+while(x > 0) {
+	x = x - 1;
+}
+\end{lstlisting}
+
+\end{itemize}
+
+{\huge If any of the above statements appear confusing ask your demonstrator for an explanation and attend a PASS\\session this week: \\
+\begin{center}
+Monday 14-15 ES238 \\
+Wednesday 12-13 ES238\\
+Thursday 10-11 MCLG42
+\end{center}}
 
 \begin{task}{Arithmetic sequence}{}
 An arithmetic sequence is a list of numbers, $x_1, x_2, x_3, ...$, where each number, $x_n$, is a fixed increase, $d$, from the previous one:
@@ -393,7 +440,7 @@ int main() {
 
 Any section of code encompassed by \texttt{\{...\}} is a \textit{block}.
 
-\subsection{Operators}
+\subsection{Operators}\label{sec:operators}
 
 \begin{table}[H]
 \centering
