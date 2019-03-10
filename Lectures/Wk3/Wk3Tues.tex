@@ -68,7 +68,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Friday Week 2}
-\subtitle{More Flow Control\\and Examples}
+\subtitle{What does \texttt{=} \textit{Really} do?\\More Flow Control}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
@@ -76,19 +76,437 @@
 \begin{document}
 \titlepage
 
+\begin{frame}
+\frametitle{Eclipse Che Feedback}
+\begin{itemize}
+\item Thanks to the 50-odd students who tested it!
+\item Turns out Che (specifically: Docker) has a limit of 30 \textit{concurrent} users
+\item Two servers are now online:
+	\begin{itemize}
+		\item \url{che1.vk2dds.net:8080}
+		\item \url{che2.vk2dds.net:8080}
+	\end{itemize}
+\item They do \textit{not} share data
+\item Use git to move projects between them
+	\begin{itemize}
+		\item Documentation is in progress...
+	\end{itemize}
+\item Log in to one, I will use it during the lecture
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Revision}
+\begin{itemize}
+\item In mathematics, an \textit{iterative} (or \textit{recursive}) equation is written:
+\begin{equation}
+x_n = x_{n-1} + 1
+\end{equation}
+\item In programming, the change with time is implicit with program execution when we write:\\
+\begin{equation}
+\texttt{x = x + 1;}
+\end{equation}
+\item The \texttt{=} operator is \texttt{assignment} and overwrites (destroys) the variable's previous value
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item The \textit{Fibonacci Sequence} is the list of numbers, starting with 0 and 1, where each number is the sum of the two which came before it
+
+\item ie: 0, 1, 1, 2, 3, 5, 8, 12, 21, ...
+
+\item This sequence interesting properties, eg:
+	\begin{itemize}
+		\item Its members appear in nature \textit{for some reason}
+		\item The ratio of successive numbers converges towards the golden ratio: $\phi \approx 1.618$
+		\item This has applications in art. eg: 16:10 screen ratio is 1.6
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Mathematically, we can write this as a list of numbers, $x_1, x_2, x_3, ... , x_n$, where:
+\begin{equation}
+x_n = x_{n-1} + x_{n-2}
+\end{equation}
+and:
+\begin{align}
+x_0 &= 0\\
+x_1 &= 1
+\end{align}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sequences in General}
+\begin{itemize}
+\item Sequences seen in HSC mathematics are a subset of \textit{constant-recursive sequences}
+\item \textit{Linear} sequences have the form:
+\begin{equation}\label{eq:sequences}
+x_n = b_1x_{n-1} + b_2x_{n-2} + ... + b_Nx_{n-N}
+\end{equation}
+\item Where $b_1$, $b_2$, etc are constant real numbers
+\item ie: Each number, $x_n$, is a \textit{linear combination} of the $N$ numbers before it
+\item The Fibonacci sequence is Equation \eqref{eq:sequences} with $b_1 = 1$, $b_2 = 1$, $N = 2$, $x_1 = 0$, and $x_2 = 1$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item \textbf{Task:} Write a C program which outputs the Fibonacci Sequence for all integers small enough to fit into an \texttt{int}.
+\item Lets break this into two problems:
+	\begin{enumerate}
+		\item Calculate the Fibonacci Sequence
+		\item Worry about the stop condition
+	\end{enumerate}
+\item Always try to break programming problems down into small chunks
+\item Real-world problems are too difficult to complete ``all in one go''
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+	\item How do we calculate the Fibonacci Sequence?
+	\item Note that we need to keep track of \textit{three} numbers:
+		\begin{itemize}
+			\item The next number, $x_n$
+			\item The previous two numbers, $x_{n-1}$ and $x_{n-2}$
+		\end{itemize}
+	\item Lets also remember $n$
+	\item I will use these variable names:
+		\begin{lstlisting}[style=CStyle]
+int n;
+int xN;		// x N
+int xNm1; // N minus 1
+int xNm2; // N minus 2
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Aside: We might want to \textit{remember} the whole sequence
+\item This would require all numbers to be stored as unique variables
+\item Declaring hundreds (or millions) of variables is impractical
+\item The concept of \textit{arrays} will be introduced later to deal with this
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Lets sketch out what happens to these variables \textit{by hand}
+\item Start at \texttt{n=2}, as that is the first unknown
+\texttt{
+\begin{table}[H]
+\begin{tabular}{cccc}
+n & xNm2 & xNm1 & xN \\
+\hline
+2 & 0    & 1    & 1  \\
+3 & 1    & 1    & 2  \\
+4 & 1    & 2    & 3  \\
+5 & 2    & 3    & 5 \\
+\end{tabular}
+\end{table}
+}
+\item See the pattern? Numbers shift diagonally down to the left.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Each time a new number is calculated, what happens to the variables?
+\item All 3 variables change, the sequence in which they change is \underline{\textbf{crucial}}:
+	\begin{lstlisting}[style=CStyle]
+xN = xNm1 + xNm2; // Calculate next value
+xNm2 = xNm1;//Move old values "down the chain"
+xNm1 = xN;
+\end{lstlisting}
+\item Note that the \textit{oldest} value is overwritten first
+	\begin{itemize}
+		\item It is the one which is no longer needed
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+	\item Lets sketch some pseudocode to calculate the first 20 or so values:
+	\begin{lstlisting}[style=pseudo]
+BEGIN
+	int xNm2 = 0
+	int xNm1 = 1
+	int xN
+	int n = 2
+	WHILE n < 20
+		xN = xNm1 + xNm2
+		PRINT xN
+		n = n + 1
+		xNm2 = xNm1
+		xNm1 = xN
+	ENDWHILE
+END
+	\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+...and convert it to C:
+\begin{table}[H]
+\centering
+
+\begin{tabular}{ll}
+\hline
+
+\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\footnotesize]
+BEGIN
+	int xNm2 = 0
+	int xNm1 = 1
+	int xN
+	int n = 2
+	WHILE n < 20
+		xN = xNm1 + xNm2
+		PRINT xN
+		n = n + 1
+		xNm2 = xNm1
+		xNm1 = xN
+	ENDWHILE
+END
+\end{lstlisting} &
+
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\footnotesize]
+int main() {
+	int xNm2 = 0;
+	int xNm1 = 1;
+	int xN;
+	int n = 1;
+	while(n < 20) {
+		xN = xNm1 + xNm2;
+		printf("%d\n", xN);
+		n++;
+		xNm2 = xNm1;
+		xNm1 = xN;
+	}
+}
+\end{lstlisting}
+\\
+
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{center}
+For everyone on Che, copy this link:\\
+\url{https://github.com/bschulznewy/fibonacci.git} \\
+and import into Che
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Does the code work?
+\item Compare with: \url{https://www.wolframalpha.com/input/?i=first+20+fibonacci+sequence}
+\item What about the 2nd requirement in the original problem?
+\item How to tell if next value \textit{exceeds} an \texttt{int}?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item There are a few solutions:
+	\begin{itemize}
+		\item Calculate \texttt{xN}, see if result \textit{overflowed}
+		\item Do calculation as \texttt{unsigned int} and compare with \texttt{INT\_MAX}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item If overflow occurs when using \texttt{int} then the result of a calculation which should be positive will be negative
+\item Lets test for overflow with:\\
+\begin{lstlisting}[style=CStyle]
+if(xNm1 + xNm2 > 0) {
+	// Do an iteration
+}
+\end{lstlisting}
+\item \textbf{NB:} If \textit{optimisation} is enabled the calculation of \texttt{xNm1 + xNm2} will only occur once
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\footnotesize]
+int main() {
+	int xNm2 = 0;
+	int xNm1 = 1;
+	int xN;
+	int n = 1;
+	while(xNm1 + xNm2 > 0) {
+		xN = xNm1 + xNm2;
+		printf("%d\n", xN);
+		n++;
+		xNm2 = xNm1;
+		xNm1 = xN;
+	}
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+Or, pre-testing overflow with \texttt{unsigned int}:
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\footnotesize]
+int main() {
+	int xNm2 = 0;
+	int xNm1 = 1;
+	int xN;
+	int n = 1;
+	while((unsigned int)xNm1 + (unsigned int)xNm2 < 2147483647u) {
+		xN = xNm1 + xNm2;
+		printf("%d\n", xN);
+		n++;
+		xNm2 = xNm1;
+		xNm1 = xN;
+	}
+}
+\end{lstlisting}
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{DO ... WHILE}
 \begin{itemize}
 \item Same as WHILE except executes \textit{at least once}
 \item The condition is tested at the end
 \item Loops repeats if condition is TRUE
-\item Syntax:
+\item Pseudocode syntax:
 \begin{lstlisting}[style=pseudo]
 DO
 	stuff
 WHILE condition
 \end{lstlisting}
+\item C syntax:
+\begin{lstlisting}[style=CStyle]
+do {
+	// do stuff
+} while(condition);
+\end{lstlisting}
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item A toy example in C:
+\begin{lstlisting}[style=CStyle]
+int main() {
+	int x = 0;
+	do {
+		x = x - 1;
+	} while(x > 0);
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item A slightly less toy example:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	int x;
+	do {
+		printf("Enter an integer: ");
+		scanf("%d", &x);
+		if(x%2==0)
+			printf("%d is even\n", x);
+		else
+			printf("%d is odd\n", x);
+	} while(x >= 0);
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item \textbf{NB:} The previous example had:
+\begin{lstlisting}[style=CStyle]
+		if(x%2==0)
+			printf("%d is even\n", x);
+		else
+			printf("%d is odd\n", x);
+\end{lstlisting}
+\item The \{ \} block is optional if \textit{only one statement} is after an \texttt{if()}, \texttt{while()}, etc
+\item I omitted it to reduce line count so that the code would fit on the slide
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{do ... while();} is Optional}
+\begin{itemize}
+	\item It is never \textit{absolutely necessary}
+	\item But sometimes it is easier or neater
+\end{itemize}
+\vspace{-5mm}
+\begin{table}[H]
+\centering
+
+\begin{tabular}{ll}
+\texttt{while()} & \texttt{do while();} \\
+\hline
+
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\scriptsize]
+int x = 1;
+while(x >= 0) {
+	printf("Enter an integer: ");
+	scanf("%d", &x);
+	if(x%2==0)
+		printf("%d is even\n", x);
+	else
+		printf("%d is odd\n", x);
+}
+\end{lstlisting} &
+
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\scriptsize]
+int x;
+do {
+	printf("Enter an integer: ");
+	scanf("%d", &x);
+	if(x%2==0)
+		printf("%d is even\n", x);
+	else
+		printf("%d is odd\n", x);
+} while(x >= 0);
+\end{lstlisting}
+\\
+
+\hline
+\end{tabular}
+\end{table}
+
 \end{frame}
 
 
@@ -197,6 +615,7 @@ END
 \item There exists a GOTO flow control mechanism
 	\begin{itemize}
 		\item Sometimes also called a \textit{branch}
+		\item An ability some consider to be unnatural
 	\end{itemize}
 \item It ``jumps'' from one line to a different line
 \item It exists for a purpose
@@ -206,7 +625,7 @@ END
 		\item It results in ``spaghetti code'' which is hard to read
 		\item Don't use it in ENGG1003
 	\end{itemize}
-\item You \textit{can} use GOTO in ELEC1710
+\item You \textit{can} use branch instructions in ELEC1710
 \end{itemize}
 \end{frame}
 
@@ -299,14 +718,66 @@ Pre/post-inc/decrements have many applications, more details in coming weeks.
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Code Blocks in C}
-TODO
+\begin{itemize}
+\item Semi-revision:
+\item The curly braces \{ \} encompass a \textit{block}
+\item You have used these with \texttt{if()} and \texttt{while()}
+\item They define the set of lines executed inside the \texttt{if()} or \texttt{while()}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code Blocks in C}
+\begin{itemize}
+\item You can place blocks anywhere you like
+\item Nothing wrong with:
+\begin{lstlisting}[style=CStyle]
+int main() {
+	int x;
+	{
+		printf("%d\n", x);
+	}
+	return 0;
+}
+\end{lstlisting}
+\item This just places the \texttt{printf();} inside a block
+\item It doesn't do anything useful, but...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variable Scope}
+\begin{itemize}
+\item A variable's ``existence'' is limited to the block where it is declared
+	\begin{itemize}
+		\item Plus any blocks within that one
+	\end{itemize}
+\item Example this code won't compile:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	int x = 2;
+	if(x == 2) {
+		int k;
+		k = 2*x;
+	}
+	printf("%d\n", k);
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Variable Scope}
-TODO
+\begin{itemize}
+\item Note that \texttt{k} was declared inside the \texttt{if()}
+\item That means that it no longer exists when the \texttt{if()} has finished
+\item This generates a compiler error
+\end{itemize}
 \end{frame}
 
 \begin{frame}
