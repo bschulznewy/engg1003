@@ -603,19 +603,27 @@ for( x = 0 ; x < 10 ; x++ ) {
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}[fragile]
-\frametitle{FOR Loops in C (Advanced)}
+\frametitle{FOR Example 1 - Factorials}
 \begin{itemize}
-\item \texttt{for()} syntax allows multiple items in the \texttt{inital} / \texttt{condition} /\texttt{increment} sections
-\item Separate statements with commas
-\item eg:
-\begin{lstlisting}[style=CStyle]
-int x, y=10;
-for( x = 0 ; x < 10 ; x++, y++ ) {
-	printf("x: %d y: %d\n", x, y);
-}
+\item Use FOR to count from 2 to our input number
+\item Keep a running product as we go
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	INPUT x
+	result = 1
+	FOR k = 2 TO x
+		result = result * k
+	ENDFOR
+END
 \end{lstlisting}
-\item This increments both \texttt{x} and \texttt{y} but only \texttt{x} is used in the condition and \texttt{y} is not initialised
+\item Is this algorithm robust? What happens if:
+	\begin{itemize}
+		\item x = -1
+		\item x = 1
+		\item x = 0 (\textbf{NB:} 0! = 1 because \textit{maths})
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -629,16 +637,8 @@ for( x = 0 ; x < 10 ; x++, y++ ) {
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Loop \texttt{continue} Statements}
-\begin{itemize}
-	\item A \texttt{continue} causes execution to jump back to the loop start
-	\item The \textit{condition} is tested before reentry	
-\end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]
-\frametitle{FOR Example 1}
+\frametitle{FOR Example 2}
 \begin{itemize}
 \item Two equivalent ways to implement the $\cos()$ series from before are:
 \end{itemize}
@@ -675,26 +675,51 @@ END
 \end{multicols}
 \end{frame}
 
+
+
 \begin{frame}[fragile]
-\frametitle{FOR Example 2 - Factorials}
+\frametitle{FOR Loops in C (Advanced)}
 \begin{itemize}
-\item Use FOR to count from 2 to our input number
-\item Keep a running product as we go
-\begin{lstlisting}[style=pseudo]
-BEGIN
-	INPUT x
-	result = 1
-	FOR k = 2 TO x
-		result = result * k
-	ENDFOR
-END
+\item \texttt{for()} syntax allows multiple items in the \texttt{inital} / \texttt{condition} /\texttt{increment} sections
+\item Separate statements with commas
+\item eg:
+\begin{lstlisting}[style=CStyle]
+int x, y=10;
+for( x = 0 ; x < 10 ; x++, y++ ) {
+	printf("x: %d y: %d\n", x, y);
+}
 \end{lstlisting}
-\item Is this algorithm robust? What happens if:
-	\begin{itemize}
-		\item x = -1
-		\item x = 1
-		\item x = 0 (\textbf{NB:} 0! = 1 because \textit{maths})
-	\end{itemize}
+\item This increments both \texttt{x} and \texttt{y} but only \texttt{x} is used in the condition and \texttt{y} is not initialised
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Loop \texttt{continue} Statements}
+\begin{itemize}
+	\item A \texttt{continue} causes execution to jump back to the loop start
+	\item The \textit{condition} is tested before reentry	
+	\item eg, run this in the Che debugger:
+	\begin{lstlisting}[style=CStyle]
+int x;
+for(x = 0; x < 10; x++) {
+	if(x%2 == 0)
+		continue;
+	printf("%d is odd\n");
+}
+\end{lstlisting}
+\item {\small(Not the best example but gets the point across)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{break} and \texttt{continue}}
+\begin{itemize}
+\item Some programmers claim that \texttt{break} and \texttt{continue} are ``naughty''
+\item I \textit{sort of} agree
+\item They can make your code needlessly difficult to read
+\item They might make is easier
+\item It is up to you to judge
+\item Their use is never \textit{absolutely necessary}
 \end{itemize}
 \end{frame}
 
@@ -704,9 +729,11 @@ END
 \item There exists a GOTO flow control mechanism
 	\begin{itemize}
 		\item Sometimes also called a \textit{branch}
-		\item An ability some consider to be unnatural
 	\end{itemize}
 \item It ``jumps'' from one line to a different line
+	\begin{itemize}
+		\item An ability some consider to be unnatural
+	\end{itemize}
 \item It exists for a purpose
 \item That purpose does not (typically) exist when writing C code
 	\begin{itemize}
@@ -714,12 +741,12 @@ END
 		\item It results in ``spaghetti code'' which is hard to read
 		\item Don't use it in ENGG1003
 	\end{itemize}
-\item You \textit{can} use branch instructions in ELEC1710
+\item You \textit{must} use branch instructions in ELEC1710
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Increment Example}
+\frametitle{Loose End Increment Example}
 \begin{lstlisting}[style=CStyle,caption=\texttt{increment.c}]
 #include <stdio.h>
 int main() {
@@ -866,17 +893,19 @@ int main() {
 \item Note that \texttt{k} was declared inside the \texttt{if()}
 \item That means that it no longer exists when the \texttt{if()} has finished
 \item This generates a compiler error
+\item It frees up some RAM
+\item It also lets the variable's name be reused elsewhere
+	\begin{itemize}
+		\item This can be \textit{really} confusing. Be careful.
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{\#define Constants}
-TODO
-\end{frame}
-
-\begin{frame}
-\frametitle{\texttt{for(;;)} Loops}
-TODO
+\begin{center}
+Oh, end of the lecture already?
+Lets go read the lab notes...
+\end{center}
 \end{frame}
 
 
