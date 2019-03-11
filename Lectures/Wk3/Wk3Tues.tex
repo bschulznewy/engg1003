@@ -96,6 +96,24 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Who Should Pass This Subject?}
+\begin{itemize}
+\item Everything is new, I will get things wrong, but:
+\item My \textit{intention} is that if:
+	\begin{itemize}
+		\item You attend (or watch) all lectures
+		\item You attend all labs
+		\item You read all course material
+		\item You attempt problems \textit{in your own time}
+		\item You follow all instructions in lab notes
+		\item You chase up with demonstrators, me, textbooks, YouTube, etc any concepts you don't understand
+	\end{itemize}
+\item ...then you should confidently pass.
+\item tl;dr You should have to work hard to earn a fail
+\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Revision}
 \begin{itemize}
 \item In mathematics, an \textit{iterative} (or \textit{recursive}) equation is written:
@@ -117,11 +135,11 @@ x_n = x_{n-1} + 1
 
 \item ie: 0, 1, 1, 2, 3, 5, 8, 12, 21, ...
 
-\item This sequence interesting properties, eg:
+\item This sequence has interesting properties, eg:
 	\begin{itemize}
 		\item Its members appear in nature \textit{for some reason}
 		\item The ratio of successive numbers converges towards the golden ratio: $\phi \approx 1.618$
-		\item This has applications in art. eg: 16:10 screen ratio is 1.6
+		\item This has applications in art. eg: 16:10 screen ratio is 1.6 (16:9 can bite my shiny metal...)
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -129,7 +147,7 @@ x_n = x_{n-1} + 1
 \begin{frame}
 \frametitle{Fibonacci Sequence}
 \begin{itemize}
-\item Mathematically, we can write this as a list of numbers, $x_1, x_2, x_3, ... , x_n$, where:
+\item Mathematically, we can write this as a list of numbers, $x_0,x_1, x_2, x_3, ... , x_n$, where:
 \begin{equation}
 x_n = x_{n-1} + x_{n-2}
 \end{equation}
@@ -142,7 +160,7 @@ x_1 &= 1
 \end{frame}
 
 \begin{frame}
-\frametitle{Sequences in General}
+\frametitle{Arithmetic Sequences in General}
 \begin{itemize}
 \item Sequences seen in HSC mathematics are a subset of \textit{constant-recursive sequences}
 \item \textit{Linear} sequences have the form:
@@ -225,15 +243,32 @@ n & xNm2 & xNm1 & xN \\
 \frametitle{Fibonacci Sequence}
 \begin{itemize}
 \item Each time a new number is calculated, what happens to the variables?
-\item All 3 variables change, the sequence in which they change is \underline{\textbf{crucial}}:
+\item All 3 variables change, the order in which they change is \underline{\textbf{crucial}}:
 	\begin{lstlisting}[style=CStyle]
 xN = xNm1 + xNm2; // Calculate next value
 xNm2 = xNm1;//Move old values "down the chain"
 xNm1 = xN;
 \end{lstlisting}
+\item With \texttt{=} the old \texttt{\textit{lvalue}} is lost
 \item Note that the \textit{oldest} value is overwritten first
 	\begin{itemize}
 		\item It is the one which is no longer needed
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{L and R-Values}
+\begin{itemize}
+\item Oops, I used new jargon...
+\item An \textit{lvalue} is something that goes to the left of an \texttt{=} operator
+\item Likewise, the right side is an \textit{rvalue}
+\item Not everything is a valid L- or R-value
+\item Lvalues have to be variables
+\item The following generate errors:
+	\begin{itemize}
+		\item \texttt{4 = x;}
+		\item \texttt{rand() = 2;}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -312,7 +347,7 @@ int main() {
 \begin{center}
 For everyone on Che, copy this link:\\
 \url{https://github.com/bschulznewy/fibonacci.git} \\
-and import into Che
+and import into Che as I demonstrate
 \end{center}
 \end{frame}
 
@@ -332,22 +367,32 @@ and import into Che
 \item There are a few solutions:
 	\begin{itemize}
 		\item Calculate \texttt{xN}, see if result \textit{overflowed}
-		\item Do calculation as \texttt{unsigned int} and compare with \texttt{INT\_MAX}
+		\item Do calculation as \texttt{unsigned int} (or \texttt{long}) and compare with \texttt{INT\_MAX}
+		\begin{itemize}
+			\item \texttt{INT\_MAX} is defined in \texttt{limits.h}
+			\item \texttt{\#include $<$limits.h$>$} if you want to use it
+			\item It includes the line:
+			\begin{lstlisting}[style=CStyle]
+#define INT_MAX	2147483647
+\end{lstlisting}
+			\item We will learn about \texttt{\#define} later
+		\end{itemize}
 	\end{itemize}
+\item In this context we can't run with a fixed iteration limit as that is ``unknown'' until the program is executed
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Fibonacci Sequence}
 \begin{itemize}
-\item If overflow occurs when using \texttt{int} then the result of a calculation which should be positive will be negative
+\item If overflow occurs when using \texttt{int} then the result of a calculation which \textit{should} be positive will be negative
 \item Lets test for overflow with:\\
 \begin{lstlisting}[style=CStyle]
 if(xNm1 + xNm2 > 0) {
 	// Do an iteration
 }
 \end{lstlisting}
-\item \textbf{NB:} If \textit{optimisation} is enabled the calculation of \texttt{xNm1 + xNm2} will only occur once
+
 \end{itemize}
 \end{frame}
 
@@ -355,8 +400,7 @@ if(xNm1 + xNm2 > 0) {
 \frametitle{Fibonacci Sequence}
 \begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\footnotesize]
 int main() {
-	int xNm2 = 0;
-	int xNm1 = 1;
+	int xNm2 = 0, xNm1 = 1;
 	int xN;
 	int n = 1;
 	while(xNm1 + xNm2 > 0) {
@@ -368,26 +412,18 @@ int main() {
 	}
 }
 \end{lstlisting}
+\begin{itemize}
+\item \textbf{NB:} If \textit{optimisation} is enabled the calculation of \texttt{xNm1 + xNm2} will only occur once
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Fibonacci Sequence}
 Or, pre-testing overflow with \texttt{unsigned int}:
 \begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\footnotesize]
-int main() {
-	int xNm2 = 0;
-	int xNm1 = 1;
-	int xN;
-	int n = 1;
-	while((unsigned int)xNm1 + (unsigned int)xNm2 < 2147483647u) {
-		xN = xNm1 + xNm2;
-		printf("%d\n", xN);
-		n++;
-		xNm2 = xNm1;
-		xNm1 = xN;
-	}
-}
+(unsigned int)xNm1 + (unsigned int)xNm2 < 2147483647u)
 \end{lstlisting}
+Lets try this one in Che...
 \end{frame}
 
 \begin{frame}[fragile]
@@ -465,7 +501,7 @@ int main() {
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{\texttt{do ... while();} is Optional}
+\frametitle{DO ... WHILE is Optional}
 \begin{itemize}
 	\item It is never \textit{absolutely necessary}
 	\item But sometimes it is easier or neater
@@ -491,7 +527,7 @@ while(x >= 0) {
 \end{lstlisting} &
 
 \begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\scriptsize]
-int x;
+int x; // Uninitialised
 do {
 	printf("Enter an integer: ");
 	scanf("%d", &x);
@@ -513,8 +549,8 @@ do {
 \begin{frame}[fragile]
 \frametitle{FOR Loops}
 \begin{itemize}
-\item A FOR loop executes a given number of times
-\item Used when the number of loop repeats is known \textit{before} entering the loop
+\item A FOR loop loops a given number of times
+\item Typically used when the number of loop repeats is known \textit{before} entering the loop
 	\begin{itemize}
 		\item Repeat count could be ``hard coded'' as a number
 		\item Could also be a variable
@@ -528,6 +564,33 @@ ENDFOR
 \end{lstlisting}
 \item The \textit{loop variable} is automatically incremented
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops in C}
+\begin{itemize}
+\item The C FOR loop syntax is:
+\begin{lstlisting}[style=CStyle]
+for( initial ; condition ; increment ) {
+	// Loop block
+}
+\end{lstlisting}
+\item Where:
+	\begin{itemize}
+		\item \texttt{initial} is a statement executed \textit{once}
+		\item \texttt{condition} is a statement executed and tested \textit{after} every loop iteration
+		\item \texttt{increment} is a statement executed \textit{after} every loop iteration, but \textit{before} the \texttt{condition} is tested
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops in C}
+\begin{lstlisting}[style=CStyle]
+for( x = 0 ; x < 10 ; x++ ) {
+	printf("%d\n", x);
+}
+\end{lstlisting}
 \end{frame}
 
 \begin{frame}
