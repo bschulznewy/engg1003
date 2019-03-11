@@ -124,7 +124,7 @@ Satisfactory standard indicating an adequate knowledge and understanding of the 
 \begin{frame}
 \frametitle{What is a High Distinction?}
 
-Outstanding standard indicating comprehensive knowledge and understanding of the relevant materials; demonstration of an outstanding level of academic achievement; matery of skills; and achivement of all assessment objective.
+Outstanding standard indicating comprehensive knowledge and understanding of the relevant materials; demonstration of an outstanding level of academic achievement; mastery of skills; and achivement of all assessment objectives.
 \end{frame}
 
 \begin{frame}
@@ -156,7 +156,7 @@ x_n = x_{n-1} + 1
 \begin{itemize}
 \item The \textit{Fibonacci Sequence} is the list of numbers, starting with 0 and 1, where each number is the sum of the two which came before it
 
-\item ie: 0, 1, 1, 2, 3, 5, 8, 12, 21, ...
+\item ie: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
 
 \item This sequence has interesting properties, eg:
 	\begin{itemize}
@@ -192,7 +192,7 @@ x_n = b_1x_{n-1} + b_2x_{n-2} + ... + b_Nx_{n-N}
 \end{equation}
 \item Where $b_1$, $b_2$, etc are constant real numbers
 \item ie: Each number, $x_n$, is a \textit{linear combination} of the $N$ numbers before it
-\item The Fibonacci sequence is Equation \eqref{eq:sequences} with $b_1 = 1$, $b_2 = 1$, $N = 2$, $x_1 = 0$, and $x_2 = 1$.
+\item The Fibonacci sequence is Equation \eqref{eq:sequences} with $b_1 = 1$, $b_2 = 1$, $N = 2$, $x_0 = 0$, and $x_1 = 1$.
 \end{itemize}
 \end{frame}
 
@@ -348,7 +348,7 @@ int main() {
 	int xNm2 = 0;
 	int xNm1 = 1;
 	int xN;
-	int n = 1;
+	int n = 2;
 	while(n < 20) {
 		xN = xNm1 + xNm2;
 		printf("%d\n", xN);
@@ -601,7 +601,7 @@ for( initial ; condition ; increment ) {
 \item Where:
 	\begin{itemize}
 		\item \texttt{initial} is a statement executed \textit{once}
-		\item \texttt{condition} is a statement executed and tested \textit{after} every loop iteration
+		\item \texttt{condition} is a statement executed and tested \textit{before} every loop iteration
 		\item \texttt{increment} is a statement executed \textit{after} every loop iteration, but \textit{before} the \texttt{condition} is tested
 	\end{itemize}
 \end{itemize}
@@ -656,7 +656,8 @@ END
 \item Sometimes you want to exit a loop \textit{before} the condition is re-tested
 \item The flow-control mechanism for this is a BREAK statement
 \item If executed, the loop quits
-\item BREAKs typically go inside an IF to control their execution
+\item BREAKs typically go inside an IF
+\item It adds an extra condition on loop exit placed at any point in the loop
 \end{itemize}
 \end{frame}
 
@@ -704,7 +705,7 @@ END
 \frametitle{FOR Loops in C (Advanced)}
 \begin{itemize}
 \item \texttt{for()} syntax allows multiple items in the \texttt{inital} / \texttt{condition} /\texttt{increment} sections
-\item Separate statements with commas
+\item Separate expressions with commas
 \item eg:
 \begin{lstlisting}[style=CStyle]
 int x, y=10;
@@ -712,7 +713,7 @@ for( x = 0 ; x < 10 ; x++, y++ ) {
 	printf("x: %d y: %d\n", x, y);
 }
 \end{lstlisting}
-\item This increments both \texttt{x} and \texttt{y} but only \texttt{x} is used in the condition and \texttt{y} is not initialised
+\item This increments both \texttt{x} and \texttt{y} but only \texttt{x} is used in the condition
 \end{itemize}
 \end{frame}
 
@@ -740,7 +741,7 @@ for(x = 0; x < 10; x++) {
 \item Some programmers claim that \texttt{break} and \texttt{continue} are ``naughty''
 \item Well, yes, but actually no
 \item They can make your code needlessly complicated
-\item They might make is simpler
+\item They might make it simpler
 \item It is up to you to judge
 \item As engineers you shouldn't follow strict rules
 \item Always try to choose the best tool for the job
