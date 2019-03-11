@@ -210,9 +210,9 @@ Evaluate this formula \textit{by hand} (or with Google / Wolfram Alpha / etc) to
 \end{task}
 
 \begin{task}{Geometric Series Pt II}{}
-If the value of the multiplier, $k$, in a geometric series is between (but not equal to) -1 and 1 then the series is said to \textit{converge}. This means that, as $n$ increases towards infinity, the sum of the series moves towards a fixed, finite, value. If the series grows towards infinity then it is said to \textit{diverge}. The case of $k = 1$ is not considered here.
+If the value of the multiplier, $k$, in a geometric sequence is between (but not equal to) -1 and 1 then its series is said to \textit{converge}. This means that, as $n$ increases towards infinity, the sum of the sequence moves towards a fixed, finite, value. If the series grows towards infinity then it is said to \textit{diverge}. The case of $k = 1$ is not considered here.
 \\ \\
-Write a C program which, given $x_1$ and $x_2$, calculates their geometric series and decides if the series is convergent or divergent. Your program should exhibit the following behaviours: 
+Write a C program which, given $x_1$ and $x_2$, calculates their geometric sequence and decides if the resulting series is convergent or divergent. Your program should exhibit the following behaviours: 
 \begin{itemize}
 \item All numbers in the geometric sequence can be assumed to be positive
 \item If the series diverges the program prints the first 10 values then exits
@@ -228,7 +228,7 @@ Compare your program's 100th output with the theoretical formula:
 \begin{equation}
 S_\infty = x_1 \frac{1}{1-k}
 \end{equation}
-\textbf{NB:} The precision limit can be implemented by testing the size of each term before it is added to the running sum. If it is less than the specified precision value the program may assume that the series has converged and exit.
+\textbf{NB:} The precision limit can be implemented by testing the size of each term before it is added to the running sum. If it is less than the specified precision value the program may assume that the series has converged and exit. This is a great time to use a \texttt{break} statement, if you want to.
 \end{task}
 
 {\huge\textit{At this point I believe that you have completed enough content to comfortably complete the week 4 assessment task. Continue below if you want to easily achieve a high distinction grade.}}
