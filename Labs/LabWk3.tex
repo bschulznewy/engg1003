@@ -199,8 +199,10 @@ A geometric \textit{series} is the sum of a geometric sequence.
 \\ \\
 Modify your geometric sequence program to calculate the sum of the first $n$ terms (ie:~$x_1+x_2+ ... + x_n$). The value of $n$ must be declared as a variable with a given initial value. Test your program with a variety of values for $n$ and initial values, $x_1$ and $x_2$.
 \\ \\
+To do this, declare a variable which accumulates (adds up) all the numbers in a geometric sequence \textit{as they are generated}. Do \textbf{not} implement the theoretical formula (Equation \eqref{eq:seriesgeo}).
+\\ \\
 For testing, you should know that given an initial value, $x_1$, and the constant multiplier, $k$, the sum of the first $n$ terms, $S_n$, of a geometric series can be calculated as:
-\begin{equation}
+\begin{equation}\label{eq:seriesgeo}
 S_n = x_1\frac{1-k^{n}}{1-k}.
 \end{equation}
 

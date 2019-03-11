@@ -591,6 +591,32 @@ for( x = 0 ; x < 10 ; x++ ) {
 	printf("%d\n", x);
 }
 \end{lstlisting}
+\begin{itemize}
+\item Run this code
+\item Observe that:
+	\begin{itemize}
+		\item 0 is printed
+		\item 10 is \textbf{not} printed
+		\item \texttt{x} increments automatically
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops in C (Advanced)}
+\begin{itemize}
+\item \texttt{for()} syntax allows multiple items in the \texttt{inital} / \texttt{condition} /\texttt{increment} sections
+\item Separate statements with commas
+\item eg:
+\begin{lstlisting}[style=CStyle]
+int x, y=10;
+for( x = 0 ; x < 10 ; x++, y++ ) {
+	printf("x: %d y: %d\n", x, y);
+}
+\end{lstlisting}
+\item This increments both \texttt{x} and \texttt{y} but only \texttt{x} is used in the condition and \texttt{y} is not initialised
+\end{itemize}
 \end{frame}
 
 \begin{frame}
