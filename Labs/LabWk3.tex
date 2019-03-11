@@ -35,20 +35,21 @@ For an example please see the Friday Week 2 lecture at timestamp 29~min 41~sec w
 
 If you wish to use Eclipse Che to complete this lab you are welcome to. As noted in last Friday's lecture it does not, by default, accept \texttt{stdin} but as seen above this will not be required yet.
 
-Please note that a Che server has a hard limit of 30 concurrent users (thanks for discovering that on Friday!). As such, I have deployed a second server (they are named \texttt{che1} and \texttt{che2}). If your ``workspace'' doesn't load then please try the second server.
+Please note that a Che server has a hard limit of 30 concurrent users (thanks for discovering that on Friday!). As such, I have deployed two more servers (they are named \texttt{che1} and \texttt{che2}). If your ``workspace'' doesn't load then please try the second server.
 
-The \textit{\textbf{first time}} you use either of the Che servers click either of these links and login via the ``GitHub'' link at the bottom of the login page:
+The \textit{\textbf{first time}} you use any of the Che servers click one of the links below, login via the ``GitHub'' link at the bottom of the login page, enter user details when prompted, and wait for the ``workspace'' to be created:
 
 \url{http://che1.vk2dds.net:8080/f?id=factorypqq4zicbo4hin59w} \\
-\\
 \url{http://che2.vk2dds.net:8080/f?id=factorynhhgh4tkbklv5t4j} \\
+\url{http://che3.vk2dds.net:8080/f?id=factoryuz95ni8w4inv4wch}\\
 
 That link will create a workspace in your account and load several code examples from GitHub. \textit{You only need to do this once!} On subsequent logins please use these links:
 
-\url{http://che1.vk2dds.net:8080} \\ \\
+\url{http://che1.vk2dds.net:8080} \\
 \url{http://che2.vk2dds.net:8080} \\
+\url{http://che3.vk2dds.net:8080}
 
-For now the only documentation is the demonstration given in lectures. More will be created in the future as I have time. At time of writing university IT claims to have fixed Che on the laboratory computers but I have not yet tested it personally.
+For now the only documentation is lecture demonstrations. More will be created in the future, as time permits. At time of writing university IT claims to have fixed Che on the laboratory computers but I have not yet tested it personally.
 
 \pagebreak
 \section{C Language Subset}
@@ -135,7 +136,7 @@ The initial values are to be ``hard coded'' as variable initialisations. Do not 
 \\ \\
 Check if your code works by comparing its output with a sequence calculated by hand. Test several combinations of $x_1$ and $x_2$.
 \\ \\
-The following template can be used (if you are using a new Che factory it is already loaded or you can pull it from \url{https://github.com/bschulznewy/seriesTemplate.git}):
+The template below can be used. If you are using a new Che factory it should load automatically. Otherwise, you can get it from \url{https://github.com/bschulznewy/seriesTemplate.git}.
 \begin{lstlisting}[style=pseudo]
 #include <stdio.h>
 int main() {
