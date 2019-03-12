@@ -142,8 +142,8 @@ The template below can be used. If you are using a new Che factory it should loa
 \begin{lstlisting}[style=pseudo]
 #include <stdio.h>
 int main() {
-	int x1 = 0;
-	int x2 = 2;
+	int x1 = 0; // Initial value, you might not need this later
+	int x2 = 2; // Initial value, again you might not need this
 	int d;
 	int xn; // the current x value
 	int xnm1; // xn minus 1, the previous value
@@ -164,15 +164,16 @@ int main() {
 \begin{task}{Arithmetic Series}{}
 An arithmetic \textit{series} is the sum of the numbers in an arithmetic sequence.
 \\ \\
-Modify your code from the previous task to calculate the sum of the first 10 numbers in the arithmetic sequence.
+Modify your code from the previous task to calculate the sum of the first 10 numbers in the arithmetic sequence. Do this by declaring a new variable which keeps a ``running sum'' of the \texttt{xn}'s as they are calculated. Be careful to include $x1$ and $x2$ in the summation.
 \\ \\
-Test your result given the following formula for the sum, $S_n$, of the first $n$ terms, $x_1$ to $x_n$, being:
+Test your result \textbf{by hand} given the following formula for the sum, $S_n$, of the first $n$ terms, $x_1$ to $x_n$ (you do not need to code this formula):
 
 \begin{equation}
 S_n = \frac{1}{2} n (x_1 + x_n)
 \end{equation}
 
-You will need to declare a new variable, \texttt{sum}, to ``accumulate'' the sum as the series is calculated.
+\textbf{Be careful with the formula!} It is easy to get it wrong with little details (eg: what is the value of \texttt{n} at the end? It starts at \texttt{n=2} but did you initialise it to that?).
+
 \end{task}
 
 \begin{task}{Geometric Sequence}{}
