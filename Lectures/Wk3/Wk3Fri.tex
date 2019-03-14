@@ -99,7 +99,7 @@ and initial conditions:
 \begin{align*}
 x_1 = 3,~ x_2 = 1
 \end{align*}
-The program should exit after printing $x_8$ or if $x_n > 100$.
+The program should exit after printing ($x_8$ or an $x_n > 100$).
 }
 \end{frame}
 
@@ -275,6 +275,60 @@ main() {
 	}
 }
 \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Is the solution optimal?}
+\begin{itemize}
+\item Some marks are allocated to reducing variable count
+\item It tests your understanding of how the \texttt{=} operation works
+\item Lets look at the maths:
+\begin{lstlisting}[style=CStyle]
+xn = 3.0*xnm1 + 2*xnm2;
+xnm2 = xnm1;
+xnm1 = xn;
+n++;
+printf("%d %f\n", n, xn);
+\end{lstlisting}
+\item Do we need \textit{all} those variables?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\begin{itemize}
+\item In this case: yes
+\begin{lstlisting}[style=CStyle]
+xn = 3.0*xnm1 + 2*xnm2;
+xnm2 = xnm1;
+xnm1 = xn;
+n++;
+printf("%d %f\n", n, xn);
+\end{lstlisting}
+\item We can't overwrite \texttt{xnm1} before shifting it into \texttt{xnm2}
+\item Result must be stored in \texttt{xn} first
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Another Isolated Example}
+\begin{itemize}
+\item What if the equation was:
+\begin{equation*}
+x_n = 0.2x_{n-1}
+\end{equation*}
+\item This will \textit{work}:
+
+\begin{lstlisting}[style=CStyle]
+xn = 0.2*xnm1
+xnm1 = xn;
+\end{lstlisting}
+
+\item But because we never need \texttt{xnm1} elsewhere this is more optimal:
+\begin{lstlisting}[style=CStyle]
+xn = 0.2*xn;
+\end{lstlisting}
+\item Marks (above a pass) may be allocated to variable optimisation
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
