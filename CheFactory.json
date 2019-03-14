@@ -1,0 +1,133 @@
+{
+  "v": "4.0",
+  "name": "LectureDemo1",
+  "workspace": {
+    "environments": {
+      "default": {
+        "machines": {
+          "dev-machine": {
+            "attributes": {
+              "memoryLimitBytes": "2147483648"
+            },
+            "servers": {},
+            "volumes": {},
+            "installers": [
+              "org.eclipse.che.exec",
+              "org.eclipse.che.terminal",
+              "org.eclipse.che.ws-agent"
+            ],
+            "env": {}
+          }
+        },
+        "recipe": {
+          "type": "dockerimage",
+          "content": "eclipse/cpp_gcc"
+        }
+      }
+    },
+    "defaultEnv": "default",
+    "projects": [
+      {
+        "links": [],
+        "name": "engg1003code",
+        "attributes": {
+          "contribute_to_branch": [
+            "master"
+          ]
+        },
+        "type": "blank",
+        "source": {
+          "location": "https://github.com/bschulznewy/engg1003code.git",
+          "type": "github",
+          "parameters": {}
+        },
+        "path": "/engg1003code",
+        "problems": [],
+        "mixins": [
+          "pullrequest"
+        ]
+      },
+      {
+        "links": [],
+        "name": "factorTest",
+        "attributes": {
+          "contribute_to_branch": [
+            "master"
+          ]
+        },
+        "type": "blank",
+        "source": {
+          "location": "https://github.com/bschulznewy/factorTest.git",
+          "type": "github",
+          "parameters": {}
+        },
+        "path": "/factorTest",
+        "problems": [],
+        "mixins": [
+          "pullrequest"
+        ]
+      },
+      {
+        "links": [],
+        "name": "factors",
+        "attributes": {
+          "contribute_to_branch": [
+            "master"
+          ]
+        },
+        "type": "blank",
+        "source": {
+          "location": "https://github.com/bschulznewy/factors.git",
+          "type": "github",
+          "parameters": {}
+        },
+        "path": "/factors",
+        "problems": [],
+        "mixins": [
+          "pullrequest"
+        ]
+      },
+      {
+        "links": [],
+        "name": "calculatePi",
+        "attributes": {
+          "contribute_to_branch": [
+            "master"
+          ]
+        },
+        "type": "blank",
+        "source": {
+          "location": "https://github.com/bschulznewy/calculatePi.git",
+          "type": "github",
+          "parameters": {}
+        },
+        "path": "/calculatePi",
+        "problems": [],
+        "mixins": [
+          "pullrequest"
+        ]
+      }
+    ],
+    "name": "wksp-ytxo",
+    "attributes": {},
+    "commands": [
+      {
+        "commandLine": "cd ${current.project.path} && gcc -Wall -O0 -g *.c -lm && ./a.out",
+        "name": "run",
+        "attributes": {
+          "goal": "Run",
+          "previewUrl": ""
+        },
+        "type": "custom"
+      }
+    ],
+    "links": []
+  },
+  "id": "factorypqq4zicbo4hin59w",
+  "creator": {
+    "name": "bschulznewy",
+    "email": "brenton.schulz@newcastle.edu.au",
+    "created": 1551915903459,
+    "userId": "df812f0a-0a39-40e6-b237-b0ca0849a8e2"
+  }
+}
