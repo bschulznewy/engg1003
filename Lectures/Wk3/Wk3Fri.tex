@@ -73,9 +73,209 @@
 \institute{University of Newcastle}
 \date{\today}
 
+
 \begin{document}
 \titlepage
 
+
+\begin{frame}
+\frametitle{Assessment Task Rules}
+\begin{center}
+...Jump to rules PDF
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Easy(ish) Assessment Task Example}
+{\small Write a C program which generates a sequence of numbers:
+\begin{equation*}
+x_1, x_2, x_3, ...
+\end{equation*}
+with the iterative equation:
+\begin{equation*}
+x_n = 3x_{n-1} + 2x_{n-2}
+\end{equation*}
+and initial conditions:
+\begin{align*}
+x_1 = 3,~ x_2 = 1
+\end{align*}
+The program should exit after printing $x_8$ or if $x_n > 100$.
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Easy(ish) Assessment Task Example}
+The program's output format is:
+\begin{lstlisting}[style=pseudo]
+n x<newline>
+\end{lstlisting}
+For the values given, the output is:
+\begin{lstlisting}[style=pseudo]
+1 3.000000
+2 1.000000
+3 9.000000
+4 29.000000
+5 105.000000
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Easy(ish) Assessment Task Example}
+\begin{itemize}
+\item What do we need to do?
+	\begin{itemize}
+		\item Set up variables
+		\item Give some initial values
+		\item Implement the equation
+		\item Print the initial values
+		\item Write a \texttt{while()} loop
+		\item Get the exit condition correct
+		\item Print results
+		\item Wrap the whole thing in \texttt{main()}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Set up variables}
+Question didn't specify, but lets assume \texttt{float}
+\begin{lstlisting}[style=CStyle]
+float xn, xnm1, xnm2;
+int n; 
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Give some initial values}
+Question gave us:
+\begin{align*}
+x_1 = 3,~ x_2 = 1
+\end{align*}
+Be careful with \texttt{xnm1} and \texttt{xnm2}, where are we starting? 
+\begin{lstlisting}[style=CStyle]
+float xn, xnm1 = 1, xnm2 = 3;
+int n = 3; // The first unknown is x for n=3
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Implement the equation}
+\begin{equation*}
+x_n = 3x_{n-1} + 2x_{n-2}
+\end{equation*}
+\begin{lstlisting}[style=CStyle]
+float xn, xnm1 = 1, xnm2 = 3;
+int n = 3; // The first unknown is x for n=3
+
+xn = 3.0*xnm1 + 2*xnm2;
+\end{lstlisting}
+That calculates $x_3$, but how does the program ``advance in time''?
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Implement the equation}
+Shift all the variables ``forward in time'' with:
+\begin{lstlisting}[style=CStyle]
+float xn, xnm1 = 1, xnm2 = 3;
+int n = 3; // The first unknown is x for n=3
+
+xn = 3.0*xnm1 + 2*xnm2;
+xnm2 = xnm1;
+xnm1 = xn;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Print the initial values}
+\begin{lstlisting}[style=CStyle]
+float xn, xnm1 = 1, xnm2 = 3;
+int n = 3; // The first unknown is x for n=3
+
+// x1 and x2 given so just hard code n
+printf("1 %f\n", xnm2);
+printf("2 %f\n", xnm1);
+
+xn = 3.0*xnm1 + 2*xnm2;
+xnm2 = xnm1;
+xnm1 = xn;
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Write a \texttt{while()} loop}
+We need to calculate $x_n$ more than once, so:
+\begin{lstlisting}[style=CStyle]
+float xn, xnm1 = 1, xnm2 = 3;
+int n = 3; // The first unknown is x for n=3
+
+// x1 and x2 given so just hard code n
+printf("1 %f\n", xnm2);
+printf("2 %f\n", xnm1);
+
+while( /* something */ ) {
+	xn = 3.0*xnm1 + 2*xnm2;
+	xnm2 = xnm1;
+	xnm1 = xn;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Get the exit condition correct}
+The value of n goes from 1 to 8, and xn must remain below 100:
+\begin{lstlisting}[style=CStyle]
+float xn, xnm1 = 1, xnm2 = 3;
+int n = 3; // The first unknown is x for n=3
+// x1 and x2 given so just hard code n
+printf("1 %f\n", xnm2);
+printf("2 %f\n", xnm1);
+while( (n <= 8) && (xn < 100) ) {
+	xn = 3.0*xnm1 + 2*xnm2;
+	xnm2 = xnm1;
+	xnm1 = xn;
+	n++;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Print results}
+\begin{lstlisting}[style=CStyle]
+float xn, xnm1 = 1, xnm2 = 3;
+int n = 3; // The first unknown is x for n=3
+// x1 and x2 given so just hard code n
+printf("1 %f\n", xnm2);
+printf("2 %f\n", xnm1);
+while( (n <= 8) && (xn < 100) ) {
+	xn = 3.0*xnm1 + 2*xnm2;
+	xnm2 = xnm1;
+	xnm1 = xn;
+	n++;
+	printf("%d %f\n", n, xn);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Wrap the whole thing in \texttt{main()}}
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+main() {
+	float xn, xnm1 = 1, xnm2 = 3;
+	int n = 3; // The first unknown is x for n=3
+	// x1 and x2 given so just hard code n
+	printf("1 %f\n", xnm2);
+	printf("2 %f\n", xnm1);
+	while( (n <= 8) && (xn < 100) ) {
+		xn = 3.0*xnm1 + 2*xnm2;
+		xnm2 = xnm1;
+		xnm1 = xn;
+		n++;
+		printf("%d %f\n", n, xn);
+	}
+}
+\end{lstlisting}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Hard Assessment Task Example}
@@ -162,15 +362,25 @@ yn = 0.1*xn + 0.9*yn;
 \begin{itemize}
 \item Mathematics is \textit{instant}
 \pause
-\item Code is evaluated as a time-based process
+\item Code is evaluated line by line
 \pause
 \item Variables can \textit{change} between lines, resulting in the wrong equation being implemented
 \item The previous slide was \textit{actually} doing:
+\end{itemize}
+
+\begin{multicols}{2}
 \begin{align*}
 x_n &= 0.6x_{n-1} + 0.2y_{n-1}\\
 y_n &= 0.1\textcolor{red}{x_{n}} + 0.9y_{n-1}
 \end{align*}
-\end{itemize}
+~\\~\\
+\begin{lstlisting}[style=pseudo]
+xn = 0.6*xn + 0.2*yn;
+yn = 0.1*xn + 0.9*yn;
+\end{lstlisting}
+\end{multicols}
+
+
 \end{frame}
 
 \begin{frame}
@@ -210,13 +420,6 @@ y = 0.1*xtmp + 0.9*y;	// stored xn used, yn
 \begin{center}
 \includegraphics[width=0.6\textwidth]{coupled}\\
 {\small Aside: results data was pulled from Che using SSH. Advanced students will appreciate this feature in later weeks.}
-\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Assessment Task Rules}
-\begin{center}
-...Jump to rules PDF
 \end{center}
 \end{frame}
 
