@@ -68,8 +68,8 @@
 \lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
 \lstset{framextopmargin=50pt,tabsize=2}
 
-\title{ENGG1003 - Friday Week 3}
-\subtitle{More Sequence Examples\\Maybe More Flow Control}
+\title{ENGG1003 - Tuesday Week 4}
+\subtitle{Loose Ends \\ Functions}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
@@ -89,15 +89,16 @@ and
 \begin{equation}
 x_n = x_{n-1} + x_{n-2}
 \end{equation}
-notation because it is the simplest method that works.
+notation because it is the simplest method that gets the point across.
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Subscript Notation}
 \begin{itemize}
-\item $x_n$ means that $x$ is ``some number'' and $n$ is an \textit{integer} value that uniquely identifies $x_n$ from other $x$'s
-\item $n$ also implies an \textit{order} to the $x$'s
+\item $x_n$ means that $x$ is ``some number'' and $n$ is an \textit{integer} value
+\item $n$ implies \textit{uniqueness} (ie: $x_1$ and $x_2$ can differ)
+\item $n$ implies an \textit{order} to the $x$'s
 \item A formal mathematical statement of the above would be something like:
 \begin{equation}
 x_n :~x \in \mathbb{R}~\textrm{and} ~ n \in \mathbb{Z}
@@ -230,6 +231,17 @@ END
 \end{multicols}
 \end{frame}
 
+\begin{frame}
+\frametitle{\texttt{break} Statements}
+\begin{itemize}
+\item The example is mildly pointless
+	\begin{itemize}
+		\item In C, the $\left| tmp \right| < 1e-6$ condition can go in the \texttt{for()} statement. In pseudocode it \textit{sort of} can't.
+	\end{itemize}
+\item It is there to illustrate what \texttt{break} does, not explain how to use it
+\item As the ``experienced engineer' that's up to you
+\end{itemize}
+\end{frame}
 
 
 \begin{frame}[fragile]
@@ -271,7 +283,7 @@ for(x = 0; x < 10; x++) {
 \begin{itemize}
 \item Some programmers claim that \texttt{break} and \texttt{continue} are ``naughty''
 \item Well, yes, but actually no
-\item They can make your code needlessly complicated
+\item They \textit{can} make your code needlessly complicated
 \item They might make it simpler
 \item It is up to you to judge
 \item As engineers you shouldn't follow strict rules
@@ -303,7 +315,7 @@ for(x = 0; x < 10; x++) {
 
 \begin{frame}[fragile]
 \frametitle{Loose End: Increment Example}
-\begin{lstlisting}[style=CStyle,caption=\texttt{increment.c}]
+\begin{lstlisting}[style=CStyle]
 #include <stdio.h>
 int main() {
 	int x = 0;
@@ -457,5 +469,170 @@ int main() {
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Functions}
+\begin{itemize}
+\item A \textit{function} is a block of code which can be \textit{called} multiple times, from multiple places
+\item They are used when you want the same block of lines to execute in many places throughout your code
+\item A function requires:
+	\begin{itemize}
+		\item A name
+		\item (optional) A \textit{return value}
+		\item (optional) One or more \textit{arguments}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Functions in Mathematics}
+\begin{itemize}
+\item In mathematics you saw functions written as:
+\begin{equation*}
+y = f(x)
+\end{equation*}
+\item Here, the function is called $f$, takes an argument of $x$ and returns a value which is given to $y$
+\item C and pure mathematics have these general ideas in common
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Examples}
+\begin{itemize}
+\item So far, some of you have used \textit{library functions}
+\item These are functions which are pre-existing within the compiler (and its libraries)
+\item I have shown you:
+	\begin{itemize}
+		\item \texttt{scanf();}
+		\item \texttt{printf();}
+		\item \texttt{rand();}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Syntax}
+\begin{itemize}
+\item Writing \texttt{rand();} in you code is \textit{calling} the function
+\item The program execution ``jumps'' into the function's code, executes it, then jumps back
+\item General function call syntax is:
+\begin{lstlisting}[style=pseudo]
+return value = name(argument1, argument2,...);
+\end{lstlisting}
+\item Not all functions take arguments
+\item You may ignore the return value
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Examples}
+\begin{itemize}
+\item Example 1:
+\begin{lstlisting}[style=CStyle]
+x = rand();
+\end{lstlisting}
+	\begin{itemize}
+		\item \texttt{rand} is the function name
+		\item It returns a ``random'' number
+		\item The return value is allocated to \texttt{x}
+		\item It doesn't take an argument 	
+	\end{itemize}
+\pause
+\item Example 2:
+\begin{lstlisting}[style=CStyle]
+y = sqrtf(x);
+\end{lstlisting}
+	\begin{itemize}
+		\item \texttt{sqrtf} is the function name
+		\item \texttt{x} is the argument
+		\item It returns the square root of \texttt{x}
+		\item The return value is allocated to \texttt{y}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Functions}
+\begin{itemize}
+\item Function arguments and return values have pre-defined data types
+\pause
+\item Example: \texttt{int rand(void);}
+	\begin{itemize}
+		\item The return value is an \texttt{int}
+		\item The argument is ``type'' \texttt{void}
+			\begin{itemize}
+				\item This just means there aren't any
+			\end{itemize}
+	\end{itemize}
+\pause
+\item Example: \texttt{float sqrtf(float x);}
+	\begin{itemize}
+		\item The return value is a \texttt{float}
+		\item The argument is a \texttt{float}
+			\begin{itemize}
+				\item It is called \texttt{x} in documentation but that is irrelevant
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Using Functions}
+\begin{itemize}
+\item (semi-revision)
+\item Before you use a function you must:
+	\begin{itemize}
+		\item Read the documentation
+		\item \texttt{\#include} the correct header file
+		\item Add the correct library to the compiler options
+			\begin{itemize}
+				\item In Che I've done this for the maths library
+				\item \texttt{stdio} and \texttt{stdlib} are always there
+			\end{itemize}
+		\item Be aware of the return value and argument data types
+			\begin{itemize}
+				\item Do you need any type casting?
+				\item Are you using the correct function?
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Maths Functions}
+\begin{itemize}
+\item Since some of you have already used them, lets learn about the maths library...
+\item It includes functions for:
+	\begin{itemize}
+		\item Trigonometry
+		\item Exponentials (base e) \& logarithms (base e and 10)
+		\item Exponents
+		\item Rounding (\texttt{floor();} \& \texttt{ceil();})
+		\item Floating point modulus (\texttt{fmod();}
+		\item Square roots
+		\item Maybe others?
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Maths Functions}
+\begin{itemize}
+\item There are typically \textit{different} functions for \texttt{float} and \texttt{double}
+\item This can have a huge speed impact
+\item Get in the habit of using the right ones!
+\item \texttt{float} maths functions typically end in '\texttt{f}'
+	\begin{itemize}
+		\item \texttt{cosf();}
+		\item \texttt{sqrtf();}
+		\item \texttt{atanf();}
+		\item ...etc
+	\end{itemize}
+\item \texttt{double} maths functions don't end in '\texttt{f}'
+	\begin{itemize}
+		\item \texttt{cos();}
+		\item \texttt{log();}
+	\end{itemize}
+\end{itemize}
+\end{frame}
 
 \end{document}
