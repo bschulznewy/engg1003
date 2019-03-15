@@ -115,6 +115,7 @@ x_n :~x \in \mathbb{R}~\textrm{and} ~ n \in \mathbb{Z}
 \begin{equation}
 x_n = x_{n-1} + x_{n-2}
 \end{equation}
+\pause
 \item If you instead wrote:\\
 ``Calculate a sequence of numbers, $a,b,c,d,...$''\\
 how would you write the equation?
@@ -473,7 +474,7 @@ int main() {
 \frametitle{Functions}
 \begin{itemize}
 \item A \textit{function} is a block of code which can be \textit{called} multiple times, from multiple places
-\item They are used when you want the same block of lines to execute in many places throughout your code
+\item They are used when you want the same block of code to execute in many places throughout your code
 \item A function requires:
 	\begin{itemize}
 		\item A name
@@ -492,6 +493,8 @@ y = f(x)
 \end{equation*}
 \item Here, the function is called $f$, takes an argument of $x$ and returns a value which is given to $y$
 \item C and pure mathematics have these general ideas in common
+\pause
+\item The similarities stop there
 \end{itemize}
 \end{frame}
 
@@ -514,10 +517,9 @@ y = f(x)
 \begin{itemize}
 \item Writing \texttt{rand();} in you code is \textit{calling} the function
 \item The program execution ``jumps'' into the function's code, executes it, then jumps back
-\item General function call syntax is:
-\begin{lstlisting}[style=pseudo]
-return value = name(argument1, argument2,...);
-\end{lstlisting}
+\item Function call syntax is:\\
+{\small \texttt{[return value] = name( [arguments] )} }
+
 \item Not all functions take arguments
 \item You may ignore the return value
 \end{itemize}
@@ -555,21 +557,62 @@ y = sqrtf(x);
 \begin{itemize}
 \item Function arguments and return values have pre-defined data types
 \pause
-\item Example: \texttt{int rand(void);}
+\item Example from documentation
+\begin{itemize}
+\item \texttt{int~rand(void);}
 	\begin{itemize}
 		\item The return value is an \texttt{int}
-		\item The argument is ``type'' \texttt{void}
-			\begin{itemize}
-				\item This just means there aren't any
-			\end{itemize}
+		\item The argument is type \texttt{void}
+		\item This just means there aren't any
 	\end{itemize}
 \pause
-\item Example: \texttt{float sqrtf(float x);}
+\item \texttt{float sqrtf(float x);}
 	\begin{itemize}
 		\item The return value is a \texttt{float}
 		\item The argument is a \texttt{float}
+		\item Argument is called \texttt{x} in documentation but that is irrelevant
+	\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Return Values (an Engineer's View)}
+\begin{itemize}
+\item The function's \textit{return value} is the number a function gets ``replaced with'' in a line of code
+\pause
+\item Function return values, variables, and literals can all be used in the same places:
+	\begin{itemize}
+		\item In arithmetic
+		\item In conditions
+		\item As arguments to other functions
+	\end{itemize}	 
+\pause
+\item The C standard is \textit{very} specific about what return values are but I will be informal for now
+	\begin{itemize}
+		\item Technically, for example, an expression like \texttt{x=y+5.0;} also has a ``return value`` equal to the value allocated to \texttt{x}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Return Values}
+\begin{itemize}
+\item I use functions from \texttt{math.h} in these examples, we'll cover them in a few mins
+\pause
+\item The following are all valid:
+	\begin{itemize}
+		\item \texttt{x = rand();}
+		\item \texttt{printf("\%f\textbackslash n", sin(y));}
+		\item \texttt{if( (rand()\%6) < 2)}
+		\item \texttt{while( sin(x) < 0 )}
+		\pause
+		\item This next one is complicated...
+		\pause
+		\item \texttt{x = sin((double)rand());}
 			\begin{itemize}
-				\item It is called \texttt{x} in documentation but that is irrelevant
+			\pause
+				\item Generates a random integer, casts to \texttt{double}, uses that number as an argument to the \texttt{sin()} function
 			\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -588,7 +631,7 @@ y = sqrtf(x);
 				\item In Che I've done this for the maths library
 				\item \texttt{stdio} and \texttt{stdlib} are always there
 			\end{itemize}
-		\item Be aware of the return value and argument data types
+		\item Be aware of the data types
 			\begin{itemize}
 				\item Do you need any type casting?
 				\item Are you using the correct function?
@@ -607,7 +650,7 @@ y = sqrtf(x);
 		\item Exponentials (base e) \& logarithms (base e and 10)
 		\item Exponents
 		\item Rounding (\texttt{floor();} \& \texttt{ceil();})
-		\item Floating point modulus (\texttt{fmod();}
+		\item Floating point modulus (\texttt{fmod();})
 		\item Square roots
 		\item Maybe others?
 	\end{itemize}
@@ -633,6 +676,54 @@ y = sqrtf(x);
 		\item \texttt{log();}
 	\end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Maths Functions}
+\begin{itemize}
+\item Math functions are written by mathematicians
+	\begin{itemize}
+		\item All angles are in radians
+		\pause
+		\item \texttt{log();} is $\log_e$
+			\begin{itemize}
+				\item \texttt{log10();} is $\log_{10}$
+				\item \texttt{log2();} is $\log_2$
+			\end{itemize}
+		\pause
+		\item Inverse trig functions are called ``arcus functions''
+			\begin{itemize}
+				\item $\sin^{-1}$ is \texttt{asin();}
+				\item $\cos^{-1}$ is \texttt{acos();}
+				\item $\tan^{-1}$ is \texttt{atan();}
+			\end{itemize}
+		\pause
+		\item The ``4 quadrant'' arctan function is \texttt{atan2();}
+			\begin{itemize}
+				\item \texttt{atan(x);} returns $[0,\pi]$
+				\item \texttt{atan2(x,y);} returns $[-\pi, \pi]$ depending on the quadrant of the point \texttt{x,y}
+				\item Very useful for polar to Cartesian coordinate transforms (probably beyond 1st semester 1st year)
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example - Quadratic Equation}
+Write a C program which uses the standard library function \texttt{sqrtf();} as part of the calculations required to produce solutions to a quadratic equation:
+\begin{equation}
+ax^2 + bx + c = 0
+\end{equation}
+using
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\end{equation}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+...do it live in Che
+\end{center}
 \end{frame}
 
 \end{document}
