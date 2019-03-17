@@ -186,11 +186,10 @@ END
 \begin{frame}
 \frametitle{BREAK Statements}
 \begin{itemize}
-\item Sometimes you want to exit a loop \textit{before} the condition is re-tested
+\item Sometimes you want to exit flow control early
 \item The flow-control mechanism for this is a BREAK statement
-\item If executed, the loop quits
-\item BREAKs typically go inside an IF
-\item It adds an extra condition on loop exit placed at any point in the loop
+\item If executed, execution jumps outside the current \texttt{if()}, \texttt{while()}, \texttt{for()}, etc
+\item BREAKs \textit{typically} go inside an IF
 \end{itemize}
 \end{frame}
 
@@ -240,7 +239,7 @@ END
 		\item In C, the $\left| tmp \right| < 1e-6$ condition can go in the \texttt{for()} statement. In pseudocode it \textit{sort of} can't.
 	\end{itemize}
 \item It is there to illustrate what \texttt{break} does, not explain how to use it
-\item As the ``experienced engineer' that's up to you
+\item As the ``experienced engineer' you choose when to use it
 \end{itemize}
 \end{frame}
 
@@ -311,6 +310,101 @@ for(x = 0; x < 10; x++) {
 		\item Don't use it in ENGG1003
 	\end{itemize}
 \item You \textit{must} use branch instructions in ELEC1710
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{switch()} - \texttt{case:}}
+\begin{itemize}
+\item Sometimes you want to code something like:
+\begin{lstlisting}[style=CStyle]
+if(x == 0) {
+	// stuff
+} else if(x == 1) {
+	// stuff
+} else if(x == 2) {
+	// stuff
+} ...etc
+\end{lstlisting}
+\item This is difficult to read and gets unwieldy. Fast.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{switch()} - \texttt{case:}}
+\begin{itemize}
+\item Instead, C has:
+\begin{lstlisting}[style=CStyle]
+switch(expression) {
+	case constant:
+			break;
+	case constant:
+			break;
+	default:
+}
+\end{lstlisting}
+\item The \textit{expression} is anything which evaluates to a number
+\item The \textit{constant}s are either literals or variables declared as \texttt{const} (covered later)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{switch()} - \texttt{case:} Example}
+\begin{lstlisting}[style=CStyle]
+int x=1, y=2;
+
+switch(x==y) { // Evaluates to 0 or 1
+	case 0:
+			printf("x and y differ\n");
+			break;
+	case 1:
+			printf("x and y are equal\n");
+			break;
+	default:
+			printf("Something went very wrong\n");
+}
+\end{lstlisting}
+\begin{itemize}
+\item The \texttt{default:} case happens if the expression doesn't match any other option
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{switch()} - \texttt{case:} Example}
+\begin{itemize}
+\item If the \texttt{break;} is omitted execution continues line by line - run this in Che
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+#include<stdio.h>
+int main() {
+	int x = 2;
+	switch(x) {
+		case 1: printf("x is 1\n");
+		case 2: printf("x is 2\n");
+		case 3: printf("x is 3\n");
+		default: printf("x is not 1, 2, or 3\n");
+	}
+	return 0;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{switch()} - \texttt{case:} Limits}
+\begin{itemize}
+\item Because the \texttt{case} statements only accept \textit{constants} there are some limitations
+\item Example, this doesn't translate well:
+\begin{lstlisting}[style=CStyle]
+if(x < 0) {
+	// stuff
+} else if (x == 0) {
+	// stuff
+} else if (x > 0) {
+	// stuff
+}
+\end{lstlisting}
+\item \texttt{(x<0)}, \texttt{(x==0)}, and \texttt{(x>0)} are all 0 or 1
+\item Can't \textit{easily} translate this into three unique constants
 \end{itemize}
 \end{frame}
 
@@ -520,7 +614,7 @@ y = f(x)
 \item Function call syntax is:\\
 {\small \texttt{[return value] = name( [arguments] )} }
 
-\item Not all functions take arguments
+\item Not all functions take arguments and/or provide return values
 \item You may ignore the return value
 \end{itemize}
 \end{frame}
@@ -534,7 +628,7 @@ x = rand();
 \end{lstlisting}
 	\begin{itemize}
 		\item \texttt{rand} is the function name
-		\item It returns a ``random'' number
+		\item It returns a ``random'' integer
 		\item The return value is allocated to \texttt{x}
 		\item It doesn't take an argument 	
 	\end{itemize}
@@ -570,7 +664,7 @@ y = sqrtf(x);
 	\begin{itemize}
 		\item The return value is a \texttt{float}
 		\item The argument is a \texttt{float}
-		\item Argument is called \texttt{x} in documentation but that is irrelevant
+		\item Argument is called \texttt{x} in documentation but you can pass it any \texttt{float}
 	\end{itemize}
 \end{itemize}
 \end{itemize}
@@ -647,12 +741,12 @@ y = sqrtf(x);
 \item It includes functions for:
 	\begin{itemize}
 		\item Trigonometry
-		\item Exponentials (base e) \& logarithms (base e and 10)
-		\item Exponents
+		\item Exponentials (base e) \& logarithms (base e, 10, 2)
+		\item Exponents (\texttt{pow();})
 		\item Rounding (\texttt{floor();} \& \texttt{ceil();})
 		\item Floating point modulus (\texttt{fmod();})
 		\item Square roots
-		\item Maybe others?
+		\item ...etc
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -662,7 +756,7 @@ y = sqrtf(x);
 \begin{itemize}
 \item There are typically \textit{different} functions for \texttt{float} and \texttt{double}
 \item This can have a huge speed impact
-\item Get in the habit of using the right ones!
+\item Use the right ones!
 \item \texttt{float} maths functions typically end in '\texttt{f}'
 	\begin{itemize}
 		\item \texttt{cosf();}
@@ -670,7 +764,7 @@ y = sqrtf(x);
 		\item \texttt{atanf();}
 		\item ...etc
 	\end{itemize}
-\item \texttt{double} maths functions don't end in '\texttt{f}'
+\item \texttt{double} maths functions \textbf{don't}
 	\begin{itemize}
 		\item \texttt{cos();}
 		\item \texttt{log();}
@@ -728,9 +822,136 @@ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 
 \begin{frame}
 \frametitle{Example - \texttt{scanf();}'s Return Value}
-Read the \texttt{scanf();} documentation and observe that it returns an \texttt{int}. What does that \texttt{int} represent? Write some test code and experiment with its behaviour.
+Read the \texttt{scanf();} \underline{\href{http://man7.org/linux/man-pages/man3/scanf.3.html}{documentation}} and observe that it returns an \texttt{int}. What does that \texttt{int} represent? Write some test code and experiment with its behaviour.
 \\~\\
 Demonstrate it live in Che
 .\end{frame}
+
+\begin{frame}
+\frametitle{Writing Functions}
+\begin{itemize}
+\item What about writing your own functions?
+\pause
+\item Do the following:
+	\begin{enumerate}
+		\item Choose a name
+		\pause
+		\item Decide on the function arguments
+		\pause
+		\item Decide on the return value
+		\pause
+		\item Write a \textit{function prototype}
+			\begin{itemize}
+				\item Write it at the top of your code [or in a header file]
+			\end{itemize}
+		\pause
+		\item Somewhere below \texttt{main()} (or in another \texttt{.c} file) write the function
+	\end{enumerate}
+\pause
+\item For now just keep everything in one file
+	\begin{itemize}
+		\item Unless you study ahead. I won't stop you.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Prototypes}
+\begin{itemize}
+\item Huh? What's a function prototype?
+\pause
+\item Before a function is \textit{called} the compiler needs to know:
+	\begin{itemize}
+		\item Its name
+		\item Its argument's data type(s)
+		\item Its return data type 
+	\end{itemize}
+\pause
+\item A function prototype documents these things for the compiler
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Prototypes}
+\begin{itemize}
+\item The function prototype syntax is:
+\begin{lstlisting}[style=CStyle]
+[return data type] = function_name(arguments);
+\end{lstlisting}
+\pause
+\item The \texttt{arguments} section is a comma separated list with the following syntax:
+\begin{lstlisting}[style=CStyle]
+(datatype name, datatype name, ...)
+\end{lstlisting}
+\item Examples:
+	\begin{itemize}
+		\item \texttt{float sqrtf(float x);}
+		\item \texttt{int rand(void);}
+		\item \texttt{double log(double x);}
+		\item \texttt{double atan2(double x, double y);}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Void}
+\begin{itemize}
+\item If either the arguments or return value aren't required declare them as \texttt{void}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Prototypes}
+\begin{itemize}
+\item The function prototype must be \textit{before} the function's first use
+\item For ``small'' projects: above \texttt{main()}
+\item For ``big'' projects: in their own \textit{header file}
+	\begin{itemize}
+		\item We'll cover this later
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example}
+\begin{itemize}
+\item Lets implement the Week 2 \texttt{sqrt} algorithm as a function
+\item ...Then compare with \texttt{sqrtf();}
+\item Keep it simple: fixed iteration count \texttt{n=10}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example}
+\begin{itemize}
+\item In mathematics, calculate $\sqrt{X}$ by iterating:
+\begin{equation*}
+x_n = \frac{1}{2}\left(x_{n-1} + \frac{X}{x_{n-1}}\right)
+\end{equation*}
+\item In a code snippet:
+\begin{lstlisting}[style=CStyle]
+// Calculate sqrt(x)
+float X = 26; // Test value, sqrt(26)=5.0990
+float xn = x/2.0; // x0 = x/2 because why not?
+int n;
+for(n = 0; n < 10; n++) {
+	xn = 0.5*(xn + X/xn);
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Writing Functions - Example}
+\begin{itemize}
+\item Lets make some design decisions:
+	\begin{itemize}
+		\item Name: \texttt{mySqrt();}
+		\item Argument: \texttt{float X}
+		\item Return Value: \texttt{float}
+	\end{itemize}
+\end{itemize}
+\end{frame}
 
 \end{document}
