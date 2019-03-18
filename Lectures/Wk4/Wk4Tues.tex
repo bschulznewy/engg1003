@@ -122,6 +122,27 @@ how would you write the equation?
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Considering Dropping?}
+\begin{itemize}
+\item HECS census is Fri 22nd
+\item Before you drop:
+	\begin{itemize}
+		\item Talk to me
+		\item Are you \textit{legitimately} unprepared or experiencing ``imposter syndrome''?
+			\begin{itemize}
+				\item It is surprisingly common
+			\end{itemize}
+		\item Most of you have to pass eventually
+		\item There are some legitimate reasons
+	\end{itemize}
+\item Ignore unsolicited advice from demonstrators
+	\begin{itemize}
+		\item Seriously, this isn't their job
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{FOR Loops in C}
 \begin{itemize}
@@ -453,7 +474,7 @@ Pre/post-inc/decrements have many applications, more details in coming weeks.
 		\item Giga- = $10^9$
 		\item ...etc (see the inside cover of a physics text)
 	\end{itemize}
-\item Computer science stole these terms and re-defined them
+\item Computer science adopted these terms and re-defined them
 
 \end{itemize}
 \end{frame}
@@ -612,10 +633,9 @@ y = f(x)
 \item Writing \texttt{rand();} in you code is \textit{calling} the function
 \item The program execution ``jumps'' into the function's code, executes it, then jumps back
 \item Function call syntax is:\\
-{\small \texttt{[return value] = name( [arguments] )} }
-
-\item Not all functions take arguments and/or provide return values
-\item You may ignore the return value
+{\small \texttt{name([arguments])} }
+\item Not all functions take arguments
+\item The function can ``turn into'' its \textit{return value}
 \end{itemize}
 \end{frame}
 
@@ -794,7 +814,7 @@ y = sqrtf(x);
 		\pause
 		\item The ``4 quadrant'' arctan function is \texttt{atan2();}
 			\begin{itemize}
-				\item \texttt{atan(x);} returns $[0,\pi]$
+				\item \texttt{atan(x);} returns $[-\pi/2,\pi/2]$
 				\item \texttt{atan2(x,y);} returns $[-\pi, \pi]$ depending on the quadrant of the point \texttt{x,y}
 				\item Very useful for polar to Cartesian coordinate transforms (probably beyond 1st semester 1st year)
 			\end{itemize}
@@ -845,7 +865,7 @@ Demonstrate it live in Che
 				\item Write it at the top of your code [or in a header file]
 			\end{itemize}
 		\pause
-		\item Somewhere below \texttt{main()} (or in another \texttt{.c} file) write the function
+		\item Somewhere below \texttt{main()} (or in another \texttt{.c} file) write the function \textit{definition}
 	\end{enumerate}
 \pause
 \item For now just keep everything in one file
@@ -876,7 +896,7 @@ Demonstrate it live in Che
 \begin{itemize}
 \item The function prototype syntax is:
 \begin{lstlisting}[style=CStyle]
-[return data type] = function_name(arguments);
+[return data type] function_name(arguments);
 \end{lstlisting}
 \pause
 \item The \texttt{arguments} section is a comma separated list with the following syntax:
@@ -897,6 +917,7 @@ Demonstrate it live in Che
 \frametitle{Void}
 \begin{itemize}
 \item If either the arguments or return value aren't required declare them as \texttt{void}
+\item This is an explicit way of saying ``this item doesn't exist'' 
 \end{itemize}
 \end{frame}
 
@@ -909,6 +930,46 @@ Demonstrate it live in Che
 	\begin{itemize}
 		\item We'll cover this later
 	\end{itemize}
+\item Don't leave the prototype's arguments blank
+	\begin{itemize}
+		\item The compiler won't complain but it is a deprecated language feature
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Definitions}
+\begin{itemize}
+\item The function prototype tells the compiler how the function interacts with other code
+\item The function definition is the \textit{actual code} that gets executed when the function is called
+\begin{lstlisting}[style=CStyle]
+int add(int a, int b); // Prototype
+
+main() {
+	// do stuff
+}
+
+int add(int a, int b) { // Definition
+	return a + b;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Prototypes Vs Definitions}
+\begin{itemize}
+\item For the time being:
+\begin{itemize}
+	\item The prototype goes \textit{above} \texttt{main()}
+		\begin{itemize}
+			\item It is 1 line and ends with a semicolon ;
+		\end{itemize}
+	\item The definition goes \textit{below} \texttt{main()}
+		\begin{itemize}
+			\item It is the prototype repeated followed by a \texttt{\{ \}} block
+		\end{itemize}
+\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -925,32 +986,214 @@ Demonstrate it live in Che
 \begin{frame}[fragile]
 \frametitle{Writing Functions - Example}
 \begin{itemize}
-\item In mathematics, calculate $\sqrt{X}$ by iterating:
-\begin{equation*}
-x_n = \frac{1}{2}\left(x_{n-1} + \frac{X}{x_{n-1}}\right)
-\end{equation*}
+\item In mathematics, calculate $\sqrt{k}$ by iterating:
+\begin{align*}
+x_n &= \frac{1}{2}\left(x_{n-1} + \frac{k}{x_{n-1}}\right)\\
+x_0 &\neq 0
+\end{align*}
 \item In a code snippet:
 \begin{lstlisting}[style=CStyle]
-// Calculate sqrt(x)
-float X = 26; // Test value, sqrt(26)=5.0990
+// Calculate sqrt(k)
+float k = 26; // Test value, sqrt(26)=5.0990
 float xn = x/2.0; // x0 = x/2 because why not?
 int n;
 for(n = 0; n < 10; n++) {
-	xn = 0.5*(xn + X/xn);
+	xn = 0.5*(xn + k/xn);
 }
 \end{lstlisting}
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Writing Functions - Example}
 \begin{itemize}
 \item Lets make some design decisions:
 	\begin{itemize}
 		\item Name: \texttt{mySqrt();}
-		\item Argument: \texttt{float X}
+		\item Argument: \texttt{float k}
 		\item Return Value: \texttt{float}
 	\end{itemize}
+\item The function prototype is therefore:
+\begin{lstlisting}[style=CStyle]
+float mySqrt(float k);
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example}
+\begin{itemize}
+\item Place the function prototype before \texttt{main()}:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+float mySqrt(float k);
+
+int main() {
+	// Do stuff
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example}
+\begin{itemize}
+\item Write the function definition below \texttt{main()}
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+float mySqrt(float k);
+int main() {
+	printf("sqrt(26) = %f\n", mySqrt(26.0));
+}
+
+float mySqrt(float k) {
+	int n;
+	float xn = k/2.0;
+	for(n = 0; n < 10; n++)
+		xn = 0.5*(xn + k/xn);
+	return xn;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example}
+
+\begin{itemize}
+\item Lets view a few common errors
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+float mySqrt(float k);
+int main() {
+	printf("%f\n", mySqrt(26));
+}
+\end{lstlisting}
+\item Results in:
+\begin{lstlisting}[style=pseudo]
+/tmp/ccT6mLDi.o: In function `main':
+/projects/voidTest/hello.c:4: undefined reference to `mySqrt'
+collect2: error: ld returned 1 exit status
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example}
+\begin{itemize}
+\item Likewise, forgetting the prototype:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	printf("%f\n", mySqrt(26));
+}
+\end{lstlisting}
+\item Results in (cut down):
+\begin{lstlisting}[style=pseudo]
+hello.c: In function `main':
+hello.c:4:17: warning: implicit declaration of function 'mySqrt'
+  printf("%f\n", mySqrt(26));
+/projects/voidTest/hello.c:4: undefined reference to `mySqrt'
+
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Compiler Errors}
+\begin{itemize}
+\item ``implicit declaration of...''
+	\begin{itemize}
+		\item The function prototype is missing
+	\end{itemize}
+\item ``undefined reference to...''
+	\begin{itemize}
+		\item The function definition is missing
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Definition Placement}
+\begin{itemize}
+\item The following \textit{works} but isn't recommended:
+\begin{lstlisting}[style=CStyle,basicstyle=\ttfamily\scriptsize]
+#include <stdio.h> 
+#include <math.h> 
+
+float mySqrt(float k) { 
+	int n; 
+	float xn = k/2.0; 
+	for(n = 0; n < 10; n++) 
+		xn = 0.5*(xn + k/xn); 
+	return xn; 
+}
+
+int main() { 
+	printf("sqrt(26) = %.8f\n", mySqrt(26.0)); 
+	printf("Libarsy sqrtf(26): %.8f\n", sqrtf(26.0)); 
+}
+\end{lstlisting}
+\item Only useful in very small projects but common
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Arguments}
+\begin{itemize}
+\item Function arguments become variables inside the function
+\begin{lstlisting}[style=CStyle]
+float mySqrt(float k) {  // k is an argument
+	int n; 
+	float xn = k/2.0;  //k used here
+	for(n = 0; n < 10; n++) 
+		xn = 0.5*(xn + k/xn); // and here
+	return xn; 
+}
+\end{lstlisting}
+\item Don't declare them as variables!
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Arguments}
+\begin{itemize}
+\item By default, arguments are ``passed by value''
+\item The function gets \textit{copies}
+\item Modifying them in a function doesn't change the original variable
+	\begin{itemize}
+		\item No, not even if they have the same name
+	\end{itemize}
+\item The argument variables are discarded on function return
+\item The return value is the \textit{only thing} that goes back
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Return Values}
+\begin{itemize}
+\item Return values can only be one number
+\item How can we write a function which modifies (or returns) multiple things?
+\pause
+\item Trigger warning....
+\pause
+\item Pointers!
+\pause
+\item We'll learn how to use pointers in Week 6(ish)
+\item For now, just learn to live with the single return value
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Example}
+Write a C function, \texttt{isPrime()}, which takes an \texttt{int} as an argument and returns 1 if it is prime and zero otherwise
+\begin{itemize}
+\item Name: \texttt{isPrime}
+\item Argument(s): \texttt{(int x)}
+\item Return Value: \texttt{int}
+\pause
+\item Function prototype: \texttt{int~isPrime(int~x);}
 \end{itemize}
 \end{frame}
 
