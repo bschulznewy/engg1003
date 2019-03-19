@@ -1058,6 +1058,10 @@ float mySqrt(float k) {
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+End of Tuesday lecture marker
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{Writing Functions - Example}
 
@@ -1195,6 +1199,143 @@ Write a C function, \texttt{isPrime()}, which takes an \texttt{int} as an argume
 \pause
 \item Function prototype: \texttt{int~isPrime(int~x);}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Static Vs Auto Variables}
+\begin{itemize}
+\item Any ``normal'' variable declared within the function (including arguments) is lost on function exit
+	\begin{itemize}
+		\item These are called \textit{auto} variables
+	\end{itemize}
+\item By default, any declared variable is an auto variable
+	\begin{itemize}
+		\item Their value is lost outside the block where they are declared
+	\end{itemize}
+\pause
+\item The other type is a \texttt{static} variable
+ \begin{itemize}
+ 	\pause
+ 	\item Their value is retained
+ 	\pause
+ 	\item Their scope is still limited
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Static Variables}
+\begin{itemize}
+\item Example: the \texttt{rand()} function returns different random numbers each time it is called
+	\begin{itemize}
+		\item How? Shouldn't everything be lost when the function returns?
+		\item Not always! The \texttt{rand()} function's ``state'' is kept by a \texttt{static} variable.
+	\end{itemize}
+\pause
+\item Variables are static if declared with the \texttt{static} keyword
+\item Declaration examples:
+\pause
+{\small
+\item \texttt{static int k = 0;}
+\item \texttt{static float z = 0, y = 0;}
+\item \texttt{static long bigNum = 2345235234432;}
+}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Static Variable Example}
+\begin{itemize}
+\item Example: Write a function, \texttt{counter()} which returns an integer equal to the number of times it has been called.
+\pause
+\item Function prototype: \texttt{int counter(void);}
+\pause
+\item Function definition:
+\begin{lstlisting}[style=CStyle]
+int counter() {
+	static int count = 0;
+	return count++;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Static Variable Example}
+\begin{itemize}
+\item The variable \texttt{count} is declared \texttt{static}
+\item The initialisation, \texttt{count = 0}, happens \textit{once}
+\item The value of \texttt{count} is retained between function calls 
+\begin{lstlisting}[style=CStyle]
+int counter() {
+	static int count = 0;
+	return count++;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Static Variable Example}
+Wrapping the function in some test code:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+int counter(void);
+
+int main() {
+	for(int k = 0; k < 10; k++)
+		printf("counter(): %d\n", counter() );
+	return 0;
+}
+
+int counter(void) {
+	static int count = 0;
+	return count++;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Code?}
+\begin{itemize}
+\item ``Test code'' is a term I made up
+\item It means the minimum amount of code required to verify a function's behaviour
+\item Always test your functions \textit{in isolation}!
+\pause
+\item If you write ``too much'' code before testing it will make debugging \textbf{much} harder
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Test Code}
+\begin{itemize}
+\item How much is ``too much''?
+\pause
+\item Personally?
+\pause
+\item After 20 years of experience?
+\pause
+	\begin{itemize}
+		\item 1-5 lines
+	\end{itemize}
+\pause
+\item Never underestimate:
+	\begin{itemize}
+		\item How hard programming is
+		\item How easy it is to make mistakes
+		\item How \textit{brutally catastrophic} bugs can be
+	\end{itemize}
+\pause
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bug Case Study}
+Paraphrased from \underline{\href{https://en.wikipedia.org/wiki/Therac-25}{Wikipedia}}:
+\\~\\
+``The Therac-25 was a computer-controlled radiation therapy machine ... It was involved in at least six accidents ...  in which patients were given massive overdoses of radiation. Because of concurrent programming errors, it sometimes gave its patients radiation doses that were hundreds of times greater than normal, resulting in death or serious injury.''
+
 \end{frame}
 
 \end{document}
