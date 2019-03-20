@@ -69,7 +69,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Friday Week 4}
-\subtitle{Functions\\Static Variables}
+\subtitle{Functions\\Static Variables\\Commenting}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
@@ -388,7 +388,7 @@ Paraphrased from \underline{\href{https://en.wikipedia.org/wiki/Therac-25}{Wikip
 \item Well, what do they achieve?
 	\begin{itemize}
 		\item \textit{Much} easier to solve problems when they're broken down into sub-tasks
-		\item Reduce code line count (if they are called multiple times)
+		\item Reduce code line count and complexity (if they are called multiple times)
 		\item Allows code re-use between projects
 		\item \textit{Much} easier to perform project management between multiple programmers
 		\item Bugs in a function are easier to fix than a bug in code which has been copy+past'ed multiple times
@@ -404,15 +404,49 @@ Paraphrased from \underline{\href{https://en.wikipedia.org/wiki/Therac-25}{Wikip
 \pause
 	\begin{itemize}
 		\item Vague rule of thumb? No more 10-20 lines or so in one block.
-		\item Segment a big problem into multiple sub-problems
+		\item Break a big problem into multiple sub-problems
 			\begin{itemize}
 				\item Implement each as their own function
 				\pause
 				\item Yes, even if they are only called once
-				\item 
 				\pause
+				\item Do what you feel is most ``readable''
+				\pause
+				\item Your opinion here will change with experience, I will try to provide guidance
 			\end{itemize}
 	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Functions and Comments}
+\begin{itemize}
+\item Programming courses always tell you to comment your code
+\item But what is ``good'' commenting?
+\item Lets look at some examples:
+\pause
+	\begin{itemize}
+		\item From the \underline{\href{https://raw.githubusercontent.com/torvalds/linux/master/kernel/async.c}{Linux kernel source}}
+		\pause
+		\item From an \underline{\href{http://libopencm3.org/docs/latest/stm32f4/html/adc_8c_source.html}{embedded systems library}}
+	\end{itemize}
+\pause
+\item Just a little different from each other, eh?
+\item Commenting is very application specific
+\item Commenting is very audience specific
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Commenting in ENGG1500}
+\begin{itemize}
+\item How many comments do we use in ENGG1500?
+\item On one hand: only comment what \textit{you} need
+\item On the other: we need to assess your comments eventually...
+\pause
+\item And the assessment needs to minimise demonstrator judgement
+\item Right now (3:08pm Wednesday) I don't know what the best solution is
+\item Time to git commit \& push and go home
 \end{itemize}
 \end{frame}
 
