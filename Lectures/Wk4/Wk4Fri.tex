@@ -539,6 +539,41 @@ int array[x];
 arrayName[index]
 \end{lstlisting}
 where \texttt{index} \textbf{must be an integer}
+\item Each array index has a \textit{different} physical memory address
+\item Each array index accesses a unique variable
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Array Initialisation}
+\begin{itemize}
+\item General rule: all variables need to be initialised before use
+\item For arrays there are two solutions:
+	\begin{itemize}
+		\item Initialise at declaration with the syntax:
+		\begin{lstlisting}[style=CStyle]
+		int x[10] = {1,2,3,4,5,6,7,8,9,0};
+		\end{lstlisting}
+		When doing this the size is optional:
+		\begin{lstlisting}[style=CStyle]
+		int x[] = {1,2,3}; // int x[3]
+		\end{lstlisting}
+		\item Explicitly initialise in a loop
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Array Initialisation}
+\begin{itemize}
+\item When the array is ``large'' do this instead:
+\begin{lstlisting}[style=CStyle]
+int x[N];
+int counter;
+for(counter = 0; counter < N; counter++) {
+	x[counter] = 0;
+}
+\end{lstlisting}
 \end{itemize}
 \end{frame}
 
