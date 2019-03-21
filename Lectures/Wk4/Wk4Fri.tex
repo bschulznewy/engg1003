@@ -511,8 +511,8 @@ x_0, x_1, x_2, x_3, ...
 \begin{frame}[fragile]
 \frametitle{Arrays}
 \begin{itemize}
-\item The length \textbf{must be known at compile time}
-\item This won't cause a compile error but will give you \textbf{\textit{BIG PROBLEMS}}:
+\item The length may be a variable
+\item \underline{\href{https://knowyourmeme.com/photos/962640-this-is-fine}{This is fine}}:
 \begin{lstlisting}[style=CStyle]
 int x;
 scanf("%d", &x);
@@ -520,10 +520,6 @@ int array[x];
 \end{lstlisting}
 \pause
 \begin{itemize}
-\item The size of \texttt{array} is not known at compile time
-\pause
-\item The compiler doesn't know how big it is
-\pause
 \item If \texttt{x} is large enough your program will access memory the operating system has not allowed it to
 \pause
 \item This will cause segmentation faults (Linux/macOS) or illegal operations (Windows)

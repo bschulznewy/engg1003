@@ -201,6 +201,7 @@
 
 \usepackage[most]{tcolorbox}
 \newtcbtheorem{task}{Task}{
+  breakable,
   enhanced,
   sharp corners,
   attach boxed title to top left={

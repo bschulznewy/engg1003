@@ -8,7 +8,7 @@
 \addtolength{\oddsidemargin}{-.4in}
 \addtolength{\evensidemargin}{-.4in}
 
-\title{ENGG1003 - Lab 3}
+\title{ENGG1003 - Lab Week 5}
 \author{Brenton Schulz}
 \date{\today}
 
@@ -19,8 +19,16 @@
 
 This lab covers C \textit{functions} and \texttt{static} variables.
 
-\begin{task}{}{}
+\begin{task}{Statistics Calculations}{}
+Write a C program which accepts a ``reasonably'' large number of real numbers from the user and calculates the set's mean and sample variance.
+\end{task}
 
+\begin{task}{Numerical Integration}{}
+Write a C program which implements the following equation:
+\begin{equation*}
+f(x) = 2x^2 + 5x + \sin(15x)
+\end{equation*}
+and uses the trapezoidal rule to numerically calculate its integral between two given points: $x_1$ and $x_2$ (ensure $x_1 < x_2$).
 \end{task}
 
 \begin{task}{Fibonacci Sequence Generator Function}{}
@@ -69,10 +77,91 @@ After correctly implementing the function definition for \texttt{fib()} your pro
 
 \pagebreak
 \begin{task}{Mandelbrot Images - Advanced}{}
-\textit{This task is written in a way which will not work on OnlineGDB or Codeboard.io. It requires the use of a command line's output redirection to write data to a file.}
+Starting from a completed solution to the Week 3 Mandelbrot problem modify your code to generate an ASCII netpbm ``portable PixMap'' (PPM) formatted image.
+\subsection*{PPM Image Format}
+The PPM format specification allows images to be written to files using only plain text (ASCII) data. This results in a \textit{very} simple file format which is easy to create with basic programs.\\
+~\\
+The file header has the following format:
+\begin{lstlisting}[style=pseudo]
+P3
+<x resolution> <y resolution>
+<max value>
+\end{lstlisting}
+where:
+\begin{itemize}
+	\item \texttt{P3} is a ``magic number'' identifying the format
+	\item \texttt{$<$x resolution$>$} is the number of pixels horizontally
+	\item \texttt{$<$y resolution$>$} is the number of pixels vertically
+	\item \texttt{$<$max value$>$} is the pixel value corresponding to maximum brightness. Typically \texttt{255}.
+\end{itemize}
+An example header for a 100x100 pixel image would be:
+\begin{lstlisting}[style=pseudo]
+P3
+100 100
+255
+\end{lstlisting}
+After the header comes the \textit{body}. This is a list of \textbf{integer} RGB triplet numbers, separated by whitespace. The exact format is not critical, but I recommend the following:
+\begin{lstlisting}[style=pseudo]
+R G B
+R G B
+R G B
+...etc
+\end{lstlisting}
+The pixel data scans left-to-right top-to-bottom (ie: top left pixel is first, bottom right pixel is last). This is the same order in which the Week 3 task calculated pixel values.
 
-Starting from a completed 
+\subsection*{Colouring Fractal Images}
+In order to colour a fractal image a mapping is used which converts each pixel's \textit{iteration count} to a colour. There are a near-infinite number of choices for this and I strongly recommend you research so-called ``colorbar'' creation. For this task I recommend the following two options:
+\begin{enumerate}
+	\item For debugging, use a grayscale mapping which uses the following formula for a pixel brightness, $p$, given the number of \texttt{iters} a pixel took to escape:
+		\begin{equation*}
+			p = 255 \times \frac{\texttt{iters}}{\texttt{MAX\_ITERS}}
+		\end{equation*}
+		To create greyscale images the RGB values of a pixel must be equal. This means that after you calculate $p$ you can just use 
+\begin{lstlisting}[style=pseudo]
+R = p;
+G = p;
+B = p; 
+\end{lstlisting}
 
+to make R, G and B equal. \textbf{NB:} The PPM format requires the output numbers to be \textbf{integers}!\\~
+	\item More interesting colour mappings can be built with the use of the HSL (Hue-Saturation-Luminance) colourspace. This is a set of 3 numbers (H, S and L) which define a unique colour based on their hue (base colour from the rainbow), saturation (``colourfull-ness'') and luminance (brightness). 
+\\~\\
+You can then slightly tweak the previous formula to provide a H value and fix S and L at 1.0:
+\begin{align*}
+H &= 360 \times \frac{\texttt{iters}}{\texttt{MAX\_ITERS}}\\
+S &= 1.0\\
+L &= 1.0
+\end{align*}
+Because the PPM image format only supports RGB pixel formats you will need to implement formulas which convert HSV triplets to RGB values. \underline{\href{https://www.rapidtables.com/convert/color/hsv-to-rgb.html}{Wikipedia}} lists the set of formulas. Implement them in code, either as three functions or just as ``inline'' code.
+\\~\\
+You can attempt to write a single function which accepts a pointer to an array of 3 \texttt{float}s but we won't cover the details of this for a couple of weeks.
+\end{enumerate}
+~\\
+After RGB values have been calculated the output file data can be written.
+
+\subsection*{Creating Files}
+For this task we have two options for creating a file:
+\begin{enumerate}
+\item Use command line output redirection
+\item Use the C file I/O library
+\end{enumerate}
+The first option keeps your program simpler but requires the use of a command line when running the program. If your code simply uses \texttt{printf()} to output the PPM data (and \textit{nothing} else) it can be written to a file with:
+\begin{lstlisting}[style=pseudo]
+# ./a.out > image.ppm
+\end{lstlisting}
+The file \texttt{image.ppm} can then be downloaded (if you're using Che etc) or directly opened with an image editor. I know \texttt{eog}, \texttt{gimp}, etc open PPM on Linux and am naively hoping that something on Windows supports it.
+\\~\\
+The alternative, which will work with C development environments which don't have command lines like OnlineGDB, is to use the C file I/O library. To do this you need several lines of code and an extra function:
+\begin{lstlisting}[style=CStyle]
+FILE *output; // A pointer variable of type FILE*
+output = fopen("image.ppm", "w"); // To open the file image.ppm
+fprintf(output, "%d %d %d\n", r, g, b);
+\end{lstlisting}
+The \texttt{FILE *output} line is a variable declaration, only do this \textit{once}. Likewise, \texttt{output = fopen...} opens the file \texttt{image.ppm} for writing. Only do this \textit{once} as well.
+\\~\\
+The \texttt{fprintf()} function is almost exactly the same as \texttt{printf()} except it takes an extra argument: the file to write to. In this case passing \texttt{output} (the \texttt{FILE *} variable declared earlier) will write the formatted text to that file.
+
+Lets see if somebody gets this to work given the above plus your own independent research. We will formally cover file I/O in a few weeks (check the course outline for a planned week).
 \end{task}
 
 \pagebreak 
@@ -371,6 +460,24 @@ will print:
 \texttt{0 1 2 3 4 5 6 7 8 9}
 
 The \texttt{for(;;)} loop example doesn't print \texttt{10} because the condition is ``strictly less than 10''. When x is incremented to 10 the condition fails and the loop exits. It prints 0 because the increment is only applied \textit{after} the loop has run once.
+
+\subsubsection{\texttt{switch() case:}}
+
+The \texttt{switch() case:} statement is a flow control mechanism which allows one option from a list of many to be executed. It is a neater replacement from complicated \texttt{if() else if()} blocks.
+
+Example:
+
+\begin{lstlisting}[style=CStyle]
+switch(x) {
+	case 1: // Jumped to if x == 1
+		break; // Jump out of switch()
+ 	case 2: // Jumped to if x == 2
+		break;
+	case 3: // Jumped to if x == 3
+		break;
+	default:	// Jumped to if nothing else matched
+}
+\end{lstlisting}
 
 
 \subsection{Library Functions}
