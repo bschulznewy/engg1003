@@ -305,7 +305,7 @@ int counter() {
 \pause
 \item The function can be called from \textit{anywhere} in your code
 \pause
-\item A ``counter'' variable would doing the same job would have to be ``global'' to be visible anywhere
+\item A ``counter'' variable that did the same job would have to be ``global'' to be visible anywhere
 	\begin{itemize}
 \pause
 		\item For multiple reasons we try to avoid variables with global scope
@@ -369,7 +369,6 @@ int counter(void) {
 		\item How easy it is to make mistakes
 		\item How \textit{brutally catastrophic} bugs can be
 	\end{itemize}
-\pause
 \end{itemize}
 \end{frame}
 
@@ -391,7 +390,7 @@ Paraphrased from \underline{\href{https://en.wikipedia.org/wiki/Therac-25}{Wikip
 		\item Reduce code line count and complexity (if they are called multiple times)
 		\item Allows code re-use between projects
 		\item \textit{Much} easier to perform project management between multiple programmers
-		\item Bugs in a function are easier to fix than a bug in code which has been copy+past'ed multiple times
+		\item Bugs in a function are easier to fix than a bug in code which has been copy+pasted multiple times
 		\item ...the list goes on
 	\end{itemize}
 \end{itemize}
@@ -444,9 +443,91 @@ Paraphrased from \underline{\href{https://en.wikipedia.org/wiki/Therac-25}{Wikip
 \item On one hand: only comment what \textit{you} need
 \item On the other: we need to assess your comments eventually...
 \pause
-\item And the assessment needs to minimise demonstrator judgement
-\item Right now (3:08pm Wednesday) I don't know what the best solution is
-\item Time to git commit \& push and go home
+\item And the assessment needs to minimise demonstrator judgement...
+\pause
+\item Maybe I create different strict rules for different assignments? Similar to ENGG1500 report rules.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arrays}
+\begin{itemize}
+\item Anyway, new topic!
+\item So far: all variables have been a \textit{single} number
+\item What do you do if you need a million of them?
+\pause
+\item Declare a million variables?
+\pause
+\item Cry?
+\pause
+\item Use an \textit{array}!
+\pause
+	\begin{itemize}
+		\item Maybe still cry...at first.
+	\end{itemize}
+\pause
+\item An \textit{array} is a collection of variables of the same data type
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arrays}
+\begin{itemize}
+\item Remember the mathematics notation:
+\begin{equation*}
+x_0, x_1, x_2, x_3, ...
+\end{equation*}
+\item We used it for a single variable, $x$, changing with time
+	\begin{itemize}
+		\item The ``old'' values of $x$ were discarded
+	\end{itemize}
+\pause
+\item An array allows us to store \textit{all} the values of $x_n$ in memory
+\item The variable name, $x$, and the ``index'', $n$, are both needed to access a particular value
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arrays}
+\begin{itemize}
+\item In C, an array declaration \textbf{needs} three things:
+	\begin{itemize}
+		\item The data type
+		\item A name
+		\item The number of \textit{elements}
+	\end{itemize}
+\item Optionally, the array can also be initialised
+\item The syntax for an array of length N is:\\
+\textit{data type} \texttt{name[N]}
+\item Examples:
+	\begin{itemize}
+		\item \texttt{int list[20];}
+		\item \texttt{char name[200], c; //array and var}
+		\item \texttt{double data[100000];}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Arrays}
+\begin{itemize}
+\item The length \textbf{must be known at compile time}
+\item This won't cause a compile error but will give you \textbf{\textit{BIG PROBLEMS}}:
+\begin{lstlisting}[style=CStyle]
+int x;
+scanf("%d", &x);
+int array[x];
+\end{lstlisting}
+\pause
+\begin{itemize}
+\item The size of \texttt{array} is not known at compile time
+\pause
+\item The compiler doesn't know how big it is
+\pause
+\item If \texttt{x} is large enough your program will access memory the operating system has not allowed it to
+\pause
+\item This will cause segmentation faults (Linux/macOS) or illegal operations (Windows)
+\end{itemize}
 \end{itemize}
 \end{frame}
 
