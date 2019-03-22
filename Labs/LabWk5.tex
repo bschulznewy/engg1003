@@ -17,21 +17,182 @@
 
 \section{Introduction}
 
-This lab covers C \textit{functions} and \texttt{static} variables.
+This lab covers C \textit{functions}, \texttt{static} variables, and arrays
 
-\begin{task}{Statistics Calculations}{}
-Write a C program which accepts a ``reasonably'' large number of real numbers from the user and calculates the set's mean and sample variance.
+If I have time the introduction will be expanded with examples, etc. Apologies if this doesn't happen.
+
+\section{Tasks}
+
+\begin{task}{Functions: Prime Number Testing}{}
+Write a C function, \texttt{isPrime();} which tests if an integer argument is prime.
+\\~\\
+The return value and argument should both be \texttt{int} data types. If the argument is prime the function returns 1 and returns 0 otherwise.
+\\~\\
+For the purposes of this task you should perform a ``brute force'' search for any integer factor of the argument. ie: for an integer \texttt{x} test if it is divisible by all integers between 2 and \texttt{x/2+1}. If any factors are found the function should return zero.
+\\~\\
+\textbf{Revision:} An integer, \texttt{x}, is prime if it is not evenly divisible by any other integer, \texttt{k}. In C, \texttt{x} is divisible by \texttt{k} if \texttt{x\%k == 0}.
+\\~\\
+You may use the template below. It has the function prototype, function definition, and \texttt{main()} ``test code'' pre-written:
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+
+// Returns 1 if x is prime, zero otherwise
+int isPrime(int x);
+
+// main function for testing isPrime()
+// Only modify if I made a mistake or you want to play around
+int main() {
+	int testNum;
+	for(testNum = 0; testNum < 20; testNum++) {
+		if(isPrime(testNum)) {
+			printf("%d is prime\n", testNum);
+		}
+	}
+	return 0;
+}
+
+// Returns 1 if x is prime, zero otherwise
+// EDIT THIS BIT
+int isPrime(int x) {
+	return 0;
+}
+\end{lstlisting}
 \end{task}
 
-\begin{task}{Numerical Integration}{}
+\pagebreak
+\begin{task}{Arrays: Statistics Calculations}{}
+Write a C program which accepts a ``large'' number of real numbers and calculates their sample mean and sample variance.
+\\~\\
+\textbf{Revision:} From statistics, the \textit{sample variance}, $s^2$, of $N$ samples, $X_1, X_2, ... , X_N$, can be calculated as:
+
+\begin{equation}\label{eq:var}
+s^2 = \frac{1}{N-1}\sum_{k=1}^{N}(X_k - mean(X))^2.
+\end{equation}
+
+There are \underline{\href{https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance}{many algorithms}} for calculating a data set's variance. For this task you should implement the reasonably robust \textit{two-pass} algorithm which calculates the sample mean and uses this values to calculate the variance as follows:
+\begin{lstlisting}[style=pseudo]
+integer n = 0
+float sum1 = 0
+float sum2 = 0
+
+FOR each data point Xn
+	n = n + 1
+	sum1 = sum1 + Xn
+ENDFOR
+
+mean = sum1 / n
+
+FOR each data point Xn
+	sum2 = sum2 + (Xn - mean)*(Xn - mean)
+ENDFOR
+
+variance = sum2 / (n-1)
+\end{lstlisting}
+
+Your program should ``input'' the data via an array initialisation. This is to avoid having to manually type test data into \texttt{scanf()} multiple times while debugging.
+\\~\\
+You may use the following template:
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+int main() {
+	// The mean of x[] is 5.000000
+	// The variance of x[] is 7.500000
+	// x[] has 9 elements
+	float x[9] = {1,2,3,4,5,6,7,8,9};
+	float variance, mean;
+	float sum1 = 0, sum2 = 0;
+	int n; // Counter variable
+	
+	// Calculate the sample mean
+	for(n = 0; n < 9; x++) {
+		// Write your calculation here
+	}	
+	
+	// Calculate the sample variance
+	// Write your own for() loop
+	
+	printf("Mean: %f\nVariance: %f\n", mean, variance);
+	return 0;
+}
+\end{lstlisting}
+\end{task}
+
+\pagebreak
+\begin{task}{Functions: Numerical Integration}{}
 Write a C program which implements the following equation:
 \begin{equation*}
-f(x) = 2x^2 + 5x + \sin(15x)
+f(x) = e^{x^2}
 \end{equation*}
-and uses the trapezoidal rule to numerically calculate its integral between two given points: $x_1$ and $x_2$ (ensure $x_1 < x_2$).
+as a C function and uses the trapezoidal rule to numerically calculate its integral between two given points: $x_1$ and $x_2$ (assume $x_1 < x_2$).
+\\~\\
+The function $e^{x^2}$ is impossible to integrate by hand (ie: there is no ``closed form'' solution for $\int e^{x^2} dx$) so we are \textit{forced} to use numerical methods such as the trapezoidal rule (or Riemann integrals, Simpson's Rule, etc) to evaluate it.
+\\~\\
+For the purposes of this task, the trapezoidal rule requires the interval, $[x_1, x_2]$ to be broken up into several smaller ``chunks'' of trapezoidal shape. The area of each of these trapezoids is easy to calculate and sum together.
 \end{task}
 
-\begin{task}{Fibonacci Sequence Generator Function}{}
+\pagebreak
+\begin{task}{Functions: Numerical Differentiation}{}
+
+In pure mathematics, the following formula is used to differentiate the function $f(x)$ at a point $x_0$ from first principles:
+
+\begin{equation}\label{eq:diff}
+\frac{df(x_0)}{dx} = \lim_{h\to 0} \left[ \frac{f(x_0 + h) - f(x_0)}{h}\right]
+\end{equation}
+
+On a computer it is not possible to implement Equation \eqref{eq:diff} exactly because a division by zero causes numerical errors and is mathematically \textit{a little bit naughty}.
+\\~\\
+Instead, we can \textit{estimate} the differential (ie: gradient of $f(x_0)$) by choosing a small, but non-zero, value for $h$ and acknowledging that the answer is not exact. Thankfully engineering never \textit{requires} exact values so the approximation can still be very useful.
+\\~\\
+Explicitly, we calculate an estimate for the gradient as:
+
+\begin{equation}\label{eq:diffest}
+\frac{df(x_0)}{dx} \approx \left[ \frac{f(x_0 + h) - f(x_0)}{h}\right]
+\end{equation}
+
+for a ``small'' but non-zero value of $h$.
+\\~\\
+\textbf{Task:} Write a C program which calculates the gradient of $f(x) = x^2 + 2x - 1$ at a given point $x_0$. 
+\\~\\
+\textbf{Procedure:}
+\begin{enumerate}
+\item Write a C function which takes a single argument of type \texttt{float} and returns a \texttt{float} equal to \texttt{x*x + 2*x - 1}. The function prototype should be:
+\begin{lstlisting}[style=CStyle]
+float f(float x);
+\end{lstlisting}
+\item Using the above function, write a \textit{second} function which takes two \texttt{float} arguments, \texttt{x0} and \texttt{h}, and returns an estimate of the gradient of $x^2 + 2x - 1$ at \texttt{x0} using Equation \eqref{eq:diffest}. The function prototype should be:
+\begin{lstlisting}[style=CStyle]
+float diff(float x, float h);
+\end{lstlisting}
+\item Test your program given that:
+\begin{align*}
+f\prime(x) &= 2x+2\\
+f\prime(0) &= 2\\
+f\prime(1) &= 4\\
+f\prime(-1) &= 0
+\end{align*}
+\end{enumerate}
+You may use the following template:
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+float diff(float x);
+float f(float x);
+int main() {
+	float h = 0.0001;
+	printf("%f\n", diff(0, h));
+	printf("%f\n", diff(1, h));
+	printf("%f\n", diff(-1, h);
+}
+float diff(float x) {
+	float d; // Differentiation result variable
+	d = ; // Fill in this line
+	return d;
+}
+// Write the function definition of f(float x) below here
+\end{lstlisting}
+\end{task}
+
+\pagebreak
+\begin{task}{Functions and Static Variables: Fibonacci Sequence Generator}{}
 \textbf{Review:} The Fibonacci Sequence is a sequence of integers:
 \begin{equation*}
 x_1, x_2, x_3, ..., 
