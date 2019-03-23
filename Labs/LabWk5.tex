@@ -21,8 +21,66 @@ This lab covers C \textit{functions}, \texttt{static} variables, and arrays
 
 If I have time the introduction will be expanded with examples, etc. Apologies if this doesn't happen.
 
+This lab task includes some reasonably non-trivial mathematics. I have received feedback from both demonstrators and students that the mathematics so far has, for some, been difficult to follow. Unfortunately, I can't do much about this. Engineering is \textit{very} mathematics heavy, you can't get away from it. The mathematics in 2nd year only gets \textit{much} more advanced.
+
+If you find the mathematics here difficult to understand please take some time to learn it in your own time. You can ask the ENGG1003 PASS leader for help and there are PASS sessions for MATH1110 (or MATH1002) you can attend. You can also as ENGG1003 demonstrators or your MATH* tutors and lectures for help.
+
+The 2019 PASS timetable can be found \underline{\href{https://www.newcastle.edu.au/__data/assets/pdf_file/0003/137577/PASS-TT-Callaghan-S1-19.pdf}{here}}.
+
+I (Brenton) speak from bitter personal experience here. If you do not finish 1st year with solid foundational knowledge in mathematics you will have immense struggles continuing. In the mid-2000s I failed \textit{over half} of my 2nd year subjects the first time through engineering for this reason.
+
+\pagebreak
 \section{Tasks}
 
+\begin{task}{(Simple Function): Arithmetic}{}
+Write a C function, \texttt{arithmetic()} which takes two \texttt{float} arguments, \texttt{a} and \texttt{b}, and returns their sum.
+\\~\\
+Sub-tasks:
+\begin{enumerate}
+	\item Write the function prototype.
+	\item Write the function definition.
+	\item Place the prototype and definition inside the test code below. It includes test variables \texttt{x} and \texttt{y}, declared within \texttt{main()}. Compile, run, and compare your program's output with a manual calculation of \texttt{x + y}:
+	\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+	
+// Place prototype here
+	
+int main() {
+	float x = 1, y = 5;
+	float result;
+	
+	result = add(x, y);
+	printf("%f plus %f is %f\n", x, y, result);
+}
+
+// Place definition here
+	\end{lstlisting}
+\end{enumerate}
+\end{task}
+
+\begin{task}{(Switch Statements): Arithmetic Function}{}
+Extend your function from the previous task to accept a third integer argument, \texttt{operation}. Use a \texttt{switch()} statement inside the function definition so that it exhibits the following behaviour:
+\\
+\begin{itemize}
+\item If \texttt{operation} is zero, return \texttt{a+b}
+\item If \texttt{operation} is one, return \texttt{a-b}
+\item If \texttt{operation} is two, return \texttt{a*b}
+\item If \texttt{operation} is three, return \texttt{a/b}
+\item If \texttt{operation} is anything else, print an error message (eg: \texttt{printf("Illegal operation \%d", operation);}) and return zero.
+\end{itemize}
+This task can be broken down into the following sub-tasks:
+\begin{enumerate}
+\item Modify the function prototype to include the third argument \texttt{operation} of type \texttt{int}
+\item Modify the first line of the function definition to include the third argument
+\item \st{Draw the rest of the owl} Write the \texttt{switch} statement which makes a choice between the four arithmetic operations based on the value of \texttt{operation}.\\~\\ \textbf{NB:} You may write \texttt{return} at any point inside a function. As such, your \texttt{swith()} statement may either:
+\begin{enumerate}
+\item Allocate the arithmetic result to a temporary variable (of type \texttt{float)} followed by a \texttt{break;} statement, \texttt{return}'ing the temporary variable at the end of the function, OR
+\item have \texttt{return} statements inside the \texttt{switch()} statement, directly after each \texttt{case}.
+\end{enumerate}
+\end{enumerate}
+\end{task}
+
+\pagebreak
 \begin{task}{Functions: Prime Number Testing}{}
 Write a C function, \texttt{isPrime();} which tests if an integer argument is prime.
 \\~\\
@@ -89,7 +147,7 @@ ENDFOR
 variance = sum2 / (n-1)
 \end{lstlisting}
 
-Your program should ``input'' the data via an array initialisation. This is to avoid having to manually type test data into \texttt{scanf()} multiple times while debugging.
+Your program should ``input'' the data via an array initialisation. This is to avoid having to manually repeatedly type test data into \texttt{scanf()} while debugging.
 \\~\\
 You may use the following template:
 \begin{lstlisting}[style=Ctable]
@@ -103,7 +161,7 @@ int main() {
 	float sum1 = 0, sum2 = 0;
 	int n; // Counter variable
 	
-	// Calculate the sample mean
+	// Calculate the sample mean (NB: we are assuming N=9)
 	for(n = 0; n < 9; x++) {
 		// Write your calculation here
 	}	
@@ -119,15 +177,52 @@ int main() {
 
 \pagebreak
 \begin{task}{Functions: Numerical Integration}{}
+\textit{\textbf{NB:} I belive the mathematics of this task is much more difficult to understand than the C implementation. Read the linked Wikipedia page and ask a demonstrator for an explanation if you don't follow it.} \\
+~\\
 Write a C program which implements the following equation:
 \begin{equation*}
 f(x) = e^{x^2}
 \end{equation*}
-as a C function and uses the trapezoidal rule to numerically calculate its integral between two given points: $x_1$ and $x_2$ (assume $x_1 < x_2$).
+as a C function and uses the trapezoidal rule to numerically calculate its integral between two given points: $x_1$ and $x_2$ (assume $x_1 < x_2$). You should use the \texttt{expf()} function from the C maths library; be sure to \texttt{\#include $<$math.h$>$}.
 \\~\\
 The function $e^{x^2}$ is impossible to integrate by hand (ie: there is no ``closed form'' solution for $\int e^{x^2} dx$) so we are \textit{forced} to use numerical methods such as the trapezoidal rule (or Riemann integrals, Simpson's Rule, etc) to evaluate it.
 \\~\\
 For the purposes of this task, the trapezoidal rule requires the interval, $[x_1, x_2]$ to be broken up into several smaller ``chunks'' of trapezoidal shape. The area of each of these trapezoids is easy to calculate and sum together.
+\\~\\
+Graphical illustration of the method can be found on \underline{\href{https://en.wikipedia.org/wiki/Trapezoidal_rule}{Wikipedia}}. This task implements the method described under numerical implementation on a \underline{\href{https://en.wikipedia.org/wiki/Trapezoidal_rule\#Uniform_grid}{uniform grid}}.
+\\~\\
+To implement this, your program needs a number, \texttt{N}, equal to the number of trapezoids the $[x_1, x_2]$ interval is broken into. For this task, you may ``hard code'' a value of \texttt{int N=5;}. You are encouraged to vary this value and observe how the accuracy of the result changes.
+\\~\\
+Given the interval, $[x_1, x_2]$, and trapezoid count, \texttt{N}, the horizontal width of each trapezoid, $\Delta x$, can be calculated as:
+\begin{equation}
+\Delta x = \frac{x_2 - x_1}{N}.
+\end{equation}
+
+The integral of an arbitrary function, $f(x)$, may then be calculated with the following equation:
+\begin{equation}
+\int_{x_1}^{x_2} f(x) dx = \Delta x \left( \frac{1}{2} f(x_1) + \sum_{k=1}^{N-1} f(x_k) + \frac{1}{2} f(x_2) \right)
+\end{equation}
+where $x_1$ is given and the $x_k$'s inside the sum can be calculated as:
+\begin{equation*}
+x_k = x_1 + k \Delta x.
+\end{equation*}
+In your C program, evaluation of $f(x)$ is simply written as \texttt{f(x)} so long as you have declared the variable \texttt{float x;} and have written a function with the prototype \texttt{float f(float x);}.
+\\~\\
+The evaluation of $\sum_{k=1}^{N-1} f(x_k)$ implies the use of a \texttt{for()} loop with the following form:
+\begin{lstlisting}[style=CStyle]
+int N = 5;
+int k; // Loop counter
+float x1 = 0, x2 = 2;
+float dx = (x2 - x1) / N;
+// ... other code
+float sum = 0;
+for(k = 1; k < N; k++) {
+	float x;
+	x = x1 + k*dx;
+	sum = sum + f(x)
+}
+\end{lstlisting}
+With the values for $x1$ and $x2$ above the final answer should be $\approx 16.4526$
 \end{task}
 
 \pagebreak
