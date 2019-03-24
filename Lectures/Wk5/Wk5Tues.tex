@@ -390,4 +390,43 @@ for(counter = 0; counter < N; counter++) {
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Array Usage}
+\begin{itemize}
+\item Each ``unique variable within an array'' is called an array \textit{element}
+\item Array elements are accessed with the syntax:
+\begin{lstlisting}[style=Ctable]
+array_name[index]
+\end{lstlisting}
+\pause
+\item The \texttt{index} can be a literal or variable
+\pause
+\item An array element can be used basically anywhere:
+	\begin{itemize}
+		\item Inside arithmetic (as an \textit{rvalue})
+		\item As an \textit{lvalue}
+		\item As an argument to a function
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Array Usage}
+\begin{itemize}
+\item Examples:
+	\begin{itemize}
+		\item \texttt{x = y[12] + 28.0;}
+		\item \texttt{x[0] = 1.0;}
+		\item \texttt{printf("\%f\textbackslash n", x[2]);}
+		\item \texttt{y = sin(x[i]);}
+	\end{itemize}
+\pause
+\item It is common to loop over a whole array:
+\begin{lstlisting}[style=Ctable]
+for(i = 0; i < N; i++)
+	x[i] = 0;
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
 \end{document}
