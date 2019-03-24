@@ -25,6 +25,8 @@ The 2019 PASS timetable can be found \underline{\href{https://www.newcastle.edu.
 
 I (Brenton) speak from bitter personal experience here. If you do not finish 1st year with solid foundational knowledge in mathematics you will have immense struggles continuing. In the mid-2000s I failed \textit{over half} of my 2nd year subjects the first time through engineering for this reason.
 
+If mathematical understanding is getting in the way of learning programming I \textit{strongly} recommend that you attempt the \textit{Sieve of Eratosthenes} task as a priority. It only requires basic arithmetic but the algorithm is non-trivial to implement.
+
 \pagebreak
 \section{New Content}
 
@@ -83,7 +85,7 @@ void printResult(float x) {
 
 A static variable is one which retains its value between function calls. Normally, all variables declared in functions (and passed as arguments) are lost when the function returns. Any variable declared in a function with the \texttt{static} keyword is kept safe and retains its value between function calls.
 
-For example, the following code prints the numbers 1 to 5 because \texttt{x} is declared with the \texttt{static} keyword:
+For example, the following code prints the numbers 1 to 5 because, within the definition of \texttt{counter()}, \texttt{x} is declared with the \texttt{static} keyword:
 
 \begin{lstlisting}[style=CStyle]
 #include <stdio.h>
@@ -240,6 +242,111 @@ int isPrime(int x) {
 	return 0;
 }
 \end{lstlisting}
+\end{task}
+
+\pagebreak
+\begin{task}{(Arrays): Sieve of Eratosthenes}{}
+
+\textit{This task is mathematically simple but algorithmically complex. It is an excellent programming task if you find the mathematics of other tasks overwhelming.}
+\\~\\
+The \textit{Sieve of Eratosthenes} is an algorithm for generating prime numbers. The method is attributed to the ancient Greek scholar Eratosthenes of Cyrene (276-194 BC).
+\\~\\
+If implemented by hand, the algorithm requires the following steps:
+
+\begin{enumerate}
+\item Write a list of integers from 2 to some ``large'' number, $N$
+\item Observe that 2 is prime and that any multiple of 2 would \textit{not} be prime
+\item Moving down the list, cross out every multiple of 2
+\item Choosing the next highest number which is not crossed out, 3, move down the list and cross out every multiple of 3
+\item Choosing the next highest number which is not crossed out, 5, move down the list and cross out every multiple of 5
+\item Repeat until you reach the end of the list
+\item All numbers which were not crossed out are prime
+\end{enumerate}
+
+Example:
+\\~\\
+Listing integers from 2 to 16:\\
+\texttt{2 3 4 5 6 7 8 9 10 11 12 13 14 15 16}
+\\~\\
+Crossing out every multiple of 2:\\
+\texttt{2 3 \st{4} 5 \st{6} 7 \st{8} 9 \st{10} 11 \st{12} 13 \st{14} 15 \st{16}}
+\\~\\
+Crossing out every multiple of 3:\\
+\texttt{2 3 \st{4} 5 \st{6} 7 \st{8} \st{9} \st{10} 11 \st{12} 13 \st{14} \st{15} \st{16}}
+\\~\\
+Crossing out every multiple of 5 (ok, there's all crossed out by now already so we can stop):\\
+\texttt{2 3 \st{4} 5 \st{6} 7 \st{8} \st{9} \st{10} 11 \st{12} 13 \st{14} \st{15} \st{16}}
+\\~\\
+All the numbers left over are prime:\\
+\texttt{2 3 5 7 11 13}
+\\~\\
+\textbf{Task:} Write a C program which uses this method to find all prime numbers strictly less than 100.
+\\~\\
+Since we need to remember a ``long'' list of numbers (and whether or not they are ``crossed out'') this is a perfect application for an array.
+\\~\\
+To complete this task, declare an array of type \texttt{char} with 100 elements:
+\begin{lstlisting}[style=Ctable]
+char numbers[100]; // Index ranges from 0 to 99
+\end{lstlisting}
+The the list of indices (plural of index) will form the list of integers. The array elements (number stored at each index) indicates whether that index has been "crossed out" or not.
+\\~\\
+The array includes indices 0 and 1 which are integers not considered by the original algorithm. Your code may either ignore them or treat them as special cases when printing the result (ie: have explicit \texttt{if(index == 0 || index == 1) statements}).
+\\~\\
+The array should be initialised to all 1's to indicate that, at the start of the algorithm, nothing has been crossed out. As elements are ``crossed out'' they should be set to zero.
+\pagebreak
+Your program should implement the following pseudocode:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	numbers[100] is an array of char's
+	Set every element of numbers[] to 1
+	
+	FOR index = 1, 2, 3, ..., 100
+		IF numbers[index] is 1
+			FOR j = 2*index, 3*index, 4*index, ... 100
+				numbers[j] = 0
+			ENDFOR
+		ENDIF
+	ENDFOR
+	Print every index for which numbers[index] is 1
+END
+\end{lstlisting}
+
+You may use the following template:
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+
+int main() {
+	const int MAX = 100; // Maximum integer to test. Declared constant
+	char numbers[MAX];
+	int index;
+	int j;
+
+	// Initialised numbers[]
+	for(index = 0;	index < 100; index++) {
+		numbers[index] = 1;
+	}
+
+	// DO THE SIEVE ALGORITHM HERE
+	// for(index = 2; ...etc
+	
+	// Print results
+	printf("The following numbers are prime:\n");
+	for(index = 2; index < MAX; index++) {
+		if(numbers[index] == 1) {
+			printf("%d\n", index);
+		}
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\textbf{HINT:} The inner FOR loop in the pseudocode can be implemented with the C \texttt{for()} statement:
+\begin{lstlisting}[style=Ctable]
+for(j = 2*index; j < MAX; j = j + index) {
+	// Do stuff
+}
+\end{lstlisting}
+\textbf{Extension:} The \underline{\href{https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes}{Wikipedia}} article covering the Sieve of Eratosthenes describes several optimisations. Implement the one which only crosses out \texttt{index} values starting at $\sqrt{index}$ (instead of \texttt{2*index}) and the algorithm exit condition of not attempting to cross out values larger than $\sqrt{MAX}$.
 \end{task}
 
 \pagebreak
