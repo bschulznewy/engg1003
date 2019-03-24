@@ -25,7 +25,7 @@ The 2019 PASS timetable can be found \underline{\href{https://www.newcastle.edu.
 
 I (Brenton) speak from bitter personal experience here. If you do not finish 1st year with solid foundational knowledge in mathematics you will have immense struggles continuing. In the mid-2000s I failed \textit{over half} of my 2nd year subjects the first time through engineering for this reason.
 
-If mathematical understanding is getting in the way of learning programming I \textit{strongly} recommend that you attempt the \textit{Sieve of Eratosthenes} task as a priority. It only requires basic arithmetic but the algorithm is non-trivial to implement.
+If mathematical understanding is getting in the way of learning programming I \textit{strongly} recommend that you attempt the \textit{Sieve of Eratosthenes} task as a priority. It only requires basic arithmetic but the algorithm is non-trivial to implement.%che
 
 \pagebreak
 \section{New Content}
@@ -262,7 +262,7 @@ If implemented by hand, the algorithm requires the following steps:
 \item Repeat until you reach the end of the list
 \item All numbers which were not crossed out are prime
 \end{enumerate}
-
+~\\
 Example:
 \\~\\
 Listing integers from 2 to 16:\\
@@ -293,6 +293,7 @@ The the list of indices (plural of index) will form the list of integers. The ar
 The array includes indices 0 and 1 which are integers not considered by the original algorithm. Your code may either ignore them or treat them as special cases when printing the result (ie: have explicit \texttt{if(index == 0 || index == 1) statements}).
 \\~\\
 The array should be initialised to all 1's to indicate that, at the start of the algorithm, nothing has been crossed out. As elements are ``crossed out'' they should be set to zero.
+
 \pagebreak
 Your program should implement the following pseudocode:
 \begin{lstlisting}[style=pseudo]
@@ -316,7 +317,10 @@ You may use the following template:
 #include <stdio.h>
 
 int main() {
-	const int MAX = 100; // Maximum integer to test. Declared constant
+	// Maximum integer to test. Declared constant
+	// This is declared so that the maximum integer
+	// can easily be changed
+	const int MAX = 100;
 	char numbers[MAX];
 	int index;
 	int j;
