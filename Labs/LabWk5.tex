@@ -17,10 +17,6 @@
 
 \section{Introduction}
 
-This lab covers C \textit{functions}, \texttt{static} variables, and arrays
-
-If I have time the introduction will be expanded with examples, etc. Apologies if this doesn't happen.
-
 This lab task includes some reasonably non-trivial mathematics. I have received feedback from both demonstrators and students that the mathematics so far has, for some, been difficult to follow. Unfortunately, I can't do much about this. Engineering is \textit{very} mathematics heavy, you can't get away from it. The mathematics in 2nd year only gets \textit{much} more advanced.
 
 If you find the mathematics here difficult to understand please take some time to learn it in your own time. You can ask the ENGG1003 PASS leader for help and there are PASS sessions for MATH1110 (or MATH1002) you can attend. You can also as ENGG1003 demonstrators or your MATH* tutors and lectures for help.
@@ -28,6 +24,135 @@ If you find the mathematics here difficult to understand please take some time t
 The 2019 PASS timetable can be found \underline{\href{https://www.newcastle.edu.au/__data/assets/pdf_file/0003/137577/PASS-TT-Callaghan-S1-19.pdf}{here}}.
 
 I (Brenton) speak from bitter personal experience here. If you do not finish 1st year with solid foundational knowledge in mathematics you will have immense struggles continuing. In the mid-2000s I failed \textit{over half} of my 2nd year subjects the first time through engineering for this reason.
+
+\pagebreak
+\section{New Content}
+
+\subsection{Functions}
+
+A C \textit{function} is a block of code which can be \textit{called} from anywhere in your program. A C function is defined by:
+
+\begin{itemize}
+	\item A unique name
+		\begin{itemize}
+			\item The name must be unique among all functions within your program (and the libraries which are \texttt{\#include}'ed) but may be the same as a variable name
+		\end{itemize}
+	\item One or more \textit{arguments}. Each argument is separated by a comma, has a fixed data type, and name unique to that function's scope
+		\begin{itemize}
+			\item eg: (float x, int num, char a)
+			\item Functions which don't take arguments have a single argument of type \texttt{void}
+		\end{itemize}
+	\item A \textit{return value} data type
+		\begin{itemize}
+			\item Functions with no return value have a return data type of \texttt{void}
+		\end{itemize}
+	\item A \textit{function prototype} which summarises the above information with the syntax:
+\begin{lstlisting}[style=CStyle]
+return_datatype function_name(arguments);
+\end{lstlisting}
+for example, the \texttt{sin()} function in the mathematics library returns a \texttt{double} and accepts a single \texttt{double} as an argument. It therefore has the following prototype:
+\begin{lstlisting}[style=CStyle]
+double sine(double x);
+\end{lstlisting}
+		\item A \textit{function definition}
+		\begin{itemize}
+			\item The code which gets executed when the function is called
+		\end{itemize}
+\end{itemize}
+
+Example: the following code listing includes a function called \texttt{printResult} which takes a single \texttt{float} argument and prints a human-readable message including that number:
+
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+void printResult(float x);
+
+int main() {
+	float a = 2.0;
+	
+	printResult(a); // Test the function by calling it
+}
+
+void printResult(float x) {
+	printf("The final calculation result was: %f\n", x);
+}
+\end{lstlisting}
+
+\pagebreak
+\subsection{Static Variables}
+
+A static variable is one which retains its value between function calls. Normally, all variables declared in functions (and passed as arguments) are lost when the function returns. Any variable declared in a function with the \texttt{static} keyword is kept safe and retains its value between function calls.
+
+For example, the following code prints the numbers 1 to 5 because \texttt{x} is declared with the \texttt{static} keyword:
+
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+// Takes no arguments, so void argument list
+// Returns an int equal to the number of times it has been called
+int counter(void); 
+
+int main() {
+	// Call 5 times just to test its operation
+	printf("%d\n", counter() );
+	printf("%d\n", counter() );
+	printf("%d\n", counter() );
+	printf("%d\n", counter() );
+	printf("%d\n", counter() );
+}
+	
+// Takes no arguments, so void argument list
+// Returns an int equal to the number of times it has been called
+int counter(void) {
+	// Declaration of x initialises it to zero on first call only
+	static int x = 0;
+	// Increment x. Initialisation is only done once
+	x = x + 1;
+	return x;
+}
+\end{lstlisting}
+
+\pagebreak
+\subsection{Arrays}
+
+An \textit{array} is a collection of variables, all of the same type, arranged in a long list and accessed with an \textit{array index}. In C, an array is declared with a fixed length, data type, and name with the following syntax:
+\begin{lstlisting}[style=Ctable]
+data_type name[size];
+\end{lstlisting}
+
+The data type can be any of the standard C types seen so far (\texttt{char, int, unsigned long, float,} etc. The name must be unique among all variables. Arrays may be initialised when declared with the following syntax:
+
+\begin{lstlisting}[style=Ctable]
+data_type array_name[] = {1,2,3,4,5,6};
+\end{lstlisting}
+
+If the above syntax is used the array size (inside the []'s) is calculated from the initialisation and doesn't need to be explicitly listed.
+
+The size must be an integer but does not need to be known at compile time. For example, the following code snippet declares an array with a size given by the user at runtime:
+
+\begin{lstlisting}[style=CStyle]
+int length;
+printf("Enter an array length: ");
+scanf("%d", &length);
+
+float numbers[length];
+\end{lstlisting}
+
+A single variable stored inside an array is known as an array \textit{element}. Each element is accessed with a unique \textit{index}. The index is an integer ranging from zero to length-1. Array elements are accessed with the following syntax:
+
+\begin{lstlisting}[style=Ctable]
+arrayName[index]
+\end{lstlisting}
+
+Arrays can be used anywhere that other variables can and their index can be an integer variable or literal.
+
+Examples:
+\begin{lstlisting}[style=Ctable]
+x = array[2]; // Simple arithmetic example
+y = 2.0*x[12] + y[0]; // Non-trivial arithmetic
+n[i] = sin(x); // As lvalues (NB: array can't be declared "const")
+printf("%f\n", nums[12]); // As an argument to a function
+\end{lstlisting}
 
 \pagebreak
 \section{Tasks}
