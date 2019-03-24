@@ -393,26 +393,6 @@ for(counter = 0; counter < N; counter++) {
 \begin{frame}[fragile]
 \frametitle{Array Usage}
 \begin{itemize}
-\item Each ``unique variable within an array'' is called an array \textit{element}
-\item Array elements are accessed with the syntax:
-\begin{lstlisting}[style=Ctable]
-array_name[index]
-\end{lstlisting}
-\pause
-\item The \texttt{index} can be a literal or variable
-\pause
-\item An array element can be used basically anywhere:
-	\begin{itemize}
-		\item Inside arithmetic (as an \textit{rvalue})
-		\item As an \textit{lvalue}
-		\item As an argument to a function
-	\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Array Usage}
-\begin{itemize}
 \item Examples:
 	\begin{itemize}
 		\item \texttt{x = y[12] + 28.0;}
@@ -420,11 +400,25 @@ array_name[index]
 		\item \texttt{printf("\%f\textbackslash n", x[2]);}
 		\item \texttt{y = sin(x[i]);}
 	\end{itemize}
-\pause
-\item It is common to loop over a whole array:
-\begin{lstlisting}[style=Ctable]
-for(i = 0; i < N; i++)
-	x[i] = 0;
+\item It is common to loop over a whole array, as-per the initialisation example
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Array Problems}
+\begin{itemize}
+\item The size of an array is not intrinsically known
+\item You must manually make sure that the array index never exceeds the array's boundary!
+\item The following program is \textbf{guaranteed} to crash:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+int main() {
+	int x[10];
+	int idx;
+	for(idx = 0; idx < 100000000000L; idx++)
+		printf("%d\n", x[idx]);
+}
 \end{lstlisting}
 \end{itemize}
 \end{frame}
