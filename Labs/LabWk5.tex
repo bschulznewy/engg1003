@@ -48,7 +48,9 @@ A C \textit{function} is a block of code which can be \textit{called} from anywh
 		\begin{itemize}
 			\item Functions with no return value have a return data type of \texttt{void}
 		\end{itemize}
-	\item A \textit{function prototype} which summarises the above information with the syntax:
+\end{itemize}
+
+A \textit{function prototype} summarises the above information with the syntax:
 \begin{lstlisting}[style=CStyle]
 return_datatype function_name(arguments);
 \end{lstlisting}
@@ -56,17 +58,20 @@ for example, the \texttt{sin()} function in the mathematics library returns a \t
 \begin{lstlisting}[style=CStyle]
 double sin(double x);
 \end{lstlisting}
-		\item A \textit{function body}
-		\begin{itemize}
-			\item The code which gets executed when the function is called
-		\end{itemize}
-\end{itemize}
+
+
+A function \textit{definition} is a repeat of the function prototype followed by the code which gets executed when the function is called.
+
+A function \textit{body} is just the code which gets executed. It is a subset of the function definition.
 
 Example: the following code listing includes a function called \texttt{printResult} which takes a single \texttt{float} argument and prints a human-readable message including that number:
 
 \begin{lstlisting}[style=CStyle]
 #include <stdio.h>
 
+// This line is the function prototype
+// "float x" indicates that it takes a single argument of type float.
+// The return type is void because it does not return a value
 void printResult(float x);
 
 int main() {
@@ -75,7 +80,10 @@ int main() {
 	printResult(a); // Test the function by calling it
 }
 
+// The lines below are the function definition
 void printResult(float x) {
+	// This printf() statement is the only code in the function body
+	// The argument "x" is a pre-initialised variable within this scope
 	printf("The final calculation result was: %f\n", x);
 }
 \end{lstlisting}
@@ -298,12 +306,12 @@ The array should be initialised to all 1's to indicate that, at the start of the
 Your program should implement the following pseudocode:
 \begin{lstlisting}[style=pseudo]
 BEGIN
-	numbers[100] is an array of char's
+	numbers[MAX+1] is an array of char's
 	Set every element of numbers[] to 1
 	
-	FOR index = 1, 2, 3, ..., 99
+	FOR index = 1, 2, 3, ..., MAX
 		IF numbers[index] is 1
-			FOR j = 2*index, 3*index, 4*index, ... 100
+			FOR j = 2*index, 3*index, 4*index, ... MAX
 				numbers[j] = 0
 			ENDFOR
 		ENDIF
@@ -321,12 +329,12 @@ int main() {
 	// This is declared so that the maximum integer
 	// can easily be changed
 	const int MAX = 100;
-	char numbers[MAX];
+	char numbers[MAX+1];
 	int index;
 	int j;
 
 	// Initialised numbers[]
-	for(index = 0;	index < 100; index++) {
+	for(index = 0;	index <= MAX; index++) {
 		numbers[index] = 1;
 	}
 
@@ -335,7 +343,7 @@ int main() {
 	
 	// Print results
 	printf("The following numbers are prime:\n");
-	for(index = 2; index < MAX; index++) {
+	for(index = 2; index <= MAX; index++) {
 		if(numbers[index] == 1) {
 			printf("%d\n", index);
 		}
@@ -427,7 +435,7 @@ For the purposes of this task, the trapezoidal rule requires the interval, $[x_1
 \\~\\
 Graphical illustration of the method can be found on \underline{\href{https://en.wikipedia.org/wiki/Trapezoidal_rule}{Wikipedia}}. This task implements the method described under numerical implementation on a \underline{\href{https://en.wikipedia.org/wiki/Trapezoidal_rule\#Uniform_grid}{uniform grid}}.
 \\~\\
-To implement this, your program needs a number, \texttt{N}, equal to the number of trapezoids the $[x_1, x_2]$ interval is broken into. For this task, you may ``hard code'' a value of \texttt{int N=5;}. You are encouraged to vary this value and observe how the accuracy of the result changes.
+To implement this, your program needs a number, \texttt{N}, equal to the number of trapezoids the $[x_1, x_2]$ interval is broken into. For this task, you may ``hard code'' a value of \texttt{int N=5}. You are encouraged to vary this value and observe how the accuracy of the result changes.
 \\~\\
 Given the interval, $[x_1, x_2]$, and trapezoid count, \texttt{N}, the horizontal width of each trapezoid, $\Delta x$, can be calculated as:
 \begin{equation}
@@ -442,7 +450,7 @@ where $x_1$ is given and the $x_k$'s inside the sum can be calculated as:
 \begin{equation*}
 x_k = x_1 + k \Delta x.
 \end{equation*}
-In your C program, evaluation of $f(x)$ is simply written as \texttt{f(x)} so long as you have declared the variable \texttt{float x;} and have written a function with the prototype \texttt{float f(float x);}.
+In your C program, evaluation of $f(x)$ is simply written as \texttt{f(x)} so long as you have declared the variable \texttt{float x;} and have written a function with the prototype \texttt{float f(float x)}.
 \\~\\
 The evaluation of $\sum_{k=1}^{N-1} f(x_k)$ implies the use of a \texttt{for()} loop with the following form:
 \begin{lstlisting}[style=CStyle]
