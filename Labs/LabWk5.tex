@@ -17,9 +17,9 @@
 
 \section{Introduction}
 
-This lab task includes some reasonably non-trivial mathematics. I have received feedback from both demonstrators and students that the mathematics so far has, for some, been difficult to follow. Unfortunately, I can't do much about this. Engineering is \textit{very} mathematics heavy, you can't get away from it. The mathematics in 2nd year only gets \textit{much} more advanced.
+These lab tasks include some reasonably non-trivial mathematics. I have received feedback from both demonstrators and students that the mathematics so far has, for some, been difficult to follow. Unfortunately, I can't do much about this. Engineering is \textit{very} mathematics heavy. You can't get away from it. The mathematics in 2nd year only gets \textit{much} more advanced.
 
-If you find the mathematics here difficult to understand please take some time to learn it in your own time. You can ask the ENGG1003 PASS leader for help and there are PASS sessions for MATH1110 (or MATH1002) you can attend. You can also as ENGG1003 demonstrators or your MATH* tutors and lectures for help.
+If you find the mathematics here difficult to understand please take some time to learn it in your own time. You can ask the ENGG1003 PASS leader for help and there are PASS sessions for MATH1110 (or MATH1002) you can attend. You can also ask ENGG1003 demonstrators or your MATH* tutors and lecturers for help.
 
 The 2019 PASS timetable can be found \underline{\href{https://www.newcastle.edu.au/__data/assets/pdf_file/0003/137577/PASS-TT-Callaghan-S1-19.pdf}{here}}.
 
@@ -37,12 +37,12 @@ A C \textit{function} is a block of code which can be \textit{called} from anywh
 \begin{itemize}
 	\item A unique name
 		\begin{itemize}
-			\item The name must be unique among all functions within your program (and the libraries which are \texttt{\#include}'ed) but may be the same as a variable name
+			\item The name must be unique among all functions within your program, the libraries which are \texttt{\#include}'ed, and variables within the scope of where the function is called
 		\end{itemize}
-	\item One or more \textit{arguments}. Each argument is separated by a comma, has a fixed data type, and name unique to that function's scope
+	\item Zero or more \textit{arguments}. Each argument is separated by a comma, has a fixed data type, and name unique to that function's scope
 		\begin{itemize}
 			\item eg: (float x, int num, char a)
-			\item Functions which don't take arguments have a single argument of type \texttt{void}
+			\item Functions which don't take arguments must list \texttt{void} in place of arguments in their prototype and definition
 		\end{itemize}
 	\item A \textit{return value} data type
 		\begin{itemize}
@@ -54,9 +54,9 @@ return_datatype function_name(arguments);
 \end{lstlisting}
 for example, the \texttt{sin()} function in the mathematics library returns a \texttt{double} and accepts a single \texttt{double} as an argument. It therefore has the following prototype:
 \begin{lstlisting}[style=CStyle]
-double sine(double x);
+double sin(double x);
 \end{lstlisting}
-		\item A \textit{function definition}
+		\item A \textit{function body}
 		\begin{itemize}
 			\item The code which gets executed when the function is called
 		\end{itemize}
@@ -83,7 +83,7 @@ void printResult(float x) {
 \pagebreak
 \subsection{Static Variables}
 
-A static variable is one which retains its value between function calls. Normally, all variables declared in functions (and passed as arguments) are lost when the function returns. Any variable declared in a function with the \texttt{static} keyword is kept safe and retains its value between function calls.
+A static variable is one which retains its value between function calls. Normally, all variables declared in functions (including arguments) are lost when the function returns. Any variable declared in a function with the \texttt{static} keyword is kept safe and retains its value between function calls.
 
 For example, the following code prints the numbers 1 to 5 because, within the definition of \texttt{counter()}, \texttt{x} is declared with the \texttt{static} keyword:
 
@@ -122,7 +122,7 @@ An \textit{array} is a collection of variables, all of the same type, arranged i
 data_type name[size];
 \end{lstlisting}
 
-The data type can be any of the standard C types seen so far (\texttt{char, int, unsigned long, float,} etc. The name must be unique among all variables. Arrays may be initialised when declared with the following syntax:
+The data type can be any of the standard C types seen so far (\texttt{char, int, unsigned long, float,} etc). The name must be unique among all variables within its scope. Arrays may be initialised when declared with the following syntax:
 
 \begin{lstlisting}[style=Ctable]
 data_type array_name[] = {1,2,3,4,5,6};
@@ -193,15 +193,15 @@ Extend your function from the previous task to accept a third integer argument, 
 \item If \texttt{operation} is one, return \texttt{a-b}
 \item If \texttt{operation} is two, return \texttt{a*b}
 \item If \texttt{operation} is three, return \texttt{a/b}
-\item If \texttt{operation} is anything else, print an error message (eg: \texttt{printf("Illegal operation \%d", operation);}) and return zero.
+\item If \texttt{operation} is anything else, print an error message (eg: \texttt{printf("Illegal operation \%d", operation)}) and return zero.
 \end{itemize}
 This task can be broken down into the following sub-tasks:
 \begin{enumerate}
 \item Modify the function prototype to include the third argument \texttt{operation} of type \texttt{int}
 \item Modify the first line of the function definition to include the third argument
-\item \st{Draw the rest of the owl} Write the \texttt{switch} statement which makes a choice between the four arithmetic operations based on the value of \texttt{operation}.\\~\\ \textbf{NB:} You may write \texttt{return} at any point inside a function. As such, your \texttt{swith()} statement may either:
+\item \st{Draw the rest of the owl} Write the \texttt{switch} statement which makes a choice between the four arithmetic operations based on the value of \texttt{operation}.\\~\\ \textbf{NB:} You may write \texttt{return} at any point inside a function. As such, your \texttt{switch()} statement may either:
 \begin{enumerate}
-\item Allocate the arithmetic result to a temporary variable (of type \texttt{float)} followed by a \texttt{break;} statement, \texttt{return}'ing the temporary variable at the end of the function, OR
+\item Allocate the arithmetic result to a temporary variable (of type \texttt{float)} followed by a \texttt{break} statement, \texttt{return}'ing the temporary variable at the end of the function, OR
 \item have \texttt{return} statements inside the \texttt{switch()} statement, directly after each \texttt{case}.
 \end{enumerate}
 \end{enumerate}
@@ -209,13 +209,13 @@ This task can be broken down into the following sub-tasks:
 
 \pagebreak
 \begin{task}{Functions: Prime Number Testing}{}
-Write a C function, \texttt{isPrime();} which tests if an integer argument is prime.
+Write a C function, \texttt{isPrime()} which tests if an integer argument is prime.
 \\~\\
 The return value and argument should both be \texttt{int} data types. If the argument is prime the function returns 1 and returns 0 otherwise.
 \\~\\
 For the purposes of this task you should perform a ``brute force'' search for any integer factor of the argument. ie: for an integer \texttt{x} test if it is divisible by all integers between 2 and \texttt{x/2+1}. If any factors are found the function should return zero.
 \\~\\
-\textbf{Revision:} An integer, \texttt{x}, is prime if it is not evenly divisible by any other integer, \texttt{k}. In C, \texttt{x} is divisible by \texttt{k} if \texttt{x\%k == 0}.
+\textbf{Revision:} An integer, \texttt{x}, is prime if it is not divisible by any other integer, \texttt{k}. In C, \texttt{x} is divisible by \texttt{k} if \texttt{x\%k == 0}.
 \\~\\
 You may use the template below. It has the function prototype, function definition, and \texttt{main()} ``test code'' pre-written:
 \begin{lstlisting}[style=Ctable]
@@ -274,7 +274,7 @@ Crossing out every multiple of 2:\\
 Crossing out every multiple of 3:\\
 \texttt{2 3 \st{4} 5 \st{6} 7 \st{8} \st{9} \st{10} 11 \st{12} 13 \st{14} \st{15} \st{16}}
 \\~\\
-Crossing out every multiple of 5 (ok, there's all crossed out by now already so we can stop):\\
+Crossing out every multiple of 5 (ok, they're all crossed out by now already so we can stop):\\
 \texttt{2 3 \st{4} 5 \st{6} 7 \st{8} \st{9} \st{10} 11 \st{12} 13 \st{14} \st{15} \st{16}}
 \\~\\
 All the numbers left over are prime:\\
@@ -288,7 +288,7 @@ To complete this task, declare an array of type \texttt{char} with 100 elements:
 \begin{lstlisting}[style=Ctable]
 char numbers[100]; // Index ranges from 0 to 99
 \end{lstlisting}
-The the list of indices (plural of index) will form the list of integers. The array elements (number stored at each index) indicates whether that index has been "crossed out" or not.
+The list of indices (plural of index) will form the list of integers. The array elements (the numbers stored at each index) indicate whether that index has been "crossed out" or not.
 \\~\\
 The array includes indices 0 and 1 which are integers not considered by the original algorithm. Your code may either ignore them or treat them as special cases when printing the result (ie: have explicit \texttt{if(index == 0 || index == 1) statements}).
 \\~\\
@@ -301,7 +301,7 @@ BEGIN
 	numbers[100] is an array of char's
 	Set every element of numbers[] to 1
 	
-	FOR index = 1, 2, 3, ..., 100
+	FOR index = 1, 2, 3, ..., 99
 		IF numbers[index] is 1
 			FOR j = 2*index, 3*index, 4*index, ... 100
 				numbers[j] = 0
@@ -350,7 +350,7 @@ for(j = 2*index; j < MAX; j = j + index) {
 	// Do stuff
 }
 \end{lstlisting}
-\textbf{Extension:} The \underline{\href{https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes}{Wikipedia}} article covering the Sieve of Eratosthenes describes several optimisations. Implement the one which only crosses out \texttt{index} values starting at $\sqrt{index}$ (instead of \texttt{2*index}) and the algorithm exit condition of not attempting to cross out values larger than $\sqrt{MAX}$.
+\textbf{Extension:} The \underline{\href{https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes}{Wikipedia}} article covering the Sieve of Eratosthenes describes several optimisations. Implement the one which only crosses out \texttt{index} values starting at $index^2$ (instead of \texttt{2*index}) and the algorithm exit condition of not attempting to cross out values larger than $\sqrt{MAX}$.
 \end{task}
 
 \pagebreak
@@ -363,7 +363,7 @@ Write a C program which accepts a ``large'' number of real numbers and calculate
 s^2 = \frac{1}{N-1}\sum_{k=1}^{N}(X_k - mean(X))^2.
 \end{equation}
 
-There are \underline{\href{https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance}{many algorithms}} for calculating a data set's variance. For this task you should implement the reasonably robust \textit{two-pass} algorithm which calculates the sample mean and uses this values to calculate the variance as follows:
+There are \underline{\href{https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance}{many algorithms}} for calculating a data set's variance. For this task you should implement the reasonably robust \textit{two-pass} algorithm which calculates the sample mean and uses this value to calculate the variance as follows:
 \begin{lstlisting}[style=pseudo]
 integer n = 0
 float sum1 = 0
@@ -446,7 +446,7 @@ In your C program, evaluation of $f(x)$ is simply written as \texttt{f(x)} so lo
 \\~\\
 The evaluation of $\sum_{k=1}^{N-1} f(x_k)$ implies the use of a \texttt{for()} loop with the following form:
 \begin{lstlisting}[style=CStyle]
-int N = 5;
+int N = 50;
 int k; // Loop counter
 float x1 = 0, x2 = 2;
 float dx = (x2 - x1) / N;
@@ -458,7 +458,7 @@ for(k = 1; k < N; k++) {
 	sum = sum + f(x)
 }
 \end{lstlisting}
-With the values for $x1$ and $x2$ above the final answer should be $\approx 16.4526$
+With the values for $x1$ and $x2$ above the final answer should be $\approx 16.4526$.
 \end{task}
 
 \pagebreak
