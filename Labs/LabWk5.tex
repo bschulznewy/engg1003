@@ -165,6 +165,54 @@ printf("%f\n", nums[12]); // As an argument to a function
 \end{lstlisting}
 
 \pagebreak
+\subsection{\texttt{switch-case} Statements}
+
+A \texttt{switch-case} statement is a flow control construct which provides a neat way to choose one of multiple options. It replaces a long string of \texttt{if()-else-if()} statements.
+
+The following two code blocks are equivalent:
+
+\begin{table}[H]
+\begin{tabular}{l|l}
+\begin{lstlisting}[style=Ctable]
+if(x == 0) {
+	// stuff
+} else if(x == 1) {
+	// stuff
+} else if(x == 3) {
+	// stuff
+} else if(x == 4) {
+	//stuff
+} else {
+	// If nothing else matches, do this
+}
+\end{lstlisting} &
+
+\begin{lstlisting}[style=Ctable]
+switch(x) {
+	case 0: // stuff
+		break;
+	case 1: // stuff
+		break;
+	case 2: // stuff
+		break;
+	case 4: // stuff
+		break;
+	default: // If nothing else matches, do this
+}
+\end{lstlisting}
+\end{tabular}
+\end{table}
+
+Notes:
+\begin{itemize}
+\item \texttt{x} must be an  \textbf{integer} data type (\texttt{int, char, unsigned long}, etc)
+\item The \texttt{break} statements are optional
+\item The program execution will jump from the \texttt{switch()} line to the first matching \texttt{case} line and continue from there
+\item If a \texttt{break} is not found the program will continue to execute other \texttt{case}'s listed below the matching one
+\item The \texttt{default} case is jumped to if none of the other cases match
+\end{itemize}
+
+\pagebreak
 \section{Tasks}
 
 \begin{task}{(Simple Function): Arithmetic}{}
@@ -213,6 +261,43 @@ This task can be broken down into the following sub-tasks:
 \item have \texttt{return} statements inside the \texttt{switch()} statement, directly after each \texttt{case}.
 \end{enumerate}
 \end{enumerate}
+\end{task}
+
+\begin{task}{(Arrays) Maximum Number Search}{}
+Write a C program which searches an array for its maximum (most positive) element. The data will be provided as an initialised array of type \texttt{float}. The program's output should include the maximum value and the array index at which it was found.
+
+Your program should implement the following algorithm:
+
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	float data[N]
+	float maximum = -1e30 // Initialise to a large negative number
+	float maxIndex
+	FOR i = 0 to N-1 // C array indexing from 0 to N-1
+		IF data[i] > maximum
+			maximum = data[i]
+			maxIndex = i
+		ENDIF
+	ENDFOR
+	PRINT ("The maximum value was %f, found at index $d", maximum, maxIndex)
+END
+\end{lstlisting}
+
+You may use this (very incomplete) template:
+
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+
+int main() {
+	float data[] = {1.2, 8.4, 10.8, -0.4, -8.234, 3.1};
+	// Declare other variables
+	
+	// Implement search
+	
+	// Print result
+}
+\end{lstlisting}
+
 \end{task}
 
 \pagebreak
