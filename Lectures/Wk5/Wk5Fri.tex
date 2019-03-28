@@ -394,6 +394,21 @@ const float pi = 3.14159;
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{String Usage}
+\begin{itemize}
+\item Normally strings are not initialised with \texttt{\{'a', 'b',\}} syntax
+\item Command line programs use a lot of constant strings
+	\begin{itemize}
+		\item Text inside \texttt{printf()} is a constant string
+	\end{itemize}
+\item Most strings are read from the user or a file
+	\begin{itemize}
+		\item In embedded systems they also come from communications peripherals like a UART
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]
 \frametitle{String Format Specifiers}
 \begin{itemize}
@@ -412,10 +427,49 @@ main() {
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Strings and \texttt{scanf()}}
+\begin{itemize}
+\item Because an array name is a pointer to the first element \textbf{do not use \&}
+\begin{lstlisting}[style=CStyle]
+char str[1024];
+scanf("%s", str); // NO & SYMBOL
+\end{lstlisting}
+\pause
+\item How much data does \texttt{\%s} read?
+\pause
+\item Lets test with an example
+\begin{lstlisting}[style=CStyle]
+#include<stdio.h> 
+int main() { 
+    char str[1024]; 
+    scanf("%s", str); 
+    printf("Read: %s\n", str); 
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Strings and \texttt{scanf()}}
+\begin{itemize}
+\item Experiment results:
+	\begin{itemize}
+		\item \texttt{\%s} stops at the first whitespace character
+		\item It ignores  whitespace
+		\item Interpretation: \texttt{\%s} reads a single word or number
+	\end{itemize}
+\item This changes if more complicated ``pattern matching'' is included in the \texttt{scanf()} argument
+	\begin{itemize}
+		\item Beyond ENGG1003
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{ASCII Codes}
 \begin{itemize}
-\item In C, letters stored in \texttt{char}'s are typed: \texttt{'a'}
+\item In C, constant letters in code are typed: \texttt{'a'}
 \item The single quote indicates that it is a \textit{literal} letter, not a string
 \pause
 \item But what is \textit{actually} stored? Doesn't \texttt{char} just store a number from -128 to +127?
@@ -427,13 +481,13 @@ main() {
 \begin{frame}
 \frametitle{ASCII Codes}
 \begin{itemize}
-\item The ASCII standard allocates a number to all letters, numbers, punctuation characters, and several ``control'' character
+\item The ASCII standard allocates a number to all letters, numbers, punctuation characters, and several ``control'' characters
 \item ASCII is used almost everywhere
 	\begin{itemize}
 		\item The unicode standard UTF-8 is a superset of ASCII
 	\end{itemize}
 \item Lets check one out \underline{\href{http://asciichart.com/}{here}}
-\item Knowledge of ASCII and \texttt{char} processing in C is necessary for programming assignment 1
+\item Knowledge of ASCII and \texttt{char} processing in C is necessary for Programming Assignment 1
 \end{itemize}
 \end{frame}
 
@@ -512,16 +566,99 @@ c = c - 65;
 \begin{itemize}
 \item The code ``\texttt{c = c - 65}'' will convert each letter of the alphabet to a number with the allocation:
 \begin{align*}
-a&=0\\
-b&=1\\
-c&=2\\
+A&=0\\
+B&=1\\
+C&=2\\
  ...\\
-z&=25.
+Z&=25.
 \end{align*}
 \pause
 \vspace{-5mm}
 \item You use this in the project
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{char} Example}
+Write a C program which reads a single char from the user and uses it to select from a text-based menu.\\
+~\\
+\textit{This is useful for Programming Assignment 1}\\
+~\\
+\pause
+\begin{itemize}
+\item We should \texttt{printf()} a menu
+\item A single character should be read back
+\item Use \texttt{switch} to call off the appropriate function
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{char} Example}
+\begin{itemize}
+\item We can print a menu like this:
+\begin{lstlisting}[style=CStyle]
+printf("Please select an option: \n");
+printf("a) Start a new game\n");
+printf("b) Load a saved game\n");
+printf("c) Options\n");
+printf("d) Quit\n\n");
+printf("Selection: ");
+\end{lstlisting}
+\pause
+\item And read the user's input with:
+\begin{lstlisting}[style=CStyle]
+char c;
+scanf("%c", &c); // &c, not a string
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{char} Example}
+\begin{itemize}
+\item We need to read user input \textit{at least once}
+\item The user could make a mistake
+\item Lets use a \texttt{do \{ \} while()}
+\pause
+\item What would be used in the condition?
+\pause
+\item \texttt{c} needs to be \texttt{a}, \texttt{b}, \texttt{c}, or \texttt{d} to continue
+\pause
+\item Couple of options:
+	\begin{itemize}
+		\item Naive solution:
+\begin{lstlisting}[style=CStyle]
+while(c != 'a' && c != 'b' && c != 'c' && c != 'd');
+\end{lstlisting}
+		\item Use knowledge of ASCII codes:
+\begin{lstlisting}[style=CStyle]
+while(c < 'a' || c > 'd');
+\end{lstlisting}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{char} Example}
+\begin{itemize}
+\item Once input is taken lets use \texttt{switch()}:
+\begin{lstlisting}[style=CStyle]
+switch(c) {
+	case 'a': newGame(); break;
+	case 'b': loadGame(); break;
+	case 'c': options(); break;
+	case 'd': quit(); break;
+	default: printf("Unknown option %c\nPlease enter a, b, c, or d\n");
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{char} Example}
+\begin{center}
+Lets see the full program in Che...
+\end{center}
 \end{frame}
 
 \end{document}
