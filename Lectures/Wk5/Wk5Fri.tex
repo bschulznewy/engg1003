@@ -305,6 +305,53 @@ void zero(int *x, int N) {
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{String Syntax}
+\begin{itemize}
+\item C strings are arrays of type \texttt{char}
+\item They are declared with normal array syntax:
+\begin{lstlisting}[style=CStyle]
+char name[200];
+\end{lstlisting}
+\item The ``size'' of a string is known as the \textit{length}
+\item Strings get terminated with a 0
+	\begin{itemize}
+		\item Ok, technically NULL but its just a zero in memory
+		\item Often NULL is written \texttt{\textbackslash 0}
+	\end{itemize}
+\item The NULL termination defines the length
+\end{itemize}
+\end{frame}
 
+\begin{frame}
+\frametitle{Strings in Memory}
+\begin{itemize}
+\item Each character is a single byte
+\item The terminating NULL is also a single byte
+	\begin{itemize}
+		\item Be aware of this when declaring array sizes
+	\end{itemize}
+\item Everything beyond the NULL is ``garbage''
+	\begin{itemize}
+		\item Doesn't matter what the array size is
+	\end{itemize}
+\item The string "hello" would be stored as:
+\end{itemize}
+
+(Addresses are made up numbers)
+\vspace{-5mm}
+
+{\small\texttt{
+\begin{table}[H]
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Address: & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 \\
+\hline
+Data: & ?? & h & e & l & l & o & \textbackslash 0 & ??\\
+\hline
+\end{tabular}
+\end{table}
+}}
+\end{frame}
 
 \end{document}
