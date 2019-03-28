@@ -272,7 +272,7 @@ Your program should implement the following algorithm:
 BEGIN
 	float data[N]
 	float maximum = -1e30 // Initialise to a large negative number
-	float maxIndex
+	int maxIndex
 	FOR i = 0 to N-1 // C array indexing from 0 to N-1
 		IF data[i] > maximum
 			maximum = data[i]
@@ -394,7 +394,7 @@ BEGIN
 	numbers[MAX+1] is an array of char's
 	Set every element of numbers[] to 1
 	
-	FOR index = 1, 2, 3, ..., MAX
+	FOR index = 2, 3, 4, ..., MAX
 		IF numbers[index] is 1
 			FOR j = 2*index, 3*index, 4*index, ... MAX
 				numbers[j] = 0
@@ -642,7 +642,7 @@ int main () {
 	int n;
 	
 	for(n = 0; n < 10; n++)
-		printf("%d %x\n", n, fib() ); //%x formats an unsigned int
+		printf("%d %u\n", n, fib() ); //%u formats an unsigned int
 } 
 \end{lstlisting}
 
