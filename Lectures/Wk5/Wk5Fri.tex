@@ -69,7 +69,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Friday Week 5}
-\subtitle{Arrays and Functions:\\Together at Last!\\{\tiny{Does anyone even read the title page?}}\\Also: Maybe Strings}
+\subtitle{Arrays and Functions:\\Together at Last!\\{\tiny{Does anyone even read the title page?}}\\Also: Maybe Strings \& ASCII Codes}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
@@ -111,7 +111,7 @@
 	\begin{itemize}
 		\item Held in Friday 9-10am lecture
 			\begin{itemize}
-				\item Exact duration TBA
+				\item 40 mins: 9:10am - 9:50m
 			\end{itemize}
 		\item It will be hand written
 			\begin{itemize}
@@ -178,7 +178,7 @@ function(array[6]);
 	\begin{itemize}
 		\item This is the \textit{memory address} of the array's start
 		\pause
-		\item In C, the array's name is equivalent to \texttt{\&name[0]}
+		\item In C, \texttt{name} is equivalent to \texttt{\&name[0]}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -192,6 +192,7 @@ int x[20];
 \end{lstlisting}
 the compiler allocates 20*sizeof(int) = 80 bytes to store it
 \item The \textit{memory address} of \texttt{x[0]} is some seemingly random number, \texttt{p}
+\item \texttt{p} is a \textit{byte} address
 \item Other elements are stored in sequential memory addresses:
 	\begin{itemize}
 		\item The address of \texttt{x[1]} is \texttt{p + 4}
@@ -203,13 +204,14 @@ the compiler allocates 20*sizeof(int) = 80 bytes to store it
 \begin{frame}[fragile]
 \frametitle{Arrays in Memory}
 \begin{itemize}
-\item Therefore, to access any element of an array all we need is:
+\item Therefore, to access a given element, \texttt{i}, of an array all we need is:
 	\begin{itemize}
-		\item A pointer to the first element
+		\item A pointer, \texttt{p} to the first element
 		\item Knowledge of the arrays \textit{data type}
 			\begin{itemize}
-				\item Specifically: the type's \textit{size}
+				\item Specifically, the type's \textit{size}
 			\end{itemize}
+		\item The calculation result of \texttt{p + i*size}
 	\end{itemize}
 \pause
 \item So that's what we do with functions:
@@ -285,6 +287,7 @@ void zero(int *x, int N) {
 		\item Fills an array with integers between two given numbers \texttt{min} and \texttt{max}
 			\begin{itemize}
 				\item Prototype:\\\texttt{void countArray(int *x,\\\quad \quad \quad \quad int min, int max);}
+				\item eg: countArray(x, 10, 15) sets:\\ \texttt{x[] = \{10, 11, 12, 13, 14, 15\}}
 			\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -296,11 +299,12 @@ void zero(int *x, int N) {
 \item A \textit{string} is the ``data type'' which stores human-readable text
 \item C does not have a \texttt{string} data type
 	\begin{itemize}
-		\item Most newer languages do, though
+		\item Most newer languages do
 	\end{itemize}
-\item In C strings are stored in arrays of type \texttt{char}
+\item In C, strings are stored in arrays of type \texttt{char}
 	\begin{itemize}
 		\item Their ``length'' is defined by a terminating zero
+		\item Terminating means it goes after the last character
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -308,8 +312,7 @@ void zero(int *x, int N) {
 \begin{frame}[fragile]
 \frametitle{String Syntax}
 \begin{itemize}
-\item C strings are arrays of type \texttt{char}
-\item They are declared with normal array syntax:
+\item Since C strings are arrays of type \texttt{char} they are declared with normal array syntax:
 \begin{lstlisting}[style=CStyle]
 char name[200];
 \end{lstlisting}
@@ -319,7 +322,7 @@ char name[200];
 		\item Ok, technically NULL but its just a zero in memory
 		\item Often NULL is written \texttt{\textbackslash 0}
 	\end{itemize}
-\item The NULL termination defines the length
+\item The length is the number of bytes from (and including) the ``start'' pointer and the \texttt{\textbackslash 0}
 \end{itemize}
 \end{frame}
 
@@ -352,6 +355,173 @@ Data: & ?? & h & e & l & l & o & \textbackslash 0 & ??\\
 \end{tabular}
 \end{table}
 }}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Using Strings}
+\begin{itemize}
+\item String initialisation uses the syntax:
+\begin{lstlisting}[style=CStyle]
+char str[6] = {'h', 'e', 'l', 'l', 'o', '\0'};
+\end{lstlisting}
+\pause
+\item Terrible, isn't it?
+\pause
+\item If the string is \textit{constant} you can do this:
+\begin{lstlisting}[style=CStyle]
+char str[] = "This is a constant string.";
+\end{lstlisting}
+	\begin{itemize}
+		\item Attempting to modify \texttt{str[]} will cause a crash
+		\item The compiler automatically inserts the \texttt{\textbackslash 0}
+		\item (Advanced) Strings between " and " are stored in the ``program memory'' and can't be modified for security reasons
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Constants}
+\begin{itemize}
+\item Aside: any variable which must not be modified can be declared \texttt{const}:
+\begin{lstlisting}[style=CStyle]
+const char str[] = "This is a help message.";
+\end{lstlisting}
+\item The \texttt{const} keyword causes a compiler error, instead of a segmentation fault, if you try to modify the variable
+\item You can do this to any data type, eg:
+\begin{lstlisting}[style=CStyle]
+const float pi = 3.14159;
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{String Format Specifiers}
+\begin{itemize}
+\item To \texttt{printf()} or \texttt{scanf()} a string use the \texttt{\%s} format specifier
+\item Eg:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+main() {
+	char str[] = "Hello world!";
+	
+	// NB: Passing array pointer to function
+	// just uses the array name as argument
+	printf("%s\n", str);
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{ASCII Codes}
+\begin{itemize}
+\item In C, letters stored in \texttt{char}'s are typed: \texttt{'a'}
+\item The single quote indicates that it is a \textit{literal} letter, not a string
+\pause
+\item But what is \textit{actually} stored? Doesn't \texttt{char} just store a number from -128 to +127?
+\pause
+\item Yes! The ASCII standard converts ``letters'' to numbers
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{ASCII Codes}
+\begin{itemize}
+\item The ASCII standard allocates a number to all letters, numbers, punctuation characters, and several ``control'' character
+\item ASCII is used almost everywhere
+	\begin{itemize}
+		\item The unicode standard UTF-8 is a superset of ASCII
+	\end{itemize}
+\item Lets check one out \underline{\href{http://asciichart.com/}{here}}
+\item Knowledge of ASCII and \texttt{char} processing in C is necessary for programming assignment 1
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Char Variables}
+\begin{itemize}
+\item There are two ways to interpret a \texttt{char} variable:
+	\begin{itemize}
+		\item As a text character
+		\item As a number
+	\end{itemize}
+\item The \texttt{\%c} format specifier tells \texttt{printf()} and \texttt{scanf()} to convert between ASCII characters and numbers
+\item Eg, this will read a character from \texttt{stdin} and store its ASCII value in \texttt{c}:
+\begin{lstlisting}[style=CStyle]
+char c;
+scanf("%c", &c)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Char Variables}
+\begin{itemize}
+\item What happens if you enter the number \texttt{5}?
+\begin{lstlisting}[style=CStyle]
+char c;
+scanf("%c", &c)
+\end{lstlisting}
+\pause
+\item It will store the number 53, as that is the ASCII code for '5'
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{ASCII Letters}
+\begin{itemize}
+\item The project requires you to process text and identify letters
+\item The following table shows the numerical values which letters can occupy under the ASCII standard:
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{ll|ll}
+A & 65 & a & 97\\
+B & 66 & b & 98\\
+C & 67 & c & 100\\
+... & & ... & \\
+Y & 89 & y & 121\\
+Z & 90 & z & 122
+\end{tabular}
+\end{center}
+\end{table}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Char Variables}
+\begin{itemize}
+\item The numerical value of a character can be printed with \texttt{\%d} and a cast:
+\begin{lstlisting}[style=CStyle]
+char c;
+printf("%d", (int)c);
+\end{lstlisting}
+\item Characters can be used in \textit{arithmetic} without a problem, eg:
+\begin{lstlisting}[style=CStyle]
+char c;
+scanf("%c", c);
+c = c - 65;
+\end{lstlisting}
+\pause
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Char Variables}
+\begin{itemize}
+\item The code ``\texttt{c = c - 65}'' will convert each letter of the alphabet to a number with the allocation:
+\begin{align*}
+a&=0\\
+b&=1\\
+c&=2\\
+ ...\\
+z&=25.
+\end{align*}
+\pause
+\vspace{-5mm}
+\item You use this in the project
+\end{itemize}
 \end{frame}
 
 \end{document}
