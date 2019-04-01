@@ -256,7 +256,7 @@ char str[6] = {'h', 'e', 'l', 'l', 'o', '\0'};
 char str[] = "This is a constant string.";
 \end{lstlisting}
 	\begin{itemize}
-		\item Attempting to modify \texttt{str[]} will cause a crash
+		\item Attempting to modify \texttt{str[]} may cause a crash
 		\item The compiler automatically inserts the \texttt{\textbackslash 0}
 		\item (Advanced) Strings between " and " are stored in the ``program memory'' and can't be modified for security reasons
 	\end{itemize}
@@ -340,7 +340,7 @@ int main() {
 \item Experiment results:
 	\begin{itemize}
 		\item \texttt{\%s} stops at the first whitespace character
-		\item It ignores  whitespace
+		\item It doesn't read  whitespace
 		\item Interpretation: \texttt{\%s} reads a single word or number
 	\end{itemize}
 \item This changes if more complicated ``pattern matching'' is included in the \texttt{scanf()} argument
@@ -365,7 +365,7 @@ int stringLength(char *str);
 \begin{frame}
 \frametitle{String Library Functions}
 \begin{itemize}
-\item The C standard string library is in \texttt{string.h}
+\item The de facto standard string library is in \texttt{string.h}
 \item Previous example re-implemented \texttt{strlen()}
 \item Many other functions, consult an online reference for more details
 	\begin{itemize}
@@ -470,8 +470,6 @@ char c;
 scanf("%c", c);
 c = c - 65;
 \end{lstlisting}
-\pause
-
 \end{itemize}
 \end{frame}
 
@@ -542,11 +540,11 @@ scanf("%c", &c); // &c, not a string
 	\begin{itemize}
 		\item Naive solution:
 \begin{lstlisting}[style=CStyle]
-while(c != 'a' && c != 'b' && c != 'c' && c != 'd');
+while(c != 'a' && c != 'b' && c != 'c' && c != 'd')
 \end{lstlisting}
 		\item Use knowledge of ASCII codes:
 \begin{lstlisting}[style=CStyle]
-while(c < 'a' || c > 'd');
+while(c < 'a' || c > 'd')
 \end{lstlisting}
 	\end{itemize}
 \end{itemize}
@@ -562,7 +560,7 @@ switch(c) {
 	case 'b': loadGame(); break;
 	case 'c': options(); break;
 	case 'd': quit(); break;
-	default: printf("Unknown option %c\nPlease enter a, b, c, or d\n");
+	default: printf("Unknown option %c\nPlease enter a, b, c, or d\n",c);
 }
 \end{lstlisting}
 \end{itemize}
@@ -636,7 +634,7 @@ FILE *fopen(const char *name, const char *mode);
 \begin{itemize}
 \item \texttt{const char *name} is a string holding the file's name
 \item \texttt{const char *mode} is a string describing the desired data direction
-\item Both of these can be passes as variable strings or hard-coded
+\item Both of these can be passed as variable strings or hard-coded
 \end{itemize}
 \end{frame}
 
@@ -747,7 +745,7 @@ Write a C program which opens a file, \texttt{test.txt}, and prints its contents
 \frametitle{File I/O Example}
 Write a C program which opens a file, \texttt{input.txt}, and counts the number of times the string \texttt{"the"} appears.
 \\~\\
-(I might run out of time here, see how we got?)
+(I might run out of time here, see how we go?)
 \end{frame}
 
 \end{document}
