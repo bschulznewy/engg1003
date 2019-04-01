@@ -69,7 +69,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Tuesday Week 6}
-\subtitle{Strings \& ASCII Codes}
+\subtitle{Strings \& ASCII Codes\\The Char Data Type\\File I/O}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
@@ -77,6 +77,33 @@
 
 \begin{document}
 \titlepage
+
+\begin{frame}
+\frametitle{Quiz Content}
+\begin{itemize}
+\item Because people have asked, the quiz will cover:
+\vspace{-4mm}
+	\begin{itemize}
+		\item Everything up to static variables (Tuesday Week 5)
+		\vspace{-4mm}
+			\begin{itemize}
+				\item Flow control
+				\item Variables
+				\item Arithmetic
+				\item Assignment (\texttt{=} symbol)
+				\item Data types
+				\item Functions
+				\item Arrays
+				\item Static variables
+			\end{itemize}
+	\end{itemize}
+\item 1 A4 ``memory aid'' allowed
+	\begin{itemize}
+		\item Same as final exams, double sided
+	\end{itemize}	
+\item A ``very brief'' C syntax summary will be provided
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{Example}
@@ -299,6 +326,36 @@ int main() {
 \item This changes if more complicated ``pattern matching'' is included in the \texttt{scanf()} argument
 	\begin{itemize}
 		\item Beyond ENGG1003
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{String Function Example}
+Write a C function which returns the length of a string.
+\\~\\
+The function prototype is:
+
+\begin{lstlisting}[style=CStyle]
+int stringLength(char *str);
+\end{lstlisting}
+(This is implemented in a library function, more on that after the example...)
+\end{frame}
+
+\begin{frame}
+\frametitle{String Library Functions}
+\begin{itemize}
+\item The C standard string library is in \texttt{string.h}
+\item Previous example re-implemented \texttt{strlen()}
+\item Many other functions, consult an online reference for more details
+	\begin{itemize}
+		\item \texttt{strcasecmp()} or \texttt{strcmp()} \textit{might} be useful in your project for checking spelling
+	\end{itemize}
+\item Also be aware of \texttt{sprintf()}
+	\begin{itemize}
+		\item Just like \texttt{printf()}
+		\item Stores output in a string, not \texttt{stdout}
+		\item Do we have time for an example?
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -635,10 +692,12 @@ int fscanf(FILE *stream, const char *format, ...);
 	\begin{itemize}
 		\item \texttt{ftell()} - Returns the position indicator
 		\item \texttt{fseek()} - Sets the position indicator
-		\item \texttt{feof()} - Returns non-zero if the position indicator is at the end of the file
+		\item \texttt{feof()} - Returns TRUE if the position indicator is at the end of the file
 	\end{itemize}
 \item For example, to process data until the end of file is reached:
 \begin{lstlisting}[style=CStyle]
+FILE *stream;
+// open file etc
 while(!feof(stream)) {
 	// Read from file
 	// Do stuff
@@ -652,12 +711,23 @@ while(!feof(stream)) {
 Write a C program which opens a file, \texttt{test.txt}, and prints its contents to \texttt{stdout}, reading and writing one character at a time.
 \begin{itemize}
 \pause
-\item Declare a \texttt{FILE *} variable
+\item Declare \texttt{FILE *input;}
 \pause
 \item Use \texttt{fopen()} to open it for reading
 \pause
 \item Write a loop which reads and writes characters until the whole file has been read
+	\begin{itemize}
+		\item Read with: \texttt{fscanf(input, "\%c", \&c);}
+		\item Write with: \texttt{fprintf("\%c", c);}
+	\end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{File I/O Example}
+Write a C program which opens a file, \texttt{input.txt}, and counts the number of times the string \texttt{"the"} appears.
+\\~\\
+(I might run out of time here, see how we got?)
 \end{frame}
 
 \end{document}
