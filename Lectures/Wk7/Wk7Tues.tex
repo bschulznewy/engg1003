@@ -131,6 +131,32 @@ FILE *input, *output;
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{Correction: String Initialisation}
+\begin{itemize}
+\item This is totally fine:
+\begin{lstlisting}[style=CStyle]
+char string[] = "initial value";
+\end{lstlisting}
+\item The compiler copies the string literal into \texttt{string[]}
+\item The length is automatically calculated
+	\begin{itemize}
+		\item You may specify a length \textit{longer} than necessary:
+\begin{lstlisting}[style=CStyle]
+char string[1024] = "initial value";			
+\end{lstlisting}
+	\end{itemize}
+\pause
+\item A constant string is created with:
+\begin{lstlisting}[style=CStyle]
+char *str = "some string";
+\end{lstlisting}
+	\begin{itemize}
+		\item We will study this \textit{pointer} syntax later
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
 \frametitle{File I/O - Quick Review}
 \begin{itemize}
 \item Before a file can be accessed you must \textit{open} it with the \texttt{fopen()} function
@@ -266,8 +292,27 @@ Write a C program which opens a file, \texttt{test.txt}, and prints its contents
 \end{frame}
 
 \begin{frame}
-\frametitle{File I/O Example}
+\frametitle{File I/O Example 1}
+Write a C program which opens a file, \texttt{input.txt}, then reads and prints each character to the console on a new line, indicating the position indicator's value \textit{after} reading each character.
+\end{frame}
+
+\begin{frame}
+\frametitle{File I/O Example 2}
+Write a C program which copies a file, \texttt{input.txt}, into a new file, \texttt{output.txt}. While copying, the program should count how many spaces there are in the input and print the final count to the terminal before exiting.
+\end{frame}
+
+\begin{frame}
+\frametitle{File I/O Example 3}
 Write a C program which opens a file, \texttt{input.txt}, and counts the number of times the string \texttt{"the"} appears.
+\\~\\
+The program should include a function, \texttt{isThe()}, which tests if a string is equal to \texttt{"the"} or not.
+\end{frame}
+
+\begin{frame}
+\frametitle{Pointers}
+\begin{itemize}
+
+\end{itemize}
 \end{frame}
 
 \end{document}

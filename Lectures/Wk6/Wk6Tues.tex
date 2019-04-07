@@ -244,21 +244,19 @@ Data: & ?? & h & e & l & l & o & \textbackslash 0 & ??\\
 \begin{frame}[fragile]
 \frametitle{Using Strings}
 \begin{itemize}
-\item String initialisation uses the syntax:
+\item String initialisation can use array initialisation syntax:
 \begin{lstlisting}[style=CStyle]
 char str[6] = {'h', 'e', 'l', 'l', 'o', '\0'};
 \end{lstlisting}
 \pause
 \item Terrible, isn't it?
 \pause
-\item If the string is \textit{constant} you can do this:
+\item You can do this instead:
 \begin{lstlisting}[style=CStyle]
-char str[] = "This is a constant string.";
+char str[] = "This is a string.";
 \end{lstlisting}
 	\begin{itemize}
-		\item Attempting to modify \texttt{str[]} may cause a crash
-		\item The compiler automatically inserts the \texttt{\textbackslash 0}
-		\item (Advanced) Strings between " and " are stored in the ``program memory'' and can't be modified for security reasons
+			\item The compiler automatically inserts the \texttt{\textbackslash 0}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -270,7 +268,7 @@ char str[] = "This is a constant string.";
 \begin{lstlisting}[style=CStyle]
 const char str[] = "This is a help message.";
 \end{lstlisting}
-\item The \texttt{const} keyword causes a compiler error, instead of a segmentation fault, if you try to modify the variable
+\item The \texttt{const} keyword causes a compiler error, if you try to modify the variable
 \item You can do this to any data type, eg:
 \begin{lstlisting}[style=CStyle]
 const float PI = 3.14159;
