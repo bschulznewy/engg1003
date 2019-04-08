@@ -311,8 +311,167 @@ The program should include a function, \texttt{isThe()}, which tests if a string
 \begin{frame}
 \frametitle{Pointers}
 \begin{itemize}
-
+\item A \textit{pointer} is the memory address of a variable or an array's first element
+\item Pointers can be stored in variables of type ``pointer to data type''
+	\begin{itemize}
+		\item Declaration syntax:\\ \texttt{data\_type * variable\_name;}
+		\item eg: \texttt{int *p;}
+	\end{itemize}
+\item Pointers also implicitly exist when using arrays
+\item All pointers are the same size
+	\begin{itemize}
+		\item The memory address of a \texttt{char} is the same size as the memory address of a \texttt{double}
+	\end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pointers - Why?}
+\begin{itemize}
+\item In ENGG1003:
+	\begin{itemize}
+		\item Passing a pointer to a function lets the function modify the variable
+		\begin{itemize}
+		\item This lets functions ``return'' more than one value (ie: modify multiple variables given as pointer arguments)
+		\end{itemize}
+		\item String functions mostly accept \texttt{char *}'s
+		\item Help you understand computer memory organisation
+		\item Pointers are the only way to send ``large'' amounts of data to a function
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Pointers - Why?}
+\begin{itemize}
+\item Beyond ENGG1003:
+	\begin{itemize}
+		\item Pointer ``casting'' can be used to interpret one variable as a different type in a specific way
+			\begin{itemize}
+				\item eg: break a 32 bit \texttt{int} into two 16~bit chunks for transmission on an SPI bus
+				\item Interpreting ``file header'' data chunks as complex data structures
+			\end{itemize}
+		\item Pointers are required for dynamic memory allocation
+			\begin{itemize}
+				\item For getting large amounts of RAM after a program has begun executing
+			\end{itemize}
+		\item Pointers are required to build advanced memory structures such as trees and linked lists
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pointer Terminology}
+\begin{itemize}
+\item A pointer is \textit{declared} with the syntax:
+\begin{lstlisting}[style=CStyle]
+datatype *pointerName;
+\end{lstlisting}
+\item A pointer is \textit{allocated} with the syntax:
+\begin{lstlisting}[style=CStyle]
+pointerName = &variable;
+\end{lstlisting}
+\item A pointer is \textit{dereferenced} with the syntax:
+\begin{lstlisting}[style=CStyle]
+*pointerName = 12;
+\end{lstlisting}
+	\begin{itemize}
+		\item This allocates \texttt{12} to the variable \texttt{pointerName} is pointing to
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pointer Declaration}
+\begin{itemize}
+\item If you need to store a pointer in a variable it is declared
+\item Examples:
+\begin{lstlisting}[style=CStyle]
+int *p; // Pointer to an integar
+char c, *a; // char c and pointer-to-char a
+char * str = "string" // Pointer to string
+\end{lstlisting}
+\item Explicit declaration like this is mostly beyond ENGG1003
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pointer Allocation}
+\begin{itemize}
+\item A pointer is ``created'' by using the \texttt{\&} operator before a variable name:
+\begin{lstlisting}[style=CStyle]
+int k, *x;
+k = &x; // k holds the address of x
+\end{lstlisting}
+\item Array names are implicitly pointers to the array start:
+\begin{lstlisting}[style=CStyle]
+char string[] = "Hello";
+char *p = string; // Pointer to an array
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pointer Dereferencing}
+\begin{itemize}
+\item This is the conceptually tricky one:
+	\begin{itemize}
+		\item If \texttt{p} is a pointer to \texttt{x}, then \texttt{*p} makes it ``appear'' as \texttt{x}
+		\begin{lstlisting}[style=CStyle]
+int *p, x;
+p = &x;
+*p = 12; // Makes x 12
+\end{lstlisting}
+	\end{itemize}
+\item Be careful: the function of the \texttt{*} character is context dependent!
+	\begin{itemize}
+		\item It could multiply
+		\item It could declare a pointer type
+		\item it could dereference a pointer
+	\end{itemize}
+\pause
+\item The example above is just a toy, lets do a function example...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pointers and Functions}
+\begin{itemize}
+\item A pointer function argument is listed like a pointer declaration:
+\begin{lstlisting}[style=CStyle]
+void f(int *x); // Pointer to int argument
+\end{lstlisting}
+	\begin{itemize}
+		\item Aside: This is often just read as ``int star''	
+	\end{itemize}
+\item Inside the function the thing \texttt{x} points to can be modified or accessed with \texttt{*x}:
+\begin{lstlisting}[style=CStyle]
+void f(int *x) {
+	y =	2 + *x;
+	*x = 2 * (*x); // This syntax is painful
+}                // ()'s for clarity
+
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pointer Example}
+(Toy example) What will this code print?
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+int main() {
+	int x = 5; *p;
+	p = &x;
+	x++;
+	printf("%d\n", *p);
+	*p++;
+	printf("%d\n", x);
+	return 0;
+}
+\end{lstlisting}
 \end{frame}
 
 \end{document}
