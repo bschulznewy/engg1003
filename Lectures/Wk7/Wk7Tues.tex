@@ -559,12 +559,14 @@ void f(int *x) {
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Toy Example}
-Write a C function which takes two unsigned integers as arguments and zeros the one holding the larger value.
+\frametitle{Example}
+Write a C function which takes two unsigned integers as arguments, zeros the variable holding the larger value, and returns what the larger value was.
+\\~\\
+eg: If the function was passed \texttt{x=2} and \texttt{y=10} it would zero \texttt{y} and return 10.
 \\~\\
 Function prototype:
 \begin{lstlisting}[style=CStyle]
-void zeroLarger(unsigned int *a, unsigned int *b);
+int zeroLarger(unsigned int *a, unsigned int *b);
 \end{lstlisting}
 \end{frame}
 
