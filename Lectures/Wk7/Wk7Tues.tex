@@ -380,7 +380,7 @@ pointerName = &variable;
 *pointerName = 12;
 \end{lstlisting}
 	\begin{itemize}
-		\item This allocates \texttt{12} to the variable \texttt{pointerName} is pointing to
+		\item This assigns \texttt{12} to the variable \texttt{pointerName} is pointing to
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -407,7 +407,7 @@ char * str = "string" // Pointer to string
 \begin{itemize}
 \item A pointer is ``created'' by using the \texttt{\&} operator before a variable name:
 \begin{lstlisting}[style=CStyle]
-int k, *x;
+int *k, x;
 k = &x; // k holds the address of x
 \end{lstlisting}
 \item Array names are implicitly pointers
@@ -492,7 +492,7 @@ p = &x;
 #include <stdio.h>
 
 int main() {
-	int x = 5; *p;
+	int x = 5, *p;
 	p = &x;
 	x++;
 	printf("%d\n", *p);
@@ -537,6 +537,7 @@ void f(int *x); // Pointer to int argument
 \item Inside the function the thing \texttt{x} points to can be modified or accessed with \texttt{*x}:
 \begin{lstlisting}[style=CStyle]
 void f(int *x) {
+	int y;
 	y =	2 + *x;
 	*x = 2 * (*x); // This syntax is painful
 }                // ()'s for clarity
@@ -548,7 +549,7 @@ void f(int *x) {
 \begin{frame}
 \frametitle{Pointers and Functions}
 \begin{itemize}
-\item Wait, is used \textit{exactly the same} syntax as an array argument?
+\item Wait, is used with \textit{exactly the same} syntax as an array argument?
 \pause
 	\begin{itemize}
 		\item Yes! Array arguments are a pointer to the first element
