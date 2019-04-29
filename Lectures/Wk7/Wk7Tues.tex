@@ -533,7 +533,7 @@ int main() {
 	p = &x;
 	x++;
 	printf("%d\n", *p);
-	*p++;
+	(*p)++;
 	printf("%d\n", x);
 	return 0;
 }
