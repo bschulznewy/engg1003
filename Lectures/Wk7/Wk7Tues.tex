@@ -329,6 +329,27 @@ The program should include a function, \texttt{isThe()}, which tests if a string
 \end{frame}
 
 \begin{frame}
+\frametitle{Pointers - An Analogy}
+\begin{itemize}
+\item Scenario: your house needs painting
+\pause
+\item Two solutions:
+\pause
+	\begin{itemize}
+		\item Put your house on the back of a truck, drive it to the painter, have it painted, drive it back.
+			\begin{itemize}
+				\pause
+				\item Analogy limit: in C, passing a variable ``by value'' would give the painter ``function'' a \textit{copy} of your house
+			\end{itemize}
+		\pause
+		\item Give the painter the \textit{address} of your house so they can come over and paint it
+	\end{itemize}
+\pause
+\item Naturally, the realistic solution requires a ``pointer''
+\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Pointers - Why?}
 \begin{itemize}
 \item In ENGG1003:
@@ -344,6 +365,20 @@ The program should include a function, \texttt{isThe()}, which tests if a string
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Pointers - A Motivation}
+\begin{itemize}
+\item Problem: a 16~GB array of data needs to be analysed by a function. Do you:
+\pause
+	\begin{itemize}
+		\item Pass the function a \textit{copy} of the data, using a peak of 32~GB of RAM, or
+		\pause
+		\item Pass the function a \textit{pointer} to the data so it can directly access the array, using only 4-8 bytes of RAM?
+	\end{itemize}
+\pause
+\item Hopefully you can see that the second option is vastly superior
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{Pointers - Why?}
@@ -384,6 +419,8 @@ pointerName = &variable;
 	\end{itemize}
 \end{itemize}
 \end{frame}
+
+
 
 \begin{frame}[fragile]
 \frametitle{Pointer Declaration}
@@ -560,6 +597,23 @@ void f(int *x) {
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{Alternate Array Pointer Syntax}
+\begin{itemize}
+\item Many of you have been doing independent research, great!
+\item In some projects I saw:
+\begin{lstlisting}[style=CStyle]
+void function(char string[]);
+\end{lstlisting}
+\item The following are equivalent:
+\begin{lstlisting}[style=CStyle]
+char string[]
+char *string
+\end{lstlisting}
+\item I only showed you the \texttt{*string} to minimise the number of syntax rules to learn
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
 \frametitle{Example}
 Write a C function which takes two unsigned integers as arguments, zeros the variable holding the larger value, and returns what the larger value was.
 \\~\\
@@ -674,6 +728,66 @@ unsigned char image[xres][yres][3]
 	\begin{itemize}
 		\item Each \texttt{unsigned char} is 8 bits
 		\item 3x8 = 24b per pixel
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arrays in Engineering}
+\begin{itemize}
+\item 1D Arrays:
+	\begin{itemize}
+		\item Any 1D function (aka ``timeseries'')
+		\pause
+			\begin{itemize}
+				\item Voltage in a circuit
+				\item Speed of an object
+				\item Temperature of a chemical
+				\item Audio signals
+				\item ECG voltages
+			\end{itemize}
+		\item Displacement of a beam (ie: bending)
+	\end{itemize}
+\pause
+\item 2D Arrays:
+	\begin{itemize}
+		\item 2D scalar quantities
+		\pause
+			\begin{itemize}
+				\item Displacement on a 2D membrane (ie: drum skin)
+				\item Temperature on a hotplate
+			\end{itemize}
+		\item 2D velocity ($x$ and $y$ components)
+		\item 2D ``occupancy grid'' maps for autonomous robot navigation
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arrays in Engineering}
+\begin{itemize}
+\item 3D Arrays:
+	\begin{itemize}
+		\item 3D (volumetric) scalar data
+		\pause
+		\begin{itemize}
+			\item Air pressure in a volume
+			\item Temperature in a volume
+			\item Fluid pressure in a volume
+			\item Medical CT and MRI scans (density at a 3D point)
+		\end{itemize}
+		\item An array of 3D velocity vectors
+	\end{itemize}
+\pause
+\item Getting more advanced, 6D arrays:
+\pause
+	\begin{itemize}
+		\item A 3D vector in 3D space:
+		\pause
+		\begin{itemize}
+			\item Magnetic field in a transformer
+			\item Fluid velocity in a chemical mixture
+		\end{itemize}
 	\end{itemize}
 \end{itemize}
 \end{frame}
