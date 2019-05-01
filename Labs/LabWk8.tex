@@ -8,7 +8,7 @@
 \addtolength{\oddsidemargin}{-.4in}
 \addtolength{\evensidemargin}{-.4in}
 
-\title{ENGG1003 - Lab Week 5}
+\title{ENGG1003 - Lab Week 8}
 \author{Brenton Schulz}
 \date{\today}
 
@@ -49,7 +49,7 @@ Write your own ``test code'' to verify the function's operation.
 \end{task}
 
 \begin{task}{}{}
-Write a C function which accepts three \texttt{int *} arguments, allocates the mean of the three numbers to the first argument and zeros the others. The function prototype is:
+Write a C function which accepts three \texttt{int *} arguments, assigns the mean of the three numbers to the first argument and zeros the others. The function prototype is:
 
 \begin{lstlisting}[style=Ctable]
 void mean(int *a, int *b, int *c);
@@ -63,7 +63,7 @@ Write your own ``test code'' to verify the function's operation.
 \section{Multi-Dimensional Arrays}
 
 \begin{task}{}{}
-The template below, write a C program which calculates the mean of the initialised 2D array and prints the result to the console.
+Using the template below, write a C program which calculates the mean of the initialised 2D array and prints the result to the console.
 
 \begin{lstlisting}[style=Ctable]
 #include <stdio.h>
@@ -78,7 +78,7 @@ main() {
 \section{File I/O}
 
 \begin{task}{}{}
-Write a C program which reads initialises a 2D array from a file. The file's contents is:
+Write a C program which initialises a 2D array with data in a file. The file's contents is:
 
 \begin{lstlisting}[style=Ctable]
 12 31 35
@@ -86,10 +86,12 @@ Write a C program which reads initialises a 2D array from a file. The file's con
 434 63 64
 \end{lstlisting}
 
-Create a file and copy the contents above into it.\\~\\
+Create a file and copy the contents above into it. The filename can be anything of your choosing.\\~
+
+Use array indexing in the format: \texttt{arrayDame[row][column]}.\\~
 
 After reading the data, find the largest number in the 2D array and print its value and indices (ie: location or address within the array).
-
+\\~\\
 You may use the following template:
 
 \begin{lstlisting}[style=Ctable]
