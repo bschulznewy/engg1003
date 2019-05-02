@@ -291,7 +291,7 @@
     morecomment=[l]{//},
     morecomment=[s]{/*}{*/},
     morestring=[s]{"}{"},
-%    backgroundcolor=\color{backgroundColour},   
+    backgroundcolor=\color{backgroundColour},   
     commentstyle=\color{mGreen},
     numberstyle=\tiny\color{mGray},
     stringstyle=\color{mPurple},

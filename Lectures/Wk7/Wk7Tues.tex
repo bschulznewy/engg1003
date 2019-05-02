@@ -533,7 +533,7 @@ int main() {
 	p = &x;
 	x++;
 	printf("%d\n", *p);
-	*p++;
+	(*p)++;
 	printf("%d\n", x);
 	return 0;
 }
@@ -794,7 +794,7 @@ unsigned char image[xres][yres][3]
 
 \begin{frame}
 \frametitle{2D Array Example}
-Write a C program which reads a 5x5 array from a file and finds the maximum value in the array. The file stores \texttt{float} data in csv format. Each line contains 10 \texttt{float}s, separated by commas. There are 10 lines in the file. There are no commas at the end of lines.
+Write a C program which reads a 5x5 array from a file and finds the maximum value in the array. The file stores \texttt{float} data in csv format. Each line contains 5 \texttt{float}s, separated by commas. There are 5 lines in the file. There are no commas at the end of lines.
 \\~\\
 You may assume that the file does not contain errors.
 \end{frame}
