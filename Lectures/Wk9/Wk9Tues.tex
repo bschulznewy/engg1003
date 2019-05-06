@@ -97,7 +97,7 @@
 \item It is sometimes criticised for not being a ``legitimate'' programming language.
 	\begin{itemize}
 		\item Engineers use it to solve a complex numerical problem quickly, then throw the code away
-		\item NB: The code is \textit{written} quickly, it doesn't necessarily \textit{execute} quickly (compared to a compiled language like C)
+		\item NB: The code is \textit{written} quickly. It doesn't necessarily \textit{execute} quickly (compared to a compiled language like C)
 	\end{itemize}
 \item Arithmetic is fast, flow control is \textit{very} slow
 \begin{itemize}
@@ -218,7 +218,7 @@
 \item Lets load up MATLAB and:
 	\begin{itemize}
 		\item Learn what the different GUI segments do
-		\item Allocate values to some random variables
+		\item Assign values to some random variables
 			\begin{itemize}
 				\item Observe them appear in the ``workspace''
 			\end{itemize}
@@ -230,7 +230,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Variable Allocation Syntax}
+\frametitle{Variable Assignment Syntax}
 \begin{itemize}
 \item When allocating a constant to a variable we have a few basic methods:
 	\begin{itemize}
@@ -358,6 +358,35 @@ x = 0:0.1:2
 \end{frame}
 
 \begin{frame}
+\frametitle{Vectorisation}
+\begin{itemize}
+\item \textit{Vectorisation} is the process of arranging a large numerical computing task so that it can be broken up into sub-tasks which can all be executed \textit{simultaneously} (ie: in parallel)
+\pause
+\item Element-wise addition of two arrays is an example of a task which is easy to vectorise
+	\begin{itemize}
+		\item Such tasks are often said to be \textit{embarrassingly parallel}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Vectorisation}
+\begin{itemize}
+\item In MATLAB all vector and matrix arithmetic is said to be vectorised
+	\begin{itemize}
+		\item A \texttt{for()} loop that processes an array is a \textit{linear} operation
+		\item This can be \textit{vectorised} by processing multiple array elements simultaneously
+	\end{itemize}
+\pause
+\item Unlike C, MATLAB is automatically \textit{multi-threaded}
+	\begin{itemize}
+		\item An arithmetic operation on a large array will be spread over multiple CPU cores to increase execution speed
+	\end{itemize}
+\item Run an example
+\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Maths Functions}
 \begin{itemize}
 \item MATLAB has hundreds (thousands?) of built-in functions
@@ -422,6 +451,9 @@ x = 0:0.1:2
 	\begin{enumerate}
 		\item Create a vector, \texttt{x}, that contains ``many'' elements going from $0$ to $2\pi$
 		\item Pass this vector to the \texttt{sin()} function
+			\begin{itemize}
+				\item This is an example of vectorisation
+			\end{itemize}
 		\item Run the plot command as plot(x, sin(x))
 	\end{enumerate}
 \item Do the above manually then repeat it from a script
