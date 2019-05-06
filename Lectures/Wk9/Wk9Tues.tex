@@ -114,7 +114,6 @@
 	\begin{itemize}
 		\item The language interpreter is running the whole time your code is running
 	\end{itemize}
-\pause
 
 \end{itemize}
 \end{frame}
@@ -131,6 +130,9 @@
 				\item Arrays automatically grow and shrink as needed
 			\end{itemize}
 		\item Allowing code snippets to easily be executed in isolation
+			\begin{itemize}
+				\item You can run single lines instantly by typing them into a command prompt
+			\end{itemize}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -261,7 +263,28 @@ x = [1 2 3; 4 5 6; 7 8 9]
 \pause
 \item Observe that MATLAB prints the result after each line
 \item Add a \texttt{;} to the end of a line to suppress the output
-\pause
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Other Initialisation Methods}
+\begin{itemize}
+\item MATLAB supports many other methods for ``creating'' data:
+	\begin{itemize}
+		\item Create a list of numbers from A to B with increment C with:
+\begin{lstlisting}[style=pseudo]
+x = A:C:B
+\end{lstlisting}
+eg:
+\begin{lstlisting}[style=pseudo]
+x = 0:0.1:2
+\end{lstlisting}
+\item Use the \texttt{linspace()} function
+	\begin{itemize}
+		\item View the help page and run an example
+	\end{itemize}
+	\item We can also read data from files; see this later
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -269,11 +292,146 @@ x = [1 2 3; 4 5 6; 7 8 9]
 \frametitle{Arithmetic}
 \begin{itemize}
 \item For scalar data, MATLAB supports all basic arithmetic operators just like C
+	\begin{itemize}
+		\item \texttt{+}
+		\item \texttt{-}
+		\item \texttt{/}
+		\item \texttt{*}
+	\end{itemize}
 \item It also supports exponents with \texttt{\^}
 	\begin{itemize}
 		\item Shift-6 on a US keyboard
 		\item In C, this means a bitwise exclusive-OR
 	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic}
+\begin{itemize}
+\item For vector and matrix data addition and subtraction is \textit{element-wise}
+	\begin{itemize}
+		\item The arguments should be the same size
+			\begin{itemize}
+				\item Or \textit{at least one} dimension must match but this is beyond ENGG1003 (and only supported on recent versions of MATLAB)
+			\end{itemize}
+		\item If the argument dimensions differ an error occurs
+	\end{itemize}
+\item Run some examples...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic}
+\begin{itemize}
+\item Vector and matrix multiplication and division are beyond ENGG1003
+	\begin{itemize}
+		\item You will learn matrix multiplication in MATH..something
+		\item Division is advanced: multiplication by \textit{matrix inverse}
+	\end{itemize}
+\pause
+\item However, you can do element-wise multiplication if the arguments are the same size
+	\begin{itemize}
+		\item This is done with special operators:
+			\begin{itemize}
+				\item \texttt{.*} Multiplication
+				\item \texttt{./} Division
+				\item \texttt{.\^} Exponent 
+			\end{itemize}
+	\end{itemize}
+\item Run some examples...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic}
+\begin{itemize}
+\item Final examples (for now):
+	\begin{itemize}
+		\item Scalar plus/minus vector/matrix adds/subtracts that scalar from every element
+		\item Scalar multiplication does the same
+		\item Scalar divided by vector/matrix causes an error (unless \texttt{./} is used)
+		\item Vector/matrix divided by scalar does an element-wise operation
+	\end{itemize}
+\item Run some examples...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Maths Functions}
+\begin{itemize}
+\item MATLAB has hundreds (thousands?) of built-in functions
+\item Lets play with trig functions
+\item Run an example of \textit{scalar} \texttt{sin()}
+\pause
+\item What about vectors and matrices?
+\pause
+\item Mathematics doesn't define what a ``matrix sine'' (etc) is
+\item MATLAB simply evaluates them element-wise
+\item Run an example
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scripts}
+\begin{itemize}
+\item MATLAB supports running source code from a file
+\item There is a built-in editor we can use to write (and debug) said files
+\item Long story short:
+	\begin{itemize}
+		\item Create a file with the editor
+		\item Save it with the \texttt{.m} extension
+		\item Click the ``run'' button
+	\end{itemize}
+\item Script files can also be run from the command prompt by typing their name \textit{without the \texttt{.m}}
+	\begin{itemize}
+		\item Prompt must have the correct ``working directory''
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Plotting}
+\begin{itemize}
+\item MATLAB has very powerful built-in plotting tools
+	\begin{itemize}
+		\item They are commonly used in academic literature
+		\item They make Excel plots look like something my 4 year old drew at daycare
+		\item An impressive example I found on Google images: \url{http://www.asu.cas.cz/~bezdek/vyzkum/rotating_3d_globe/rotating_3d_globe/manual.html}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Plotting}
+\begin{itemize}
+\item Basic 2D plotting is done with the \texttt{plot()} function
+\item It does the Excel equivalent of a scatter plot
+\item The first two arguments are vectors (1D arrays) listing x-y pairs of points
+\item Run a basic example...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Plotting}
+\begin{itemize}
+\item We can finally bring a few things together to do an interesting plot
+\pause
+\item Task: plot \texttt{sin(x)} from $0$ to $2\pi$
+\item Steps
+	\begin{enumerate}
+		\item Create a vector, \texttt{x}, that contains ``many'' elements going from $0$ to $2\pi$
+		\item Pass this vector to the \texttt{sin()} function
+		\item Run the plot command as plot(x, sin(x))
+	\end{enumerate}
+\item Do the above manually then repeat it from a script
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scripts And Scalar Arithmetic Example}
+\begin{itemize}
+\item Example: (From last year's slides) Write a MATLAB script which, given adequate physical data, calculates the rate at which the Sun loses mass due to nuclear fusion 
 \end{itemize}
 \end{frame}
 
