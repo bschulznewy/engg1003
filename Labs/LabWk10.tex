@@ -1,0 +1,47 @@
+\documentclass{lab}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{soul}
+\usepackage{multicol}
+
+\addtolength{\oddsidemargin}{-.4in}
+\addtolength{\evensidemargin}{-.4in}
+
+\title{ENGG1003 - Lab Week 10}
+\author{Brenton Schulz}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+Task types
+
+\begin{itemize}
+	\item Scalar equations
+		\begin{itemize}
+			\item $s=ut+\frac{1}{2}at^2$
+			\item Projectile motion, plots?
+		\end{itemize}
+\end{itemize}
+
+\begin{task}{Projectile Motion}{}
+Write a MATLAB script which plots the path of a particle undergoing projectile motion given its initial velocity. The velocity is specified as a speed, $v_0$, and angle from the horizon, $\theta$.
+\\~\\
+As the particle moves the horizontal, $x$, and vertical, $y$, displacements as a function of time, $t$, can be calculated as:
+\begin{align*}
+x &= v_0 t \cos(\theta) \\
+y &= v_0 t \sin(\theta) - \frac{1}{2}g t^2
+\end{align*}
+Where $g$ is acceleration due to gravity. If we choose positive $x$ to be ``upwards'' then $g$, in SI units, is $-9.8~{m/s^2}$
+Your code should declare a time vector which is long enough to plot the particle's path until it returns to $y=0$. This is achieved by declaring $t$ from 0 to:
+\begin{equation*}
+t = \frac{2 v_0 \sin(\theta)}{g}
+\end{equation*}
+To keep the output plot reasonably ``smooth'' declare $t$ with a few hundred to a thousand points. You may use the \texttt{linspace()} function or \texttt{start:interval:end} syntax to declare $t$.
+\\~\\
+\end{task}
+
+\end{document}
