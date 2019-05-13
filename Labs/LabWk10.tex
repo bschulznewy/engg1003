@@ -29,9 +29,9 @@ Write a MATLAB script which plots the path of a particle undergoing projectile m
 As the particle moves, the horizontal, $x$, and vertical, $y$, displacements as a function of time, $t$, can be calculated as:
 \begin{align*}
 x &= v_0 t \cos(\theta) \\
-y &= v_0 t \sin(\theta) - \frac{1}{2}g t^2
+y &= v_0 t \sin(\theta) + \frac{1}{2}g t^2
 \end{align*}
-where $g$ is acceleration due to gravity. If we choose positive $x$ to be ``upwards'' then $g$, in SI units, is $-9.8~{m/s^2}$.
+where $g$ is acceleration due to gravity. If we choose positive $y$ to be ``upwards'' then $g$, in SI units, is $-9.8~{m/s^2}$.
 \\~\\
 Your code should declare a time vector which is long enough to plot the particle's path until it returns to $y=0$. This is achieved by declaring $t$ from 0 to:
 \begin{equation*}
