@@ -1,0 +1,198 @@
+\documentclass{lab}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{soul}
+\usepackage{multicol}
+
+\addtolength{\oddsidemargin}{-.4in}
+\addtolength{\evensidemargin}{-.4in}
+
+\title{ENGG1003 - Practice Questions}
+\author{Brenton Schulz}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{C}
+
+\begin{enumerate}
+\item What is the value of the variable \texttt{sum} if the user enters ``\texttt{2.0}'' each time they are prompted?
+\begin{lstlisting}[style=CStyle]
+float x, sum;
+int i;
+sum = 10.0;
+for (i = 10; i > 1; i-=2) {
+	printf("Enter a number:");
+	scanf("%f", &x);
+	sum += x;
+}
+\end{lstlisting}
+
+\item What is the output from the following C code?
+
+\begin{lstlisting}[style=CStyle]
+void fName() {
+	int x, i;
+	x = 1;
+	for (i = 1; i < 10; i++) {
+		if !(i <= 6)
+			i = 10;
+		if (i == 4) || (i == 5)
+			x = x + i;
+		if (i == 3)
+			x = x – i;
+		else
+			x = x + 1;
+
+	}
+	printf("x = %d \n", x);
+}
+\end{lstlisting}
+
+\item What is stored in each variable at
+the end of the execution of the C language code below?
+
+\begin{lstlisting}[style=CStyle]
+int num1, num2, num3;
+num1 = 1;
+num2 = 2;
+num3 = 3;
+num1 = num1 * num2;
+num2 = num1 / num2;
+num3 = pow(num2,2);
+\end{lstlisting}
+
+The \texttt{pow()} function is documented in the gcc manual as follows:
+
+\begin{lstlisting}[style=pseudo]
+double pow(double x, double y);
+
+These functions return the value of x raised to the power of y.
+\end{lstlisting}
+
+\pagebreak
+\item What is the output of the following C code?
+
+\begin{lstlisting}[style=CStyle]
+int main (void) {
+	int arr[] = {1, 2, 5, 3, 10, 4};
+	int counter = arr[4];
+	int number = 0;
+	
+	while (counter > arr[2]) {
+		counter -= 1;
+		number += arr[counter];
+	}
+	printf(“number = %d \n”, number);
+	return (0);
+}
+\end{lstlisting}
+
+\item The following C function contains 6 syntax errors, identify them and write the
+correct statements.
+
+\begin{lstlisting}[style=CStyle]
+double finalExam_Q1_5() {
+	int x; i;
+	x = 2;
+	for (i = 1; i < 10; i++) {
+		if !(0 >= i <= 8)
+			i == 10;
+		if (i == 5) | (i == 7)
+			x = x + i;
+		if (i == 4)
+			x =- 4;
+	}
+return (x);
+}
+\end{lstlisting}
+
+\item Declare a string str that can store up to 300 characters. Initialise it with the value ``All Good''.
+
+\item Write a function with the prototype \texttt{int partialSum(const int[], int, int)} that will take as input an array of integers, an integer of the size of the array and an integer representing an array position less than or equal to the array size. The function will return the sum of the array values from the given array position to the end of the array (final position), or -1 if the position given is higher than the array size (You are not required to write a complete program, just the function outlined above).
+
+\pagebreak
+\section{MATLAB}
+
+\item What is the result of the following commands? Please indicate the final state of the variables declared; the last value of “ans”; the text printed; or a Matlab-interpreter error; depending on the item.
+
+	\begin{enumerate}
+\item \texttt{>>a = 10:4}
+\item \texttt{>>a = 2:3:13}
+\item \texttt{>>a = [4 6; 1 3]}
+\item \texttt{>>a = [2 4 6 ; 1 6 7 4]}
+\item \texttt{>>a = [1; 2; 3; 4]}
+
+\item \texttt{>>a = [1 0 -3]}\\
+\texttt{>>b = [4 5 6]}\\
+\texttt{>>a*b}
+
+\item \texttt{>>a = [1 1 3]}\\
+\texttt{>>b = [4; 0; 2]}\\
+\texttt{>>a*b}
+
+\item \texttt{>>a = [1 5 1]}\\
+\texttt{>>b = [4 0 6]}\\
+\texttt{>>a.*b}
+
+\item \texttt{>>a = [-1 2 4]}\\
+\texttt{>>b = [0; 5; 1]}\\
+\texttt{>>a.*b}
+
+\item \texttt{>>a = [2 3 8 7 10]} \\
+\texttt{>>b = [4 2 6 10 15]} \\
+\texttt{>>a<b}
+
+\item \texttt{>>for a=1:3:8\\
+b = a-1\\
+end}
+	\end{enumerate}
+
+\item Write a MATLAB function which calculates $e$ with the following formula:
+
+\begin{equation}
+e = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \frac{1}{4!} + ... = \sum_{n=0}^N \frac{1}{n!}.
+\end{equation}
+
+The function prototype\footnote{The MATLAB documentation calls this a function \textit{signature} but I'm using the term \textit{prototype} because you know what this means after studying C.} is:
+
+\begin{lstlisting}[style=pseudo]
+function [eValue] = eCalc(N)
+\end{lstlisting}
+
+and the argument \texttt{n} specifies now many terms should be summed together.
+
+You must calculate \texttt{factorial(n)} with loops.
+
+\item Create a function with the prototype
+
+\texttt{function stats = maxMinMean(x)}
+
+which returns a vector \texttt{stats} which contains the maximum, minimum, and mean of the vector \texttt{x}. The return variable should contain the maximum in \texttt{stats(1)}, minimum in \texttt{stats(2)} and mean in \texttt{stats(3)}.
+For example:
+if \texttt{x = [3 -1 4]}, the return value should be \texttt{stats = [4, -1, 2]}.
+
+You should implement just the function maxMinMean and use for-loops. DO NOT use the Matlab functions max, min or mean.
+
+\item Write a MATLAB function with the prototype
+\begin{lstlisting}[style=pseudo]
+function [y] = sumProd(x)
+\end{lstlisting}
+
+which uses the \textit{vector} argument \texttt{x} in the following formula:
+
+\begin{equation}
+y = \frac{\sum x}{\prod x}
+\end{equation}
+
+ie: it returns the sum of all elements in \texttt{x} divided by the product of all elements in \texttt{x}.
+
+For practice, implement the function twice. Once with  the built-in functions \texttt{sum()} and \texttt{prod()} and then again with \texttt{for} loops. Compare the execution speed of the two implementations with \texttt{tic-toc}.
+
+\item Write a MATLAB script which calculates the first \texttt{N} values of the Fibonacci sequence. The variable \texttt{N} should be initialised near the top of the script and a the result stored in a variable \texttt{fibSeq}.
+
+\end{enumerate}
+
+\end{document}
