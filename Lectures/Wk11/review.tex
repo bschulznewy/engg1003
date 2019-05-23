@@ -42,7 +42,7 @@ void fName() {
 		if (i == 4) || (i == 5)
 			x = x + i;
 		if (i == 3)
-			x = x – i;
+			x = x - i;
 		else
 			x = x + 1;
 
@@ -85,7 +85,7 @@ int main (void) {
 		counter -= 1;
 		number += arr[counter];
 	}
-	printf(“number = %d \n”, number);
+	printf("number = %d \n", number);
 	return (0);
 }
 \end{lstlisting}
@@ -119,7 +119,7 @@ return (x);
 \item What is the result of the following commands? Please indicate the final state of the variables declared; the last value of “ans”; the text printed; or a Matlab-interpreter error; depending on the item.
 
 	\begin{enumerate}
-\item \texttt{>>a = 10:4}
+\item \texttt{>>a = 4:10}
 \item \texttt{>>a = 2:3:13}
 \item \texttt{>>a = [4 6; 1 3]}
 \item \texttt{>>a = [2 4 6 ; 1 6 7 4]}
@@ -127,18 +127,10 @@ return (x);
 
 \item \texttt{>>a = [1 0 -3]}\\
 \texttt{>>b = [4 5 6]}\\
-\texttt{>>a*b}
-
-\item \texttt{>>a = [1 1 3]}\\
-\texttt{>>b = [4; 0; 2]}\\
-\texttt{>>a*b}
+\texttt{>>a+b}
 
 \item \texttt{>>a = [1 5 1]}\\
 \texttt{>>b = [4 0 6]}\\
-\texttt{>>a.*b}
-
-\item \texttt{>>a = [-1 2 4]}\\
-\texttt{>>b = [0; 5; 1]}\\
 \texttt{>>a.*b}
 
 \item \texttt{>>a = [2 3 8 7 10]} \\
@@ -162,7 +154,7 @@ The function prototype\footnote{The MATLAB documentation calls this a function \
 function [eValue] = eCalc(N)
 \end{lstlisting}
 
-and the argument \texttt{n} specifies now many terms should be summed together.
+and the argument \texttt{N} specifies now many terms should be summed together.
 
 You must calculate \texttt{factorial(n)} with loops.
 
