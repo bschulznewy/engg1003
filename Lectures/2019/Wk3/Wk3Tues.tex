@@ -1,0 +1,959 @@
+\documentclass[14pt]{beamer}
+\usetheme{Dresden}
+\usecolortheme{orchid}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinestyle{Ctable}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT,READ},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Tuesday Week 3}
+\subtitle{What does \texttt{=} \textit{Really} do?\\More Flow Control}
+\author{Brenton Schulz}
+\institute{University of Newcastle}
+\date{\today}
+
+\begin{document}
+\titlepage
+
+\begin{frame}
+\frametitle{Eclipse Che Feedback}
+\begin{itemize}
+\item Thanks to the 50-odd students who tested it!
+\item Turns out Che (specifically: Docker) has a limit of 30 \textit{concurrent} users
+\item Three servers are now online
+\item They do \textit{not} share data
+\item Use git to move projects between them
+	\begin{itemize}
+		\item Documentation is in progress...
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Server Allocation}
+\begin{itemize}
+\item The three servers are:
+	\begin{itemize}
+		\item \url{che1.vk2dds.net:8080}
+		\item \url{che2.vk2dds.net:8080}
+		\item \url{che3.vk2dds.net:8080}
+	\end{itemize}
+\item Allocation formula is:
+\begin{equation}
+<\textrm{your student number}> \texttt{\%} 3 + 1
+\end{equation}
+\item \underline{\href{https://www.google.com.au/search?ei=NryGXNinIIiS9QOwvZQw&q=3094552}{Google will calculate it}}
+\item Log, I will use it during the lecture
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Eclipse Che Factory Links}
+\begin{itemize}
+\item che1: \url{http://che1.vk2dds.net:8080/f?id=factorypqq4zicbo4hin59w}
+\item che2: \url{http://che2.vk2dds.net:8080/f?id=factorynhhgh4tkbklv5t4j}
+\item che3: \url{http://che3.vk2dds.net:8080/f?id=factoryuz95ni8w4inv4wch}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Who Should Pass This Subject?}
+\begin{itemize}
+\item Everything is new, I will get things wrong, but:
+\item My \textit{intention} is that if:
+	\begin{itemize}
+		\item You attend (or watch) all lectures
+		\item You attend all labs
+		\item You read all course material
+		\item You attempt problems \textit{in your own time}
+		\item You follow all instructions in lab notes
+		\item You chase up with demonstrators, me, textbooks, YouTube, etc any concepts you don't understand
+	\end{itemize}
+\item ...then you should confidently pass.
+\item tl;dr You should have to work hard to earn a fail
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{What Even \textit{is} a Pass?}
+From the course outline: \\
+~\\
+Satisfactory standard indicating an adequate knowledge and understanding of the relevant materials; demonstration of an adequate level of academic achievement; satisfactory development of skills; and achivement of all learning outcomes.
+\end{frame}
+
+\begin{frame}
+\frametitle{What is a High Distinction?}
+
+Outstanding standard indicating comprehensive knowledge and understanding of the relevant materials; demonstration of an outstanding level of academic achievement; mastery of skills; and achivement of all assessment objectives.
+\end{frame}
+
+\begin{frame}
+\frametitle{Grade Expectations}
+\begin{itemize}
+\item You get a ``pass'' if you learn enough that you won't \textit{obviously fail} later courses
+\item You get a HD if you thoroughly understood \textit{everything} and can recall and apply any relevant piece of course content to a problem, showing a sound level of engineering judgement in doing so
+\item If ``too many'' students earn Ds or HDs it is cause for change
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Revision}
+\begin{itemize}
+\item In mathematics, an \textit{iterative} (or \textit{recursive}) equation is written:
+\begin{equation}
+x_n = x_{n-1} + 1
+\end{equation}
+\item In programming, the change with time is implicit with program execution when we write:\\
+\begin{equation}
+\texttt{x = x + 1;}
+\end{equation}
+\item The \texttt{=} operator is \texttt{assignment} and overwrites (destroys) the variable's previous value
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item The \textit{Fibonacci Sequence} is the list of numbers, starting with 0 and 1, where each number is the sum of the two which came before it
+
+\item ie: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
+
+\item This sequence has interesting properties, eg:
+	\begin{itemize}
+		\item Its members appear in nature \textit{for some reason}
+		\item The ratio of successive numbers converges towards the golden ratio: $\phi \approx 1.618$
+		\item This has applications in art. eg: 16:10 screen ratio is 1.6 (16:9 can bite my shiny metal...)
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Mathematically, we can write this as a list of numbers, $x_0,x_1, x_2, x_3, ... , x_n$, where:
+\begin{equation}
+x_n = x_{n-1} + x_{n-2}
+\end{equation}
+and:
+\begin{align}
+x_0 &= 0\\
+x_1 &= 1
+\end{align}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic Sequences in General}
+\begin{itemize}
+\item Sequences seen in HSC mathematics are a subset of \textit{constant-recursive sequences}
+\item \textit{Linear} sequences have the form:
+\begin{equation}\label{eq:sequences}
+x_n = b_1x_{n-1} + b_2x_{n-2} + ... + b_Nx_{n-N}
+\end{equation}
+\item Where $b_1$, $b_2$, etc are constant real numbers
+\item ie: Each number, $x_n$, is a \textit{linear combination} of the $N$ numbers before it
+\item The Fibonacci sequence is Equation \eqref{eq:sequences} with $b_1 = 1$, $b_2 = 1$, $N = 2$, $x_0 = 0$, and $x_1 = 1$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item \textbf{Task:} Write a C program which outputs the Fibonacci Sequence for all integers small enough to fit into an \texttt{int}.
+\item Lets break this into two problems:
+	\begin{enumerate}
+		\item Calculate the Fibonacci Sequence
+		\item Worry about the stop condition
+	\end{enumerate}
+\item Always try to break programming problems down into small chunks
+\item Real-world problems are too difficult to complete ``all in one go''
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+	\item How do we calculate the Fibonacci Sequence?
+	\item Note that we need to keep track of \textit{three} numbers:
+		\begin{itemize}
+			\item The next number, $x_n$
+			\item The previous two numbers, $x_{n-1}$ and $x_{n-2}$
+		\end{itemize}
+	\item Lets also remember $n$
+	\item I will use these variable names:
+		\begin{lstlisting}[style=CStyle]
+int n;
+int xN;		// x N
+int xNm1; // N minus 1
+int xNm2; // N minus 2
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Aside: We might want to \textit{remember} the whole sequence
+\item This would require all numbers to be stored as unique variables
+\item Declaring hundreds (or millions) of variables is impractical
+\item The concept of \textit{arrays} will be introduced later to deal with this
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Lets sketch out what happens to these variables \textit{by hand}
+\item Start at \texttt{n=2}, as that is the first unknown
+\texttt{
+\begin{table}[H]
+\begin{tabular}{cccc}
+n & xNm2 & xNm1 & xN \\
+\hline
+2 & 0    & 1    & 1  \\
+3 & 1    & 1    & 2  \\
+4 & 1    & 2    & 3  \\
+5 & 2    & 3    & 5 \\
+\end{tabular}
+\end{table}
+}
+\item See the pattern? Numbers shift diagonally down to the left.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Each time a new number is calculated, what happens to the variables?
+\item All 3 variables change, the order in which they change is \underline{\textbf{crucial}}:
+	\begin{lstlisting}[style=CStyle]
+xN = xNm1 + xNm2; // Calculate next value
+xNm2 = xNm1;//Move old values "down the chain"
+xNm1 = xN;
+\end{lstlisting}
+\item With \texttt{=} the old \texttt{\textit{lvalue}} is lost
+\item Note that the \textit{oldest} value is overwritten first
+	\begin{itemize}
+		\item It is the one which is no longer needed
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{L and R-Values}
+\begin{itemize}
+\item Oops, I used new jargon...
+\item An \textit{lvalue} is something that goes to the left of an \texttt{=} operator
+\item Likewise, the right side is an \textit{rvalue}
+\item Not everything is a valid L- or R-value
+\item Lvalues have to be variables
+\item The following generate errors:
+	\begin{itemize}
+		\item \texttt{4 = x;}
+		\item \texttt{rand() = 2;}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+	\item Lets sketch some pseudocode to calculate the first 20 or so values:
+	\begin{lstlisting}[style=pseudo]
+BEGIN
+	int xNm2 = 0
+	int xNm1 = 1
+	int xN
+	int n = 2
+	WHILE n < 20
+		xN = xNm1 + xNm2
+		PRINT xN
+		n = n + 1
+		xNm2 = xNm1
+		xNm1 = xN
+	ENDWHILE
+END
+	\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+...and convert it to C:
+\begin{table}[H]
+\centering
+
+\begin{tabular}{ll}
+\hline
+
+\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\footnotesize]
+BEGIN
+	int xNm2 = 0
+	int xNm1 = 1
+	int xN
+	int n = 2
+	WHILE n < 20
+		xN = xNm1 + xNm2
+		PRINT xN
+		n = n + 1
+		xNm2 = xNm1
+		xNm1 = xN
+	ENDWHILE
+END
+\end{lstlisting} &
+
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\footnotesize]
+int main() {
+	int xNm2 = 0;
+	int xNm1 = 1;
+	int xN;
+	int n = 2;
+	while(n < 20) {
+		xN = xNm1 + xNm2;
+		printf("%d\n", xN);
+		n++;
+		xNm2 = xNm1;
+		xNm1 = xN;
+	}
+}
+\end{lstlisting}
+\\
+
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{center}
+For everyone on Che, copy this link:\\
+\url{https://github.com/bschulznewy/fibonacci.git} \\
+and import into Che as I demonstrate
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item Does the code work?
+\item Compare with: \url{https://www.wolframalpha.com/input/?i=first+20+fibonacci+sequence}
+\item What about the 2nd requirement in the original problem?
+\item How to tell if next value \textit{exceeds} an \texttt{int}?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item There are a few solutions:
+	\begin{itemize}
+		\item Calculate \texttt{xN}, see if result \textit{overflowed}
+		\item Do calculation as \texttt{unsigned int} (or \texttt{long}) and compare with \texttt{INT\_MAX}
+		\begin{itemize}
+			\item \texttt{INT\_MAX} is defined in \texttt{limits.h}
+			\item \texttt{\#include $<$limits.h$>$} if you want to use it
+			\item It includes the line:
+			\begin{lstlisting}[style=CStyle]
+#define INT_MAX	2147483647
+\end{lstlisting}
+			\item We will learn about \texttt{\#define} later
+		\end{itemize}
+	\end{itemize}
+\item In this context we can't run with a fixed iteration limit as that is ``unknown'' until the program is executed
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{itemize}
+\item If overflow occurs when using \texttt{int} then the result of a calculation which \textit{should} be positive will be negative
+\item Lets test for overflow with:\\
+\begin{lstlisting}[style=CStyle]
+if(xNm1 + xNm2 > 0) {
+	// Do an iteration
+}
+\end{lstlisting}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\footnotesize]
+int main() {
+	int xNm2 = 0, xNm1 = 1;
+	int xN;
+	int n = 1;
+	while(xNm1 + xNm2 > 0) {
+		xN = xNm1 + xNm2;
+		printf("%d\n", xN);
+		n++;
+		xNm2 = xNm1;
+		xNm1 = xN;
+	}
+}
+\end{lstlisting}
+\begin{itemize}
+\item \textbf{NB:} If \textit{optimisation} is enabled the calculation of \texttt{xNm1 + xNm2} will only occur once
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fibonacci Sequence}
+Or, pre-testing overflow with \texttt{unsigned int}:
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\footnotesize]
+(unsigned int)xNm1 + (unsigned int)xNm2 < 2147483647u)
+\end{lstlisting}
+Lets try this one in Che...
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item Same as WHILE except executes \textit{at least once}
+\item The condition is tested at the end
+\item Loops repeats if condition is TRUE
+\item Pseudocode syntax:
+\begin{lstlisting}[style=pseudo]
+DO
+	stuff
+WHILE condition
+\end{lstlisting}
+\item C syntax:
+\begin{lstlisting}[style=CStyle]
+do {
+	// do stuff
+} while(condition);
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item A toy example in C:
+\begin{lstlisting}[style=CStyle]
+int main() {
+	int x = 0;
+	do {
+		x = x - 1;
+	} while(x > 0);
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item A slightly less toy example:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	int x;
+	do {
+		printf("Enter an integer: ");
+		scanf("%d", &x);
+		if(x%2==0)
+			printf("%d is even\n", x);
+		else
+			printf("%d is odd\n", x);
+	} while(x >= 0);
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE}
+\begin{itemize}
+\item \textbf{NB:} The previous example had:
+\begin{lstlisting}[style=CStyle]
+		if(x%2==0)
+			printf("%d is even\n", x);
+		else
+			printf("%d is odd\n", x);
+\end{lstlisting}
+\item The \{ \} block is optional if \textit{only one statement} is after an \texttt{if()}, \texttt{while()}, etc
+\item I omitted it to reduce line count so that the code would fit on the slide
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{DO ... WHILE is Optional}
+\begin{itemize}
+	\item It is never \textit{absolutely necessary}
+	\item But sometimes it is easier or neater
+\end{itemize}
+\vspace{-5mm}
+\begin{table}[H]
+\centering
+
+\begin{tabular}{ll}
+\texttt{while()} & \texttt{do while();} \\
+\hline
+
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\scriptsize]
+int x = 1;
+while(x >= 0) {
+	printf("Enter an integer: ");
+	scanf("%d", &x);
+	if(x%2==0)
+		printf("%d is even\n", x);
+	else
+		printf("%d is odd\n", x);
+}
+\end{lstlisting} &
+
+\begin{lstlisting}[style=Ctable,basicstyle=\ttfamily\scriptsize]
+int x; // Uninitialised
+do {
+	printf("Enter an integer: ");
+	scanf("%d", &x);
+	if(x%2==0)
+		printf("%d is even\n", x);
+	else
+		printf("%d is odd\n", x);
+} while(x >= 0);
+\end{lstlisting}
+\\
+
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops}
+\begin{itemize}
+\item A FOR loop loops a given number of times
+\item Typically used when the number of loop repeats is known \textit{before} entering the loop
+	\begin{itemize}
+		\item Repeat count could be ``hard coded'' as a number
+		\item Could also be a variable
+	\end{itemize}
+\item Can be easier to read than WHILE
+\item Example pseudocode syntax:
+\begin{lstlisting}[style=pseudo]
+FOR x = 1 to 10
+	Do something ten times
+ENDFOR
+\end{lstlisting}
+\item The \textit{loop variable} is automatically incremented
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops in C}
+\begin{itemize}
+\item The C FOR loop syntax is:
+\begin{lstlisting}[style=CStyle]
+for( initial ; condition ; increment ) {
+	// Loop block
+}
+\end{lstlisting}
+\item Where:
+	\begin{itemize}
+		\item \texttt{initial} is a statement executed \textit{once}
+		\item \texttt{condition} is a statement executed and tested \textit{before} every loop iteration
+		\item \texttt{increment} is a statement executed \textit{after} every loop iteration, but \textit{before} the \texttt{condition} is tested
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops in C}
+\begin{lstlisting}[style=CStyle]
+for( x = 0 ; x < 10 ; x++ ) {
+	printf("%d\n", x);
+}
+\end{lstlisting}
+\begin{itemize}
+\item Run this code
+\item Observe that:
+	\begin{itemize}
+		\item 0 is printed
+		\item 10 is \textbf{not} printed
+		\item \texttt{x} increments automatically
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{FOR Example 1 - Factorials}
+\begin{itemize}
+\item Use FOR to count from 2 to our input number
+\item Keep a running product as we go
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	INPUT x
+	result = 1
+	FOR k = 2 TO x
+		result = result * k
+	ENDFOR
+END
+\end{lstlisting}
+\item Is this algorithm robust? What happens if:
+	\begin{itemize}
+		\item x = -1
+		\item x = 1
+		\item x = 0 (\textbf{NB:} 0! = 1 because \textit{maths})
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{BREAK Statements}
+\begin{itemize}
+\item Sometimes you want to exit a loop \textit{before} the condition is re-tested
+\item The flow-control mechanism for this is a BREAK statement
+\item If executed, the loop quits
+\item BREAKs typically go inside an IF
+\item It adds an extra condition on loop exit placed at any point in the loop
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{FOR Example 2}
+\begin{itemize}
+\item Two equivalent ways to implement the $\cos()$ series from before are:
+\end{itemize}
+{\small\textbf{NB:} $|$\texttt{tmp}$|$ means ``absolute value of tmp''.}
+\begin{multicols}{2}
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT x
+	sum = 0
+	FOR k = 0 to 10
+		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
+		sum = sum + tmp
+		IF |tmp| < 1e-6
+			BREAK
+		ENDIF
+	ENDWHILE 
+END
+\end{lstlisting}
+\columnbreak
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT x
+	tmp = 1
+	k = 0
+	sum = 0
+	WHILE (k<10)AND(|tmp|>1e-6)
+		tmp = $\frac{(-1)^k x^{2k}}{(2k)!}$
+		sum = sum + tmp
+		k = k + 1
+	ENDWHILE 
+END
+\end{lstlisting}
+
+\end{multicols}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{FOR Loops in C (Advanced)}
+\begin{itemize}
+\item \texttt{for()} syntax allows multiple expressions in the \texttt{inital} / \texttt{condition} /\texttt{increment} sections
+\item Separate expressions with commas
+\item eg:
+\begin{lstlisting}[style=CStyle]
+int x, y=10;
+for( x = 0 ; x < 10 ; x++, y++ ) {
+	printf("x: %d y: %d\n", x, y);
+}
+\end{lstlisting}
+\item This increments both \texttt{x} and \texttt{y} but only \texttt{x} is used in the condition
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Loop \texttt{continue} Statements}
+\begin{itemize}
+	\item A \texttt{continue} causes execution to jump back to the loop start
+	\item The \textit{condition} is tested before reentry	
+	\item eg, run this in the Che debugger:
+	\begin{lstlisting}[style=CStyle]
+int x;
+for(x = 0; x < 10; x++) {
+	if(x%2 == 0)
+		continue;
+	printf("%d is odd\n");
+}
+\end{lstlisting}
+\item {\small(Not the best example but gets the point across)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{break} and \texttt{continue}}
+\begin{itemize}
+\item Some programmers claim that \texttt{break} and \texttt{continue} are ``naughty''
+\item Well, yes, but actually no
+\item They can make your code needlessly complicated
+\item They might make it simpler
+\item It is up to you to judge
+\item As engineers you shouldn't follow strict rules
+\item Always try to choose the best tool for the job
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{GOTO}
+\begin{itemize}
+\item There exists a GOTO flow control mechanism
+	\begin{itemize}
+		\item Sometimes also called a \textit{branch}
+	\end{itemize}
+\item It ``jumps'' from one line to a different line
+	\begin{itemize}
+		\item An ability some consider to be unnatural
+	\end{itemize}
+\item It exists for a purpose
+\item That purpose does not (typically) exist when writing C code
+	\begin{itemize}
+		\item C \textit{supports} a \texttt{goto} statement
+		\item It results in ``spaghetti code'' which is hard to read
+		\item Don't use it in ENGG1003
+	\end{itemize}
+\item You \textit{must} use branch instructions in ELEC1710
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Loose End Increment Example}
+\begin{lstlisting}[style=CStyle,caption=\texttt{increment.c}]
+#include <stdio.h>
+int main() {
+	int x = 0;
+	int y = 0;
+	int z = 0;
+	y = ++x + 10;
+	printf("Pre-increment: %d\n", y);
+	y = z++ + 10;
+	printf("Post-increment: %d\n", y);
+	return 0;
+}
+\end{lstlisting}
+Pre/post-inc/decrements have many applications, more details in coming weeks.
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Nomenclature}
+\begin{itemize}
+\item The value range is a result of the underlying binary storage mechanism
+\item A single binary digit is called a \textit{bit}
+\item There are 8 bits in a \textit{byte}
+\item In programming we use the ``power of two'' definitions of kB, MB, etc:
+	\begin{itemize}
+		\item 1 kilobyte is $2^{10} = 1024$ bytes
+		\item 1 Megabyte is $2^{20} = 1048576$ bytes
+		\item 1 Gigabyte is $2^{30} = 1073741824$ bytes
+		\item (Advanced) These numbers look better in hex: \texttt{0x3FF}, \texttt{0xFFFFF}, etc.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Nomenclature}
+\begin{itemize}
+\item Observe that kilobyte, Megabyte, Gigabyte, etc use scientific prefixes
+\item These \textit{normally} mean a power of 10:
+	\begin{itemize}
+		\item kilo- = $10^3$
+		\item Mega- = $10^6$
+		\item Giga- = $10^9$
+		\item ...etc (see the inside cover of a physics text)
+	\end{itemize}
+\item Computer science stole these terms and re-defined them
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Binary Nomenclature}
+\begin{itemize}
+\item This has made some people \textit{illogically angry}
+\item Instead, we can use a more modern standard:
+	\begin{itemize}
+		\item $2^{10}$ bytes = 1 kibiByte (KiB)
+		\item $2^{20}$ bytes = 1 Mebibyte (MiB)
+		\item $2^{30}$ bytes = 1 Gibibyte (GiB)
+		\item ...etc
+	\end{itemize}
+\item Generally speaking, KB (etc) implies:
+	\begin{itemize}
+		\item powers of two to \textit{engineers}
+		\item powers of ten to \textit{marketing}
+			\begin{itemize}
+				\item The number is smaller
+				\item Hard drive manufacturers, ISPs, etc like this
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Unambiguous Integer Data Types}
+\begin{itemize}
+\item Because the standard \texttt{int} and \texttt{long} data types don't have fixed size unambiguous types exist
+\item Under OnlineGDB (ie: Linux with \texttt{gcc}) these are defined in \texttt{stdint.h} (\texttt{\#include} it)
+\item You will see them used commonly in embedded systems programming (eg: Arduino code)
+\item The types are:
+	\begin{itemize}
+		\item \texttt{int8\_t}
+		\item \texttt{uint8\_t}
+		\item \texttt{int16\_t}
+		\item ...etc
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code Blocks in C}
+\begin{itemize}
+\item Semi-revision:
+\item The curly braces \{ \} encompass a \textit{block}
+\item You have used these with \texttt{if()} and \texttt{while()}
+\item They define the set of lines executed inside the \texttt{if()} or \texttt{while()}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code Blocks in C}
+\begin{itemize}
+\item You can place blocks anywhere you like
+\item Nothing wrong with:
+\begin{lstlisting}[style=CStyle]
+int main() {
+	int x;
+	{
+		printf("%d\n", x);
+	}
+	return 0;
+}
+\end{lstlisting}
+\item This just places the \texttt{printf();} inside a block
+\item It doesn't do anything useful, but...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variable Scope}
+\begin{itemize}
+\item A variable's ``existence'' is limited to the block where it is declared
+	\begin{itemize}
+		\item Plus any blocks within that one
+	\end{itemize}
+\item Example this code won't compile:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	int x = 2;
+	if(x == 2) {
+		int k;
+		k = 2*x;
+	}
+	printf("%d\n", k);
+	return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variable Scope}
+\begin{itemize}
+\item Note that \texttt{k} was declared inside the \texttt{if()}
+\item That means that it no longer exists when the \texttt{if()} has finished
+\item This generates a compiler error
+\item It frees up some RAM
+\item It also lets the variable's name be reused elsewhere
+	\begin{itemize}
+		\item This can be \textit{really} confusing. Be careful.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+Oh, end of the lecture already?
+Lets go read the lab notes...
+\end{center}
+\end{frame}
+
+
+
+\end{document}
