@@ -1,0 +1,592 @@
+\documentclass[14pt]{beamer}
+\usetheme{Dresden}
+\usecolortheme{orchid}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Tuesday Week 1}
+\subtitle{Algorithms and Pseudocode}
+\author{Brenton Schulz}
+\institute{University of Newcastle}
+\date{\today}
+
+\begin{document}
+\titlepage
+
+\begin{frame} % Algo defn
+\frametitle{Algorithms}
+\begin{itemize}
+\item Informally, an \textit{algorithm} is a series of steps which accomplishes a task
+\item More accurately, the steps (instructions) must:
+	\begin{itemize}
+		\item Have a strict order
+		\item Be unambiguous
+		\item Be executable
+	\end{itemize}
+\item ``Executable" means that the \textit{target platform} is capable of performing that task.
+	\begin{itemize}
+		\item eg: An industrial welding robot can execute ``move welding tip 1~cm left". A mobile phone can't.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame} % Algo communication
+\frametitle{Algorithms}
+\begin{itemize}
+\item An algorithm exists purely as an abstract concept until it is communicated
+\item We will use:
+	\begin{itemize}
+	\item \textit{Pseudocode} to communicate algorithms to ourselves and other people
+	\item The languages C and MATLAB to communicate algorithms to computers
+	\end{itemize}
+\item Pseudocode \textit{can} be very formal, but as engineers we will only use formal rules if required
+	\begin{itemize}
+		\item eg: When documenting algorithms for other people
+		\item Your own ``working out'' can be anything that helps \textit{you}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile] % car starting example
+
+\frametitle{Algorithm Example 1}
+{\footnotesize
+\textbf{Name:} Algorithm given to mum to start my car (2015 Tarago) \\
+\textbf{Result:} The vehicle's engine is idling \\
+\textbf{Initialisation:} stand next to the vehicle, key fob in hand 
+\begin{enumerate}
+\setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+\item Depress the unlock button on the key fob, car will beep twice
+\item Place key fob in your pocket
+\item Enter the vehicle, sit in the driver's seat
+\item Ensure that the gear selector has P engaged
+\item Depress the brake pedal
+\item Press the engine start button
+\item Wait 5 seconds
+\item If engine is not idling
+	\begin{itemize}
+		\footnotesize{
+		\item Call me}
+	\end{itemize}
+\end{enumerate}
+}
+\end{frame}
+
+\begin{frame} % Car algo discussion
+\frametitle{Example Discussion}
+\begin{itemize}
+\item Algorithms typically need to feel over-explained
+	\begin{itemize}
+		\item Computers are \textit{really stupid}; get in the habit of over-thinking everything
+	\end{itemize}
+\item The algorithm contained \textit{flow control} in the form of an ``if'' statement
+	\begin{itemize}
+		\item The final step (``call me") was \textit{conditional} on the car not starting
+	\end{itemize}
+\item We will discuss conditional logical statements later, but first...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm Example 2}
+A wife asks her husband, a programmer, ``Could you please go shopping for me and buy one carton of milk, and if they have eggs, get 6?”
+\linebreak \linebreak
+A short time later the husband comes back with 6 cartons of milk and his wife asks, ``Why did you buy 6 cartons of milk?”
+\linebreak \linebreak
+He replies, “They had eggs.”
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm Example 2a}
+\textit{Lets make this more realistic.}
+\linebreak \linebreak
+A wife asks her robot helper, ``Could you please go shopping for me and buy one carton of milk, and if they have eggs, get 6?”
+\linebreak \linebreak
+The robot replies: ``Unknown instruction: `get 6'. ''
+\end{frame}
+
+\begin{frame}
+\frametitle{Flow Control}
+\begin{itemize}
+\item Instructions in an algorithm execute in an ordered list
+	\begin{itemize}
+		\item ie: top to bottom
+	\end{itemize}
+\item Flow Control is any algorithmic mechanism which changes the default ``top to bottom'' execution behaviour
+\item We will discuss IF statements and \textit{loops}
+\item Flow control (almost) always requires a \textit{condition}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conditions}
+\begin{itemize}
+\item Computers don't understand ``maybe''
+\item A \textit{condition} must be absolutely \textbf{true} or \textbf{false}
+\item Human examples:
+	\begin{itemize}
+		\item I am within the boundary of the Callaghan campus
+		\item I am alive
+		\item My net worth is below AU\$100M
+	\end{itemize}
+\item Computer examples:
+	\begin{itemize}
+		\item \texttt{i} is less than 184
+		\item \texttt{x} plus \texttt{y} is not equal to zero
+		\item Input data has been given to the program
+		\item A division by zero has occurred
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Code Blocks}
+\begin{itemize}
+\item A \textit{block} is a set of instructions which are grouped together
+\item If a single condition controls multiple instructions they can go together in a block
+\item A block is typically indicated via indentation
+\item Eg:
+\begin{lstlisting}[style=pseudo]
+IF it is raining
+	Pack an umbrella
+	Drive to campus instead of walking
+	Leave home 40mins early to find parking
+ENDIF
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{IF Variants}
+\begin{itemize}
+\item There are several versions of IF flow control:
+	\begin{itemize}
+		\item IF ... ENDIF
+		\item IF ... ELSE ... ENDIF
+		\item IF ... ELSEIF ... ENDIF
+	\end{itemize}
+\item The IF and ELSEIF keywords indicate conditions
+\item The ELSE keyword is \textit{unconditional}
+\item Which one you choose depends on need
+	\begin{itemize}
+		\item Is there one thing which is conditional?
+		\item Do I need to make a choice between two or more options?
+		\item Could nothing be executed?
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{IF Statement Syntax}
+\begin{multicols}{2}
+\begin{itemize}
+\footnotesize{
+\item The IF ... ENDIF syntax is:
+\begin{lstlisting}[style=pseudo]
+IF condition
+	do some things
+ENDIF
+\end{lstlisting}
+
+\item Likewise: IF ... ELSEIF ... ENDIF syntax is:
+\begin{lstlisting}[style=pseudo]
+IF condition1
+	do some things
+ELSEIF condition2
+	do other things
+ENDIF
+\end{lstlisting}
+\columnbreak
+\item And finally:
+\begin{lstlisting}[style=pseudo]
+IF condition
+	do some things
+ELSE
+	do some things
+ENDIF
+\end{lstlisting}
+}
+\end{itemize}
+\end{multicols}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{IF ... ELSEIF}
+\begin{itemize}
+\item The IF ... ELSEIF construct can have multiple ELSEIF sections
+\item A \textit{crucial} point:
+	\begin{itemize}
+		\item Conditions are only tested \textit{if the previous ones fail}
+		\item Once a condition is TRUE the others are ignored
+		\item ie: IF - ELSE implements a choice priority
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame} % Quadratic root finding intro
+\frametitle{Algorithm Example 3 - Quadratic Root Finding}
+From high school you should know that the equation
+\begin{equation}
+a x^2 + b x + c = 0
+\end{equation}
+has solutions given by
+\begin{equation}
+x = \frac{-b \pm \sqrt{b^2 - 4 a c}}{2a}
+\end{equation}
+lets write an algorithm which provides real valued solutions to a quadratic equation.
+\end{frame}
+
+\begin{frame} % Quadratic root finding 
+\frametitle{Algorithm Example 3 - Quadratic Root Finding}
+{\footnotesize
+\textbf{Input:} Real numbers $a$, $b$, and $c$ \\
+\textbf{Output:} Three numbers:
+\begin{enumerate}
+\item The number of solutions, N
+\item One of the roots, $x_1$
+\item The other root, $x_2$
+\end{enumerate}
+\textbf{Behaviour:}
+\begin{itemize}
+\item If N is 2 then $x_1$ and $x_2$ are different real numbers
+\item If N is 1 then $x_1$ is the unique solution and $x_2$ is undefined
+\item If N is 0 then $x_1$ and $x_2$ are undefined
+\end{itemize} 
+} 
+\end{frame}
+
+\begin{frame}[fragile] % Quadratic root finding algorithm
+\frametitle{Algorithm Example 3 - Quadratic Root Finding}
+\begin{columns}
+\column{2in}
+\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT: a, b, c
+	D = b^2 - 4ac
+	IF D < 0
+		N = 0
+	ELSEIF D == 0
+		N = 1
+		x1 = -b/(2a)
+	ELSEIF D > 0
+		N = 2
+		x1 = (-b + sqrt(D))/(2a)
+		x2 = (-b - sqrt(D))/(2a)
+	ENDIF
+END
+\end{lstlisting}
+\column{2.5in}
+\footnotesize{
+\begin{itemize}
+\item Reasonably formal pseudocode
+\item The IF ... ELSE IF flow control construct forces exclusive execution of only \textit{one} block
+\item The first condition that is true causes execution of that block
+\item Subsequent blocks ignored
+\item Contains 3 \textit{conditions}
+\end{itemize}
+}
+\end{columns}
+\end{frame}
+
+\begin{frame} % Boolean Logic
+\frametitle{Boolean Algebra Basics}
+\begin{itemize}
+\item What if we want more complicated conditions? Boolean algebra is needed!
+\item Boolean algebra (or Boolean logic) is a field of mathematics which evaluates combinations of \textit{logical variables} as either true or false
+\item Boolean \textit{variables} can only take the values \textbf{true} (or 1) or \textbf{false} (or 0)
+\item Boolean algebra defines three \textit{operators}:
+	\begin{itemize}
+		\item OR
+		\item AND
+		\item NOT
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame} % Boolean Algebra Basics
+\frametitle{Boolean Algebra Basics}
+\begin{itemize}
+\item Boolean variables can be allocated any symbols (just like in ``normal'' algebra)
+	\begin{itemize}
+		\item Typically get upper-case letters
+		\item eg: X = A OR B
+	\end{itemize}
+\item Various symbols can be used for OR/AND/NOT, we will only use the words here
+	\begin{itemize}
+		\item Write them in capitals to remove ambiguity
+		\item C and MATLAB have their own symbols for Boolean algebra
+		\item Other courses (eg: ELE17100) will use different symbols again
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame} % Boolean Operators
+\frametitle{Boolean Operators}
+\begin{itemize}
+\item An \textit{operand} is a value on which a mathematical operation takes place
+	\begin{itemize}
+		\item eg: In ``1 + 2'' the 1 and 2 are operands and + is the operator
+	\end{itemize}
+\item OR - Evaluates true if either operand is true
+	\begin{itemize}
+		\item X = A OR B
+		\item X is true if either one of A or B is true
+	\end{itemize}
+\item AND- Evaluates true only when \textit{both} operands are true
+	\begin{itemize}
+		\item X = A AND B
+		\item X is true only if both A and B are true
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame} % Boolean Operators
+\frametitle{Boolean Operators}
+\begin{itemize}
+\item OR and AND are \textit{binary} operators
+	\begin{itemize}
+		\item They operate on two operands
+		\item From Latin ``bini'' meaning ``two together''
+	\end{itemize}
+\item The NOT operator is \textit{unary}
+	\begin{itemize}
+		\item It only operates on \textit{one} operand
+		\item NB: The operand could be a single variable or complex expression
+	\end{itemize}
+\item NOT performs a logical inversion
+	\begin{itemize}
+		\item NOT true = false
+		\item NOT false = true
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame} % Boolean condition examples
+\frametitle{Boolean Condition Examples}
+
+\begin{itemize}
+	\item My car needs a service if, since the last service, (more than 6 months has past) OR (more than 15000km have been travelled)
+	\item You will pass this course if (you score 40\% or more in the final exam) AND (the weighted sum of all assessments is more than 50\%)
+	\item A computer program repeats an algorithm if (there is still data to process) AND (errors have not occurred) AND ( NOT (the user has terminated the program) )
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm Example 4 - Boolean Conditions}
+{\small
+\textbf{Problem:} How can square roots be calculated by a computer?
+\linebreak \linebreak
+\textbf{One Solution:} The \textit{Babylonian Method}.
+\linebreak \linebreak
+The square root of $a$, $\sqrt{a}$, can be found by \textit{iterating}:
+\begin{equation}
+x_{n+1} = \frac{1}{2}\left(x_n + \frac{a}{x_n}\right)
+\end{equation}
+until $x_n$ is ``close enough'' to the true value of $\sqrt{a}$ for our liking.
+Execution of this algorithm can use two things:
+\begin{enumerate}
+\item The \textit{loop} flow control concept
+\item Some kind of \textit{stop condition}
+\end{enumerate}
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Iteration}
+\begin{itemize}
+\item In this context iteration is the process of repeatedly applying a formula to the same variables
+\item Iteration typically creates a sequence of numbers:\\$x_0$, $x_1$, ..., $x_n$
+\begin{itemize}
+\item Eg: The equation $x_n = x_{n-1} + 1$ with a choice of $x_0 = 0$ just counts $1,2,3,4...$
+\end{itemize}
+\item We will study a lot of equations like this in the coming weeks
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Square Root By Hand}
+\begin{itemize}
+
+\item Lets find $\sqrt{2}$ ``manually''
+\item In our notation, $a=2$
+\item The choice of $x_n$ doesn't \textit{really} matter, lets go with $x_0=2$
+\item Applying the formula $x_{n+1} = \frac{1}{2}\left(x_n + \frac{a}{x_n}\right)$:
+\footnotesize
+\begin{align*}
+x_1 = \frac{1}{2}\left( 2 + \frac{2}{2} \right) &= 1.5 \\
+x_2 = \frac{1}{2}\left( 1.5 + \frac{2}{1.5} \right) &= 1.4167 \\
+x_3 = \frac{1}{2}\left( 1.4167 + \frac{2}{1.4167} \right) &= 1.4142 \\
+\end{align*}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Square Root By Spreadsheet}
+\begin{center}
+Well that's tedious. Lets try it on a spreadsheet
+~\\
+~\\
+Questions: When do we stop calculating? How would be write a \textit{stop condition} in computer language terms?\\
+~\\
+Note that the ``difference'' is always negative.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Algorithm Example 4 - Boolean Conditions}
+\begin{itemize}
+\item For this example we will choose two exit conditions:
+	\begin{enumerate}
+		\item An acceptable precision is reached
+		\item An iteration limit is reached
+	\end{enumerate}
+\item The resulting Boolean expression is something like:\\
+~\\
+``If the change between $x_n$ and $x_{n+1}$ is smaller than some precision value and the number of iterations is greater than maximum then stop iterating''
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Loops}
+\begin{itemize}
+\item A \textit{loop} causes an algorithm to execute a given block of instructions multiple times
+\item Loops typically require an \textit{exit condition}
+	\begin{itemize}
+		\item Without an exit condition they are called \textit{infinite loops}
+		\begin{itemize}
+			\item Yes, these have a purpose
+		\end{itemize}
+	\end{itemize}
+\item Multiple types of loops
+	\begin{itemize}
+		\item WHILE \textit{condition}...ENDWHILE
+		\item DO...WHILE \textit{condition}
+		\item FOR \textit{counter} FROM 1 TO \textit{something}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Algorithm Example 4 - Boolean Conditions}
+\begin{itemize}
+\item Implementing the square root algorithm:
+	\begin{itemize}
+		\item Choose max iterations as 10 and precision as 0.001
+	\end{itemize}
+
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT a
+	x = a
+	xOld = 0 // Why do we do this?
+	n = 0
+	WHILE (n<10) AND ( (x-xOld) < -0.0001 )
+		xOld = x
+		x = 1/2*(x + a/x)
+		n = n + 1
+	ENDWHILE 
+END
+\end{lstlisting}
+
+\item Here it loops until 10 \textit{iterations} have occurred OR a precision limit is reached
+	\begin{itemize}
+		\item \textbf{NB:} This is the reverse logic to previous slides.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Loop Details}
+\begin{itemize}
+\item WHILE conditions are tested before "entering"
+\item The condition is tested before every repeat
+\item Variables in the condition should change inside the loop
+	\begin{itemize}
+		\item Try to avoid infinite loops \textit{unless you want one}
+	\end{itemize}
+\item What if we want to force the loop to execute \textit{at least once}?
+\end{itemize}
+\end{frame}
+
+\if false
+\begin{frame}[fragile] % C lstlisting examples
+\frametitle{C listing template}
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	printf("Custom lstlisting template\n");
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=c]
+#include <stdio.h>
+int main() {
+	printf("default C style\n");
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Columns Template}
+\begin{columns}
+\column{1.5in}
+left side
+\column{1.5in}
+right side
+\begin{figure}
+\includegraphics[scale=0.2]{test}
+\end{figure}
+\end{columns}
+\end{frame}
+\fi
+
+\end{document}
