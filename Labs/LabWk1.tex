@@ -12,7 +12,7 @@
 \maketitle
 
 \section{Introduction}
-This laboratory exposes you to the fundamental tools required to write computer programs in C. No prior programming experience is assumed but if you lack basic computer literacy you're gonna have a bad time. Advanced PC gaming skills such as:
+This laboratory exposes you to the fundamental tools required to write computer programs in C. No prior programming experience is assumed but basic computer literacy is required. Advanced PC gaming skills such as:
 
 \begin{itemize}
 \item Editing .cfg or .ini files
@@ -44,6 +44,83 @@ While you are going through this course it is a near certainty that you will enc
 \tableofcontents
 
 \pagebreak
+
+\section{Software Installation}
+
+This section of ENGG1003 introduces you to the ``C'' programming language. Before getting started you should check that the software below is installed on the PC you are using. Links are provided for installation on a personal computer. If you are using a university PC use the Software Center, documented below.
+
+Software List:
+
+\begin{itemize}
+\item Code::Blocks - Download ``codeblocks-17.12mingw-setup.exe'' from \url{http://www.codeblocks.org/downloads/26}
+\item Git for Windows - Download ``Git-2.25.1-32-bit.exe'' from \url{https://github.com/git-for-windows/git/releases/tag/v2.25.1.windows.1}
+\end{itemize}
+
+To find both packages on a lab PC:
+
+\begin{itemize}
+\item Code::Blocks - Search ``codeblocks'' in the Start menu and look for the result shown in Figure \ref{fig:codeblocksStart.png}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Wk1Images/cbstart.png}
+\end{center}
+\caption{The Start menu search result for Code::Blocks.}
+\label{fig:codeblocksStart}
+\end{figure}
+
+\item Git for Windows - There is no Start menu entry for this software, it is only accessed by right click'ing in a location in Windows Explorer.
+
+Test for its installation by opening Windows Explorer (shortcut is windows button + E), navigating to \texttt{U:\textbackslash}, and right click somewhere. The menu which appears should list ``Git GUI Here'' and ``Git Bash Here'' as shown in Figure \ref{fig:gitforwindowsmenu}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Wk1Images/gitMenu.png}
+\end{center}
+\caption{Git for Windows is listed when right click'ing in (or on) a folder when browsing Windows Explorer.}
+\label{fig:gitforwindowsmenu}
+\end{figure}
+
+\end{itemize}
+
+In case software is not installed all university PCs contain a ``Software Center'' app which allows students to install software on university PCs from a university managed package repository.
+
+To install software:
+
+\begin{enumerate}
+\item Use the Start menu to search for the Software Center as shown in Figure \ref{fig:SoftwareCenter}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Wk1Images/softwareSearch.png}
+\end{center}
+\caption{Use the Start menu to find the Software Center app.}
+\label{fig:SoftwareCenter}
+\end{figure}
+
+\item After the Software Center opens, search for the package you need (In this case, either ``codeblocks'' or ``git for windows'') using the search bar in the top right as shown in Figure \ref{fig:SoftwareCenterGit}.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Wk1Images/softwareSearchGit.PNG}
+\end{center}
+\caption{Searching for Git for Windows using the Software Center. Note that it is listed as ``available''; this implies that it is not installed.}
+\label{fig:SoftwareCenterGit}
+\end{figure}
+
+\item Clicking a search result brings up some package information and an install button as shown in Figure \ref{fig:SoftwareCenterInstall}. Click the install button.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Wk1Images/softwareInstall.PNG}
+\end{center}
+\caption{Click ``Install'' and wait a minute for the package to be installed.}
+\label{fig:SoftwareCenterInstall}
+\end{figure}
+
+\end{enumerate}
+
+\pagebreak
 \section{C Programming Basics}
 In order to write programs in C (and most other languages) the following software tools are required:
 
@@ -73,7 +150,162 @@ It is hoped that you will discover these features and learn to work with them. I
 
 For the time being the ``compiler'' noun will be used to colloquially reference a highly complex set of software tools which turn your source code into an executable binary file. You will be shielded from the details until otherwise necessary.
 
-\subsection{Introduction to OnlineGDB}
+\pagebreak
+\subsection{Introduction to Code::Blocks}
+
+Code::Blocks is a relatively simple \textit{integrated development environment} (IDE). It contains a coding-oriented editor, build system which runs a pre-configured compiler, and debug interface. It is the recommended development environment for ENGG1003.
+
+To open Code::Blocks and create a new ``hello world'' template project perform the following steps:
+
+\begin{enumerate}
+\item Find Code::Blocks in the Start menu and click it:
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Wk1Images/cbstart}
+\end{center}
+\end{figure}
+
+\item Code::Blocks searches for installed compilers on startup. Make sure GNU GCC Compiler is detected and click OK.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Wk1Images/cb0.png}
+\end{center}
+\end{figure}
+
+\item If this comes up make your own selection and click OK. I'd recommend the 3rd option so that clicking a \texttt{.c} file opens it in Code::Blocks.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Wk1Images/cb0b}
+\end{center}
+\end{figure}
+
+\item After closing the previous dialogue box we are finally greeted by the main screen. It currently doesn't have a project open so there is no code to edit and no files listed in the ``Workspace'' (left side).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Wk1Images/cb1}
+\end{center}
+\end{figure}
+
+\item Create a new project by clicking File > New > Project...
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Wk1Images/cb2}
+\end{center}
+\end{figure}
+\pagebreak
+
+\item Select ``Console application'' (middle left) and click ``Go'' (upper right).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Wk1Images/cb3}
+\end{center}
+\end{figure}
+
+\item Select ``C'' in the middle list and click ``Next''
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Wk1Images/cb4}
+\end{center}
+\end{figure}
+
+\pagebreak
+
+\item Give your project a title and select a folder to store it by clicking the ``...'' button to the right of the ``Folder to create project in'' text box. I recommend storing it on \texttt{U:\textbackslash} as this is a network share mounted on any university PC when you log in. Later, we will use the version control software ``git'' and host our project files on the cloud service ``GitHub''.
+
+Click ``Next'' when you are done.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Wk1Images/cb5}
+\end{center}
+\end{figure}
+
+\item Don't change anything on this screen. Just click ``Finish''.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Wk1Images/cb6}
+\end{center}
+\end{figure}
+
+\item The project is now created and you should be seeing a screen similar to Figure \ref{fig:codeblocksTemplate}. The code listing in the main editor window is a classic ``hello world'' program For unknown historical cultural reasons printing ``Hello World!'' to the screen is the first thing everybody must learn when studying programming.
+
+\item Compile and run the project by clicking the ``green play button and gear'' icon, highlighted by the professionally drawn blob of a red arrow in Figure \ref{fig:codeblocksTemplate}. This performs a ``build and run'' process. In this context ``build'' is just another word for ``compile''; the process of turning program code into a \textit{binary} that the computer can execute.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Wk1Images/cb7}
+\end{center}
+\caption{The ``Hello World'' template project created by Code::Blocks.}
+\label{fig:codeblocksTemplate}
+\end{figure}
+
+\item If there are no errors (if there are ask a demonstrator for help) the Windows command prompt window shown in Figure \ref{fig:cmdcom} will appear. This is your program running in a console, the ``Hello world!'' text is visible at the top.
+
+The ``Process returned 0...'' text relates to the \texttt{return 0;} at the bottom of the code listing. You don't need to worry about what this is now, we will study ``return values'' in later weeks. Suffice to say that if you see this everything worked.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{Wk1Images/cb8}
+\end{center}
+\caption{}
+\label{fig:cmdcom}
+\end{figure}
+
+\end{enumerate}
+\pagebreak
+\begin{task}{}{}
+
+\begin{enumerate}
+
+\item Running the default template demonstrates \textit{standard output}. Modify the code to match that in Listing~\ref{lst:stdio}.
+\\ \\
+\textbf{NB:} You can use either tabs or spaces for indenting. Tabs is fewer keystrokes, spaces are more well defined. Some editors change the width of a tab and this causes illogical anger in some programmers.
+\\ \\
+While making the changes you will observe Code::Blocks' auto-complete features. When, for example, you type a double quote " character it \textit{automatically} types two and places the cursor between them. The editor will also automatically indent new lines and provide auto-complete suggestions, although many of them will be inappropriate (it is, after all, just a computer program; not a science fiction grade artificial intelligence).
+
+~\\
+Also observe that when you write a \textit{function} name (eg: \texttt{scanf()}) you will be greeted with a pop-up which shows \texttt{int scanf(const chat*, ...)}. This is known as a \textit{function prototype} and is there to help you remember how a function is used. We will study this is more detail when functions are covered later in the semester.
+
+~\\
+What other ``helpful'' editor behaviour did you notice? Some of it will be annoying at first (some of it will be annoying \textit{forever}) but learning to work with the editor's features will improve your coding speed in the long term.
+
+\begin{lstlisting}[style=CStyle,caption=A basic C program which demonstrates input and output.,label=lst:stdio]
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+	int k;
+	scanf("%d", &k);
+	printf("You entered: %d\n", k);
+	return 0;
+}
+\end{lstlisting}
+
+\item After editing the code build and run it again. After it is compiled you will notice that the console is just displaying a \texttt{\_} cursor. This is because \texttt{scanf()} waits for data to be typed (specifically, it will wait until a new line character, ASCII value 10, is sent).
+
+\item Type an integer and press \texttt{enter / return}.
+
+\item After pressing enter the console should display the text ``\texttt{You entered: 123}''.
+
+\item Run the program again except this time don't type just an integer, try typing a word, or a word containing a number, or a number followed by letters (with and without a space). What is the behaviour each time?
+
+\end{enumerate}
+\end{task}\label{tsk:stdio}
+
+
+\pagebreak
+\subsection{Introduction to OnlineGDB - Optional}
+
+\textbf{NB:} OnlineGDB is not necessary but you may find it useful if you are forced to use a computer which lacks a C compiler.
 
 OnlineGDB is a basic (\textit{very} basic) browser-based development environment for a variety of programming languages. It gives you access to an editor, a small amount of cloud storage, compiler, and standard input~/~output. It also contains a \textit{debugging} feature however for technical reasons\footnote{It only allows one debug session per IP address. The entire campus uses the same public IP so we can't use it in labs.} we won't be using it.
 
@@ -133,46 +365,12 @@ The box at the bottom of the screen will produce a ``Compiling'' animation and, 
 
 \textbf{Off-topic note:} Remember the ``returns zero to the operating system'' comment in lecture 1? Well that's what the text ``...Program finished with exit code 0'' is referencing. The 0 is the number that \texttt{main()} \textit{returned}. We will learn about \textit{function return values} later in the semester.
 
-\begin{task}{}{}
-
-\begin{enumerate}
-
-\item Running the default template demonstrates \textit{standard output}. Modify the code to match that in Listing~\ref{lst:stdio}.
-\\ \\
-\textbf{NB:} You can use either tabs or spaces for indenting. Tabs is fewer keystrokes, spaces are more well defined. Some editors change the width of a tab and this causes illogical anger in some programmers.
-\\ \\
-While making the changes you will observe OnlineGDB's auto-complete features. When, for example, you type a double quote " character it \textit{automatically} types two and places the cursor between them. The editor will also automatically indent new lines and provide auto-complete suggestions, although many of them will be inappropriate (it is, after all, just a computer program; not a science fiction grade artificial intelligence).
-
-What other ``helpful'' editor behaviour did you notice? Some of it will be annoying at first (some of it will be annoying \textit{forever}) but learning to work with the editor's features will improve your coding speed in the long term.
-
-\begin{lstlisting}[style=CStyle,caption=A basic C program which demonstrates input and output.,label=lst:stdio]
-#include <stdio.h>
-
-int main() {
-	int k;
-	scanf("%d", &k);
-	printf("You entered: %d\n", k);
-	return 0;
-}
-\end{lstlisting}
-
-\item After editing the code press Run. After it is compiled you will notice that the console is just displaying a cursor. This is because \texttt{scanf()} waits for data to be typed (specifically, it will wait until a new line character, ASCII value 10, is sent).
-
-\item Type an integer and press \texttt{enter / return}. There will be some ``lag'' because the data is being sent to OnlineGDB's server before being displayed.
-
-\item After pressing enter the console should display the text ``\texttt{You typed: 123}''.
-
-\item Run the program again except this time don't type just an integer, try typing a word, or a word containing a number, or a number followed by letters (with and without a space). What is the behaviour each time? Are you getting annoyed by the slow compile time and lag yet? OnlineGDB may be simple but it is, at times, a compromise.
-
-\end{enumerate}
-\end{task}\label{tsk:stdio}
-
 \pagebreak
 \section{Compiler Errors and Warnings}
 
 This section will demonstrate several common compiler \textit{errors} and \textit{warnings}.
 
-An error occurs when the code does not meet the rigorous and unambiguous syntax rules specified in the ANSI C standard and, as such, the compiler does not know how to interpret the code. For example, if you miss a " symbol inside a \texttt{printf()} where does the text to be printed end? This can't be assumed because there are not enough rules about what you can and can't write in this context. As such, missing a " will produce a \textit{syntax error}.
+An error occurs when the code does not meet the rigorous and unambiguous syntax rules specified in the ANSI C standard and, as such, the compiler does not know how to interpret the code. For example, if you miss a \texttt{"} symbol inside a \texttt{printf()} where does the text to be printed end? This can't be assumed because there are not enough rules about what you can and can't write in this context. As such, missing a \texttt{"} will produce a \textit{syntax error}.
 
 By contrast, a warning occurs when the code is in some way ``mildly'' problematic but the compiler is still able to make assumptions about what the code should do and produce a binary executable. For example, if the \texttt{return 0;} at the end of \texttt{main()} is missing the compiler will throw it in for you because, well, what else is it going to do at the end of \texttt{main()}?\footnote{The programmer could want \texttt{main()} to return a value other than zero but it is overwhelmingly common to just return zero here. Historically, a program returning zero means ``the program finished without error'' and non-zero indicates some kind of error code.}
 
@@ -183,30 +381,25 @@ Unfortunately compiler errors can be \textit{highly} technical and difficult to 
 \begin{task}{}{}
 \begin{enumerate}
 	\item If you have not done so already, get the code shown in Listing \ref{lst:stdio} working correctly.
-	\item Remove the semicolon (the ; character) from the end of line 4.
+	\item Remove the semicolon (the ; character) from the end of line 6.
 	\item Compile the code, what error did the compiler produce? Which line is the error is on?
 \end{enumerate}
 \end{task}
 	
-	The compiler errors will look something like Listing \ref{lst:errs} (line numbers include the comments at the top of the OnlineGDB template code; Listing \ref{lst:errs} omitted these).
+	The compiler errors in Code::Blocks will look something like Listing \ref{lst:errs}, but formatted better.
 	
-	\begin{lstlisting}[caption=The multiple errors produced by removing a \textit{single} semicolon.,label=lst:errs,basicstyle=\ttfamily,frame=single]
-main.c: In function ‘main’:
-main.c:14:5: error: expected `=`, `,`, `;`, `asm` or `__attribute__`
-	before `scanf`
-     scanf("%d", &k);
-     ^
-main.c:14:18: error: ‘k’ undeclared (first use in this function)
-     scanf("%d", &k);
-                  ^
-main.c:14:18: note: each undeclared identifier is reported only once for
-	each function it appears in
+	\begin{lstlisting}[caption=The multiple errors produced by removing a \textit{single} semicolon.,label=lst:errs,basicstyle=\ttfamily\small,frame=single]
+||=== Build: Debug in testProject (compiler: GNU GCC Compiler) ===|
+U:\1003Test\testProject\main.c||In function 'main':|
+U:\1003Test\testProject\main.c|7|error: expected '=', ',', ';', 'asm' or
+     '__attribute__' before 'scanf'|
+U:\1003Test\testProject\main.c|7|error: 'k' undeclared (first use in this function)|
+U:\1003Test\testProject\main.c|7|note: each undeclared identifier is reported only
+     once for each function it appears in|
+||=== Build failed: 2 error(s), 0 warning(s) (0 minute(s), 0 second(s)) ===||
 	\end{lstlisting}
 
-	
-Lets break this down a bit. Each error starts with a location, the syntax is: \texttt{{file}:{line}:{column}}. So \texttt{main.c:14:5} means the file \texttt{main.c} at line 14, column\footnote{\textit{Column} means the number of characters since the start of the line} 5.
-
-The first error (\texttt{error: expected '=' , ‘,’, ‘;’, ‘asm'}... etc.) is telling you that something was missing and the compiler noticed the omission at line 14. In this case we removed a ; so that's what is missing. Note, however, that while the error was reported to be on line 14 the omission was actually on line 13! Also observe the extra technical jargon that you don't understand yet (what is \textit{\_\_attribute\_\_}??). Some of these are, in fact, beyond the scope of ENGG1003. You have to get used to reading text you don't understand and extracting the small pieces of information you actually need.
+The first error (\texttt{error: expected '=' , ‘,’, ‘;’, ‘asm'}... etc.) is telling you that something was missing and the compiler noticed the omission at line 7. In this case we removed a ; so that's what is missing. Note, however, that while the error was reported to be on line 7 the omission was actually on line 13! Also observe the extra technical jargon that you don't understand yet (what is \textit{\_\_attribute\_\_}??). Some of these are, in fact, beyond the scope of ENGG1003. You have to get used to reading text you don't understand and extracting the small pieces of information you actually need.
 
 Let's look at the second error: \texttt{'k' undeclared}. Wait, wasn't \texttt{int k} still in our source code? Why is the compiler complaining that it is undeclared when it is \textit{right there}? The problem is that by removing the semicolon the declaration syntax was incorrect, so the compiler did not interpret that line as a declaration. It didn't find the expected ; threw its hand in the air and gave up.
 
@@ -226,42 +419,36 @@ printf("You entered: %d\n, k);
 \end{enumerate}
 \end{task}
 
-You will see an immediate change to the syntax highlighting; all characters between where the " was and the end of the line are now green, as if they were still inside the double quotes. Take-home message: \textit{pay attention to syntax highlighting!}
+You will see an immediate change to the syntax highlighting; all characters between where the " was and the end of the line are now blue\footnote{Yeah, I know that these notes use different syntax highlighting colours to Code::Blocks. Sorry, fixing is on my TODO list for 2021.} in the Code::Blocks editor, as if they were still inside the double quotes. Take-home message: \textit{pay attention to syntax highlighting!}
 
 Again, removing a \textit{single character} generated a slew of errors:
 
 \begin{lstlisting}[basicstyle=\ttfamily,caption=Errors produced by removing a \texttt{"} character.,frame=single]
-main.c: In function ‘main’:
-main.c:15:12: warning: missing terminating " character
-     printf("You entered: %d\n, k);
-            ^
-main.c:15:5: error: missing terminating " character
-     printf("You entered: %d\n, k);
-     ^
-main.c:16:5: error: expected expression before ‘return’
-     return 0;
-     ^
-main.c:17:1: error: expected ‘;’ before ‘}’ token
- }
- ^
+||=== Build: Debug in testProject (compiler: GNU GCC Compiler) ===|
+U:\1003Test\testProject\main.c||In function 'main':|
+U:\1003Test\testProject\main.c|8|warning: missing terminating " character|
+U:\1003Test\testProject\main.c|8|error: missing terminating " character|
+U:\1003Test\testProject\main.c|9|error: expected expression before 'return'|
+U:\1003Test\testProject\main.c|10|error: expected ';' before '}' token|
+||=== Build failed: 3 error(s), 1 warning(s) (0 minute(s), 0 second(s)) ===|
 \end{lstlisting}
 
 Observe how missing the closing " generates both an error and a warning at different locations. Why does it do this? To be honest, I don't know; I've only been using gcc for 20 years, there's always \textit{something} that you haven't learned yet. In the end it doesn't matter, an error exists that needs to be fixed before the compiler can output an executable.
 
 Missing the " generated two other errors as without the " the \texttt{printf} \textit{expression} was not completed. In C an expression can be thought of as ``a syntactically complete line of code that does something unambiguous''. This is a \textit{very} informal definition but it will do for now. In order to complete the \texttt{printf} expression the syntax rules require the closing ", a closing right parenthesis ) [to match the opening left parenthesis (] and a semicolon ;. Removing the " character makes the compiler think that the existing ``\texttt{);}'' string at the end of the line is actually part of the data to be printed, not part of the C expression syntax (as such, the expression was never finished, leaving the compiler with an unresolved tension that will stay with it \textit{all day}\footnote{\url{https://xkcd.com/859/}}.
 
-Remember how missing a ; caused errors on lines \textit{below} where the error actually was? Well the same thing has happened here. Because the \texttt{printf()} line was malformed an error occurred on the line below it (\texttt{expected expression before return}) \textit{and} the one below that (\texttt{expected ; before \} token}); and you thought your \textit{ex} was highly strung!
+Remember how missing a ; caused errors on lines \textit{below} where the error actually was? Well the same thing has happened here. Because the \texttt{printf()} line was malformed an error occurred on the line below it (\texttt{expected expression before return}) \textit{and} the one below that (\texttt{expected ; before \} token}); C can be incredibly unforgiving!
 
 \pagebreak
 
 \subsection{Failing to Define \texttt{main()}'s Return Type}
 
-Enough about errors, the final example in this section demonstrates a compiler \textit{warning}. Unfortunately, OnlineGDB doesn't display the compiler output if only warnings are generated. If you are running \texttt{gcc} in Linux (as described at the end of this lab document) you won't have this problem\footnote{Yeah, I'm very biased towards Linux. It gets a bad rap because games, Microsoft Office, Adobe, and Autodesk don't support it but it is otherwise \textit{overwhelmingly} dominant. It runs: mobile phones (Android is a Linux derivative, iOS is a Unix variant), servers, supercomputers, ``internet of things'' devices, etc. As engineers you will probably see it in many places throughout your career, just hidden from the end user.}.
+Enough about errors, the final example in this section demonstrates a compiler \textit{warning}. 
 
 \begin{task}{}{}
 \begin{enumerate}
-\item Fix the previous error by re-inserting the appropriate quote symbol
-\item Remove \texttt{int} before \texttt{main} \textbf{and} the semicolon in \texttt{return 0}, as per Listing \ref{lst:warn}
+\item Fix the previous error by re-inserting the appropriate quote symbol.
+\item Remove \texttt{int} before \texttt{main} Listing \ref{lst:warn}
 
 \begin{lstlisting}[style=CStyle,caption=Example code which generates a warning.,label=lst:warn]
 main()
@@ -269,25 +456,21 @@ main()
     int k;
     scanf("%d", &k);
     printf("You entered: %d\n", k);
-    return 0
+    return 0;
 }
 \end{lstlisting}
 \end{enumerate}
 \end{task}
 
-Attempting to compile this code generates the following compiler output:
+Compiling this code generates the following compiler warning:
 
 \begin{lstlisting}[basicstyle=\ttfamily,frame=single,caption=Compiler output produced when \texttt{main()} return type is omitted.,captionpos=b]
-main.c:11:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
- main()
- ^
-main.c: In function ‘main’:
-main.c:17:1: error: expected ‘;’ before ‘}’ token
- }
- ^
+warning: return type defaults to ‘int’ [-Wimplicit-int]
 \end{lstlisting}
 
-The error can be ignored here, lets focus on \texttt{warning: return type defaults to `int`}. The keyword which goes before \texttt{main()} specifies its \textit{return type}. This is the type of data which it sends back to the operating system on program exit. We will study function return types in later weeks. To my knowledge, operating systems only support the \texttt{int} return type (ie: an integer) so if you leave it out the compiler can quite safely \textit{assume} that's what should be there and only issue a warning instead of an error.
+Observe the warning printed to both the ``Build log'' and ``Build messages'' tabs towards the bottom of the Code::Blocks window.
+
+The keyword which goes before \texttt{main()} specifies its \textit{return type}. This is the type of data which it sends back to the operating system on program exit. We will study function return types in later weeks. To my knowledge, operating systems only support the \texttt{int} return type (ie: an integer) so if you leave it out the compiler can quite safely \textit{assume} that's what should be there and only issue a warning instead of an error.
 
 Generally speaking, warnings should be fixed when you see them. With experience you will know when they \textit{need} to be fixed (because the compiler is assuming something incorrectly) and when they can be ignored (because you have more important stuff to fix first).
 
@@ -313,7 +496,7 @@ Code comments are a place for you to explain how your code works, or what it doe
 
 In fact some code editors (like the Linux editor \texttt{vim}) will automatically highlight the text \texttt{TODO} so it is easy to find.
 
-\begin{task}{}{} Take whatever source code is currently shown in OnlineGDB and add some comments in various places. Compile the code and observe that they have no effect.
+\begin{task}{}{} Take whatever source code is currently shown in Code::Blocks and add some comments in various places. Compile the code and observe that they have no effect.
 \end{task}
 
 Students frequently ask what should and should not be commented. In this course your comments should be written such that a student who is on track to achieve 50\% can understand what your code does without having to consult external reference material. This will seem overly verbose but it will be used in lieu of a better standard. As a general rule: if you needed to look up something in a reference manual when writing the code write a comment explaining it. For example:
@@ -414,9 +597,10 @@ The predominant engineer's approach to this topic is to vaguely learn how the la
 Using the template in Listing \ref{lst:arithmetic2} implement the following equation in C:
 
 \begin{equation}\label{eq:fraction}
-y = 2x+3\times5
+y = 2x+3\times5.
 \end{equation}
 
+Remember that \texttt{*} is the multiplication operator in C and that a \texttt{;} is needed at the end of the line.
 
 
 \begin{lstlisting}[style=CStyle,caption=A basic arithmetic example,label=lst:arithmetic2]
@@ -440,6 +624,8 @@ The other major change is that inside \texttt{scanf} and \texttt{printf} the \te
 
 Back to the task at hand, have a go at implementing Equation \ref{eq:fraction} and see if the result works. Observe that you don't need to force precedence with parentheses because, in C, the multiplication operations are performed before addition.
 
+\pagebreak
+
 \begin{task}{}{}
 Implement the following equations on line 8. What happens when you choose x to force a division by zero?
 
@@ -451,7 +637,7 @@ Implement the following equations on line 8. What happens when you choose x to f
 \end{enumerate}
 \end{task}
 \pagebreak
-\section{A Very Brief Introduction to Git - Optional}
+\section{A Very Brief Introduction to Git}
 
 \textit{NB: Git is not in the course outline so it isn't strictly required nor assessed. It is, however, incredibly useful and included here because several 3rd and 4th year course coordinators (and industry contacts) asked me to expose you to it. I agreed.}
 
@@ -470,9 +656,9 @@ In this course it will be \textit{recommended} that you take advantage of the mo
 
 The Git package can be installed on any computer, it doesn't even require a server / client architecture spread across two or more computers. GitHub is simply a website which hosts Git servers.
 
-\begin{task}{}{} Navigate to \url{https://github.com/bschulznewy/engg1003/blob/master/Lectures/Wk1/Friday/LectureFriWk1.pdf}.
+\begin{task}{}{} Navigate to \url{https://github.com/bschulznewy/engg1003/blob/master/Lectures/2019/Wk1/Friday/LectureFriWk1.pdf}.
 \\ \\ 
-This is the GitHub ``repository'' that I have been using when writing ENGG1003 content. In particular, it is the lecture notes for the Friday Week 1 Lecture (I'm subtly trying to get you to read them ahead of time, apologies for improving your study efficiency).
+This is the GitHub ``repository'' that I have been using when writing ENGG1003 content. In particular, it is the lecture notes for the second Week 1 Lecture from \textbf{last year} (this year's notes are up there somewhere but they don't have an interesting history like the 2019 notes do).
 \end{task}
 
 The link is for a PDF document and you will see that GitHub automatically renders it inside the website. It will attempt to display any file directly linked to.
@@ -483,10 +669,10 @@ But that's not what we're here for. I want to show you the real power of Git: ve
 \begin{center}
 \includegraphics[width=0.8\textwidth]{Wk1Images/github_lecture.png}
 \end{center}
-\caption{The git repo history for the Friday lecture notes.}\label{fig:githistory}
+\caption{The git repo history for the Friday lecture notes as it was last year - It will look very different now!.}\label{fig:githistory}
 \end{figure}
 
-Click on the top one (specifically the text ``Changed lecture notes to blue.'') and you will see what changed in this particular git commit.
+If you click on a commit message you will see what changed in this particular git commit. An example is shown in Figure \ref{fig:gitchanges}.
 
 \begin{figure}[H]
 \begin{center}
@@ -497,224 +683,145 @@ Click on the top one (specifically the text ``Changed lecture notes to blue.'') 
 
 The box at the bottom of Figure \ref{fig:gitchanges} shows the actual changes which occurred. In this case I changed the colour theme for the lecture notes to roughly match that of the first lecture. The changes to the PDF are not shown because they would be unintelligible garbage (it is a binary file, not text).
 
-Click the ``View file'' button next to LectureFriWk1.pdf to view what the PDF looked like in this commit.
+Browse through the other recent commits \underline{\href{https://github.com/bschulznewy/engg1003/commits/master}{here}} and browse a few commits.
 
-Browse through the other commits and observe the writing process for the Lecture 1 PDF. Feel free to also browse the other files in the repository.
+\begin{task}{}{} Go to \url{www.github.com} and create a GitHub account. You can use it to store all your code from this course (and other courses!). This allows advanced version tracking and cloud storage from the same service.
+\end{task}
 
-\begin{task}{}{} Go to \url{www.github.com} and create a GitHub account. You will use it in later weeks when we swap to a development environment which supports Git. You can also use a GitHub account to login to OnlineGDB, allowing you to have your source files stored on their server.
+\begin{task}{}{}
+Use your new GitHub account to create a new Git repository and upload today's work to it using Git for Windows.
+
+\begin{enumerate}
+
+\item Open Windows Explorer (windows button + E) and navigate to the folder \textit{above} where your lab 1 code is stored.
+
+\item Right click in this folder and select ``Git GUI here''.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Wk1Images/git1}
+\end{center}
+\end{figure}
+
+\pagebreak
+\item The dialog box shown in Figure \ref{fig:gitguicreate} appears. Click ``Create New Repository''.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Wk1Images/git2}
+\end{center}
+\caption{}
+\label{fig:gitguicreate}
+\end{figure}
+
+\item You are then greeted with this dialogue box:
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Wk1Images/git3}
+\end{center}
+\end{figure}
+
+\item Click ``Browse'' and select the folder which hold your lab 1 code:
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Wk1Images/git4}
+\end{center}
+\end{figure}
+
+\pagebreak
+
+\item Now navigate to \url{https://github.com}, log in if necessary, and click the green ``New'' button:
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Wk1Images/git5a}
+\end{center}
+\end{figure}
+
+\pagebreak
+
+\item Give the new repository a name and click the green ``Create repository'' button a the bottom:
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Wk1Images/git5}
+\end{center}
+\end{figure}
+
+\item In the ``Quick setup'' section ensure that the ``HTTPS'' button is selected and copy the URL in the text box next to it:
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Wk1Images/git6}
+\end{center}
+\end{figure}
+
+\pagebreak
+
+\item Back to Git for Windows, paste this URL in the text box next to ``Arbitrary Location:''
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Wk1Images/git7}
+\end{center}
+\end{figure}
+
+\item In the dialogue box shown above, press ``Push''. This attempts to make a remote (``in the cloud'') copy of you repository at the URL you supplied.
+
+\item Since the URL is on GitHub, the following login window appears. Type in your GitHub login details and click ``Login'':
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{Wk1Images/git8}
+\end{center}
+\end{figure}
+
+\pagebreak
+
+\item If your login is correct the window below will appear. The text output shows the progress of the upload (in Git language the ``Push'' operation).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Wk1Images/git9}
+\end{center}
+\end{figure}
+
+\item If you navigate to the new repository on GitHub you will now see all the project files listed:
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Wk1Images/git10}
+\end{center}
+\end{figure}
+
+\pagebreak
+\item If you need to download (aka ``clone'') this repository on another machine you will need the URL provided by clicking the green ``Clone or download'' button:
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Wk1Images/git11}
+\end{center}
+\end{figure}
+
+\item On a different computer, or in a different folder on the same computer, go back to step 1 and re-open Git Gui through the right click context menu.
+
+\item This time select ``Clone Existing Repository'' and follow the prompts to create a new copy of your lab 1 code.
+
+\item If you make changes to the code you can open the Git GUI in the repository's top level folder and use the Git for Windows GUI to perform a ``stage'', followed by a ``commit'' (with an appropriate message) and, lastly, a ``push'' to upload new changes to your GitHub hosted repository.
+
+\item The Git repository will keep track of any changes you make to your code. At any time you can view old versions and compare  what changed with each commit.
+
+Make some changes to the code in Code::Blocks editor and perform a stage/commit/push and observe the changes on GitHub and in the Git GUI.
+
+\end{enumerate}
+
 \end{task}
 
 \begin{task}{}{} Read more about how Git works and what it does here: \url{https://developer.ibm.com/tutorials/d-learn-workings-git/}. You probably won't understand everything, but that's not important right now. Just get some general exposure to the ideas and we'll fill in the practicalities later.
 \end{task}
 
 \pagebreak
-\section{Installing a C Compiler on Your Personal Machine - Optional}
-
-Although ENGG1003 officially uses cross-platform web-based services like OnlineGDB (later, hopefully, Eclipse Che) you are welcome to install a suitable editor and C compiler on your personal machine.
-
-My personal recommendation for Windows and Mac users is to either run the Ubuntu virtual machine (see Section \ref{sec:virtualbox}) or, if you know what you're doing, install \texttt{gcc} natively (instructions below). Feel free to also take advice from your demonstrator, opinions on this will vary wildly.
-
-\subsection{Getting started with C in Windows}
-
-My support for Windows is lukewarm. Given you \textit{probably} grew up with Windows hopefully you can work out how to install and use the software below without much help. I don't have access to a Windows machine to test and debug installation of these recommendations.
-
-I recommend \texttt{tcc} for a simple C compiler on Windows, download from: \url{https://bellard.org/tcc/}. You will need to pair it with a editor and the Windows command line \texttt{cmd}.
-
-For more advanced usage you can install \texttt{gcc} with the MinGW package: \url{http://www.mingw.org/}. It installs all the development software you would find on in Linux development environment. You may experience difficulties, this one is pretty complicated.
-
-The MinGW getting started documentation is here: \url{http://www.mingw.org/wiki/Getting_Started}.
-
-For editing I recommend notepad++: \url{https://notepad-plus-plus.org/download/v7.6.3.html}.
-
-If you're really keen you can try to setup MinGW with Eclips. Instructions here: \url{http://www.multigesture.net/articles/how-to-install-mingw-msys-and-eclipse-on-windows/}.
-
-If you would like to use the Ubuntu virtual machine follow the instructions in Section \ref{sec:virtualbox}. Instructions for installation of VirtualBox can be found through Google: \url{https://bit.ly/2T4sjAW}.
-
-\subsection{Getting started with C in MacOS}
-
-\textbf{Update March 1st}: A student has advised me that the 3rd party package manager ``Homebrew'' can be used to install Gcc on macOS. To do so:
-
-\begin{enumerate}
-\item Navigate to \href{https://brew.sh}{brew.sh} and observe the ``Install Homebrew'' section
-\item Copy and paste this command into a terminal:
-
-\footnotesize{\texttt{/usr/bin/ruby -e "\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"}}
-
-\normalsize
-
-\item After installation has finished, type the following to install gcc:
-
-\texttt{brew install gcc}
-
-\item If you wish to use Gedit to edit C files you can install that too:
-
-\texttt{brew install gedit}
-
-\item C programs can then be written, compiled, and executed as per the instructions in Section \ref{sec:ubuntu}
-
-\end{enumerate}
-
-The old instructions have been removed. You can find them in the \underline{\href{https://github.com/bschulznewy/engg1003/blob/dbd720e795fd030cd5e044b95b879bd406fd9702/Labs/LabWk1.pdf}{Github}} history.
-
-\pagebreak
-\subsection{Getting started with C in Ubuntu Linux}\label{sec:ubuntu}
-
-Desktop Linux is not supported by university IT but, personally, I find it to be a fantastic development platform. The following instructions are completely optional, only do this if you are keen to learn.
-
-Installing Ubuntu is beyond the scope of this document (and course). If you think this is a daunting task I would recommend only using the officially supported tools (OnlineGDB, a better one later) to complete ENGG1003. There are many thousands of websites and YouTube videos which will guide you through the Ubuntu (or Mint, Arch, etc.) installation process. \textbf{NB:} Installing a new operating system can \textit{very easily} destroy all existing software on a machine. Don't do this if you don't know what you're doing.
-
-If you don't want to risk installing Linux ``natively'' you can use the software package ``VirtualBox'' to run a virtual Ubuntu machine under Windows or macOS; details in Section \ref{sec:virtualbox}.
-
-That out of the way, here's how you can get started. These steps assume a fresh Ubuntu 18.04 installation, in other distributions YMMV\footnote{Your mileage may vary. ie: this step might not work.}:
-
-\begin{enumerate}
-\item \textit{If you are using the virtual machine image described in Section \ref{sec:virtualbox} this step is optional, I've already done it for you. Running it again will just bring up ``xxx is already at the latest version'' messages, so by all means try it anyway.}
-
-The C compiler in Linux (and OnlineGDB, and \textit{many} other platforms) is gcc (the GNU C Compiler). To install it, open a terminal (\texttt{ctrl + alt + t}) and type:
-
-\texttt{\$ sudo apt install gcc libc6-dev gedit}\\ (the \$ indicates the terminal prompt, don't type that character)
-
-When prompted, enter your password (the virtual machine password is ``engg1003''), wait a few seconds, press \texttt{enter} if it wants installation confirmation, and wait a few more seconds. An Internet connection is required for apt to download the required software.
-
-The \texttt{libc6-dev} package provides all the basic C libraries (\texttt{printf} etc.) and \texttt{gedit} is a basic text editor.
-
-\item Lets make a new directory for writing C files, type:
-\begin{enumerate}
-	\item \texttt{\$ mkdir c}
-	\item \texttt{\$ cd c}
-\end{enumerate}
-The first command creates a directory called ``c'' and the second ``changes into'' that directory.
-
-\item Create a new .c file. We will do this in \texttt{gedit} (because it is easy and simple) but there are many others (the more nerdy among you may want to learn \texttt{vim} or \texttt{emacs}. They are \textit{very} powerful editors).
-
-Type: \texttt{\$ gedit test.c \&} \\ (The \& symbol at the end of a command runs the command ``in the background''. This gives you the command line back straight away, instead of having to quit gedit first. \textbf{NB:} gedit will quit if you close the terminal.)
-
-\item Type out the code seen in Figure \ref{fig:gedit}.
-
-\item Click the Save button (or type \texttt{ctrl + s}).
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.5\textwidth]{Wk1Images/gedit.png}
-\end{center}
-\caption{The gedit window with some C code typed out.}\label{fig:gedit}
-\end{figure}
-
-\item Move the \textit{keyboard focus} back to the terminal (ie: click the terminal window).
-
-\item If you can't see the command prompt yet, press \texttt{enter}
-
-\item You can type \texttt{ls} to see a list of all files in the current directory. \texttt{test.c} should be there.
-
-\item To compile the \texttt{.c} file run: \texttt{\$ gcc test.c -o test}
-
-This will create a binary executable called \texttt{test}. If the \texttt{-o} \textit{command line argument} is not given to \texttt{gcc} the binary file defaults to the name \texttt{a.out}.
-
-\item Run \texttt{test} by typing: \texttt{\$ ./test}
-
-The \texttt{./} is a special character string meaning ``relative to the current directory''. If you try to run \texttt{test} from any other directory nothing will happen because \texttt{test} is a built-in command. With most other names you will get a ``Command not found...'' error.
-
-\item When the program runs you should see something similar to Figure \ref{fig:c_ubuntu}.
-
-\item Go back to \texttt{gedit} and keep coding as you desire. Return to the command line to run \texttt{gcc} to re-compile your code. \textbf{NB:} The command line has a \textit{history} feature, pressing the up arrow will scroll through past commands, \textit{you don't need to type them out from scratch}.
-
-\item If you enjoyed this you're a bit weird, welcome to the club! Recommended further reading would be a tutorial on \texttt{make} followed by investigations into a more powerful editor like \texttt{vim} or \texttt{emacs}. If nothing else you will then be able to appreciate ``exit vim'' memes.
-\end{enumerate}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.8\textwidth]{Wk1Images/c_ubuntu.png}
-\end{center}
-\caption{The complete command line sequence performed in the Ubuntu virtual machine. Note that gcc produced a \textit{warning} because I didn't explicitly state that \texttt{main} returned \texttt{int}.}\label{fig:c_ubuntu}
-\end{figure}
-
-\pagebreak
-\subsection{Running Ubuntu With VirtualBox}\label{sec:virtualbox}
-
-If you are interested in investigating Linux but don't want to risk destroying data on an existing personal computer this section is for you.
-
-\textbf{\textit{These steps will not work on university lab machines.}}
-
-A \textit{virtual machine} is an instance of an operating system (could be Windows, macOS, Linux, or something else) which \textit{thinks} it is running directly on real hardware (ie: a motherboard, CPU, RAM, graphics card, etc) but, in reality, it is being run within another operating system (OS). The host OS allocates part of its physical CPU/RAM/HDD space to the virtual machine, along with access to optional devices such as the sound card, network interface, USB, etc.
-
-As such, a virtual machine allows you to run an installation of Linux \textit{as if it was physically installed} but without the risk and hassle of actually installing it. The only compromise is a potential decrease in performance (the virtual machine can't use \textit{all} the host machine's RAM, for example).
-
-I have installed Ubuntu 18.04 onto a virtual machine image and installed the necessary packages for compiling basic C programs. To run it:
-
-\begin{enumerate}
-\item Download VirtualBox from: \url{https://www.virtualbox.org/wiki/Downloads}
-\item Install it. I don't have access to Windows or Mac machine to test and document this step, hopefully you can work it out.
-
-\textbf{NB:} Windows 10 comes with its own virtualization software called Hyper-V. If enabled it conflicts with VirtualBox and causes:
-
-\texttt{ERROR "Raw-mode is unavailable courtesy of Hyper-V.\\	 (VERR\_SUPDRV\_NO\_RAW\_MODE\_HYPER\_V\_ROOT)."}
-
-To get around this you can build your own Ubuntu image with Hyper-V (try \url{https://www.windowscentral.com/how-run-linux-distros-windows-10-using-hyper-v} or just Google it) or disable Hyper-V with the following steps:
-
-	\begin{enumerate}
-		\item Open the command prompt (\texttt{cmd}) as Administrator.
-		\item Disable Hyper-V by running: \texttt{bcdedit /set hypervisorlaunchtype off}
-		\item Restart your PC.
-	\end{enumerate}
-
-\item To get Ubuntu running you have a few options:
-	\begin{enumerate}
-		\item Download the pre-installed virtual machine image I created (2.2~GB) from: \url{http://chetesting.vk2dds.net/Ubuntu.ova}
-
-The file is hosted on virtual machine I pay \$4 per month for. If you know what you're doing (ie: have Linux webserver administration experience) web hosting is \textit{really} cheap.
-
-The default username / password for this image is:
-
-\textbf{Username:} engg1003\\
-\textbf{Password:} engg1003
-
-The password will be needed if you do anything with \texttt{sudo}, like install software. The username won't be needed, it is configured to login automatically.
-
-		\item Download the Ubuntu installation \texttt{.iso} from \url{http://releases.ubuntu.com/18.04/} and create your own virtual machine
-		\item Download the installation \texttt{.iso} for another Linux distribution of your choice. I don't want to start a religious war about which distribution is ``best'', there are \textit{plenty} of threads debating the merits of various distributions all over the Internet. Ubuntu is one of the more popular choices but you could also try Mint (entry level difficulty), Debian (semi-advanced), Arch (\textit{very} advanced), Gentoo (your beard is taller than you advanced), etc.
-	\end{enumerate}
-	\pagebreak
-	The following instructions assume you downloaded the pre-installed image.
-\item Open VirtualBox
-\item Click File -$>$ Import Appliance
-\item Click the little folder icon to the right of the text box and find \texttt{Ubuntu.ova}
-\item Click Next
-\item Review the ``Appliance settings'' (Figure \ref{fig:virtualbox1}). You shouldn't need to change anything
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{Wk1Images/ubuntu_import.png}
-\end{center}
-\caption{You will see this if \texttt{Ubuntu.ova} was selected correctly.}\label{fig:virtualbox1}
-\end{figure}
-
-\item Click Import. A progress bar will appear as the image is unpacked and copied into VirtualBox's virtual machine folder.
-
-\item Select the Ubuntu image from the list and click the green ``Start'' button (Figure \ref{fig:virtualbox2}).
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{Wk1Images/ubuntu_start.png}
-\end{center}
-\caption{The ``start'' button which fires up a virtual machine image.}\label{fig:virtualbox2}
-\end{figure}
-
-\item A window will appear with the title ``Ubuntu [Running] - Oracle VM VirtualBox''. It will be black, flash up some random text about /dev/sda1, bring up the Ubuntu start image, then finally present you with the Ubuntu desktop seen in Figure \ref{fig:virtualbox3}.
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.6\textwidth]{Wk1Images/ubuntu_desktop.png}
-\end{center}
-\caption{The default Ubuntu desktop. The resolution will be higher when you open my image.}\label{fig:virtualbox3}
-\end{figure}
-
-\item If Ubuntu can access the Internet it will probably bring up a ``Software Updater'' window. Installing updates is optional (don't get me started on the way Windows handles this...) but quite fast (30sec or less if you have an SSD and 100/40 NBN). If you click ``Install now'' it will give a preview of what will be downloaded before you confirm the upgrade.
-
-\item You are now ready to start the \texttt{gcc} exercise from the previous section. Enjoy! (Or not, I know this isn't for everyone).
-
-\item When you want to turn off the virtual machine you can either tell Ubuntu to turn off or just click the window's X button and tell VirtualBox to send the shutdown signal. It will close after a second or two. If you select ``power off the machine'' that is the equivalent of unplugging the power lead, probably not recommended although Linux typically handles this without issue.
-
-\item Next time you boot the machine all changes (eg: files created, settings changed) will be present.
-
-\end{enumerate}
 
 \end{document}
