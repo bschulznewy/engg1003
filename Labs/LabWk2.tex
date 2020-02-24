@@ -15,29 +15,17 @@
 \begin{document}
 \maketitle
 
-\section{Feedback}
-
-To help me write better labs please fill out this survey when you leave your \textbf{Week 2} lab:
-\vspace{5mm} \\ 
-\huge{\underline{\href{https://docs.google.com/forms/d/1wUgJlZGRcYm7_ZKBOxzc3DHkZv5UVqKQJ_EGQhSV55Q/}{Click here to complete the survey before you leave.}}}\\
-\vspace{2mm}
-\normalsize
-
-I just want to know how many problems the ``average'' student can complete in 3 hours. It will also tell me which problems are more engaging than others (does everyone \textit{hate} probability? Do you love it? I have no idea.)
-
-You likely won't be able to complete \textit{all} the problems, that is intentional. If 60\% of you complete the lab it means I don't know how many questions 60\% can do in 3hrs.
-
 \section{Introduction}
 
 This set of programming exercises leaves you to perform a series of tasks on your own. This can be daunting at first, but your ability to remain resolute and resourceful in an atmosphere of extreme pessimism\footnote{Yes, this is a reference to the computer game \textit{Portal} (2007).} will be a useful skill when studying Engineering\footnote{Talk to your demonstrators about how true this is. I write it only partially in jest. I've found it a necessary skill for \textit{life}.}. (In truth, I hope you don't find it \textit{that} hard and gain satisfaction and confidence from getting programs to work).
 
 The example tasks are mostly ``toy'' programs. They don't do anything particularly useful because most ``real-world'' problems are too advanced for this stage of the course. Things will get more interesting in the coming weeks (I hope...).
 
-Do not expect programs to compile (let alone \textit{work}) first go. It is totally normal, even for experienced programmers, for multiple lines of hand typed code to generate several errors the first time compilation is attempted. You will then find \textit{more} errors when they are executed and found to produce the wrong output.
+Do not expect programs to compile (let alone \textit{work}) first go. It is totally normal, even for experienced programmers, for multiple lines of hand typed code to generate several errors the first time compilation is attempted. You will then find \textit{more} errors when the code is executed and found to produce the wrong output.
 
 In time you will learn to interpret and deal with error messages quickly. Typically they will be a syntax error due to a missing parenthesis, semicolon, or double quote. Don't be afraid to ask for help from demonstrators and work with other students in the lab.
 
-In short: all of your time spent programming will be fixing problems because as soon as all the (known) problems are fixed you stop programming and ship the software to your customer.
+In short: almost all of your time spent programming will be fixing problems because as soon as all the (known) problems are fixed you stop programming and ship the software to your customer.
 
 Generally speaking, the development process follows repeated application of the following steps:
 
@@ -49,7 +37,7 @@ Generally speaking, the development process follows repeated application of the 
 \item Repeat whole process until correct output is generated for multiple test inputs
 \end{enumerate}
 
-I don't know how long these problems will take you to complete. With some adjustments, this may become a problem set for weeks 2 and 3.
+Very few students will complete all these tasks within the lab time.
 
 \pagebreak
 \section{Pseudocode to C Conversion Examples}
@@ -206,9 +194,6 @@ format.c:6:10: warning: format ‘%f’ expects argument of type ‘float *’, 
          ~^   ~~
          %d
 \end{lstlisting}
-
-but, unfortunately, OnlineGDB does not show it to you. It only displays warnings if errors also occurred. We will be moving to a more advanced development environment which \textit{does} print warnings as soon as IT has made it work on the lab machines.
-
 
 \pagebreak
 \section{Usage of \texttt{printf();} and \texttt{scanf();}}
@@ -481,6 +466,7 @@ Test your program given that the variance of the set (1, 2, 3, 4) = 1.6667
 \textbf{Observation:} Did you find programming this task is really tedious? What if you had 100 samples? Or a million? In later weeks we will learn about \textit{arrays}. These are a C language feature which greatly simplify the code when you need to keep track of a lot of data.
 \end{task}
 
+\pagebreak
 \begin{task}{Linear Interpolation}{}
 There are many instances in science and engineering when data needs to be \textit{interpolated}. Informally, this is the process of predicting a quantity's value somewhere between two (or more) data points.
 \\ \\
@@ -573,7 +559,9 @@ printf("a divided by b is %d\n", c);
 \end{itemize}
 \end{task}
 
-{\huge\textit{This is where most (approx 77\%) students have gotten up to. Don't feel bad if you're out of time by now.}}
+{\huge\textit{In 2019 77\% of students reported running out of time here.}}
+
+\pagebreak
 
 \begin{task}{Calculating Square Roots}{}
 The square root of a number, $x = \sqrt{n}$, can be calculated with the iterative formula:
