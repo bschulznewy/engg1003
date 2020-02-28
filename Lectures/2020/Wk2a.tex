@@ -985,9 +985,9 @@ x = (rand() % RANGE) + 1;
 \end{lstlisting}
 \item These work because:
 \begin{lstlisting}[style=CStyle]
-x = rand() % MAX;
+x = x % y;
 \end{lstlisting}
-is a random number between zero and \texttt{(MAX-1)}
+is an integer between zero and \texttt{y} for any \texttt{x}
 \end{itemize}
 \end{frame}
 
