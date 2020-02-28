@@ -148,11 +148,13 @@ Consider a quadrant of a unit circle ($r=1$) with a square around it:
 	\begin{itemize}
 		\item \textbf{NB:} You only have to understand the algorithm
 	\end{itemize}
+\pause
 \item The algorithm needs to repeat the \textit{same thing} multiple times
 	\begin{itemize}
 			\item This implies use of a loop
 			\item The loop's \textit{exit condition} needs to be defined
 	\end{itemize}
+\pause
 \item As the loop repeats, we need to keep track of the following \textit{variables}:
 		\begin{itemize}
 			\item The number of points tested
@@ -184,7 +186,9 @@ Consider a quadrant of a unit circle ($r=1$) with a square around it:
 	\begin{itemize}
 		\item This implies \texttt{IF...ENDIF} \textit{flow control}
 	\end{itemize}
+\pause
 \item The condition on incrementing \texttt{countInside} is $x^2 + y^2 < 1$
+\pause
 \item Incrementing a variable in pseudocode takes the form:
 	\begin{itemize}
 		\item \texttt{variable = variable + 1}
@@ -249,19 +253,16 @@ END
 \frametitle{C Arithmetic}
 \begin{itemize}
 \item Basic arithmetic was seen in the lab
-\begin{itemize}
-\item You all did the lab, right?
-\end{itemize}
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|c|}
 \hline
 Operation      & C Symbol \\
 \hline
-Addition       & +        \\
-Subtraction    & -        \\
-Multiplication & *        \\
-Division       & /       \\
+Addition       & \texttt{+}        \\
+Subtraction    & \texttt{-}        \\
+Multiplication & \texttt{*}        \\
+Division       & \texttt{/}       \\
 \hline
 \end{tabular}
 \caption{Basic arithmetic operators in C}
@@ -336,7 +337,6 @@ What's the difference between \texttt{x++} and \texttt{++x}?
 \item \texttt{++x} is a \textit{pre-increment}
 \item If they appear in an arithmetic expression, pre-increment is processed \textit{before} the variable is used and post-increment is processed \textit{after} it is used.
 \item In isolation there is no difference.
-\item Details on Friday
 \end{itemize}
 \end{frame}
 
@@ -360,16 +360,15 @@ What's the difference between \texttt{x++} and \texttt{++x}?
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Modulus Example - Printing Every \textit{nth} Loop}
-\begin{lstlisting}[style=CStyle,caption=\texttt{loopmod.c}]
+\frametitle{Modulus Example - Printing Every \textit{nth} Number}
+\begin{lstlisting}[style=CStyle]
 #include <stdio.h>
 int main() {
 	int x = 0;
 	while(x < 1000)
 	{
-		// Presumably something useful is done with x
-		// inside this loop
-		if(x%100 == 0)
+		x++; // Increment x
+		if(x%100 == 0) // if(x is divisible by 100)
 			printf("%d\n", x);
 	}
 	return 0;
@@ -414,6 +413,53 @@ Not equal to & \texttt{!=} \\
 \item While we're here: the above is the correct syntax for IF and WHILE flow control in C
 \end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{if()} and \texttt{while()}}
+\begin{itemize}
+\item Syntax for your ``cheat sheet'':
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+} else {
+	// Do other stuff
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=CStyle]
+while(condition) {
+	// Do stuff
+}
+\end{lstlisting}
+\item If there is a single \textit{statement} inside an \texttt{if()} or \texttt{while()} the \texttt{\{} and \texttt{\}} are optional
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{if()} and \texttt{while()}}
+Example:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+main() {
+	while(x != 0) {
+		scanf("Enter an integer: %d\n", &x);
+		if(x % 2 == 0)
+			printf("%d is even\n", x);
+		else
+			printf("%d is odd\n", x);
+	}
+}
+\end{lstlisting}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Boolean Operators}
@@ -617,7 +663,7 @@ Type & Bytes & Bits & Value Range                               \\
 \begin{itemize}
 \item \textit{Overflow} occurs when the result of a calculation is too big to fit into the target type
 \item Example: \texttt{127 + 1 = -128}
-\begin{lstlisting}[style=CStyle,caption=\texttt{overflow.c}]
+\begin{lstlisting}[style=CStyle]
 #include <stdio.h>
 int main() {
 	char x = 127;
@@ -667,7 +713,6 @@ int main() {
 \item To store real numbers C has several \textit{floating point} data types
 \item As with integers, try to use the smallest you can get away with
 \item \texttt{long double} is supported in gcc but...\underline{\href{https://en.wikipedia.org/wiki/Long_double}{complicated}}
-\item Run benchmark demonstration
 \end{itemize}
 
 \begin{table}[] \small
@@ -695,7 +740,7 @@ Calculating the circumference of Earth using 15 decimal places for $\pi$ results
 \item Q: Why not \textit{always} use \texttt{float} or \texttt{double} instead of \texttt{int}?
 \item A: Floating point arithmetic is \textbf{\textit{NOT}} exact
 \item Example 1: Does this code exit?
-\begin{lstlisting}[style=CStyle,caption=\texttt{floatLoop.c}]
+\begin{lstlisting}[style=CStyle]
 #include <stdio.h>
 int main() {
 	float x = 16000000.0;
@@ -713,7 +758,7 @@ int main() {
 \begin{itemize}
 \item Example 2: $\tan \left( \frac{\pi}{2} \right)$ is undefined
 \item But using floating point $\pi$ can't be represented exactly, so C produces a result anyway
-\begin{lstlisting}[style=CStyle,caption=\texttt{taninf.c}]
+\begin{lstlisting}[style=CStyle]
 #include <stdio.h>
 #include <math.h>
 int main() {
