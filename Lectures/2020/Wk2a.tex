@@ -975,6 +975,25 @@ produces a \textit{good enough} random number between zero and \texttt{RANGE}
 \begin{frame}[fragile]
 \frametitle{Random Numbers}
 \begin{itemize}
+\item As above, zero to \texttt{RANGE} is produced with:
+\begin{lstlisting}[style=CStyle]
+x = rand() % (RANGE+1);
+\end{lstlisting}
+\item To generate numbers from 1 to \texttt{RANGE}:
+\begin{lstlisting}[style=CStyle]
+x = (rand() % RANGE) + 1;
+\end{lstlisting}
+\item These work because:
+\begin{lstlisting}[style=CStyle]
+x = rand() % MAX;
+\end{lstlisting}
+is a random number between zero and \texttt{(MAX-1)}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Random Numbers}
+\begin{itemize}
 \item Using the above information, we can roll a standard die with:
 \begin{lstlisting}[style=CStyle]
 int dieRoll;
