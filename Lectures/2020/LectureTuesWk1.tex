@@ -491,7 +491,7 @@ Note that the ``difference'' is always negative.
 	\end{enumerate}
 \item The resulting Boolean expression is something like:\\
 ~\\
-``If the change between $x_n$ and $x_{n+1}$ is smaller than some precision value and the number of iterations is greater than maximum then stop iterating''
+``If the change between $x_n$ and $x_{n+1}$ is greater than some precision value OR the number of iterations is less than maximum then continue iterating''
 \end{itemize}
 \end{frame}
 
@@ -529,7 +529,7 @@ BEGIN
 	x = a
 	xOld = 0 // Why do we do this?
 	n = 0
-	WHILE (n<10) AND ( (x-xOld) < -0.0001 )
+	WHILE (n<10) OR ( (x-xOld) > -0.0001 )
 		xOld = x
 		x = 1/2*(x + a/x)
 		n = n + 1
@@ -537,10 +537,7 @@ BEGIN
 END
 \end{lstlisting}
 
-\item Here it loops until 10 \textit{iterations} have occurred OR a precision limit is reached
-	\begin{itemize}
-		\item \textbf{NB:} This is the reverse logic to previous slides.
-	\end{itemize}
+\item It loops until 10 \textit{iterations} have occurred OR a precision limit is reached
 \end{itemize}
 \end{frame}
 
@@ -554,6 +551,9 @@ END
 		\item Try to avoid infinite loops \textit{unless you want one}
 	\end{itemize}
 \item What if we want to force the loop to execute \textit{at least once}?
+	\begin{itemize}
+		\item There exists a \texttt{DO ... WHILE} loop for this purpose
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
