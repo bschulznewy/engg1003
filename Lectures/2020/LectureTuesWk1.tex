@@ -491,7 +491,7 @@ Note that the ``difference'' is always negative.
 	\end{enumerate}
 \item The resulting Boolean expression is something like:\\
 ~\\
-``If the change between $x_n$ and $x_{n+1}$ is greater than some precision value OR the number of iterations is less than maximum then continue iterating''
+``If the change between $x_n$ and $x_{n+1}$ is greater than some precision value AND the number of iterations is less than maximum then continue iterating''
 \end{itemize}
 \end{frame}
 
@@ -529,7 +529,7 @@ BEGIN
 	x = a
 	xOld = 0 // Why do we do this?
 	n = 0
-	WHILE (n<10) OR ( (x-xOld) > -0.0001 )
+	WHILE (n<10) AND ( (x-xOld) > -0.0001 )
 		xOld = x
 		x = 1/2*(x + a/x)
 		n = n + 1
