@@ -449,8 +449,10 @@ Example:
 #include <stdio.h>
 
 main() {
+	int x = 1;
 	while(x != 0) {
-		scanf("Enter an integer: %d\n", &x);
+		printf("Enter an integer: ");
+		scanf("%d\n", &x);
 		if(x % 2 == 0)
 			printf("%d is even\n", x);
 		else
@@ -576,7 +578,7 @@ float q, r = 1.0, s = 12e3, t;
 \item Variable names:
 	\begin{itemize}
 		\item Are case sensitive
-		\item Must \textbf{not} be a C keywoard (eg: \texttt{int, char, while}, etc)
+		\item Must \textbf{not} be a C keyword (eg: \texttt{int, char, while}, etc)
 		\item Must \textbf{not} contain special characters (\texttt{*-+/,} etc)
 		\item Must begin with a letter
 		\item Can contain numbers
