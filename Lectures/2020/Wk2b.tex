@@ -129,6 +129,16 @@ if( (x % y) == 0) {
 }
 \end{lstlisting}
 
+Given the rules of integer arithmetic, you can also do:
+
+\begin{lstlisting}[style=CStyle]
+if(x-(x/y)*y == 0) {
+	// y is a factor of x
+}
+\end{lstlisting}
+
+as \texttt{(x/y)*y}
+
 \end{frame}
 
 \begin{frame}[fragile]
