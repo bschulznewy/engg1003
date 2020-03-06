@@ -31,28 +31,6 @@ Instead, use variable initialisation as ``input''. Type input values directly in
 
 For an example please see the Friday Week 2 lecture at timestamp 29~min 41~sec where this technique is used in the code which factorises a number.
 
-\section{Eclipse Che (Advanced)}
-
-{\LARGE Server allocation: $(<\textrm{your student number}> \texttt{\%} 3) + 1$}
-
-If you wish to use Eclipse Che to complete this lab you are welcome to. As noted in last Friday's lecture it does not, by default, accept \texttt{stdin} but as seen above this will not be required yet.
-
-Please note that a Che server has a hard limit of 30 concurrent users (thanks for discovering that on Friday!). As such, I have deployed two more servers (they are named \texttt{che1} and \texttt{che2}). If your ``workspace'' doesn't load then please try the second server.
-
-The \textit{\textbf{first time}} you use any of the Che servers click one of the links below, login via the ``GitHub'' link at the bottom of the login page, enter user details when prompted, and wait for the ``workspace'' to be created:
-
-\url{http://che1.vk2dds.net:8080/f?id=factorypqq4zicbo4hin59w} \\
-\url{http://che2.vk2dds.net:8080/f?id=factorynhhgh4tkbklv5t4j} \\
-\url{http://che3.vk2dds.net:8080/f?id=factoryuz95ni8w4inv4wch}\\
-
-That link will create a workspace in your account and load several code examples from GitHub. \textit{You only need to do this once!} On subsequent logins please use these links:
-
-\url{http://che1.vk2dds.net:8080} \\
-\url{http://che2.vk2dds.net:8080} \\
-\url{http://che3.vk2dds.net:8080}
-
-For now the only documentation is lecture demonstrations. More will be created in the future, as time permits. At time of writing university IT claims to have fixed Che on the laboratory computers but I have not yet tested it personally.
-
 \pagebreak
 \section{C Language Subset}
 
@@ -100,9 +78,9 @@ while(x > 0) {
 
 {\huge If any of the above statements appear confusing ask your demonstrator for an explanation and attend a PASS\\session this week: \\
 \begin{center}
-Monday 14-15 ES238 \\
-Wednesday 12-13 ES238\\
-Thursday 10-11 MCLG42
+Monday 10-11am HE28 \\
+Wednesday 11-12noon HC02\\
+Thursday 12-1pm RW219
 \end{center}}
 
 \begin{task}{Arithmetic sequence}{}
@@ -139,7 +117,8 @@ The initial values are to be ``hard coded'' as variable initialisations. Do not 
 \\ \\
 Check if your code works by comparing its output with a sequence calculated by hand. Test several combinations of $x_1$ and $x_2$.
 \\ \\
-The template below can be used. If you are using a new Che factory it should load automatically. Otherwise, you can get it from \url{https://github.com/bschulznewy/seriesTemplate.git}.
+The template below can be used.
+
 \begin{lstlisting}[style=pseudo]
 #include <stdio.h>
 int main() {
@@ -237,6 +216,8 @@ S_\infty = x_1 \frac{1}{1-k}
 \end{task}
 
 {\huge\textit{At this point I believe that you have completed enough content to \textbf{pass} the week 4 assessment task. Continue below if you want to easily achieve a high distinction grade.}}
+
+\pagebreak
 
 \begin{task}{More Complicated Sequences Pt I (Advanced)}{}
 All previous sequences have had the property that a sequence value, $x_n$, only depends on $x_{n-1}$. Here we extend that idea to sequences for which $x_n = f(x_{n-1}, x_{n-2})$. See footnote\footnote{This is read aloud as ``$x_n$ is a function of $x_{n-1}$ and $x_{n-2}$''}. Each value depends on the previous \textit{two} values.
@@ -338,7 +319,7 @@ and no oscillation occurs as the difference is always negative (ie: the sequence
 
 
 \begin{task}{Mandelbrot Fractal Generator (Advanced)}{}
-\textit{Only attempt this task if everything else has been completed. It is not related to the upcoming assessment task and is only provided for interested students to extend their skill beyond reasonable expectations.\\ \\Demonstrators are not to help with this task. Please do not take their time away from students who need help with the other tasks.}
+\textit{Only attempt this task if everything else has been completed. It is not related to the upcoming assessment task and is only provided for interested students to extend their skill beyond reasonable expectations.}
 \\ \\
 This task assumes that you have completed the Mandelbrot task in Lab 2.
 \\ \\
