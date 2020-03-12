@@ -274,6 +274,11 @@ y = f(x)
 		\item Program execution jumps to the function
 		\item The function's code is executed
 		\item Program execution jumps back to where it left off
+			\begin{itemize}
+				\item In C, the function will jump back when it hits a \texttt{return} statement or the end of the function's code
+				\item Functions which return a value \textit{must} have a \texttt{return} statement
+				\item Functions which return \texttt{void} (ie: nothing) don't
+			\end{itemize}
 	\end{enumerate}
 \item The code inside the function can be any valid C code, not just mathematics
 \end{itemize}
