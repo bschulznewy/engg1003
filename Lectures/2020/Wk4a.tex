@@ -69,7 +69,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Monday Week 4}
-\subtitle{\texttt{switch() { case: }} \\ Functions}
+\subtitle{\texttt{switch() \{ case: \}} \\ Functions}
 \author{Brenton Schulz}
 \institute{University of Newcastle}
 \date{\today}
@@ -283,12 +283,13 @@ y = f(x)
 \begin{frame}[fragile]
 \frametitle{Function Syntax}
 \begin{itemize}
-\item Writing \texttt{rand();} in you code is \textit{calling} the function
-\item The program execution ``jumps'' into the function's code, executes it, then jumps back
 \item Function call syntax is:\\
 {\small \texttt{name([arguments])} }
 \item Not all functions take arguments
 \item The function can ``turn into'' its \textit{return value}
+\pause
+\item Writing \texttt{rand()} in you code is \textit{calling} the function
+\item The program execution ``jumps'' into the function's code, executes it, then jumps back
 \end{itemize}
 \end{frame}
 
@@ -302,7 +303,7 @@ x = rand();
 	\begin{itemize}
 		\item \texttt{rand} is the function name
 		\item It returns a ``random'' integer
-		\item The return value is allocated to \texttt{x}
+		\item The return value is assigned to \texttt{x}
 		\item It doesn't take an argument 	
 	\end{itemize}
 \pause
@@ -314,7 +315,7 @@ y = sqrtf(x);
 		\item \texttt{sqrtf} is the function name
 		\item \texttt{x} is the argument
 		\item It returns the square root of \texttt{x}
-		\item The return value is allocated to \texttt{y}
+		\item The return value is assigned to \texttt{y}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -330,14 +331,14 @@ y = sqrtf(x);
 	\begin{itemize}
 		\item The return value is an \texttt{int}
 		\item The argument is type \texttt{void}
-		\item This just means there aren't any
+		\item This just means ``there are no arguments''
 	\end{itemize}
 \pause
 \item \texttt{float sqrtf(float x);}
 	\begin{itemize}
 		\item The return value is a \texttt{float}
 		\item The argument is a \texttt{float}
-		\item Argument is called \texttt{x} in documentation but you can pass it any \texttt{float}
+		\item Argument is called \texttt{x} in documentation but you can pass it any \texttt{float} variable or literal
 	\end{itemize}
 \end{itemize}
 \end{itemize}
@@ -365,7 +366,10 @@ y = sqrtf(x);
 \begin{frame}
 \frametitle{Return Values}
 \begin{itemize}
-\item I use functions from \texttt{math.h} in these examples, we'll cover them in a few mins
+\item I use functions from \texttt{math.h} in these examples, we'll cover them in a few slides
+	\begin{itemize}
+		\item I should also discuss \texttt{.h} ``header'' files later, too
+	\end{itemize}
 \pause
 \item The following are all valid:
 	\begin{itemize}
@@ -388,15 +392,14 @@ y = sqrtf(x);
 \begin{frame}
 \frametitle{Using Functions}
 \begin{itemize}
-\item (semi-revision)
 \item Before you use a function you must:
 	\begin{itemize}
 		\item Read the documentation
 		\item \texttt{\#include} the correct header file
 		\item Add the correct library to the compiler options
 			\begin{itemize}
-				\item In Che I've done this for the maths library
-				\item \texttt{stdio} and \texttt{stdlib} are always there
+				\item CodeBlocks \textit{links} to the math library when \textit{linking} with \texttt{g++}
+				\item \texttt{stdio} and \texttt{stdlib} are always included
 			\end{itemize}
 		\item Be aware of the data types
 			\begin{itemize}
@@ -418,6 +421,9 @@ y = sqrtf(x);
 		\item Exponents (\texttt{pow();})
 		\item Rounding (\texttt{floor();} \& \texttt{ceil();})
 		\item Floating point modulus (\texttt{fmod();})
+			\begin{itemize}
+				\item Modulus and modulo are poorly defined in common language. This function is a ``floating point remainder'' and not ``absolute value''
+			\end{itemize}
 		\item Square roots
 		\item ...etc
 	\end{itemize}
@@ -489,7 +495,7 @@ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 
 \begin{frame}
 \begin{center}
-...do it live in Che
+...do it live
 \end{center}
 \end{frame}
 
@@ -497,8 +503,8 @@ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 \frametitle{Example - \texttt{scanf();}'s Return Value}
 Read the \texttt{scanf();} \underline{\href{http://man7.org/linux/man-pages/man3/scanf.3.html}{documentation}} and observe that it returns an \texttt{int}. What does that \texttt{int} represent? Write some test code and experiment with its behaviour.
 \\~\\
-Demonstrate it live in Che
-.\end{frame}
+Demonstrate it live...
+\end{frame}
 
 \begin{frame}
 \frametitle{Writing Functions}
@@ -507,6 +513,8 @@ Demonstrate it live in Che
 \pause
 \item Do the following:
 	\begin{enumerate}
+		\item Define (for yourself) what the function needs to do
+		\pause
 		\item Choose a name
 		\pause
 		\item Decide on the function arguments
