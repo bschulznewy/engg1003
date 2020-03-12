@@ -266,6 +266,19 @@ y = f(x)
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Functions in Programming}
+\begin{itemize}
+\item When a function is called:
+	\begin{enumerate}
+		\item Program execution jumps to the function
+		\item The function's code is executed
+		\item Program execution jumps back to where it left off
+	\end{enumerate}
+\item The code inside the function can be any valid C code, not just mathematics
+\end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{Function Examples}
 \begin{itemize}
@@ -358,7 +371,7 @@ y = sqrtf(x);
 \pause
 \item The C standard is \textit{very} specific about what return values are but I will be informal for now
 	\begin{itemize}
-		\item Technically, for example, an expression like \texttt{x=y+5.0;} also has a ``return value`` equal to the value allocated to \texttt{x}
+		\item Technically, for example, an expression like \texttt{x=y+5.0;} also has a ``return value`` equal to the value assigned to \texttt{x}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -557,7 +570,7 @@ Demonstrate it live...
 \begin{itemize}
 \item The function prototype syntax is:
 \begin{lstlisting}[style=CStyle]
-[return data type] function_name(arguments);
+<returned data type> function_name(arguments);
 \end{lstlisting}
 \pause
 \item The \texttt{arguments} section is a comma separated list with the following syntax:
@@ -629,13 +642,86 @@ int add(int a, int b) { // Definition
 	\item The definition goes \textit{below} \texttt{main()}
 		\begin{itemize}
 			\item It is the prototype repeated followed by a \texttt{\{ \}} block
+			\item The code within the \{ \} block is known as the function \textit{body}
 		\end{itemize}
 \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Writing Functions - Example}
+\frametitle{Writing Functions - Example 1}
+\begin{itemize}
+\item Write a C function, \texttt{isEven()}, which takes a single \texttt{int} as an argument and returns 1 if the argument is even and zero otherwise.
+\pause
+	\begin{itemize}
+		\item Name: \texttt{isEven}
+		\item Argument: \texttt{int x}
+		\item Return Value: \texttt{int}
+	\end{itemize}
+\pause
+\item \textbf{NB:} The variable names given to each argument are the names you use when writing the function body
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example 1}
+\begin{itemize}
+\item The function prototype is therefore:
+\begin{lstlisting}[style=CStyle]
+int isEven(int x); // Put before main()
+\end{lstlisting}
+\item The function definition template is:
+\begin{lstlisting}[style=CStyle]
+// Put after main()
+int isEven(int x)
+{
+// Fill this in
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example 1}
+\begin{itemize}
+\item The function's definition can then be written
+\begin{lstlisting}[style=CStyle]
+int isEven(int x)
+{
+	if(x%2 == 0)
+		return 1;
+	else
+		return 0;
+}
+\end{lstlisting}
+\item In this example there is more than one \texttt{return} statement
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example 1}
+\begin{itemize}
+\item We can now write some test code around the function:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int isEven(int x);
+int main() {
+	printf("%d\n", isEven(1));
+	printf("%d\n", isEven(2));
+}
+int isEven(int x)
+{
+	if(x%2 == 0)
+		return 1;
+	else
+		return 0;
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example 2}
 \begin{itemize}
 \item Lets implement the Week 2 \texttt{sqrt} algorithm as a function
 \item ...Then compare with \texttt{sqrtf();}
@@ -645,7 +731,7 @@ int add(int a, int b) { // Definition
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Writing Functions - Example}
+\frametitle{Writing Functions - Example 2}
 \begin{itemize}
 \item In mathematics, calculate $\sqrt{k}$ by iterating:
 \begin{align*}
@@ -666,7 +752,7 @@ for(n = 0; n < 10; n++) {
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Writing Functions - Example}
+\frametitle{Writing Functions - Example 2}
 \begin{itemize}
 \item Lets make some design decisions:
 	\begin{itemize}
@@ -682,7 +768,7 @@ float mySqrt(float k);
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Writing Functions - Example}
+\frametitle{Writing Functions - Example 2}
 \begin{itemize}
 \item Place the function prototype before \texttt{main()}:
 \begin{lstlisting}[style=CStyle]
@@ -698,7 +784,7 @@ int main() {
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Writing Functions - Example}
+\frametitle{Writing Functions - Example 2}
 \begin{itemize}
 \item Write the function definition below \texttt{main()}
 \begin{lstlisting}[style=CStyle]
@@ -717,10 +803,6 @@ float mySqrt(float k) {
 }
 \end{lstlisting}
 \end{itemize}
-\end{frame}
-
-\begin{frame}
-End of Tuesday lecture marker
 \end{frame}
 
 \end{document}
