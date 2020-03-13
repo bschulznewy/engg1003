@@ -184,6 +184,7 @@ float mySqrt(float k) {  // k is an argument
 \item Modifying them in a function doesn't change the original variable
 	\begin{itemize}
 		\item No, not even if they have the same name
+		\item The function's copy occupies a different memory address
 	\end{itemize}
 \item The argument variables are discarded on function return
 \item The return value is the \textit{only thing} that goes back
@@ -205,10 +206,10 @@ float mySqrt(float k) {  // k is an argument
 
 \begin{frame}
 \frametitle{Function Example}
-Write a C function, \texttt{isPrime()}, which takes an \texttt{int} as an argument and returns 1 if it is prime and zero otherwise
+Write a C function, \texttt{isPrime()}, which takes an \texttt{int} as an argument and returns 1 if the argument is prime and zero otherwise
 \begin{itemize}
 \item Name: \texttt{isPrime}
-\item Argument(s): \texttt{(int x)}
+\item Argument: \texttt{(int x)}
 \item Return Value: \texttt{int}
 \pause
 \item Function prototype: \texttt{int~isPrime(int~x);}
@@ -293,6 +294,7 @@ int counter() {
 	return count++;
 }
 \end{lstlisting}
+\item Run this in the debugger...
 \end{itemize}
 \end{frame}
 

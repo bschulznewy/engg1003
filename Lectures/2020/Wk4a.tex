@@ -195,7 +195,7 @@ switch(x==y) { // Evaluates to 0 or 1
 }
 \end{lstlisting}
 \begin{itemize}
-\item The \texttt{default:} case happens if the expression doesn't match any other option
+\item The \texttt{default:} case happens if the expression doesn't match any \texttt{case} statements
 \end{itemize}
 \end{frame}
 
@@ -259,7 +259,7 @@ if(x < 0) {
 \begin{equation*}
 y = f(x)
 \end{equation*}
-\item Here, the function is called $f$, takes an argument of $x$ and returns a value which is given to $y$
+\item Here, the function is called $f$, takes an argument of $x$ and returns a value which is assigned to $y$
 \item C and pure mathematics have these general ideas in common
 \pause
 \item The similarities stop there
@@ -284,6 +284,27 @@ y = f(x)
 \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{\texttt{return} Statements}
+\begin{itemize}
+\item A function stops executing when it reaches a \texttt{return} statement
+\item The \texttt{return} statement has the following syntax:
+\begin{lstlisting}
+return [variable or literal];
+\end{lstlisting}
+\item The variable or literal is optional
+	\begin{itemize}
+		\item Omitting it requires the function's return type to be \texttt{void}
+	\end{itemize}
+\item Examples:
+\begin{lstlisting}[style=CStyle]
+return x; // The value of x is passed back
+return 1; // The constant "1" is passed back
+return; // Nothing (void) is returned
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{Function Examples}
 \begin{itemize}
@@ -304,7 +325,10 @@ y = f(x)
 \item Function call syntax is:\\
 {\small \texttt{name([arguments])} }
 \item Not all functions take arguments
-\item The function can ``turn into'' its \textit{return value}
+\item The function ``turns into'' its \textit{return value}
+	\begin{itemize}
+		\item This value can be assigned to a variable, used in an expression, or ignored
+	\end{itemize}
 \pause
 \item Writing \texttt{rand()} in you code is \textit{calling} the function
 \item The program execution ``jumps'' into the function's code, executes it, then jumps back
