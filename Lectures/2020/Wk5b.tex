@@ -1,0 +1,282 @@
+\documentclass[14pt]{beamer}
+\usetheme{Dresden}
+\usecolortheme{orchid}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{amssymb}
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinestyle{Ctable}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT,READ},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Tuesday Week 5}
+\subtitle{Arrays and Functions:\\Together at Last!\\{\tiny{Does anyone even read the title page?}}\\Also: Maybe Strings \& ASCII Codes}
+\author{Brenton Schulz}
+\institute{University of Newcastle}
+\date{\today}
+
+
+\begin{document}
+\titlepage
+
+\begin{frame}
+\frametitle{The Story So Far}
+\begin{itemize}
+\item Course summary:
+	\begin{itemize}
+		\item Flow control
+			\begin{itemize}
+				\item \texttt{if()}
+				\item \texttt{while()}
+				\item \texttt{for()}
+				\item \texttt{switch()}
+			\end{itemize}
+		\item Variables and data types
+		\item Functions
+		\item Arrays
+	\end{itemize}
+\item Today: Arrays and functions together
+	\begin{itemize}
+		\item Subtext: Pointers
+	\end{itemize}
+\item Today (maybe): Strings
+\item Later: File input-output (I/O)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Programming Assignment And Quiz}
+\begin{itemize}
+\item The programming assignment will use everything from the previous slide
+\item The quiz can include everything up to, and including, the Week 5 Tuesday lecture
+	\begin{itemize}
+		\item Details TBA because the old plan of holding it in a lecture theater can't be done anymore
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Arrays and Functions}
+\begin{itemize}
+\item Last lecture:
+	\begin{itemize}
+		\item Studied arrays
+		\item Studied functions
+		\item Didn't mix them
+	\end{itemize}
+\pause
+\item There are two ways to pass arrays to functions:
+\vspace{-5mm}
+	\begin{itemize}
+	\pause
+		\item Pass an array element, eg:
+		\begin{lstlisting}[style=CStyle]
+int function(int x);
+// ...
+int array[12];
+// ...
+function(array[6]);
+\end{lstlisting}
+\pause
+		\item Give a function a \textit{pointer} to an array
+			\begin{itemize}
+				\item Ok, lets break this one down a bit...
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arrays and Functions}
+\begin{itemize}
+\item Firstly: why don't we pass a whole array?
+\pause
+	\begin{itemize}
+		\item Arrays can be \textit{huge}
+		\item Passing a whole array \textit{copies} everything
+		\item This is a bad idea so C doesn't support it
+		\item (Advanced) Arguments are put to the \textit{stack}
+			\begin{itemize}
+				\item Google stack Vs heap memory allocation for more information. This is beyond ENGG1003.
+			\end{itemize}
+	\end{itemize}
+\pause
+\item Instead, C passes a \textit{pointer}
+	\begin{itemize}
+		\item This is the \textit{memory address} of the array's start
+		\pause
+		\item In C, \texttt{name} is equivalent to \texttt{\&name[0]}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Arrays in Memory}
+\begin{itemize}
+\item Review: When we declare an array, eg,
+\begin{lstlisting}[style=CStyle]
+int x[20];
+\end{lstlisting}
+the compiler allocates 20*sizeof(int) = 80 bytes to store it
+\item The \textit{memory address} of \texttt{x[0]} is some seemingly random number, \texttt{p}
+\item \texttt{p} is a \textit{byte} address
+\item Other elements are stored in sequential memory addresses:
+	\begin{itemize}
+		\item The address of \texttt{x[1]} is \texttt{p + 4}
+		\item The address of \texttt{x[i]} is \texttt{p + i*4}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Arrays in Memory}
+\begin{itemize}
+\item Therefore, to access a given element, \texttt{i}, of an array all we need is:
+	\begin{itemize}
+		\item A pointer, \texttt{p} to the first element
+		\item Knowledge of the arrays \textit{data type}
+			\begin{itemize}
+				\item Specifically, the type's \textit{size}
+			\end{itemize}
+		\item The calculation result of \texttt{p + i*size}
+	\end{itemize}
+\pause
+\item So that's what we do with functions:
+	\begin{itemize}
+		\item The function argument is a \textit{pointer} to a \textit{data type}
+	\end{itemize}
+\pause
+\item C syntax:
+\begin{lstlisting}[style=CStyle]
+return_type function_name(data_type *varName);
+\end{lstlisting}
+\item Key syntax element: the \texttt{*} character
+\pause
+\item Inside the function use \texttt{var[i]} syntax
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Key Points}
+\begin{itemize}
+\item Because arrays are passed via a pointer the function gets \textit{the actual array}
+\item Modifying the array in the function modifies the original variable
+\item You don't \textit{need} a return value
+	\begin{itemize}
+		\item In a technically incorrect way: all the array's elements are ``returned''
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example}
+\begin{itemize}
+\item Write a function which zeros the first N elements of an array of \texttt{int}s
+\begin{itemize}
+	\item Function prototype:
+	\pause
+		\begin{itemize}
+			\item \texttt{void zero(int *x, int N);}
+		\end{itemize}
+	\pause
+	\item The value of \texttt{N} is needed because C won't tell you how long an array is \textit{within the context of the function}
+		\begin{itemize}
+			\item (Advanced) \texttt{sizeof(x)} will just be the size of the pointer -  4, or 8 bytes
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example}
+\begin{itemize}
+\item Function definition:
+\begin{lstlisting}[style=CStyle]
+// Zeros first N elements of x
+void zero(int *x, int N) {
+	int i; // Array index loop counter
+	for(i = 0; i < N; i++)
+		x[i] = 0; // Use array syntax
+	return; // Optional
+}
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Other Examples}
+\begin{itemize}
+\item Lets write and test these live...
+\item Write a function which:
+	\begin{itemize}	
+		\item Returns the sum of an array of length N
+		\item Returns the maximum value in an array of length N
+		\item Fills an array with integers between two given numbers \texttt{min} and \texttt{max}
+			\begin{itemize}
+				\item Prototype:\\\texttt{void countArray(int *x,\\\quad \quad \quad \quad int min, int max);}
+				\item eg: countArray(x, 10, 15) sets:\\ \texttt{x[] = \{10, 11, 12, 13, 14, 15\}}
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{document}
