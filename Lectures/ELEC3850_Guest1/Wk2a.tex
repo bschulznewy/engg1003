@@ -210,30 +210,6 @@ Display Test & 0x0F & ?? & 0x01 to test, 0x00 otherwise\\
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{\texttt{MAX7219\_WriteData()}}
-\begin{itemize}
-\item Implementation options:
-	\begin{itemize}
-		\item Bit bang'ed (software driven)
-		\item SPI peripheral
-			\begin{itemize}
-				\item Polled
-				\item Interrrupt driven
-				\item DMA'ed
-			\end{itemize}
-	\end{itemize}
-\pause
-\item Start with bit banging
-	\begin{itemize}
-		\item Sometimes you need it
-		\item It isn't taught anywhere
-		\item Low-level bit manipulation is tricky but sometimes necessary
-	\end{itemize}
-\item Use SPI later - once everything else it working
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
 \frametitle{Bit Banging}
 \begin{itemize}
 \item Slang term - see Wikipedia for more details\\
@@ -251,6 +227,34 @@ Display Test & 0x0F & ?? & 0x01 to test, 0x00 otherwise\\
 	\end{itemize}
 \end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{MAX7219\_WriteData()}}
+\begin{itemize}
+\item Implementation options:
+	\begin{itemize}
+		\item Bit bang'ed
+		\item SPI peripheral
+			\begin{itemize}
+				\item Polled
+				\item Interrrupt driven
+				\item DMA'ed
+			\end{itemize}
+	\end{itemize}
+\pause
+\item Start with bit banging
+	\begin{itemize}
+		\item Sometimes you need it
+		\item It isn't taught anywhere
+		\item Low-level bit manipulation is tricky but sometimes necessary
+			\begin{itemize}
+				\item eg: WS2812 RGB LEDs and DS18B20 temperature sensors use proprietary protocols
+			\end{itemize}
+	\end{itemize}
+\item Use SPI later - once everything else it working
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}[fragile]
 \frametitle{Bit Banging}
