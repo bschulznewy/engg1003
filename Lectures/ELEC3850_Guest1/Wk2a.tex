@@ -1,0 +1,436 @@
+\documentclass[14pt]{beamer}
+\usetheme{EastLansing}
+\usecolortheme{spruce}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage[font=small]{caption}
+
+\usefonttheme[onlymath]{serif}
+
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,PRINT,WHILE,RETURN},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen},
+        tabsize=2
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=4}
+
+\title{ELEC3850 - Embedded Systems 1}
+\subtitle{Real World Development}
+\author{Brenton Schulz}
+\institute{University of Newcastle}
+\date{\today}
+
+\begin{document}
+\titlepage
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item Sample development timeline
+	\begin{itemize}
+	\item Pick a project requirement
+	\item Identify hardware module which meets requirement
+	\item Read datasheets - identify microcontroller interface
+	\item Work out how to drive microcontroller interface with your system
+		\begin{itemize}
+		\item Bit-banging software interface?
+		\item Existing microcontroller peripheral (I2C, SPI, etc)?
+		\item Hardware configuration?
+		\item Do you need to write a driver library?
+		\item Are there complex interrupt / DMA timing constraints?
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pick An Imaginary Project Requirement}
+\begin{itemize}
+\item Display information to the user with an 8x8 pixel LED matrix
+\pause
+\item Lets search eBay for parts...
+\pause
+\item Great, we pick the MAX7219
+\item Why? Is this good design?
+	\begin{itemize}
+	\item It meets requirements
+	\item It is available
+	\item (Presumably) it is within budget
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MAX2719}
+\begin{itemize}
+\item Note: There are other factors we have not considered
+\begin{itemize}
+\item Update rate
+\item Size
+\item Power requirements
+\item Heat output
+\item ...etc
+\end{itemize}
+\item It might not make it to the final design!
+\item Be preapred to re-evaluate after prototyping.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MAX7219}
+\begin{itemize}
+\item Lets read the datasheet
+\begin{itemize}
+\item How do we find it?
+\item What information are we looking for?
+\pause
+	\begin{itemize}
+		\item Digital interface specifications
+	\end{itemize}
+\item In practice: flick over everything as there might be surprises
+\end{itemize}
+\pause
+\item Note that (annoyingly) the timing diagram is on page 6 but the timing data is back on page 3
+\item What other crucial information does the datasheet have?
+\pause
+\begin{itemize}
+\item Serial data format
+\item Register map
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MAX7219}
+\begin{itemize}
+\item Ok, we have data. What now?
+\pause
+\item Observe the register map - what needs to happen before we display data?
+\pause
+\item Device initialisation!
+\begin{itemize}
+\item Power-on settings might (or might not) be random
+\item Initialisation sets the configuration registers to a known or wanted state
+\item This is needed for almost all peripheral modules
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MAX7219 - Initialisation}
+\begin{itemize}
+\item Pen and paper time
+\item Re-read datasheet
+\item Note all configuration registers and calculate initial values for your application
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MAX7219 - Initialisation}
+\begin{itemize}
+\small
+\item To save time, have a summary:
+\begin{itemize}
+	\item NB: \texttt{X} indicates ``don't care'' in the address data.
+	\item Table below assumes these bits are zero for clarity
+\end{itemize}
+\end{itemize}
+\vspace{-0.5cm}
+\begin{center}
+\small
+\begin{tabular}{ |l|c|c|l| } 
+ \hline
+Register & Address & Set Value & Notes \\
+  \hline
+Digit Data & 0x01 & Don't care & Data will be filled in later \\
+Decode Mode & 0x09 & 0x00 & No decode - driving matrix \\
+Intensity & 0x0A &  0x0F & Full brightness \\
+Scan Limit & 0x0B & 0x07 & Drive all pixels \\
+Shutdown & 0x0C & 0x00 & Normal Operation \\
+Display Test & 0x0F & ?? & 0x01 to test, 0x00 otherwise\\
+\hline
+\end{tabular}
+\end{center}
+\begin{itemize}
+\small
+\item Does the initilisation order matter? Does shutdown have to be turned off first? Sometimes this matters, sometimes it doesn't.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MAX7219 - Software}
+\begin{itemize}
+\item Programming time - What to do?
+\item Brainstorm some useful functions:
+\begin{itemize}
+\item \texttt{MAX7219\_WriteData();}
+\item \texttt{MAX7219\_Init();}
+\item \texttt{MAX7219\_DrawAll();}
+\item \texttt{MAX7219\_WriteRow();}
+\end{itemize}
+\item This is otherwise known as writing a \textit{driver}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{MAX7219\_WriteData()}}
+\begin{itemize}
+\item Implementation options:
+	\begin{itemize}
+		\item Bit bang'ed (software driven)
+		\item SPI peripheral
+			\begin{itemize}
+				\item Polled
+				\item Interrrupt driven
+				\item DMA'ed
+			\end{itemize}
+	\end{itemize}
+\pause
+\item Start with bit banging
+	\begin{itemize}
+		\item Sometimes you need it
+		\item It isn't taught anywhere
+		\item Low-level bit manipulation is tricky but sometimes necessary
+	\end{itemize}
+\item Use SPI later - once everything else it working
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bit Banging}
+\begin{itemize}
+\item Slang term - see Wikipedia for more details\\
+\small
+\url{https://en.wikipedia.org/wiki/Bit_banging}
+\normalsize
+\item Can refer to many bit manipulations
+\item Most commonly refers to a software-driven serial data interface
+\item Compromises:
+	\begin{itemize}
+		\item Useful when hardware interface is not available
+		\item Can be debugged at low speed using instruction stepping
+		\item A good exercise for students
+		\item Much slower and resource intensive than using dedicated hardware
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bit Banging}
+\begin{itemize}
+\item Example, assuming a synchronous (clocked) serial interface
+\item General algorithm:
+\begin{lstlisting}[style=CStyle]
+BEGIN
+	uint8_t data;
+
+	FOR each bit in `data`
+		Place bit on an output pin
+		Cycle a clock pin
+	ENDFOR
+END
+\end{lstlisting}
+\item Typically needs \texttt{>>} or \texttt{<<} shift operators and bitwise logic operators
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bit Banging}
+\begin{itemize}
+\item With more detail, assuming MSB first:
+\begin{lstlisting}[style=CStyle]
+uint8_t data, i;
+
+for(i = 0; i < 8; i++)
+{
+	OUTPUT_PIN = (data & 0x80) >> 8;
+	data = data << 1;
+	CLK_PIN = 1;
+	CLK_PIN = 0;
+}
+\end{lstlisting}
+\item Assumes data is latched on the \textit{rising} edge
+\item \texttt{(data \& 0x80)} is either zero or 128 (\texttt{0x80}). Shift right by 8 bits to make this zero or 1.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MAX7219 Interface}
+\begin{itemize}
+\item Check the MAX7219 datasheet again
+\item We need to know two things:
+	\begin{itemize}
+		\item The state the clock idles at
+		\item The clock edge which latches data
+	\end{itemize}
+\item Make a note of these facts somewhere
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{STM32CubeIDE}
+\begin{itemize}
+\item Next step: STM32 configuration
+\item Initial coding will be done with bit banging
+\item Later we plan to use SPI
+\item Therefore: choose pins that also connect to SPI
+	\begin{itemize}
+		\item CubeMX will tell you which pins these are
+		\item Check dev board datasheets to work out where they are physically
+		\item Configure them as GPIO outputs for now
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{STM32CubeIDE}
+\begin{itemize}
+\item What else needs checking or modifying?
+\pause
+\item Probably clocks - by default the CPU clock may not be optimal
+	\begin{itemize}
+		\item Note: Maximum clock isn't always best!
+		\item There is a small power/heat compromise when increasing clock rate
+	\end{itemize}
+\pause
+\item Generate the project
+\item Observe HAL files which were included
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{STM32CubeIDE - HAL}
+\begin{itemize}
+\item How do we learn about the HAL?
+\item Documentation for STM32F4: \url{https://www.st.com/resource/en/user_manual/dm00105879-description-of-stm32f4-hal-and-ll-drivers-stmicroelectronics.pdf}
+\item HAL requires solid C programming knowledge
+	\begin{itemize}
+		\item Lots of pointers...everywhere
+		\item Lots of structures
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{STM32CubeIDE - HAL}
+\begin{itemize}
+\item Aside: why does it use so many structures?
+\pause
+\item eg:
+\begin{lstlisting}[style=CStyle]
+typedef struct
+{
+  __IO uint32_t CR1;
+  __IO uint32_t CR2;
+  __IO uint32_t SR;
+  __IO uint32_t DR;
+  __IO uint32_t CRCPR;
+  __IO uint32_t RXCRCR;
+  __IO uint32_t TXCRCR;
+  __IO uint32_t I2SCFGR;
+} SPI_TypeDef;
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{STM32CubeIDE - HAL}
+\begin{itemize}
+\item Check the SPI memory map in the reference manual: \url{https://www.st.com/resource/en/reference_manual/dm00031020-stm32f405415-stm32f407417-stm32f427437-and-stm32f429439-advanced-armbased-32bit-mcus-stmicroelectronics.pdf}
+\item This is on Page 916
+\item Compare register map to the \texttt{SPI\_TypeDef} structure...
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{STM32CubeIDE - HAL}
+\begin{itemize}
+\item Why is this structure:register mapping useful?
+\pause
+\item Structure pointers!
+\item A \texttt{SPI\_TypeDef*} pointer can access a register with \texttt{->}
+\item eg:
+\begin{lstlisting}[style=CStyle]
+SPI_TypeDef *spi1 = 0x40013000; // SPI1 base address
+spi1->DR = dataByte; // Write dataByte to tx reg
+\end{lstlisting}
+\item The SPI1 base address is built into the HAL - no explicit need to do things this way
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{STM32CubeIDE - writing \texttt{MAX7219\_WriteData()}}
+\begin{itemize}
+\item Finally some coding!
+\item Lets write the low-level function
+\item Then we will \textit{test} the function
+	\begin{itemize}
+		\item ALWAYS TEST!
+		\item Use a logic analyser - Saleae units are in the lab
+		\item Have a hand-written output to compare against
+	\end{itemize}
+\pause
+\item Next step: write the initialisation
+\item Test init works with the lamp test register
+\item Write the other functions after
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MAX7219 - converting to SPI}
+\begin{itemize}
+\item Are the other functions working now? Can we draw to the LED matrix?
+\item Next step: replace bit-banging with SPI
+\item Development steps:
+	\begin{itemize}
+	\item Re-configure device for SPI in CubeMX
+	\item Replace bit-banging code with a call to HAL\_SPI\_Transmit();
+	\item NB: the \texttt{CS} line needs to be manually controlled if cascading multiple modules
+	\item Try to use the HAL files as documentation
+	\begin{itemize}
+		\item What is in the .h files?
+		\item What is in the .c files?
+		\item Make use of ``Open Declaration'' feature
+	\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{document}

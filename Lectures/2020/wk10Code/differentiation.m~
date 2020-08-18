@@ -1,0 +1,18 @@
+clear all
+
+t = linspace(-10,10,100);
+
+h = t(2)-t(1);
+
+x = -6*t.^3 - 12*t.^2-5*t+7;
+
+figure(1)
+plot(t,x);
+hold on
+
+for idx = 1:(length(x)-1)
+    dx(idx) = (x(idx+1) - x(idx))/h;
+end
+
+figure(2)
+plot(t(1:end-1),dx)
