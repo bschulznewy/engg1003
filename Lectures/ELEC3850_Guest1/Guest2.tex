@@ -189,15 +189,45 @@
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{Interrupts Review}
+\begin{itemize}
+\item An \textit{interrupt} is an event which causes the CPU to:
+\begin{itemize}
+\item Stop what it was doing
+\item Execute an \textit{interrupt service routine} (ISR)
+\item Resume what it was doing
+\end{itemize}
+\item An ISR is a C function with a specific name
+	\begin{itemize}
+		\item These names are listed in the HAL in \texttt{startup\_xxx.s}
+		\item The memory locations of the ISRs get packed into the interrupt vector table - at the start of program memory on an ARM CPU
+		\item By default ISRs are declared \texttt{weak} so you can define your own versions without removing the ``default`` versions
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Interrupts Review}
+\begin{itemize}
+\item ARM CPUs use a nested vector interrupt controller (NVIC) to control the interrupt process
+\item The \textit{nested} behaviour is the ability of interrupts to trigger (and their ISRs execute) while another ISR is already executing
+	\begin{itemize}
+		\item Interrupts have \textit{priorities} which control when they can preempt each other
+	\end{itemize}
+\item The ``vector'' term relates to ISRs having unique program memory addresses which are jumped to when an interrupt triggers
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
 \frametitle{GPIO Interrupts}
 \begin{itemize}
-\item STM32s can have interrupts triggered by GPIO state changes
+\item STM32s can have interrupts triggered by GPIO state changes:
 	\begin{itemize}
 		\item Rising
 		\item Falling
 		\item Both
 	\end{itemize}
-\item There are 16 GPIO external interrupt (\texttt{EXTI}) sources on the STM32F407
+\item There are 16 GPIO external interrupt (\texttt{EXTI}) sources on most STM32s
 	\begin{itemize}
 		\item Each can be triggered off 1 GPIO pin as-per Figure 42, p382 of RM0090
 		\item tl;dr: \texttt{PORT}xN triggers \texttt{EXTI}N
@@ -231,16 +261,16 @@
 \begin{frame}[fragile]
 \frametitle{GPIO Interrupts}
 \begin{itemize}
-\item Example configuration: EXTI on PC9 on an STM32F407
-	\begin{itemize}
-		\item Configure PC9 for GPIO\_EXTI9
-		\begin{center}
-\includegraphics[width=0.15\framewidth]{gpioexti}
-\end{center}
-		\item Select trigger mode in GPIO configuration panel
-	\end{itemize}
-\item Write \texttt{void EXTI9\_5\_IRQHandler(void)}
-\item Get ISR names from \texttt{startup\_xxx.s}
+\item To use an external GPIO interrupt:
+	\begin{enumerate}
+		\item Configure the pin as EXTI in CubeMX
+		\item Write the ISR function
+		\item (Optional) Set the interrupt priority
+			\begin{itemize}
+				\item This is a big topic - not covered in this lecture
+			\end{itemize}
+		\item Enable the interrupt
+	\end{enumerate}
 \end{itemize}
 \end{frame}
 
@@ -249,11 +279,16 @@
 \begin{itemize}
 \item Observe Nucleo-F103RB project
 \item Note it includes \texttt{EXTI15\_10\_IRQHandler()}
+	\begin{itemize}
+		\item It did once then disappeared - CubeMX is weird
+	\end{itemize}
 \item This function, in turn, calls \texttt{HAL\_GPIO\_EXTI\_IRQHandler(GPIO\_PIN\_13)}
-\item If the \texttt{*\_IRQHandler()} function does not exist you need to write it
+\begin{itemize}
+	\item The HAL includes other interrupt functions with various names - these are \textbf{NOT} interrupt service routines called by the NVIC
+\end{itemize}
+\item If the \texttt{EXTI*\_IRQHandler()} function does not exist you need to write it
 	\begin{itemize}
 		\item It is the function \textit{actually called} by the NVIC when the interrupt triggers
-		\item The HAL includes other interrupt functions with various names - these are \textbf{NOT} interrupt service routines called by the NVIC
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -261,9 +296,11 @@
 \begin{frame}[fragile]
 \frametitle{GPIO Interrupts}
 \begin{itemize}
-\item Crucial Note 1: EXTIs interrupts are not enabled by default!
-\item Enable with \texttt{HAL\_NVIC\_EnableIRQ(EXTI15\_10\_IRQn)}
-
+\item Very few interrupts are enabled by default!
+\item Enable interrupts with \texttt{HAL\_NVIC\_EnableIRQ()}
+	\begin{itemize}
+		\item eg: \texttt{HAL\_NVIC\_EnableIRQ(EXTI15\_10\_IRQn)}
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -277,7 +314,59 @@
 \end{itemize}
 \item Crucial note 3: When using shared EXTI interrupts use \texttt{\_\_HAL\_GPIO\_EXTI\_GET\_IT(GPIO\_PIN)} to test which EXTI triggered the ISR
 \item \texttt{stm32f1xx\_hal\_gpio.h} must be included for both the macro and \texttt{GPIO\_PIN} definitions
+\end{itemize}
+\end{frame}
 
+\begin{frame}[fragile]
+\frametitle{UART}
+\begin{itemize}
+\item Review
+\begin{itemize}
+\item The UART is a serial communications device
+\item It is \textit{asynchronous} - only a data signal is sent
+	\begin{itemize}
+		\item The clock rate is configured at sender and receiver
+		\item The start of a transmission is synchronised with a ``start bit''
+	\end{itemize}
+\item UARTs are \textit{byte oriented} - they send or receive 8-bits
+\end{itemize}
+\item Demonstration: Configuration of a UART and code required to use \texttt{printf()} on a NUCLEO-F103RB
+\item NB: STM32s contain UARTs and USARTs - the synchronous USART hardware can be configured with a clock pin but that will not be demonstrated here
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{UART - CubeMX Configuration}
+\begin{itemize}
+\item Creating a project with the NUCLEO-F103RB automatically configures USART2 for pins PA2 (Tx) and PA3 (Rx)
+	\begin{itemize}
+		\item These pins are connected to a virtual COM port on the ST-Link debugger - other boards may require a USB to UART adapter
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{UART - libc}
+\begin{itemize}
+\item Low level \textit{system calls} needs to be written to handle data reads and writes
+\item The \texttt{newlib} embedded version of \texttt{glibc} contains \texttt{printf()}
+\item \texttt{printf()} eventually calls \texttt{\_\_io\_putchar()} to write characters
+\item \texttt{\_\_io\_putchar()} is declared \texttt{weak} in \texttt{syscalls.c} - we need to write our own
+	\begin{itemize}
+		\item You can also write a \texttt{\_\_io\_putchar()} version which prints to other hardware, such as an LCD screen, i2c peripheral, etc
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{UART - libc}
+\begin{itemize}
+\item We will write \texttt{\_\_io\_putchar()} to write characters to the USART2
+\item This will use \texttt{HAL\_UART\_Transmit()}
+	\begin{itemize}
+		\item \texttt{HAL\_UART\_Transmit()} is \textit{blocking} - it won't return until data has been sent
+		\item Non-blocking and interrupt-driven methods use far less CPU time
+	\end{itemize}
 \end{itemize}
 \end{frame}
 
