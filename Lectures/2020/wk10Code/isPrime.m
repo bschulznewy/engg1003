@@ -1,2 +1,0 @@
-function y = isPrime(x)
-    
