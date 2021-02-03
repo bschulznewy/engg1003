@@ -1,0 +1,463 @@
+\documentclass[14pt]{beamer}
+\usetheme{Dresden}
+\usecolortheme{orchid}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{amssymb}
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinestyle{Ctable}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT,READ},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Tuesday Week 9}
+\subtitle{Introduction to MATLAB\\Variables \& Arithmetic\\Vectorisation}
+\author{Brenton Schulz}
+\institute{University of Newcastle}
+\date{\today}
+
+\begin{document}
+\titlepage
+
+\begin{frame}
+\frametitle{Assumed Knowledge}
+\begin{itemize}
+\item These notes are written for ENGG1003 and assume C was taught first
+\item In particular, they require knowledge of:
+	\begin{itemize}
+		\item Program top-to-bottom sequential execution
+		\item Flow control (IF / WHILE / FOR / etc)
+		\item Variables
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{What is MATLAB?}
+\begin{itemize}
+\item MATLAB is an \textit{interpreted} programming language designed for quickly performing numerical analysis
+\item It is sometimes criticised for not being a ``legitimate'' programming language.
+	\begin{itemize}
+		\item Engineers use it to solve a complex numerical problem quickly, then throw the code away
+		\item NB: The code is \textit{written} quickly. It doesn't necessarily \textit{execute} quickly (compared to a compiled language like C)
+	\end{itemize}
+\item Arithmetic is fast, flow control is \textit{very} slow
+\begin{itemize}
+	\item Problems need \textit{vectorisation}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{...Interpreted?}
+\begin{itemize}
+\item A language is \textit{compiled} when the entire source code listing gets converted to a binary executable in one step
+\item An \textit{interpreted} language is read and executed line-by-line
+	\begin{itemize}
+		\item The language interpreter is running the whole time your code is running
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{...Interpreted?}
+\begin{itemize}
+\item Interpreted languages are slower, but have the advantages of:
+	\begin{itemize}
+		\item Being more forgiving of mistakes
+		\item Having more advanced memory management, eg:
+			\begin{itemize}
+				\item Variables don't need to be declared
+				\item Arrays automatically grow and shrink as needed
+			\end{itemize}
+		\item Allowing code snippets to easily be executed in isolation
+			\begin{itemize}
+				\item You can run single lines instantly by typing them into a command prompt
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{MATLAB Vs C}
+\begin{itemize}
+\item Some big contrasts:
+	\begin{itemize}
+		\item MATLAB is ``weakly typed''
+			\begin{itemize}
+				\item There are no strict data types
+				\item By default, (almost) everything is a complex valued array of type \texttt{double}
+			\end{itemize}
+		\item Arithmetic (mostly) follows rules of linear algebra
+			\begin{itemize}
+				\item Somewhat beyond this course. We won't cover matrix multiplication.
+				\item Many language behaviours will make more sense after you've studied linear algebra
+				\item The fact that ``everything is an array'' makes for some possibly confusing rules
+			\end{itemize}
+		\item MATLAB has ``high level'' features like plotting
+			\begin{itemize}
+				\item It is more of a ``calculator engine'' than a programming language
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Installing MATLAB}
+\begin{itemize}
+\item MATLAB is (expensive) commercial software
+	\begin{itemize}
+		\item Python is more popular in industry (c.f. IEEE survey), partly because it is free
+	\end{itemize}
+\item The university pays a site licence which allows students to install it for free
+	\begin{itemize}
+		\item Instructions here (hopefully...): \url{https://uonau.service-now.com/itservices?id=kb_article_view&sysparm_article=KB0023081&sys_kb_id=a7ccc3334f3953c08e8fa90f0310c7f7}
+	\end{itemize}
+\item The ``standard'' licence (for companies) is \$1260 per year, per computer
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Installing Octave}
+\begin{itemize}
+\item Octave is a cost-free (and open source) MATLAB-like interpreter
+	\begin{itemize}
+		\item Some employers prefer this over MATLAB
+	\end{itemize}
+\item It will probably execute all of the code for this course without modification
+\item Available for Windows / Mac / Linux: \url{https://www.gnu.org/software/octave/download.html}
+\item Demonstration of projects in Octave is fine
+	\begin{itemize}
+		\item It tends to load \textit{much} faster than MATLAB
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variable Classification}
+\begin{itemize}
+\item MATLAB may be ``weakly typed'' but the following classifications are useful:
+	\begin{itemize}
+		\item A \textit{scalar} is a single number
+		\item A \textit{vector} is a row or column of numbers 
+		\begin{itemize}
+			\item A 1D array in C
+		\end{itemize}
+		\item A \textit{matrix} is rectangular array of numbers
+		\begin{itemize}
+			\item A 2D array in C
+		\end{itemize} 
+	\end{itemize}
+\pause
+\item Arithmetic operations have different behaviours with different arguments, especially when mixed (eg: what does scalar plus vector do?)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Getting Started}
+\begin{itemize}
+\item Lets load up MATLAB and:
+	\begin{itemize}
+		\item Learn what the different GUI segments do
+		\item Assign values to some random variables
+			\begin{itemize}
+				\item Observe them appear in the ``workspace''
+			\end{itemize}
+		\item Do some basic arithmetic on scalar variables
+		\item Run a basic script
+		\item Observe output suppression
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variable Assignment Syntax}
+\begin{itemize}
+\item When allocating a constant to a variable we have a few basic methods:
+	\begin{itemize}
+		\item Scalar: just like in C
+			\begin{lstlisting}[style=pseudo]
+x = 5
+\end{lstlisting}
+		\item Row Vector: space separated list inside \texttt{[ ]}'s
+\begin{lstlisting}[style=pseudo]
+x = [1 2 3 4]		
+\end{lstlisting}
+		\item Column Vector: like row vectors, but uses \texttt{;} to separate rows:
+\begin{lstlisting}[style=pseudo]
+x = [1;2;3;4]
+\end{lstlisting}
+		\item Matrix: A mix of row and column syntax:
+\begin{lstlisting}[style=pseudo]
+x = [1 2 3; 4 5 6; 7 8 9]
+\end{lstlisting}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Observations}
+\begin{itemize}
+\item First, run the code from the previous slides
+\pause
+\item Observe that the variables are created automatically
+\pause
+\item Observe that MATLAB prints the result after each line
+\item Add a \texttt{;} to the end of a line to suppress the output
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Other Initialisation Methods}
+\begin{itemize}
+\item MATLAB supports many other methods for ``creating'' data:
+	\begin{itemize}
+		\item Create a list of numbers from A to B with increment C with:
+\begin{lstlisting}[style=pseudo]
+x = A:C:B
+\end{lstlisting}
+eg:
+\begin{lstlisting}[style=pseudo]
+x = 0:0.1:2
+\end{lstlisting}
+\item Use the \texttt{linspace()} function
+	\begin{itemize}
+		\item View the help page and run an example
+	\end{itemize}
+	\item We can also read data from files; see this later
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic}
+\begin{itemize}
+\item For scalar data, MATLAB supports all basic arithmetic operators just like C
+	\begin{itemize}
+		\item \texttt{+}
+		\item \texttt{-}
+		\item \texttt{/}
+		\item \texttt{*}
+	\end{itemize}
+\item It also supports exponents with \texttt{\^}
+	\begin{itemize}
+		\item Shift-6 on a US keyboard
+		\item In C, this means a bitwise exclusive-OR
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic}
+\begin{itemize}
+\item For vector and matrix data addition and subtraction is \textit{element-wise}
+	\begin{itemize}
+		\item The arguments should be the same size
+			\begin{itemize}
+				\item Or \textit{at least one} dimension must match but this is beyond ENGG1003 (and only supported on recent versions of MATLAB)
+			\end{itemize}
+		\item If the argument dimensions differ an error occurs
+	\end{itemize}
+\item Run some examples...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic}
+\begin{itemize}
+\item Vector and matrix multiplication and division are beyond ENGG1003
+	\begin{itemize}
+		\item You will learn matrix multiplication in MATH..something
+		\item Division is advanced: multiplication by \textit{matrix inverse}
+	\end{itemize}
+\pause
+\item However, you can do element-wise multiplication if the arguments are the same size
+	\begin{itemize}
+		\item This is done with special operators:
+			\begin{itemize}
+				\item \texttt{.*} Multiplication
+				\item \texttt{./} Division
+				\item \texttt{.\^} Exponent 
+			\end{itemize}
+	\end{itemize}
+\item Run some examples...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arithmetic}
+\begin{itemize}
+\item Final examples (for now):
+	\begin{itemize}
+		\item Scalar plus/minus vector/matrix adds/subtracts that scalar from every element
+		\item Scalar multiplication does the same
+		\item Scalar divided by vector/matrix causes an error (unless \texttt{./} is used)
+		\item Vector/matrix divided by scalar does an element-wise operation
+	\end{itemize}
+\item Run some examples...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Vectorisation}
+\begin{itemize}
+\item \textit{Vectorisation} is the process of arranging a large numerical computing task so that it can be broken up into sub-tasks which can all be executed \textit{simultaneously} (ie: in parallel)
+\pause
+\item Element-wise addition of two arrays is an example of a task which is easy to vectorise
+	\begin{itemize}
+		\item Such tasks are often said to be \textit{embarrassingly parallel}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Vectorisation}
+\begin{itemize}
+\item In MATLAB all vector and matrix arithmetic is said to be vectorised
+	\begin{itemize}
+		\item A \texttt{for()} loop that processes an array is a \textit{linear} operation
+		\item This can be \textit{vectorised} by processing multiple array elements simultaneously
+	\end{itemize}
+\pause
+\item Unlike C, MATLAB is automatically \textit{multi-threaded}
+	\begin{itemize}
+		\item An arithmetic operation on a large array will be spread over multiple CPU cores to increase execution speed
+	\end{itemize}
+\item Run an example
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Maths Functions}
+\begin{itemize}
+\item MATLAB has hundreds (thousands?) of built-in functions
+\item Lets play with trig functions
+\item Run an example of \textit{scalar} \texttt{sin()}
+\pause
+\item What about vectors and matrices?
+\pause
+\item Mathematics doesn't define what a ``matrix sine'' (etc) is
+\item MATLAB simply evaluates them element-wise
+\item Run an example
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scripts}
+\begin{itemize}
+\item MATLAB supports running source code from a file
+\item There is a built-in editor we can use to write (and debug) said files
+\item Long story short:
+	\begin{itemize}
+		\item Create a file with the editor
+		\item Save it with the \texttt{.m} extension
+		\item Click the ``run'' button
+	\end{itemize}
+\item Script files can also be run from the command prompt by typing their name \textit{without the \texttt{.m}}
+	\begin{itemize}
+		\item Prompt must have the correct ``working directory''
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Plotting}
+\begin{itemize}
+\item MATLAB has very powerful built-in plotting tools
+	\begin{itemize}
+		\item They are commonly used in academic literature
+		\item They make Excel plots look like something my 4 year old drew at daycare
+		\item An impressive example I found on Google images: \url{http://www.asu.cas.cz/~bezdek/vyzkum/rotating_3d_globe/rotating_3d_globe/manual.html}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Plotting}
+\begin{itemize}
+\item Basic 2D plotting is done with the \texttt{plot()} function
+\item It does the Excel equivalent of a scatter plot
+\item The first two arguments are vectors (1D arrays) listing x-y pairs of points
+\item Run a basic example...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Plotting}
+\begin{itemize}
+\item We can finally bring a few things together to do an interesting plot
+\pause
+\item Task: plot \texttt{sin(x)} from $0$ to $2\pi$
+\item Steps
+	\begin{enumerate}
+		\item Create a vector, \texttt{x}, that contains ``many'' elements going from $0$ to $2\pi$
+		\item Pass this vector to the \texttt{sin()} function
+			\begin{itemize}
+				\item This is an example of vectorisation
+			\end{itemize}
+		\item Run the plot command as plot(x, sin(x))
+	\end{enumerate}
+\item Do the above manually then repeat it from a script
+\end{itemize}
+\end{frame}
+
+\end{document}

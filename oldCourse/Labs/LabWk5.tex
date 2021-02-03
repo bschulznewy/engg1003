@@ -1,0 +1,1091 @@
+\documentclass{lab}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{soul}
+\usepackage{multicol}
+
+\addtolength{\oddsidemargin}{-.4in}
+\addtolength{\evensidemargin}{-.4in}
+
+\title{ENGG1003 - Lab Week 5}
+\author{Brenton Schulz}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{New Content}
+
+\subsection{Functions}
+
+A C \textit{function} is a block of code which can be \textit{called} from anywhere in your program. A C function is defined by:
+
+\begin{itemize}
+	\item A unique name
+		\begin{itemize}
+			\item The name must be unique among all functions within your program, the libraries which are \texttt{\#include}'ed, and variables within the scope of where the function is called
+		\end{itemize}
+	\item Zero or more \textit{arguments}. Each argument is separated by a comma, has a fixed data type, and name unique to that function's scope
+		\begin{itemize}
+			\item eg: (float x, int num, char a)
+			\item Functions which don't take arguments must list \texttt{void} in place of arguments in their prototype and definition
+		\end{itemize}
+	\item A \textit{return value} data type
+		\begin{itemize}
+			\item Functions with no return value have a return data type of \texttt{void}
+		\end{itemize}
+\end{itemize}
+
+A \textit{function prototype} summarises the above information with the syntax:
+\begin{lstlisting}[style=CStyle]
+return_datatype function_name(arguments);
+\end{lstlisting}
+for example, the \texttt{sin()} function in the mathematics library returns a \texttt{double} and accepts a single \texttt{double} as an argument. It therefore has the following prototype:
+\begin{lstlisting}[style=CStyle]
+double sin(double x);
+\end{lstlisting}
+
+
+A function \textit{definition} is a repeat of the function prototype followed by the code which gets executed when the function is called.
+
+A function \textit{body} is just the code which gets executed. It is a subset of the function definition.
+
+Example: the following code listing includes a function called \texttt{printResult} which takes a single \texttt{float} argument and prints a human-readable message including that number:
+
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+// This line is the function prototype
+// "float x" indicates that it takes a single argument of type float.
+// The return type is void because it does not return a value
+void printResult(float x);
+
+int main() {
+	float a = 2.0;
+	
+	printResult(a); // Test the function by calling it
+}
+
+// The lines below are the function definition
+void printResult(float x) {
+	// This printf() statement is the only code in the function body
+	// The argument "x" is a pre-initialised variable within this scope
+	printf("The final calculation result was: %f\n", x);
+}
+\end{lstlisting}
+
+\pagebreak
+\subsection{Static Variables}
+
+A static variable is one which retains its value between function calls. Normally, all variables declared in functions (including arguments) are lost when the function returns. Any variable declared in a function with the \texttt{static} keyword is kept safe and retains its value between function calls.
+
+For example, the following code prints the numbers 1 to 5 because, within the definition of \texttt{counter()}, \texttt{x} is declared with the \texttt{static} keyword:
+
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+// Takes no arguments, so void argument list
+// Returns an int equal to the number of times it has been called
+int counter(void); 
+
+int main() {
+	// Call 5 times just to test its operation
+	printf("%d\n", counter() );
+	printf("%d\n", counter() );
+	printf("%d\n", counter() );
+	printf("%d\n", counter() );
+	printf("%d\n", counter() );
+}
+	
+// Takes no arguments, so void argument list
+// Returns an int equal to the number of times it has been called
+int counter(void) {
+	// Declaration of x initialises it to zero on first call only
+	static int x = 0;
+	// Increment x. Initialisation is only done once
+	x = x + 1;
+	return x;
+}
+\end{lstlisting}
+
+\pagebreak
+\subsection{Arrays}
+
+An \textit{array} is a collection of variables, all of the same type, arranged in a long list and accessed with an \textit{array index}. In C, an array is declared with a fixed length, data type, and name with the following syntax:
+\begin{lstlisting}[style=Ctable]
+data_type name[size];
+\end{lstlisting}
+
+The data type can be any of the standard C types seen so far (\texttt{char, int, unsigned long, float,} etc). The name must be unique among all variables within its scope. Arrays may be initialised when declared with the following syntax:
+
+\begin{lstlisting}[style=Ctable]
+data_type array_name[] = {1,2,3,4,5,6};
+\end{lstlisting}
+
+If the above syntax is used the array size (inside the []'s) is calculated from the initialisation and doesn't need to be explicitly listed.
+
+The size must be an integer but does not need to be known at compile time. For example, the following code snippet declares an array with a size given by the user at runtime:
+
+\begin{lstlisting}[style=CStyle]
+int length;
+printf("Enter an array length: ");
+scanf("%d", &length);
+
+float numbers[length];
+\end{lstlisting}
+
+A single variable stored inside an array is known as an array \textit{element}. Each element is accessed with a unique \textit{index}. The index is an integer ranging from zero to length-1. Array elements are accessed with the following syntax:
+
+\begin{lstlisting}[style=Ctable]
+arrayName[index]
+\end{lstlisting}
+
+Arrays can be used anywhere that other variables can and their index can be an integer variable or literal.
+
+Examples:
+\begin{lstlisting}[style=Ctable]
+x = array[2]; // Simple arithmetic example
+y = 2.0*x[12] + y[0]; // Non-trivial arithmetic
+n[i] = sin(x); // As lvalues (NB: array can't be declared "const")
+printf("%f\n", nums[12]); // As an argument to a function
+\end{lstlisting}
+
+\pagebreak
+\subsection{\texttt{switch-case} Statements}
+
+A \texttt{switch-case} statement is a flow control construct which provides a neat way to choose one of multiple options. It replaces a long string of \texttt{if()-else-if()} statements.
+
+The following two code blocks are equivalent:
+
+\begin{table}[H]
+\begin{tabular}{l|l}
+\begin{lstlisting}[style=Ctable]
+if(x == 0) {
+	// stuff
+} else if(x == 1) {
+	// stuff
+} else if(x == 2) {
+	// stuff
+} else if(x == 3) {
+	//stuff
+} else {
+	// If nothing else matches, do this
+}
+\end{lstlisting} &
+
+\begin{lstlisting}[style=Ctable]
+switch(x) {
+	case 0: // stuff
+		break;
+	case 1: // stuff
+		break;
+	case 2: // stuff
+		break;
+	case 3: // stuff
+		break;
+	default: // If nothing else matches, do this
+}
+\end{lstlisting}
+\end{tabular}
+\end{table}
+
+Notes:
+\begin{itemize}
+\item \texttt{x} must be an  \textbf{integer} data type (\texttt{int, char, unsigned long}, etc)
+\item The \texttt{break} statements are optional
+\item The program execution will jump from the \texttt{switch()} line to the first matching \texttt{case} line and continue from there
+\item If a \texttt{break} is not found the program will continue to execute other \texttt{case}'s listed below the matching one
+\item The \texttt{default} case is jumped to if none of the other cases match
+\end{itemize}
+
+\pagebreak
+\section{Tasks}
+
+\begin{task}{(Simple Function): Arithmetic}{}
+Write a C function, \texttt{arithmetic()} which takes two \texttt{float} arguments, \texttt{a} and \texttt{b}, and returns their sum.
+\\~\\
+Sub-tasks:
+\begin{enumerate}
+	\item Write the function prototype.
+	\item Write the function definition.
+	\item Place the prototype and definition inside the test code below. It includes test variables \texttt{x} and \texttt{y}, declared within \texttt{main()}. Compile, run, and compare your program's output with a manual calculation of \texttt{x + y}:
+	\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+	
+// Place prototype here
+	
+int main() {
+	float x = 1, y = 5;
+	float result;
+	
+	result = arithmetic(x, y);
+	printf("%f plus %f is %f\n", x, y, result);
+}
+
+// Place definition here
+	\end{lstlisting}
+\end{enumerate}
+\end{task}
+
+\begin{task}{(Switch Statements): Arithmetic Function}{}
+Extend your function from the previous task to accept a third integer argument, \texttt{operation}. Use a \texttt{switch()} statement inside the function definition so that it exhibits the following behaviour:
+\\
+\begin{itemize}
+\item If \texttt{operation} is zero, return \texttt{a+b}
+\item If \texttt{operation} is one, return \texttt{a-b}
+\item If \texttt{operation} is two, return \texttt{a*b}
+\item If \texttt{operation} is three, return \texttt{a/b}
+\item If \texttt{operation} is anything else, print an error message (eg: \texttt{printf("Illegal operation \%d", operation)}) and return zero.
+\end{itemize}
+This task can be broken down into the following sub-tasks:
+\begin{enumerate}
+\item Modify the function prototype to include the third argument \texttt{operation} of type \texttt{int}
+\item Modify the first line of the function definition to include the third argument
+\item \st{Draw the rest of the owl} Write the \texttt{switch} statement which makes a choice between the four arithmetic operations based on the value of \texttt{operation}.\\~\\ \textbf{NB:} You may write \texttt{return} at any point inside a function. As such, your \texttt{switch()} statement may either:
+\begin{enumerate}
+\item Allocate the arithmetic result to a temporary variable (of type \texttt{float)} followed by a \texttt{break} statement, \texttt{return}'ing the temporary variable at the end of the function, OR
+\item have \texttt{return} statements inside the \texttt{switch()} statement, directly after each \texttt{case}.
+\end{enumerate}
+\end{enumerate}
+\end{task}
+
+\begin{task}{(Arrays) Maximum Number Search}{}
+Write a C program which searches an array for its maximum (most positive) element. The data will be provided as an initialised array of type \texttt{float}. The program's output should include the maximum value and the array index at which it was found.
+
+Your program should implement the following algorithm:
+
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	float data[N]
+	float maximum = -1e30 // Initialise to a large negative number
+	int maxIndex
+	FOR i = 0 to N-1 // C array indexing from 0 to N-1
+		IF data[i] > maximum
+			maximum = data[i]
+			maxIndex = i
+		ENDIF
+	ENDFOR
+	PRINT ("The maximum value was %f, found at index %d", maximum, maxIndex)
+END
+\end{lstlisting}
+
+You may use this (very incomplete) template:
+
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+
+int main() {
+	const int N = 6; // const means "constant". Array length.
+	float data[6] = {1.2, 8.4, 10.8, -0.4, -8.234, 3.1};
+	// Declare other variables
+	
+	// Implement search
+	
+	// Print result
+}
+\end{lstlisting}
+
+\end{task}
+
+\pagebreak
+\begin{task}{Functions: Prime Number Testing}{}
+Write a C function, \texttt{isPrime()} which tests if an integer argument is prime.
+\\~\\
+The return value and argument should both be \texttt{int} data types. If the argument is prime the function returns 1 and returns 0 otherwise.
+\\~\\
+For the purposes of this task you should perform a ``brute force'' search for any integer factor of the argument. ie: for an integer \texttt{x} test if it is divisible by all integers between 2 and \texttt{x/2+1}. If any factors are found the function should return zero.
+\\~\\
+\textbf{Revision:} An integer, \texttt{x}, is prime if it is not divisible by any other integer, \texttt{k}. In C, \texttt{x} is divisible by \texttt{k} if \texttt{x\%k == 0}.
+\\~\\
+You may use the template below. It has the function prototype, function definition, and \texttt{main()} ``test code'' pre-written:
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+
+// Returns 1 if x is prime, zero otherwise
+int isPrime(int x);
+
+// main function for testing isPrime()
+// Only modify if I made a mistake or you want to play around
+int main() {
+	int testNum;
+	for(testNum = 0; testNum < 20; testNum++) {
+		if(isPrime(testNum)) {
+			printf("%d is prime\n", testNum);
+		}
+	}
+	return 0;
+}
+
+// Returns 1 if x is prime, zero otherwise
+// EDIT THIS BIT
+int isPrime(int x) {
+	return 0;
+}
+\end{lstlisting}
+\end{task}
+
+\pagebreak
+\begin{task}{(Arrays): Sieve of Eratosthenes}{}
+
+\textit{This task is mathematically simple but algorithmically complex. It is an excellent programming task if you find the mathematics of other tasks overwhelming.}
+\\~\\
+The \textit{Sieve of Eratosthenes} is an algorithm for generating prime numbers. The method is attributed to the ancient Greek scholar Eratosthenes of Cyrene (276-194 BC).
+\\~\\
+If implemented by hand, the algorithm requires the following steps:
+
+\begin{enumerate}
+\item Write a list of integers from 2 to some ``large'' number, $N$
+\item Observe that 2 is prime and that any multiple of 2 would \textit{not} be prime
+\item Moving down the list, cross out every multiple of 2
+\item Choosing the next highest number which is not crossed out, 3, move down the list and cross out every multiple of 3
+\item Choosing the next highest number which is not crossed out, 5, move down the list and cross out every multiple of 5
+\item Repeat until you reach the end of the list
+\item All numbers which were not crossed out are prime
+\end{enumerate}
+~\\
+Example:
+\\~\\
+Listing integers from 2 to 16:\\
+\texttt{2 3 4 5 6 7 8 9 10 11 12 13 14 15 16}
+\\~\\
+Crossing out every multiple of 2:\\
+\texttt{2 3 \st{4} 5 \st{6} 7 \st{8} 9 \st{10} 11 \st{12} 13 \st{14} 15 \st{16}}
+\\~\\
+Crossing out every multiple of 3:\\
+\texttt{2 3 \st{4} 5 \st{6} 7 \st{8} \st{9} \st{10} 11 \st{12} 13 \st{14} \st{15} \st{16}}
+\\~\\
+Crossing out every multiple of 5 (ok, they're all crossed out by now already so we can stop):\\
+\texttt{2 3 \st{4} 5 \st{6} 7 \st{8} \st{9} \st{10} 11 \st{12} 13 \st{14} \st{15} \st{16}}
+\\~\\
+All the numbers left over are prime:\\
+\texttt{2 3 5 7 11 13}
+\\~\\
+\textbf{Task:} Write a C program which uses this method to find all prime numbers strictly less than 100.
+\\~\\
+Since we need to remember a ``long'' list of numbers (and whether or not they are ``crossed out'') this is a perfect application for an array.
+\\~\\
+To complete this task, declare an array of type \texttt{char} with 100 elements:
+\begin{lstlisting}[style=Ctable]
+char numbers[100]; // Index ranges from 0 to 99
+\end{lstlisting}
+The list of indices (plural of index) will form the list of integers. The array elements (the numbers stored at each index) indicate whether that index has been "crossed out" or not.
+\\~\\
+The array includes indices 0 and 1 which are integers not considered by the original algorithm. Your code may either ignore them or treat them as special cases when printing the result (ie: have explicit \texttt{if(index == 0 || index == 1) statements}).
+\\~\\
+The array should be initialised to all 1's to indicate that, at the start of the algorithm, nothing has been crossed out. As elements are ``crossed out'' they should be set to zero.
+
+\pagebreak
+Your program should implement the following pseudocode:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	numbers[MAX+1] is an array of char's
+	Set every element of numbers[] to 1
+	
+	FOR index = 2, 3, 4, ..., MAX
+		IF numbers[index] is 1
+			FOR j = 2*index, 3*index, 4*index, ... MAX
+				numbers[j] = 0
+			ENDFOR
+		ENDIF
+	ENDFOR
+	Print every index for which numbers[index] is 1
+END
+\end{lstlisting}
+
+You may use the following template:
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+
+int main() {
+	// Maximum integer to test. Declared constant
+	// This is declared so that the maximum integer
+	// can easily be changed
+	const int MAX = 100;
+	char numbers[MAX+1];
+	int index;
+	int j;
+
+	// Initialised numbers[]
+	for(index = 0;	index <= MAX; index++) {
+		numbers[index] = 1;
+	}
+
+	// DO THE SIEVE ALGORITHM HERE
+	// for(index = 2; ...etc
+	
+	// Print results
+	printf("The following numbers are prime:\n");
+	for(index = 2; index <= MAX; index++) {
+		if(numbers[index] == 1) {
+			printf("%d\n", index);
+		}
+	}
+	
+	return 0;
+}
+\end{lstlisting}
+\textbf{HINT:} The inner FOR loop in the pseudocode can be implemented with the C \texttt{for()} statement:
+\begin{lstlisting}[style=Ctable]
+for(j = 2*index; j < MAX; j = j + index) {
+	// Do stuff
+}
+\end{lstlisting}
+\textbf{Extension:} The \underline{\href{https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes}{Wikipedia}} article covering the Sieve of Eratosthenes describes several optimisations. Implement the one which only crosses out \texttt{index} values starting at $index^2$ (instead of \texttt{2*index}) and the algorithm exit condition of not attempting to cross out values larger than $\sqrt{MAX}$.
+\end{task}
+
+\pagebreak
+\begin{task}{Arrays: Statistics Calculations}{}
+Write a C program which accepts a ``large'' number of real numbers and calculates their sample mean and sample variance.
+\\~\\
+\textbf{Revision:} From statistics, the \textit{sample variance}, $s^2$, of $N$ samples, $X_1, X_2, ... , X_N$, can be calculated as:
+
+\begin{equation}\label{eq:var}
+s^2 = \frac{1}{N-1}\sum_{k=1}^{N}(X_k - mean(X))^2.
+\end{equation}
+
+There are \underline{\href{https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance}{many algorithms}} for calculating a data set's variance. For this task you should implement the reasonably robust \textit{two-pass} algorithm which calculates the sample mean and uses this value to calculate the variance as follows:
+\begin{lstlisting}[style=pseudo]
+integer n = 0
+float sum1 = 0
+float sum2 = 0
+
+FOR each data point Xn
+	n = n + 1
+	sum1 = sum1 + Xn
+ENDFOR
+
+mean = sum1 / n
+
+FOR each data point Xn
+	sum2 = sum2 + (Xn - mean)*(Xn - mean)
+ENDFOR
+
+variance = sum2 / (n-1)
+\end{lstlisting}
+
+Your program should ``input'' the data via an array initialisation. This is to avoid having to manually repeatedly type test data into \texttt{scanf()} while debugging.
+\\~\\
+You may use the following template:
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+int main() {
+	// The mean of x[] is 5.000000
+	// The variance of x[] is 7.500000
+	// x[] has 9 elements
+	float x[9] = {1,2,3,4,5,6,7,8,9};
+	float variance, mean;
+	float sum1 = 0, sum2 = 0;
+	int n; // Counter variable
+	
+	// Calculate the sample mean (NB: we are assuming N=9)
+	for(n = 0; n < 9; n++) {
+		// Write your calculation here
+	}	
+	
+	// Calculate the sample variance
+	// Write your own for() loop
+	
+	printf("Mean: %f\nVariance: %f\n", mean, variance);
+	return 0;
+}
+\end{lstlisting}
+\end{task}
+
+\pagebreak
+\begin{task}{Functions: Numerical Integration}{}
+\textit{\textbf{NB:} I belive the mathematics of this task is much more difficult to understand than the C implementation. Read the linked Wikipedia page and ask a demonstrator for an explanation if you don't follow it.} \\
+~\\
+Write a C program which implements the following equation:
+\begin{equation*}
+f(x) = e^{x^2}
+\end{equation*}
+as a C function and uses the trapezoidal rule to numerically calculate its integral between two given points: $x_1$ and $x_2$ (assume $x_1 < x_2$). You should use the \texttt{expf()} function from the C maths library; be sure to \texttt{\#include $<$math.h$>$}.
+\\~\\
+The function $e^{x^2}$ is impossible to integrate by hand (ie: there is no ``closed form'' solution for $\int e^{x^2} dx$) so we are \textit{forced} to use numerical methods such as the trapezoidal rule (or Riemann integrals, Simpson's Rule, etc) to evaluate it.
+\\~\\
+For the purposes of this task, the trapezoidal rule requires the interval, $[x_1, x_2]$ to be broken up into several smaller ``chunks'' of trapezoidal shape. The area of each of these trapezoids is easy to calculate and sum together.
+\\~\\
+Graphical illustration of the method can be found on \underline{\href{https://en.wikipedia.org/wiki/Trapezoidal_rule}{Wikipedia}}. This task implements the method described under numerical implementation on a \underline{\href{https://en.wikipedia.org/wiki/Trapezoidal_rule\#Uniform_grid}{uniform grid}}.
+\\~\\
+To implement this, your program needs a number, \texttt{N}, equal to the number of trapezoids the $[x_1, x_2]$ interval is broken into. For this task, you may ``hard code'' a value of \texttt{int N=5}. You are encouraged to vary this value and observe how the accuracy of the result changes.
+\\~\\
+Given the interval, $[x_1, x_2]$, and trapezoid count, \texttt{N}, the horizontal width of each trapezoid, $\Delta x$, can be calculated as:
+\begin{equation}
+\Delta x = \frac{x_2 - x_1}{N}.
+\end{equation}
+
+The integral of an arbitrary function, $f(x)$, may then be calculated with the following equation:
+\begin{equation}
+\int_{x_1}^{x_2} f(x) dx = \Delta x \left( \frac{1}{2} f(x_1) + \sum_{k=1}^{N-1} f(x_k) + \frac{1}{2} f(x_2) \right)
+\end{equation}
+where $x_1$ is given and the $x_k$'s inside the sum can be calculated as:
+\begin{equation*}
+x_k = x_1 + k \Delta x.
+\end{equation*}
+In your C program, evaluation of $f(x)$ is simply written as \texttt{f(x)} so long as you have declared the variable \texttt{float x;} and have written a function with the prototype \texttt{float f(float x)}.
+\\~\\
+The evaluation of $\sum_{k=1}^{N-1} f(x_k)$ implies the use of a \texttt{for()} loop with the following form:
+\begin{lstlisting}[style=CStyle]
+int N = 50;
+int k; // Loop counter
+float x1 = 0, x2 = 2;
+float dx = (x2 - x1) / N;
+// ... other code
+float sum = 0;
+for(k = 1; k < N; k++) {
+	float x;
+	x = x1 + k*dx;
+	sum = sum + f(x)
+}
+\end{lstlisting}
+With the values for $x1$ and $x2$ above the final answer should be $\approx 16.4526$.
+\end{task}
+
+\pagebreak
+\begin{task}{Functions: Numerical Differentiation}{}
+
+In pure mathematics, the following formula is used to differentiate the function $f(x)$ at a point $x_0$ from first principles:
+
+\begin{equation}\label{eq:diff}
+\frac{df(x_0)}{dx} = \lim_{h\to 0} \left[ \frac{f(x_0 + h) - f(x_0)}{h}\right]
+\end{equation}
+
+On a computer it is not possible to implement Equation \eqref{eq:diff} exactly because a division by zero causes numerical errors and is mathematically \textit{a little bit naughty}.
+\\~\\
+Instead, we can \textit{estimate} the differential (ie: gradient of $f(x_0)$) by choosing a small, but non-zero, value for $h$ and acknowledging that the answer is not exact. Thankfully engineering never \textit{requires} exact values so the approximation can still be very useful.
+\\~\\
+Explicitly, we calculate an estimate for the gradient as:
+
+\begin{equation}\label{eq:diffest}
+\frac{df(x_0)}{dx} \approx \left[ \frac{f(x_0 + h) - f(x_0)}{h}\right]
+\end{equation}
+
+for a ``small'' but non-zero value of $h$.
+\\~\\
+\textbf{Task:} Write a C program which calculates the gradient of $f(x) = x^2 + 2x - 1$ at a given point $x_0$. 
+\\~\\
+\textbf{Procedure:}
+\begin{enumerate}
+\item Write a C function which takes a single argument of type \texttt{float} and returns a \texttt{float} equal to \texttt{x*x + 2*x - 1}. The function prototype should be:
+\begin{lstlisting}[style=CStyle]
+float f(float x);
+\end{lstlisting}
+\item Using the above function, write a \textit{second} function which takes two \texttt{float} arguments, \texttt{x0} and \texttt{h}, and returns an estimate of the gradient of $x^2 + 2x - 1$ at \texttt{x0} using Equation \eqref{eq:diffest}. The function prototype should be:
+\begin{lstlisting}[style=CStyle]
+float diff(float x, float h);
+\end{lstlisting}
+\item Test your program given that:
+\begin{align*}
+f\prime(x) &= 2x+2\\
+f\prime(0) &= 2\\
+f\prime(1) &= 4\\
+f\prime(-1) &= 0
+\end{align*}
+\end{enumerate}
+You may use the following template:
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+float diff(float x);
+float f(float x);
+int main() {
+	float h = 0.0001;
+	printf("%f\n", diff(0, h));
+	printf("%f\n", diff(1, h));
+	printf("%f\n", diff(-1, h);
+}
+float diff(float x) {
+	float d; // Differentiation result variable
+	d = ; // Fill in this line
+	return d;
+}
+// Write the function definition of f(float x) below here
+\end{lstlisting}
+\end{task}
+
+\pagebreak
+\begin{task}{Functions and Static Variables: Fibonacci Sequence Generator}{}
+\textbf{Review:} The Fibonacci Sequence is a sequence of integers:
+\begin{equation*}
+x_1, x_2, x_3, ..., 
+\end{equation*}
+where:
+\begin{align*}
+x_1 &= 1\\
+x_2 &= 1\\
+x_n &= x_{n-1} + x_{n-2}
+\end{align*}
+\textbf{Task:} Write a C function which, each time it is called, returns the next value of the Fibonacci sequence. This will require the use of \texttt{static} variables within the function. Use the following function prototype:
+\begin{lstlisting}[style=CStyle]
+unsigned int fib(void);
+\end{lstlisting}
+
+You can use the following template:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+unsigned int fib(void);
+
+int main () {
+	int n;
+	
+	for(n = 0; n < 10; n++)
+		printf("%d %u\n", n, fib() ); //%u formats an unsigned int
+} 
+\end{lstlisting}
+
+After correctly implementing the function definition for \texttt{fib()} your program output should be:
+\begin{lstlisting}[style=pseudo]
+1 1
+2 1
+3 2
+4 3
+5 5
+6 8
+7 13
+8 21
+9 34
+\end{lstlisting}
+\end{task}
+
+\pagebreak
+\begin{task}{Mandelbrot Images - Advanced}{}
+Starting from a completed solution to the Week 3 Mandelbrot problem modify your code to generate an ASCII netpbm ``portable PixMap'' (PPM) formatted image.
+\subsection*{PPM Image Format}
+The PPM format specification allows images to be written to files using only plain text (ASCII) data. This results in a \textit{very} simple file format which is easy to create with basic programs.\\
+~\\
+The file header has the following format:
+\begin{lstlisting}[style=pseudo]
+P3
+<x resolution> <y resolution>
+<max value>
+\end{lstlisting}
+where:
+\begin{itemize}
+	\item \texttt{P3} is a ``magic number'' identifying the format
+	\item \texttt{$<$x resolution$>$} is the number of pixels horizontally
+	\item \texttt{$<$y resolution$>$} is the number of pixels vertically
+	\item \texttt{$<$max value$>$} is the pixel value corresponding to maximum brightness. Typically \texttt{255}.
+\end{itemize}
+An example header for a 100x100 pixel image would be:
+\begin{lstlisting}[style=pseudo]
+P3
+100 100
+255
+\end{lstlisting}
+After the header comes the \textit{body}. This is a list of \textbf{integer} RGB triplet numbers, separated by whitespace. The exact format is not critical, but I recommend the following:
+\begin{lstlisting}[style=pseudo]
+R G B
+R G B
+R G B
+...etc
+\end{lstlisting}
+The pixel data scans left-to-right top-to-bottom (ie: top left pixel is first, bottom right pixel is last). This is the same order in which the Week 3 task calculated pixel values.
+
+\subsection*{Colouring Fractal Images}
+In order to colour a fractal image a mapping is used which converts each pixel's \textit{iteration count} to a colour. There are a near-infinite number of choices for this and I strongly recommend you research so-called ``colorbar'' creation. For this task I recommend the following two options:
+\begin{enumerate}
+	\item For debugging, use a grayscale mapping which uses the following formula for a pixel brightness, $p$, given the number of \texttt{iters} a pixel took to escape:
+		\begin{equation*}
+			p = 255 \times \frac{\texttt{iters}}{\texttt{MAX\_ITERS}}
+		\end{equation*}
+		To create greyscale images the RGB values of a pixel must be equal. This means that after you calculate $p$ you can just use 
+\begin{lstlisting}[style=pseudo]
+R = p;
+G = p;
+B = p; 
+\end{lstlisting}
+
+to make R, G and B equal. \textbf{NB:} The PPM format requires the output numbers to be \textbf{integers}!\\~
+	\item More interesting colour mappings can be built with the use of the HSL (Hue-Saturation-Luminance) colourspace. This is a set of 3 numbers (H, S and L) which define a unique colour based on their hue (base colour from the rainbow), saturation (``colourfull-ness'') and luminance (brightness). 
+\\~\\
+You can then slightly tweak the previous formula to provide a H value and fix S and L at 1.0:
+\begin{align*}
+H &= 360 \times \frac{\texttt{iters}}{\texttt{MAX\_ITERS}}\\
+S &= 1.0\\
+L &= 1.0
+\end{align*}
+Because the PPM image format only supports RGB pixel formats you will need to implement formulas which convert HSV triplets to RGB values. \underline{\href{https://www.rapidtables.com/convert/color/hsv-to-rgb.html}{Wikipedia}} lists the set of formulas. Implement them in code, either as three functions or just as ``inline'' code.
+\\~\\
+You can attempt to write a single function which accepts a pointer to an array of 3 \texttt{float}s but we won't cover the details of this for a couple of weeks.
+\end{enumerate}
+~\\
+After RGB values have been calculated the output file data can be written.
+
+\subsection*{Creating Files}
+For this task we have two options for creating a file:
+\begin{enumerate}
+\item Use command line output redirection
+\item Use the C file I/O library
+\end{enumerate}
+The first option keeps your program simpler but requires the use of a command line when running the program. If your code simply uses \texttt{printf()} to output the PPM data (and \textit{nothing} else) it can be written to a file with:
+\begin{lstlisting}[style=pseudo]
+# ./a.out > image.ppm
+\end{lstlisting}
+The file \texttt{image.ppm} can then be downloaded (if you're using Che etc) or directly opened with an image editor. I know \texttt{eog}, \texttt{gimp}, etc open PPM on Linux and am naively hoping that something on Windows supports it.
+\\~\\
+The alternative, which will work with C development environments which don't have command lines like OnlineGDB, is to use the C file I/O library. To do this you need several lines of code and an extra function:
+\begin{lstlisting}[style=CStyle]
+FILE *output; // A pointer variable of type FILE*
+output = fopen("image.ppm", "w"); // To open the file image.ppm
+fprintf(output, "%d %d %d\n", r, g, b);
+\end{lstlisting}
+The \texttt{FILE *output} line is a variable declaration, only do this \textit{once}. Likewise, \texttt{output = fopen...} opens the file \texttt{image.ppm} for writing. Only do this \textit{once} as well.
+\\~\\
+The \texttt{fprintf()} function is almost exactly the same as \texttt{printf()} except it takes an extra argument: the file to write to. In this case passing \texttt{output} (the \texttt{FILE *} variable declared earlier) will write the formatted text to that file.
+
+Lets see if somebody gets this to work given the above plus your own independent research. We will formally cover file I/O in a few weeks (check the course outline for a planned week).
+\end{task}
+
+\pagebreak 
+\section{C Summary}
+This section will be included in all future lab documents and lists a summary of C language features taught prior to the lab session. It will grow each week.
+
+Not everything listed in this section is required to complete a particular lab.
+
+\begin{multicols}{2}
+\subsection{Basic Structure}
+This is the absolute minimum amount of code you need to make a C program compile, run, and interact with the user via a console:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	// Your program goes here
+	return 0;
+}
+\end{lstlisting}
+\subsection{Comments}
+\begin{lstlisting}[style=CStyle]
+// This is a comment to end of line
+
+/* this is a block comment
+   which could span
+   multiple
+   lines
+   */
+\end{lstlisting}
+
+\subsection{Code Blocks}
+
+Any section of code encompassed by \texttt{\{...\}} is a \textit{block}.
+
+\subsection{Operators}\label{sec:operators}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+Operation      & C Symbol \\
+\hline
+Addition       & \texttt{+}        \\
+Subtraction    & \texttt{-}        \\
+Multiplication & \texttt{*}        \\
+Division       & \texttt{/}       \\
+Modulus		   & \texttt{\%}	\\
+Increment	& \texttt{++}	\\
+Decrement	& \texttt{--} \\
+Less than       & $\texttt{<}$        \\
+Less than or equal to    & $\texttt{<=}$\\
+Greater than & $\texttt{>}$        \\
+Greater than or equal to       & $\texttt{>=}$ \\
+Equal to & \texttt{==} \\
+Not equal to & \texttt{!=} \\
+Boolean AND & \texttt{\&\&} \\
+Boolean OR & \texttt{||} \\
+Boolean NOT & \texttt{!} \\
+\hline
+\end{tabular}
+\caption{Arithmetic operators in C}
+\end{table}
+
+\columnbreak
+\subsection{Operator Shorthand}
+
+Many arithmetic operators support the following shorthand syntax. The left and right columns present equivalent statements.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\texttt{x = x + y;} & \texttt{x += y;} \\
+\texttt{x = x - y;} & \texttt{x -= y;} \\
+\texttt{x = x * y;} & \texttt{x *= y;} \\
+\texttt{x = x / y;} & \texttt{x /= y;} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Data Types}\label{sec:datatypes}
+
+\begin{table}[H]
+\begin{tabular}{|l|l|l|l|}
+\hline
+Type & Bytes & Value Range                             \\
+\hline
+\texttt{char}      & 1                  & -128, +127  \\
+\texttt{unsigned char}	& 1				& 0, 255 \\
+\texttt{short}     & 2                & -32768, 32767\\
+\texttt{unsigned short} & 2			& 0, 65535 \\
+\texttt{int}       & 4                & $\approx \pm 2.1\times 10^9$ \\
+\texttt{unsigned int}	& 4				& 0, 4294967296 \\
+\texttt{long}      & 8                  & $\approx \pm 9.2\times 10^{18}$ \\
+\texttt{unsigned long} & 8				& 0, $1.8 \times 10^{19}$ \\
+\texttt{float}       & 4  & $1.2\times 10^{-38}$ to $3.4 \times 10^{38}$    \\
+\texttt{double}      & 8  & $2.3 \times 10^{-308}$ to $1.7 \times 10^{308}$    \\
+
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Type & Precision \\
+\hline
+\texttt{float} & 6 sig. figs. \\
+\texttt{double} & 15 sig. figs \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection{Standard i/o}
+
+Read a single variable from \texttt{stdin} with \texttt{scanf();}
+\texttt{scanf("\textit{format specifier}", \&\textit{variable}});
+
+Write a single variable to \texttt{stdout} with \texttt{printf();}
+\texttt{printf("\textit{format specifier}", \textit{variable});}
+
+You can use \texttt{printf();} \textit{without} a newline (\texttt{\textbackslash n}) to create an input prompt:
+
+\begin{lstlisting}[style=CStyle]
+printf("Enter a number: ");
+scanf("%d", &variable);
+\end{lstlisting}
+
+This prints:
+
+\texttt{Enter a number: \_}
+
+where \_ indicates the terminal prompt (ie: where typed characters will appear).
+
+\subsection{Format Specifiers}
+The following table is woefully incomplete. The compiler \textit{may} generate warnings if \texttt{\%d} is given something other than \texttt{int} and \texttt{\%f} is given something other than \texttt{float}. An attempt will be made to ensure these are sufficient.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Data Type & Format Specifier \\
+\hline
+Integers & \texttt{\%d} \\
+Floating point & \texttt{\%f} \\
+Float with \texttt{n} decimal places & \texttt{\%.nf} \\
+\hline
+\end{tabular}
+\caption{Basic format specifiers}
+\end{table}
+
+\subsection{Type Casting}
+Placing the syntax \texttt{(\textit{type})} before a variable name performs a type cast (ie: data type conversion).
+
+eg: convert \texttt{float} to an \texttt{int} prior to using its value. This forces a rounding-down to the nearest integer.
+
+\begin{lstlisting}[style=CStyle]
+float a;
+// ...
+y = (int)a * z;
+\end{lstlisting}
+
+\textbf{NB:} This does \textbf{not} modify the original variable.
+
+Data type ``upgrades'' are done automatically by the compiler but sometimes it is desired to downgrade or force esoteric behaviour. Adding it unnecessarily doesn't have any negative impact. Applications in ENGG1003 will be limited but it comes up regularly in embedded systems and nobody else explicitly teaches type casting. I have used it extensively in the low-level art of \textit{bit banging}: manual manipulation of binary data. This is, unfortunately, beyond ENGG1003.
+
+\subsection{Flow control}
+
+Flow control allows selected blocks of code to execute multiple times or only under a specified condition.
+
+\subsubsection{\texttt{if()}}\label{sec:if}
+
+The \texttt{if()} statement executes a block of code only if the \textit{condition} is true. The condition is an arithmetic statement which evaluates to either zero (false) or non-zero (true).
+
+\texttt{if()} Syntax:
+
+\texttt{if(\textit{condition}) \{/* other code */\}}
+
+\columnbreak
+Full \texttt{if()} example:
+
+\begin{lstlisting}[style=CStyle]
+if(x > 10) {
+	// Do stuff
+}
+\end{lstlisting}
+
+Condition Examples:
+\begin{itemize}
+\item \texttt{if(x) // if(x is not zero)}
+\item \texttt{if(x+y) //if((x+y) is not zero)}
+\item \texttt{if(y >= 5)}
+\item \texttt{if(1) // Always executes}
+\item \texttt{if(0) // Never executes}
+	\begin{itemize}
+		\item Can be used for debugging. Might be easier than a block comment /* */
+	\end{itemize}
+\end{itemize}
+
+\textbf{NB:} \textit{NEVER} place a semicolon after an \texttt{if()}, that stops it from having any effect. The block after it will always execute. This bug can take days to find.
+
+If there is only \textit{one} statement after an \texttt{if()} the \{ \} braces are optional:
+
+\begin{lstlisting}[style=CStyle]
+if(x > 10) 
+	printf("x is greater than 10\n");
+\end{lstlisting}
+
+
+\subsubsection{\texttt{if() ... else if()}}
+
+The C syntax for IF ... ELSE is:
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+} else {
+	// Do stuff
+}
+\end{lstlisting}
+
+IF ... ELSEIF takes the form:
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+} else if(condition) {
+	// Do stuff
+}
+\end{lstlisting}
+
+Multiple ``layers'' of \texttt{else if()} can be written. You don't have to stop at two.
+
+\textbf{NB:} \textit{NEVER} place a semicolon directly after  the \texttt{else if()}. Semicolons only go after the statements inside the \texttt{if()} block (ie: between the curly braces \{ \}).
+
+\columnbreak
+\subsubsection{\texttt{while()}}
+
+The \texttt{while()} flow control statement executes a block of code so long as a condition is true. The condition is checked before the block is executed and before every repeated execution.
+
+The condition rules and examples are the same as for those listed under the \texttt{if()} statement.
+
+Syntax:
+
+\texttt{while(\textit{condition)} \{/* other code */\}}
+
+Example:
+
+Evaluate the infinite sum:
+\begin{equation}
+\sum_{n=0}^{\infty} \frac{1}{n^2}
+\end{equation}
+to a precision of $1 \times 10^{-6}$
+\begin{lstlisting}[style=CStyle]
+float sum = 0.0;
+int x = 0;
+while(1/(x*x) > 1e-6) {
+	sum = sum + 1.0/(x*x);
+	x++
+}
+\end{lstlisting}
+
+\textbf{NB:} \textit{NEVER} place a semicolon directly after a \texttt{while()} line. Semicolons only go after the statements inside the loop.
+
+\subsubsection{\texttt{for(;;)}}\label{sec:for}
+
+\textit{As of week 2 this has not yet been covered in lectures.}
+
+The \texttt{for(;;)} loop syntax is:
+
+\begin{lstlisting}[style=CStyle]
+for( initial ; condition ; increment ) {
+	// Do stuff
+}
+\end{lstlisting}
+
+The three sub-parts have the following behaviour:
+
+\begin{itemize}
+\item \textbf{Initial:} Code which is executed \textit{once}, before the loop is entered
+\item \textbf{Condition:} A condition which is tested \textit{before} every loop iteration
+\item \textbf{Increment:} Code which is executed \textit{after} every iteration
+\end{itemize}
+
+\texttt{for(;;)} Example:
+
+\begin{lstlisting}[style=CStyle]
+int x;
+for( x = 0 ; x < 10 ; x++ ) {
+	printf("%d ", x);
+}
+\end{lstlisting}
+
+will print:
+
+\texttt{0 1 2 3 4 5 6 7 8 9}
+
+The \texttt{for(;;)} loop example doesn't print \texttt{10} because the condition is ``strictly less than 10''. When x is incremented to 10 the condition fails and the loop exits. It prints 0 because the increment is only applied \textit{after} the loop has run once.
+
+\subsubsection{\texttt{switch() case:}}
+
+The \texttt{switch() case:} statement is a flow control mechanism which allows one option from a list of many to be executed. It is a neater replacement from complicated \texttt{if() else if()} blocks.
+
+Example:
+
+\begin{lstlisting}[style=CStyle]
+switch(x) {
+	case 1: // Jumped to if x == 1
+		break; // Jump out of switch()
+ 	case 2: // Jumped to if x == 2
+		break;
+	case 3: // Jumped to if x == 3
+		break;
+	default:	// Jumped to if nothing else matched
+}
+\end{lstlisting}
+
+
+\subsection{Library Functions}
+\subsubsection{\texttt{rand()}}
+
+To generate a random number between \texttt{0} and \texttt{MAX}:
+
+\begin{lstlisting}[style=CStyle]
+#include <stdlib.h> // For rand()
+// ...
+x = rand() % (MAX + 1);
+\end{lstlisting}
+
+For all work in this course you may assume that the above method works well enough.
+
+For more crucial work (eg: cryptography, serious mathematics) this method is considered problematic. Very advanced discussion \underline{\href{http://www.azillionmonkeys.com/qed/random.html}{Here}}.
+
+\subsection{Glossary of Terms}
+
+\textit{I'll sort these alphabetically later, just a brain dump for now. Sorry.}
+
+\begin{itemize}
+\item \textbf{Compiler:} The software package which converts \textit{source code} into a \textit{binary}.
+\item \textbf{Source Code:} The text which you type into a programming environment (eg: OnlineGDB) which is sent to the \textit{compiler}.
+\item \textbf{Binary:} A program data file which can be executed on a computer.
+\item \textbf{Variable:} A ``thing'' which remembers a number within your program. In C they have a \textit{type}, a name, (optionally) an initial value, and (for future reference) a \textit{memory address}. Variables change when they are on the left side of an \textit{assignment}.
+\item \textbf{Pseudocode:} Any hand-written or typed notes which document the behaviour of a computer program. Pseudocode is for humans to read, not computers.
+\item \textbf{Flow Control:} Any algorithmic statement which breaks the ``top-to-bottom, line-by-line'' execution pattern of a computer program.
+\columnbreak
+\item \textbf{Statement:} A line of C code which performs a task and ends with a semicolon. Arithmetic lines, \texttt{printf();}, \texttt{scanf();}, and \texttt{rand();} are all examples of statements.
+\item \textbf{Assignment:} The process of changing a variable's value as your program executes. In C, this is typically performed with the \texttt{=} symbol. Eg: \texttt{x = y + 5} calculates the value of ``\texttt{y + 5}'' then allocates the result to the variable \texttt{x}.
+\item \textbf{Block:} A section of code ``grouped together'' by curly braces \{ ... \}. Typically applies to flow control, where a single, say, \texttt{if()} controls a block of code listed inside \{ and \}.
+\item \textbf{Literal:} Any numerical constant written in your code. Eg: In \texttt{x < 2.0} the ``\texttt{2.0}'' is a literal. Unless otherwise stated, integer literals are treated as \texttt{int} data types (ie: they inherit the \texttt{int}'s value range limit) and real valued literals are treated as \texttt{double}s.
+\end{itemize}
+
+\end{multicols}
+
+\end{document}

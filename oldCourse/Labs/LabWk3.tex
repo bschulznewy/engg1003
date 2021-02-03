@@ -1,0 +1,733 @@
+\documentclass{lab}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{soul}
+\usepackage{multicol}
+
+\addtolength{\oddsidemargin}{-.4in}
+\addtolength{\evensidemargin}{-.4in}
+
+\title{ENGG1003 - Lab 3}
+\author{Brenton Schulz}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This lab is written to prepare you for the week 4 assessment. It covers material similar to that in the assessment task.
+
+All these tasks are based on pure mathematics which I can reasonably expect you understand from high school. Sequences and series are described in Section 7 of the NSW \underline{\href{https://educationstandards.nsw.edu.au/wps/portal/nesa/11-12/stage-6-learning-areas/stage-6-mathematics/mathematics-syllabus}{Mathematics 2/3 Unit syllabus}}. I understand that some of you have only completed General mathematics or have not studied mathematics for many years. To achieve a passing grade you will only need to understand very basic examples.
+
+These tasks may not create the most \textit{interesting} programs but I need to set a solid foundation of knowledge among the whole cohort before we can tackle more complicated (and realistic) problems.
+
+\section{Change: \texttt{scanf();} Not Used This Week}
+
+In order to reduce the amount of C language features you will require for the assessment task I have decided to not include user input via \texttt{scanf();} in this week's lab.
+
+Instead, use variable initialisation as ``input''. Type input values directly into your code when variables are declared.
+
+For an example please see the Friday Week 2 lecture at timestamp 29~min 41~sec where this technique is used in the code which factorises a number.
+
+\pagebreak
+\section{C Language Subset}
+
+\begin{center}
+\textit{I fear not the man who has practiced 10,000 kicks once,\\but I fear the man who has practiced one kick 10,000 times.}\\- \href{https://www.youtube.com/watch?v=bmfudW7rbG0}{Bruce Lee}
+\end{center}
+
+For this lab, and the Week 4 assessment task, you need only consider the C language subset below. It is not a hard restriction (want to use \texttt{for(;;)}? Go for it.) but lack of understanding of the topics below will make the task difficult to impossible to solve.
+
+You need to understand the following:
+
+\begin{itemize}
+\item The minimum template is:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+
+int main() {
+	// write your code here
+	return 0;
+}
+\end{lstlisting}
+\item How to print \texttt{int} and \texttt{float} data types to the console with \texttt{printf();}
+\item All mathematical operators listed in Section \ref{sec:operators} should be understood
+\item You must understand the behaviour of the \texttt{=} symbol as the \textit{assignment} operator
+\item Variables must be declared before use and may be of type \texttt{int} for integers and \texttt{float} for real numbers
+\item You must be aware of the data type limits for \texttt{int} and \texttt{float} as listed in Section \ref{sec:datatypes}
+\item Variables may be initialised when they are declared, eg:
+\begin{lstlisting}[style=CStyle]
+int x = 5;
+\end{lstlisting}
+\item A block of code which is only executed if certain conditions are met is implemented with the \texttt{if()} statement, eg:
+\begin{lstlisting}[style=CStyle]
+if(x > 5) {
+	x = x - 1;
+}
+\end{lstlisting}
+\item A block of code which repeats multiple times can be implemented with a \texttt{while()} statement, eg:
+\begin{lstlisting}[style=CStyle]
+while(x > 0) {
+	x = x - 1;
+}
+\end{lstlisting}
+
+\end{itemize}
+
+{\huge If any of the above statements appear confusing ask your demonstrator for an explanation and attend a PASS\\session this week: \\
+\begin{center}
+Monday 10-11am HE28 \\
+Wednesday 11-12noon HC02\\
+Thursday 12-1pm RW219
+\end{center}}
+
+\begin{task}{Arithmetic sequence}{}
+An arithmetic sequence is a list of numbers, $x_1, x_2, x_3, ...$, where each number, $x_n$, has a fixed increase, $d$, from the previous one:
+
+\begin{equation}
+x_{n} = x_{n-1} + d.
+\end{equation}
+The difference, $d$, is therefore:
+\begin{equation}
+d = x_n - x_{n-1}.
+\end{equation}
+Given an initial value, $x_1$, and \textit{either} the difference, $d$, or second value, $x_2$, the series can be uniquely described.
+For example, the sequence:
+\begin{equation}
+0, 2, 4, 6, ...
+\end{equation}
+is described by $x_1 = 0$ and $d = 2$. It could also be calculated given $x_1 = 0$ and $x_2 = 2$ and the value of $d$ calculated to be: $d = x_2 - x_1 = 2$.
+\\ \\
+In more human language: an arithmetic sequence is counting in steps of $d$.
+\\ \\
+\textbf{Task:} Write a C program which takes two initial values, $x_0$ and $x_1$ and generates further numbers in their arithmetic series.
+\\ \\
+Your program should follow the following rules:
+\begin{itemize}
+\item It should print the initial values
+\item It should print a total of 10 numbers
+\item It should print each number on a new line
+\item Numbers in the sequence can be positive or negative
+\item Numbers in the sequence must be integers
+\end{itemize}
+~ \\
+The initial values are to be ``hard coded'' as variable initialisations. Do not read them from the console. Your program is only given $x_1$ and $x_2$. It needs to calculate everything else required to print the following 8 values.
+\\ \\
+Check if your code works by comparing its output with a sequence calculated by hand. Test several combinations of $x_1$ and $x_2$.
+\\ \\
+The template below can be used.
+
+\begin{lstlisting}[style=pseudo]
+#include <stdio.h>
+int main() {
+	int x1 = 0; // Initial value, you might not need this later
+	int x2 = 2; // Initial value, again you might not need this
+	int d;
+	int xn; // the current x value
+	int xnm1; // xn minus 1, the previous value
+
+	// d = ... COMPLETE THIS EXPRESSION
+
+	while ( /*condition*/ ) {
+		// Calculate current x value
+		xn /* = ... */;
+		// printf(" ");	// FILL ME IN			
+		xnm1 = xn; // Make past value into present value
+	}	
+	return 0;
+}
+\end{lstlisting}
+\end{task}
+
+\begin{task}{Arithmetic Series}{}
+An arithmetic \textit{series} is the sum of the numbers in an arithmetic sequence.
+\\ \\
+Modify your code from the previous task to calculate the sum of the first 10 numbers in the arithmetic sequence. Do this by declaring a new variable which keeps a ``running sum'' of the \texttt{xn}'s as they are calculated. Be careful to include $x1$ and $x2$ in the summation.
+\\ \\
+Test your result \textbf{by hand} given the following formula for the sum, $S_n$, of the first $n$ terms, $x_1$ to $x_n$ (you do not need to code this formula):
+
+\begin{equation}
+S_n = \frac{1}{2} n (x_1 + x_n)
+\end{equation}
+
+\textbf{Be careful with the formula!} It is easy to get it wrong with little details (eg: what is the value of \texttt{n} at the end? It starts at \texttt{n=2} but did you initialise it to that?).
+
+\end{task}
+
+\begin{task}{Geometric Sequence}{}
+A geometric sequence is a set of numbers, $x_1, x_2, x_3, ...$, where each number is a constant \textit{multiple} of the previous one:
+\begin{equation}
+x_{n} = kx_{n-1}.
+\end{equation}
+The value of $k$ can be calculated given any two successive numbers in a geometric sequence:
+\begin{equation}
+k = \frac{x_{n}}{x_{n-1}}.
+\end{equation}
+
+Write a C program which is given two numbers, $x_0$ and $x_1$, and generates further numbers in their geometric sequence. You will need to calculate $k$ inside the program.
+\\ \\
+Your program should follow the following rules:
+\begin{itemize}
+\item It should print the initial values
+\item It should print a total of 10 numbers (ie: n = 0 to 9)
+\item It should print each number on a new line
+\item Numbers in the sequence can be positive or negative
+\item Numbers in the sequence may be any real number
+\end{itemize}
+\end{task}
+
+\begin{task}{Geometric Series Pt I}{}
+A geometric \textit{series} is the sum of a geometric sequence.
+\\ \\
+Modify your geometric sequence program to calculate the sum of the first $n$ terms (ie:~$x_1+x_2+ ... + x_n$). The value of $n$ must be declared as a variable with a given initial value. Test your program with a variety of values for $n$ and initial values, $x_1$ and $x_2$.
+\\ \\
+To do this, declare a variable which accumulates (adds up) all the numbers in a geometric sequence \textit{as they are generated}. Do \textbf{not} implement the theoretical formula (Equation \eqref{eq:seriesgeo}).
+\\ \\
+For testing, you should know that given an initial value, $x_1$, and the constant multiplier, $k$, the sum of the first $n$ terms, $S_n$, of a geometric series can be calculated as:
+\begin{equation}\label{eq:seriesgeo}
+S_n = x_1\frac{1-k^{n}}{1-k}.
+\end{equation}
+
+Evaluate this formula \textit{by hand} (or with Google / Wolfram Alpha / etc) to generate test values.
+\end{task}
+
+\begin{task}{Geometric Series Pt II}{}
+If the value of the multiplier, $k$, in a geometric sequence is between (but not equal to) -1 and 1 then its series is said to \textit{converge}. This means that, as $n$ increases towards infinity, the sum of the sequence moves towards a fixed, finite, value. If the series grows towards infinity then it is said to \textit{diverge}. The case of $k = \pm1$ is not considered here.
+\\ \\
+Write a C program which, given $x_1$ and $x_2$, calculates their geometric sequence and decides if the resulting series is convergent or divergent. Your program should exhibit the following behaviours: 
+\begin{itemize}
+\item All numbers in the geometric sequence can be assumed to be positive
+\item If the series diverges the program prints the first 10 values then exits
+\item If the series converges the program calculates the sum to within the following limits:
+	\begin{itemize}
+		\item A precision of $1 \times 10^{-4}$, OR
+		\item A maximum of 100 terms
+	\end{itemize}
+\end{itemize}
+
+Compare your program's summation output at $n=100$ with the theoretical formula:
+
+\begin{equation}
+S_\infty = x_1 \frac{1}{1-k}
+\end{equation}
+\textbf{NB:} The precision limit can be implemented by testing the size of each term before it is added to the running sum. If it is less than the specified precision value the program may assume that the series has converged and exit. This is a great time to use a \texttt{break} statement, if you want to.
+\end{task}
+
+{\huge\textit{At this point I believe that you have completed enough content to \textbf{pass} the week 4 assessment task. Continue below if you want to easily achieve a high distinction grade.}}
+
+\pagebreak
+
+\begin{task}{More Complicated Sequences Pt I (Advanced)}{}
+All previous sequences have had the property that a sequence value, $x_n$, only depends on $x_{n-1}$. Here we extend that idea to sequences for which $x_n = f(x_{n-1}, x_{n-2})$. See footnote\footnote{This is read aloud as ``$x_n$ is a function of $x_{n-1}$ and $x_{n-2}$''}. Each value depends on the previous \textit{two} values.
+\\ \\
+As seen in lectures, the Fibonacci sequence is an example of this kind of sequence. It follows the rule:
+\begin{equation}\label{eq:fib}
+x_n = x_{n-1} + x_{n-2}
+\end{equation}
+with the initial values of $x_1 = 1$ and $x_2 = 1$.
+\\ \\
+We will extend Equation \eqref{eq:fib} by introducing two coefficients: $b_1$ and $b_2$\footnote{Great, now I have the \textit{Bananas in Pajamas} theme in my head.}:
+\begin{equation}\label{eq:seq2}
+x_n = b_1x_{n-1} + b_2x_{n-2}.
+\end{equation}
+Although the Fibonacci sequence is restricted to integers, assume any code written for this task requires \texttt{float} data types.
+\\ \\
+\textbf{The actual task:} Write a C program which is given initial values for $x_1$, $x_2$, $b_1$ and $b_2$ and calculates the resulting sequence as-per Equation \eqref{eq:seq2}.
+
+You may use the following template (should be copy+past'able):
+\begin{lstlisting}[style=pseudo]
+#include <stdio.h>
+int main() {
+	float b1 = 1, b2 = 1;
+	float x1 = 1, x2 = 1;
+	// Declare other variables needed
+		
+	while( /* condition */) {
+		// Calculate and print the sequence
+	}	
+	
+	return 0;
+}
+\end{lstlisting}
+Exit conditions for your program are not specified. You need to come up with exit conditions which allow you to test if your program is correct.
+\\ \\
+Apart from the Fibonacci sequence, you may use the following test sequence with its first ten values:
+\begin{lstlisting}[style=pseudo]
+b1 = 0.2, b2 = 0.8
+x1 = 1, x2 = 0.5
+Output:
+1.000000
+0.500000
+0.900000
+0.580000
+0.836000
+0.631200
+0.795040
+0.663968
+0.768826
+0.684940
+\end{lstlisting}
+\end{task}
+
+\begin{task}{More Complicated Sequences Pt II (Advanced)}{}
+The initial condition, $x_1$ and $x_2$, and the values of $b_1$ and $b_2$ will greatly influence the behaviour of a second order sequence. For example:
+
+\begin{itemize}
+\item It may converge towards zero
+\item It may converge to some fixed, non-zero, value
+\item It may diverge to infinity like the Fibonacci sequence
+\item It may \textit{oscillate}
+	\begin{itemize}
+		\item ie: Wiggle up and down in a sinusoidal pattern
+		\item This oscillation may converge to zero or diverge to infinity
+	\end{itemize}
+\end{itemize}
+~\\
+\textbf{Task: }Modify your second order sequence code to test for \textit{oscillation}. This can be done by calculating the \textit{difference} between subsequent numbers in the sequence and observing whether the difference changes sign (ie: Do they swap from positive to negative or are they \textit{always} positive or negative?).
+\\ \\
+To complete this task will need to declare a ``flag'' variable. It can be of type \texttt{int} and have any name of your choosing. Given the initial values of $x_1$ and $x_2$ calculate the difference: $x_2 - x_1$. If it is positive, make the flag zero. If it is negative, make the flag one. You may assume that the difference will always be non-zero (ie: the initial values will never be equal).
+\\ \\
+Each time a new entry in the sequence is generated re-calculate the value $x_n - x_{n-1}$. If, at any point, the sign of this calculation is different to the sign of $x_2 - x_1$ the program should print that the sequence oscillates and exit.
+\\ \\
+If, after 20 iterations, no change of sign has been observed the program should print that no oscillation occurred and exit\footnote{This does not prove that oscillation will \textit{never} occur, just that if it does it takes a ``long time'' to be detected}.
+\\ \\
+\textbf{Example 1:} For the initial values \texttt{x1 = 1, x2 = -0.5} and coefficients \texttt{b1 = 0.2, b2 = 0.2} the sequence is:
+\begin{lstlisting}[style=pseudo]
+ 1.00000
+-0.50000
+ 0.10000
+-0.08000
+ 0.00400
+-0.01520
+\end{lstlisting}
+and the sequence oscillates (first difference is -1.5, then +0.6).
+\\ \\
+\textbf{Example 2:} For the same coefficients as above but initial values \texttt{x1 = 1, x2 = 0.5} the sequence is:
+\begin{lstlisting}[style=pseudo]
+1.000000
+0.500000
+0.300000
+0.160000
+0.092000
+\end{lstlisting}
+and no oscillation occurs as the difference is always negative (ie: the sequence only gets smaller and moves towards zero).
+\end{task}
+
+
+
+
+\begin{task}{Mandelbrot Fractal Generator (Advanced)}{}
+\textit{Only attempt this task if everything else has been completed. It is not related to the upcoming assessment task and is only provided for interested students to extend their skill beyond reasonable expectations.}
+\\ \\
+This task assumes that you have completed the Mandelbrot task in Lab 2.
+\\ \\
+Extend your code to test a grid of points and print an ``ASCII art'' Mandelbrot set.
+\\ \\
+To do this you should use two \textit{nested} WHILE loops:
+
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	float x = -2
+	float y = 1
+	WHILE y > -1
+		x = -2
+		WHILE x < 2
+			Re-initialise the Mandelbrot iterator test variables
+			Test if the point (x,y)	is inside the Mandelbrot set
+			IF (x,y) is inside the set
+				PRINT #
+			ELSE
+				PRINT " " (a space character)
+			ENDIF
+			x = x + 0.05
+		ENDWHILE
+		PRINT a new line
+		y = y - 0.05
+	ENDWHILE
+END
+\end{lstlisting}
+
+If you understand how, the WHILE loops may be replaced with FOR loops. The C syntax for FOR loops is documented in Section \ref{sec:for}.
+\\ \\
+When correctly implemented, the pseudocode above will draw the following 80 x 40 pixel image of the Mandelbrot set:
+
+\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\tiny]
+                                                                                 
+                                                                                 
+                                                                                 
+                                      #                                          
+                                    ####                                         
+                                    ####                                         
+                                    ####                                         
+                                                                                 
+                              #  ##########                                      
+                              ############## ##                                  
+                              #################                                  
+                             #################                                   
+                            ###################                                  
+                           #####################                                 
+                           #####################                                 
+                 #  #     ######################                                 
+                 #######  ######################                                 
+                ######### ######################                                 
+                ######### ######################                                 
+              # ######### #####################                                  
+            ##################################                                   
+              # ######### #####################                                  
+                ######### ######################                                 
+                ######### ######################                                 
+                 #######  ######################                                 
+                 #  #     ######################                                 
+                           #####################                                 
+                           #####################                                 
+                            ###################                                  
+                             #################                                   
+                              #################                                  
+                              ############## ##                                  
+                              #  ##########                                      
+                                                                                 
+                                    ####                                         
+                                    ####                                         
+                                    ####                                         
+                                      #                                          
+                                                                                 
+                                                                                 
+\end{lstlisting}
+\end{task}
+
+\pagebreak 
+\section{C Summary}
+This section will be included in all future lab documents and lists a summary of C language features taught prior to the lab session. It will grow each week.
+
+Not everything listed in this section is required to complete a particular lab.
+
+\begin{multicols}{2}
+\subsection{Basic Structure}
+This is the absolute minimum amount of code you need to make a C program compile, run, and interact with the user via a console:
+\begin{lstlisting}[style=CStyle]
+#include <stdio.h>
+int main() {
+	// Your program goes here
+	return 0;
+}
+\end{lstlisting}
+\subsection{Comments}
+\begin{lstlisting}[style=CStyle]
+// This is a comment to end of line
+
+/* this is a block comment
+   which could span
+   multiple
+   lines
+   */
+\end{lstlisting}
+
+\subsection{Code Blocks}
+
+Any section of code encompassed by \texttt{\{...\}} is a \textit{block}.
+
+\subsection{Operators}\label{sec:operators}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+Operation      & C Symbol \\
+\hline
+Addition       & \texttt{+}        \\
+Subtraction    & \texttt{-}        \\
+Multiplication & \texttt{*}        \\
+Division       & \texttt{/}       \\
+Modulus		   & \texttt{\%}	\\
+Increment	& \texttt{++}	\\
+Decrement	& \texttt{--} \\
+Less than       & $\texttt{<}$        \\
+Less than or equal to    & $\texttt{<=}$\\
+Greater than & $\texttt{>}$        \\
+Greater than or equal to       & $\texttt{>=}$ \\
+Equal to & \texttt{==} \\
+Not equal to & \texttt{!=} \\
+Boolean AND & \texttt{\&\&} \\
+Boolean OR & \texttt{||} \\
+Boolean NOT & \texttt{!} \\
+\hline
+\end{tabular}
+\caption{Arithmetic operators in C}
+\end{table}
+
+\columnbreak
+\subsection{Operator Shorthand}
+
+Many arithmetic operators support the following shorthand syntax. The left and right columns present equivalent statements.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\texttt{x = x + y;} & \texttt{x += y;} \\
+\texttt{x = x - y;} & \texttt{x -= y;} \\
+\texttt{x = x * y;} & \texttt{x *= y;} \\
+\texttt{x = x / y;} & \texttt{x /= y;} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Data Types}\label{sec:datatypes}
+
+\begin{table}[H]
+\begin{tabular}{|l|l|l|l|}
+\hline
+Type & Bytes & Value Range                             \\
+\hline
+\texttt{char}      & 1                  & -128, +127  \\
+\texttt{unsigned char}	& 1				& 0, 255 \\
+\texttt{short}     & 2                & -32768, 32767\\
+\texttt{unsigned short} & 2			& 0, 65535 \\
+\texttt{int}       & 4                & $\approx \pm 2.1\times 10^9$ \\
+\texttt{unsigned int}	& 4				& 0, 4294967296 \\
+\texttt{long}      & 8                  & $\approx \pm 9.2\times 10^{18}$ \\
+\texttt{unsigned long} & 8				& 0, $1.8 \times 10^{19}$ \\
+\texttt{float}       & 4  & $1.2\times 10^{-38}$ to $3.4 \times 10^{38}$    \\
+\texttt{double}      & 8  & $2.3 \times 10^{-308}$ to $1.7 \times 10^{308}$    \\
+
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+Type & Precision \\
+\hline
+\texttt{float} & 6 sig. figs. \\
+\texttt{double} & 15 sig. figs \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection{Standard i/o}
+
+Read a single variable from \texttt{stdin} with \texttt{scanf();}
+\texttt{scanf("\textit{format specifier}", \&\textit{variable}});
+
+Write a single variable to \texttt{stdout} with \texttt{printf();}
+\texttt{printf("\textit{format specifier}", \textit{variable});}
+
+You can use \texttt{printf();} \textit{without} a newline (\texttt{\textbackslash n}) to create an input prompt:
+
+\begin{lstlisting}[style=CStyle]
+printf("Enter a number: ");
+scanf("%d", &variable);
+\end{lstlisting}
+
+This prints:
+
+\texttt{Enter a number: \_}
+
+where \_ indicates the terminal prompt (ie: where typed characters will appear).
+
+\subsection{Format Specifiers}
+The following table is woefully incomplete. The compiler \textit{may} generate warnings if \texttt{\%d} is given something other than \texttt{int} and \texttt{\%f} is given something other than \texttt{float}. An attempt will be made to ensure these are sufficient.
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Data Type & Format Specifier \\
+\hline
+Integers & \texttt{\%d} \\
+Floating point & \texttt{\%f} \\
+Float with \texttt{n} decimal places & \texttt{\%.nf} \\
+\hline
+\end{tabular}
+\caption{Basic format specifiers}
+\end{table}
+
+\subsection{Type Casting}
+Placing the syntax \texttt{(\textit{type})} before a variable name performs a type cast (ie: data type conversion).
+
+eg: convert \texttt{float} to an \texttt{int} prior to using its value. This forces a rounding-down to the nearest integer.
+
+\begin{lstlisting}[style=CStyle]
+float a;
+// ...
+y = (int)a * z;
+\end{lstlisting}
+
+\textbf{NB:} This does \textbf{not} modify the original variable.
+
+Data type ``upgrades'' are done automatically by the compiler but sometimes it is desired to downgrade or force esoteric behaviour. Adding it unnecessarily doesn't have any negative impact. Applications in ENGG1003 will be limited but it comes up regularly in embedded systems and nobody else explicitly teaches type casting. I have used it extensively in the low-level art of \textit{bit banging}: manual manipulation of binary data. This is, unfortunately, beyond ENGG1003.
+
+\subsection{Flow control}
+
+Flow control allows selected blocks of code to execute multiple times or only under a specified condition.
+
+\subsubsection{\texttt{if()}}\label{sec:if}
+
+The \texttt{if()} statement executes a block of code only if the \textit{condition} is true. The condition is an arithmetic statement which evaluates to either zero (false) or non-zero (true).
+
+\texttt{if()} Syntax:
+
+\texttt{if(\textit{condition}) \{/* other code */\}}
+
+\columnbreak
+Full \texttt{if()} example:
+
+\begin{lstlisting}[style=CStyle]
+if(x > 10) {
+	// Do stuff
+}
+\end{lstlisting}
+
+Condition Examples:
+\begin{itemize}
+\item \texttt{if(x) // if(x is not zero)}
+\item \texttt{if(x+y) //if((x+y) is not zero)}
+\item \texttt{if(y >= 5)}
+\item \texttt{if(1) // Always executes}
+\item \texttt{if(0) // Never executes}
+	\begin{itemize}
+		\item Can be used for debugging. Might be easier than a block comment /* */
+	\end{itemize}
+\end{itemize}
+
+\textbf{NB:} \textit{NEVER} place a semicolon after an \texttt{if()}, that stops it from having any effect. The block after it will always execute. This bug can take days to find.
+
+If there is only \textit{one} statement after an \texttt{if()} the \{ \} braces are optional:
+
+\begin{lstlisting}[style=CStyle]
+if(x > 10) 
+	printf("x is greater than 10\n");
+\end{lstlisting}
+
+
+\subsubsection{\texttt{if() ... else if()}}
+
+The C syntax for IF ... ELSE is:
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+} else {
+	// Do stuff
+}
+\end{lstlisting}
+
+IF ... ELSEIF takes the form:
+
+\begin{lstlisting}[style=CStyle]
+if(condition) {
+	// Do stuff
+} else if(condition) {
+	// Do stuff
+}
+\end{lstlisting}
+
+Multiple ``layers'' of \texttt{else if()} can be written. You don't have to stop at two.
+
+\textbf{NB:} \textit{NEVER} place a semicolon directly after  the \texttt{else if()}. Semicolons only go after the statements inside the \texttt{if()} block (ie: between the curly braces \{ \}).
+
+\columnbreak
+\subsubsection{\texttt{while()}}
+
+The \texttt{while()} flow control statement executes a block of code so long as a condition is true. The condition is checked before the block is executed and before every repeated execution.
+
+The condition rules and examples are the same as for those listed under the \texttt{if()} statement.
+
+Syntax:
+
+\texttt{while(\textit{condition)} \{/* other code */\}}
+
+Example:
+
+Evaluate the infinite sum:
+\begin{equation}
+\sum_{n=0}^{\infty} \frac{1}{n^2}
+\end{equation}
+to a precision of $1 \times 10^{-6}$
+\begin{lstlisting}[style=CStyle]
+float sum = 0.0;
+int x = 0;
+while(1/(x*x) > 1e-6) {
+	sum = sum + 1.0/(x*x);
+	x++
+}
+\end{lstlisting}
+
+\textbf{NB:} \textit{NEVER} place a semicolon directly after a \texttt{while()} line. Semicolons only go after the statements inside the loop.
+
+\subsubsection{\texttt{for(;;)}}\label{sec:for}
+
+\textit{As of week 2 this has not yet been covered in lectures.}
+
+The \texttt{for(;;)} loop syntax is:
+
+\begin{lstlisting}[style=CStyle]
+for( initial ; condition ; increment ) {
+	// Do stuff
+}
+\end{lstlisting}
+
+The three sub-parts have the following behaviour:
+
+\begin{itemize}
+\item \textbf{Initial:} Code which is executed \textit{once}, before the loop is entered
+\item \textbf{Condition:} A condition which is tested \textit{before} every loop iteration
+\item \textbf{Increment:} Code which is executed \textit{after} every iteration
+\end{itemize}
+
+\texttt{for(;;)} Example:
+
+\begin{lstlisting}[style=CStyle]
+int x;
+for( x = 0 ; x < 10 ; x++ ) {
+	printf("%d ", x);
+}
+\end{lstlisting}
+
+will print:
+
+\texttt{0 1 2 3 4 5 6 7 8 9}
+
+The \texttt{for(;;)} loop example doesn't print \texttt{10} because the condition is ``strictly less than 10''. When x is incremented to 10 the condition fails and the loop exits. It prints 0 because the increment is only applied \textit{after} the loop has run once.
+
+
+\subsection{Library Functions}
+\subsubsection{\texttt{rand()}}
+
+To generate a random number between \texttt{0} and \texttt{MAX}:
+
+\begin{lstlisting}[style=CStyle]
+#include <stdlib.h> // For rand()
+// ...
+x = rand() % (MAX + 1);
+\end{lstlisting}
+
+For all work in this course you may assume that the above method works well enough.
+
+For more crucial work (eg: cryptography, serious mathematics) this method is considered problematic. Very advanced discussion \underline{\href{http://www.azillionmonkeys.com/qed/random.html}{Here}}.
+
+\subsection{Glossary of Terms}
+
+\textit{I'll sort these alphabetically later, just a brain dump for now. Sorry.}
+
+\begin{itemize}
+\item \textbf{Compiler:} The software package which converts \textit{source code} into a \textit{binary}.
+\item \textbf{Source Code:} The text which you type into a programming environment (eg: OnlineGDB) which is sent to the \textit{compiler}.
+\item \textbf{Binary:} A program data file which can be executed on a computer.
+\item \textbf{Variable:} A ``thing'' which remembers a number within your program. In C they have a \textit{type}, a name, (optionally) an initial value, and (for future reference) a \textit{memory address}. Variables change when they are on the left side of an \textit{assignment}.
+\item \textbf{Pseudocode:} Any hand-written or typed notes which document the behaviour of a computer program. Pseudocode is for humans to read, not computers.
+\item \textbf{Flow Control:} Any algorithmic statement which breaks the ``top-to-bottom, line-by-line'' execution pattern of a computer program.
+\columnbreak
+\item \textbf{Statement:} A line of C code which performs a task and ends with a semicolon. Arithmetic lines, \texttt{printf();}, \texttt{scanf();}, and \texttt{rand();} are all examples of statements.
+\item \textbf{Assignment:} The process of changing a variable's value as your program executes. In C, this is typically performed with the \texttt{=} symbol. Eg: \texttt{x = y + 5} calculates the value of ``\texttt{y + 5}'' then allocates the result to the variable \texttt{x}.
+\item \textbf{Block:} A section of code ``grouped together'' by curly braces \{ ... \}. Typically applies to flow control, where a single, say, \texttt{if()} controls a block of code listed inside \{ and \}.
+\item \textbf{Literal:} Any numerical constant written in your code. Eg: In \texttt{x < 2.0} the ``\texttt{2.0}'' is a literal. Unless otherwise stated, integer literals are treated as \texttt{int} data types (ie: they inherit the \texttt{int}'s value range limit) and real valued literals are treated as \texttt{double}s.
+\end{itemize}
+
+\end{multicols}
+
+\end{document}

@@ -1,0 +1,256 @@
+\documentclass[14pt]{beamer}
+\usetheme{Dresden}
+\usecolortheme{orchid}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{amssymb}
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinestyle{Ctable}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT,READ},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Tuesday Week 9}
+\subtitle{Scripts\\For Loops\\Matrix Indexing}
+\author{Brenton Schulz}
+\institute{University of Newcastle}
+\date{\today}
+
+\begin{document}
+\titlepage
+
+\begin{frame}
+\frametitle{Scripts}
+\begin{itemize}
+\item It is tempting to use MATLAB from the command line only
+	\begin{itemize}
+		\item It sounds easier, right?
+		\item Very low barrier to entry
+		\item Very fast to get results
+		\pause
+		\item Useless for non-trivial problems
+	\end{itemize}
+\pause
+\item Scripts are used for multiple reasons:
+	\begin{itemize}
+		\item They are necessary for realistic problems
+		\item They can be modified and re-executed
+		\item They can be reused by other people
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Comments}
+\begin{itemize}
+\item MATLAB comments start with a \texttt{\%} symbol and end at a new line
+\item Comment guidelines:
+	\begin{itemize}
+		\item Describe the script's purpose, inputs, and outputs at the top
+		\item Comment any lines which aren't ``obvious''
+			\begin{itemize}
+				\item Yes, this depends on the audience
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scripts And Scalar Arithmetic Example}
+\begin{itemize}
+\item Example: (From last year's slides) Write a MATLAB script which calculates the rate at which the Sun loses mass due to nuclear fusion
+\item Data required:
+	\begin{itemize}
+		\item $E=mc^2$
+		\item Sun's energy output: $E=385 \times 10^{24}$~J/s
+		\item Speed of light: $c=3.0 \times 10^8$~m/s
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{For Loops}
+\begin{itemize}
+\item The MATLAB for loop syntax is:
+\begin{lstlisting}[style=pseudo]
+for <loop variable> = [1D array of numbers]
+	% Loop contents
+end
+\end{lstlisting}
+\item The \texttt{[1D array of numbers]} can be an array variable or declared in the for statement
+\item Each element of the 1D array gets assigned to \texttt{$<$loop variable$>$} once
+\item Run some examples...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{1D Array Indexing}
+\begin{itemize}
+\item Element indexing follows this general rule:
+	\begin{itemize}
+		\item \texttt{name(list of elements)}
+	\end{itemize}
+\item The list is, itself, a 1D array
+	\begin{itemize}
+		\item It can be a single number
+			\begin{itemize}
+				\item eg: \texttt{a(2)}
+			\end{itemize}
+		\item You can create it using \texttt{[ ]} concatenation syntax
+		\begin{itemize}
+			\item eg: \texttt{a([1 4 8])}
+		\end{itemize}
+		\item It can be a list of \textbf{integers} created with \texttt{A:B:C}
+			\begin{itemize}
+				\item eg 1: \texttt{a(1:10)}
+				\item eg 2: \texttt{a(1:2:10) \% Every 2nd element}
+			\end{itemize}
+	\end{itemize}
+\item Things can get complicated \textit{fast}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multi-Dimensional Indexing}
+\begin{itemize}
+\item MATLAB dimensions are named:
+	\begin{itemize}
+		\item Row
+		\item Column
+		\item Page
+	\end{itemize}
+\item The indexing syntax is:
+	\begin{itemize}
+		\item \texttt{name(row, column, page)}
+	\end{itemize}
+\item A good visualisation is in the MATLAB documentation: \url{https://au.mathworks.com/help/matlab/math/multidimensional-arrays.html}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Dimensional Indexing Notes}
+\begin{itemize}
+\item 1D arrays can be row or column vectors
+	\begin{itemize}
+		\item The indexing is still always in the form \texttt{a(n)}
+		\item Indexing does not make a distinction between row and column vectors
+		\item Arithmetic \textit{does}
+	\end{itemize}
+\pause
+\item There are special syntaxes we can use when indexing:
+	\begin{itemize}
+		\item Index all elements with \texttt{a(:)}
+			\begin{itemize}
+				\item Useful with multi-dimensional arrays
+				\item eg: \texttt{a(:, [2 3])}
+			\end{itemize}
+		\item When lengths are unknown you can use the \texttt{end} keyword
+			\begin{itemize}
+				\item eg: \texttt{a(2:end)}
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example - Image Analysis and Editing}
+\begin{itemize}
+\item Perform the greyscale assessed lab task in MATLAB with a real image
+\item Shrink the image by a factor of 1/10th along each axis while developing code
+\item Knowledge:
+	\begin{itemize}
+		\item Images are read with \texttt{imread()}
+		\item Colour images stored as a 3D array
+			\begin{itemize}
+				\item Indexing: \texttt{var(row,column,[r g b])}
+				\item \texttt{var(0,0,:)} is the top left pixel
+			\end{itemize}
+		\item Image data can be displayed with \texttt{image()}
+		\item 2D data will be displayed with a false colour map
+			\begin{itemize}
+				\item Greyscale display needs custom map
+			\end{itemize}
+	\end{itemize}
+
+\item Do it live with loops and vectorization
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{More Examples}
+\begin{itemize}
+\item Simple brightness adjustment
+	\begin{itemize}
+		\item Couple of methods:
+			\begin{itemize}
+				\item Add or subtract a constant value to each RGB value in each pixel
+				\item Apply a \textit{transfer function}. This needs a sketch...
+			\end{itemize}
+	\end{itemize}
+\item Contrast adjustment
+	\begin{itemize}
+		\item This applies a particular transfer function, will sketch
+	\end{itemize}
+\item All of the above can be applied to all channels equally or differently to the RGB channels
+\end{itemize}
+\end{frame}
+
+\end{document}
