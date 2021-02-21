@@ -1,0 +1,23 @@
+\frametitle{Algorithm Example 4 - Boolean Conditions}
+\begin{itemize}
+\item Implementing the square root algorithm:
+	\begin{itemize}
+		\item Choose max iterations as 10 and precision as 0.001
+	\end{itemize}
+
+\begin{lstlisting}[style=pseudo,mathescape=true,basicstyle=\ttfamily\scriptsize]
+BEGIN
+	INPUT a
+	x = a
+	xOld = 0 // Why do we do this?
+	n = 0
+	WHILE (n<10) AND ( (x-xOld) > -0.0001 )
+		xOld = x
+		x = 1/2*(x + a/x)
+		n = n + 1
+	ENDWHILE
+END
+\end{lstlisting}
+
+\item It loops until 10 \textit{iterations} have occurred OR a precision limit is reached
+\end{itemize}
