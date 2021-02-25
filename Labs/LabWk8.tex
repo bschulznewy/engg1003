@@ -1,0 +1,113 @@
+\documentclass{lab}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{soul}
+\usepackage{multicol}
+
+\addtolength{\oddsidemargin}{-.4in}
+\addtolength{\evensidemargin}{-.4in}
+
+\title{ENGG1003 - Lab Week 8}
+\author{Brenton Schulz}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This lab covers the three topics which will be assessed during the Week 9 assessed lab. It includes:
+
+\begin{itemize}
+	\item Functions which accept pointer arguments
+	\item Multi-Dimensional arrays
+	\item File I/O
+\end{itemize}
+
+\section{Pointers}
+
+\begin{task}{}{}
+(Basic ``toy'' example)
+\\~\\
+Write a C function which takes a single \texttt{int *} argument and zeros it. The function prototype is:
+\begin{lstlisting}[style=Ctable]
+void zeroInt(int *x);
+\end{lstlisting}
+
+Write your own ``test code'' to verify the function's operation.
+\end{task}
+
+\begin{task}{}{}
+Write a C function which accepts two arguments of type \texttt{int *} and swaps them. The function prototype is:
+
+\begin{lstlisting}[style=Ctable]
+void swap(int *a, int *b);
+\end{lstlisting}
+
+Write your own ``test code'' to verify the function's operation.
+\end{task}
+
+\begin{task}{}{}
+Write a C function which accepts three \texttt{int *} arguments, assigns the mean of the three numbers to the first argument and zeros the others. The function prototype is:
+
+\begin{lstlisting}[style=Ctable]
+void mean(int *a, int *b, int *c);
+\end{lstlisting}
+
+Write your own ``test code'' to verify the function's operation.
+\end{task}
+
+\pagebreak
+
+\section{Multi-Dimensional Arrays}
+
+\begin{task}{}{}
+Using the template below, write a C program which calculates the mean of the initialised 2D array and prints the result to the console.
+
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+
+main() {
+	float myArray[3][3] = { { 0.1, 0.2, 0.3 }, { 1.1, 1.2, 1.3 }, { 2.1, 2.2, 2.3 } };
+}
+\end{lstlisting}
+\end{task}
+
+
+\section{File I/O}
+
+\begin{task}{}{}
+Write a C program which initialises a 2D array with data in a file. The file's contents is:
+
+\begin{lstlisting}[style=Ctable]
+12 31 35
+23 5 43
+434 63 64
+\end{lstlisting}
+
+Create a file and copy the contents above into it. The filename can be anything of your choosing.\\~
+
+Use array indexing in the format: \texttt{arrayDame[row][column]}.\\~
+
+After reading the data, find the largest number in the 2D array and print its value and indices (ie: location or address within the array).
+\\~\\
+You may use the following template:
+
+\begin{lstlisting}[style=Ctable]
+#include <stdio.h>
+
+main() {
+	int arrayData[3][3];
+	FILE *input;
+	
+	// Open the file
+	
+	// Read the data from the file into arrayData
+	
+	// Find the largest value, print it, and it's indices
+}
+\end{lstlisting}
+\end{task}
+
+\end{document}
