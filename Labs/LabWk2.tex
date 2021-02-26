@@ -186,18 +186,20 @@ Note that $y$ is only an \textit{estimate} of the true value. You will often see
 \\ \\
 And just to really hammer the point home: $x$ is any point; $(x_1,y_1)$ and $(x_2, y_2)$ are fixed points, and $y$ is the value to be calculated given $(x_1,y_1)$, $(x_2, y_2)$, and $x$.
 \\ \\
-The process of estimating values outside the $[x_1, x_2]$ interval is known as \textit{extrapolation}\footnote{\url{https://xkcd.com/605/}} and is beyond the scope of this task.
-\\ \\
 Given the above, write a Python script which implements the following pseudocode:
 \begin{lstlisting}[style=pseudo]
 BEGIN
 	Create variables for x1, y1, x2, y2, and x
 	Estimate the value of y at x using the linear interpolation formula
 	PRINT y
+	Give the user confidence in the answer by plotting a graph
+		showing the three points.
 END
 \end{lstlisting}
 
-\textbf{Extension:} Given any value of $(x_1,y_1)$ and $(x_2, y_2)$ plot the line which passes through these two points between $x=-10$ and $x=10$. You will need to create your own $x$ array with \texttt{linspace()}. Plot both the resulting line and the two input points with an \texttt{x} marker. An \texttt{x} can be placed at point \texttt{(x,y)} with \texttt{plt.plot(x,y,'x')}.
+See Fig. 1.2 of the text (and surrounding context) for how to plot individual points.
+\\ \\
+\textbf{Extension:} Given any value of $(x_1,y_1)$ and $(x_2, y_2)$ plot the line which passes through these two points between $x=-10$ and $x=10$. You will need to create your own $x$ array with \texttt{linspace()}. Plot both the resulting line and the two input points with an \texttt{*} marker.
 
 \end{task}
 \end{document}
