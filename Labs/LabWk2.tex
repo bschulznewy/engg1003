@@ -72,4 +72,84 @@ To do this, click on the ``Terminal'' tab (to the left of the ``Python Console''
 Test that the installation was successful by running \texttt{import numpy} and \texttt{import matplotlib} in the Python console.
 \end{task}
 
+\section{An Introduction to Plotting and Vectorisation}
+
+% Urgh, can't /ref the task blocks?
+This section requires \texttt{numpy} and \texttt{matplotlib} so if you skipped the previous Task please go back and finish it.
+
+Plotting requires a new programming concept: the \textit{array} (also known as a \textit{vector} or, in Python a \textit{list}). So far a single variable has been a single value (eg: \texttt{g = 9.8}). An array is an ordered collection of numbers all referred to by the same variable name.
+
+In the task below you will see a line of code which reads:
+
+\begin{lstlisting}
+t = np.linspace(0, 1, 1001)
+\end{lstlisting}
+
+This line of code uses the \texttt{linspace} library function to create an array of 1001 numbers linearly spaced between \texttt{0}, and \texttt{1}.\footnote{Complete \texttt{linspace()} documentation is here: \url{https://numpy.org/doc/stable/reference/generated/numpy.linspace.html}}.
+
+\begin{task}{Your First Array}{}
+Run the following code in the Python Console and observe the resulting array of values:
+
+\begin{lstlisting}
+import numpy as np
+x = np.linspace(0,10,11)
+print(x)
+\end{lstlisting}
+
+Note how the numbers \texttt{0} to \texttt{10} are printed. All of these values are stored as a ``group'' inside the variable \texttt{x}. The trailing decimal points indicate that the values are \textit{floating point} numbers - more on these later, but a \texttt{float} \textit{datatype} is required to store numbers with both integer and fractional components.
+\end{task}
+
+In Python (and most programming languages) you can only plot \textit{numbers}. This is a subtle but crucial point: Python (specifically the \texttt{matplotlib} library) doesn't understand how to draw an ``equation'' or ``formula''. It is only able to join lines between an ordered set of points on a 2D plane.
+
+To plot the graph of an equation you must first write other Python code which generates a set of points on that graph then pass the resulting arrays to \texttt{matplotlib}.
+
+To do this ``simply'' (in few lines of code) a new idea is required: \textit{vectorisation}. Vectorisation is a large topic, but for now know that using an array in a mathematical expression repeats the calculation for \textit{every} value in the array.
+
+Note the output of the previous task: the variable \texttt{x} contained 11 values. The next example will demonstrate \textit{vectorising} some arithmetic using that result.
+
+\begin{task}{Vectorisation Example}{}
+Building on the code in the previous task, copy the code below into a script and run it. Observe that the result of the $y = 2*x$ expression is also an array. All 11 values in \texttt{x} have been multiplied by 2 and the results packed into the \texttt{y} variable.
+
+\begin{lstlisting}
+import numpy as np
+x = np.linspace(0,10,11)
+print(x)
+y = 2*x
+print(y)
+\end{lstlisting}
+
+\end{task}
+
+With those fundamental principles explored, now is a good time to complete reading and executing textbook Section 1.5.
+
+\begin{task}{Section 1.5}{}
+Read through and execute all code in textbook Sections 1.5 and 1.6.
+\\~\\
+Link: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_1#Sec16}
+\end{task}
+
+\pagebreak
+\section{Further Exercises}
+
+\begin{task}{Plotting Polynomials}{}
+With what you have learned so far, write a Python script which initialises three variables: \texttt{a}, \texttt{b}, and \texttt{c}, and plots the resulting parabola from the equation:
+\begin{equation}
+y = ax^2 + bx + c
+\end{equation}
+
+Experiment with the range of \texttt{x} values used so that the graph produced for \texttt{a = 2}, \texttt{b = 5}, and \texttt{c = -2} clearly shows both roots (x-axis crossings). Estimate their values from the plot and compare your numbers to the exact values of:
+
+\begin{align*}
+x &= - \frac{5}{4} - \frac{\sqrt{41}}{4} = -2.8508\\
+x &= - \frac{5}{4} + \frac{\sqrt{41}}{4} = 0.35078
+\end{align*}
+\end{task}
+
+\begin{task}{Plotting Mathematical Functions}{}
+The \texttt{numpy} library includes a vast array of mathematical functions from trigonometry to logarithms. Write a Python script which plots $\sin(x)$, $\cos(x)$, and $\tan(x)$ on the same graph from $0$ to $4\pi$.
+\\~\\
+You will encounter a problem: $tan(x)$ approaches $\pm \infty$ and, by default, totally obscures $\sin()$ and $\cos()$!
+\\~\\
+To fix this, read about the \texttt{ylim()} library function (from \texttt{pyplot}) and restrict the y-axis to the range $[-1.5, 1.5]$. The documentation is here: \url{https://stackabuse.com/how-to-set-axis-range-xlim-ylim-in-matplotlib/}
+\end{task}
 \end{document}

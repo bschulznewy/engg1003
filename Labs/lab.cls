@@ -280,7 +280,7 @@
 	commentstyle=\color{mGreen}
 }
 
-%\lstset{basicstyle=\ttfamily}
+\lstset{basicstyle=\ttfamily}
 %\lstset{framextopmargin=50pt,frame=bottomline}
 \lstset{captionpos=b,tabsize=2}
 
