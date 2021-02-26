@@ -18,6 +18,7 @@
 \definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
 \definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
 
+\newcommand\red[1]{{\color{red} #1}}
 
 \lstdefinestyle{CStyle}{
     backgroundcolor=\color{backgroundColour},   
@@ -58,44 +59,178 @@
 \begin{document}
 \titlepage
 
+%==============================================================
+
 \begin{frame}[fragile]
 \frametitle{Lecture overview}
 \begin{itemize}
-\item a Python program with a library function
+\item Python program with a library function
 	\begin{itemize}
 		\item principles
 		\item live demo
-		\item LL text \S1.3
+		\item LL text \red{\S1.3}
 	\end{itemize}
 \item importing from modules and packages
 		\begin{itemize}
 		\item principles
 		\item live demo
-		\item \S1.4
+		\item \red{\S1.4}
 	\end{itemize}
 \item plotting, printing and input data
 	\begin{itemize}
 	\item principles
 	\item live demo
-	\item \S1.6
+	\item \red{\S1.6}
 	\end{itemize}
 \item some other stuff
 	\begin{itemize}
-		\item \S1.5 \& \S1.8
+		\item \red{\S1.5} \& \red{\S1.8}
 	\end{itemize}
 \end{itemize}
 
 \end{frame}
 
+%==============================================================
+
 \begin{frame}[fragile]
-\frametitle{Scripts Vs. Python Console}
+\frametitle{Python program with a library function}
 \begin{itemize}
-\item In labs you (may) have been running a \textit{script} or used Python through the \textit{Python Console}
-
-\item Live example, download \texttt{ball.py} from: \url{https://raw.githubusercontent.com/slgit/prog4comp_2/master/py36-src/ball.py}
-
+\item describe the problem
+\item simple diagram: $x, y, \theta$
+\item maybe a ball?
+\item algorithm is $\tan^{-1}$
 \end{itemize}
 \end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{The program}
+
+% screen grab of code from p.~12 text
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp12}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{First use of a Python \emph{function}}
+\begin{itemize}
+\item first use of a \emph{function}, in this case \texttt{atan}
+\item argument
+\item return value
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Math review: radians and degrees}
+\begin{itemize}
+\item Python's \texttt{atan} returns value in radians
+\item $\times \frac{180}{\pi}$ to get answer in degrees
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Running the program}
+\begin{itemize}
+\item screen grab from PyCharm -- error message
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Python standard library and import}
+\begin{itemize}
+\item Python has plenty of functionality ``built-in''
+\item LOTS more can be \red{\emph{imported}}
+\item \texttt{atan} and other trigonometric functions not built in
+\item to activate that functionality, must explicitly import
+\item \texttt{atan} function is grouped together with many other mathematical functions in a \red{\emph{library module}}  called \texttt{math}
+\end{itemize}
+
+% screen grab of code from p.~13 text
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/LLp13a}
+\end{figure}
+
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{The program: second attempt}
+
+% screen grab of code from p.~13 text
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp13b}
+\end{figure}
+\begin{itemize}
+\item script correctly produces $45.0$ as output
+\item live demo in PyCharm shortly
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Another way of importing}
+\begin{itemize}
+\item use the import statement import math, but require \texttt{atan} and \texttt{pi} to be \red{\emph{prefixed}} with math
+\item both techniques are commonly used and are the two basic ways of importing library code in Python
+%\item Importing code is an evident part of Python programming, so we better shed some more light on it
+\end{itemize}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/LLp14}
+\end{figure}
+
+\end{frame}
+
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Live demo of Python program with a library function}
+blah
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Importing from modules and packages}
+blah
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Plotting, printing and input data}
+blah
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Some other stuff}
+blah
+\end{frame}
+
+
+%==============================================================
 
 \begin{frame} % Algo defn
 \frametitle{Algorithms}
