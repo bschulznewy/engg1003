@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1602810456 source:/home/brenton/engg1003/tmp/test/main.c
+	<stdio.h>
+	<stdlib.h>
+
