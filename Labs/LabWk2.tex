@@ -169,4 +169,35 @@ You will encounter a problem: $tan(x)$ approaches $\pm \infty$ and, by default, 
 \\~\\
 To fix this, read about the \texttt{ylim()} library function (from \texttt{pyplot}) and restrict the y-axis to the range $[-1.5, 1.5]$. The documentation is here: \url{https://stackabuse.com/how-to-set-axis-range-xlim-ylim-in-matplotlib/}
 \end{task}
+\pagebreak
+\begin{task}{Linear Interpolation}{}
+There are many instances in science and engineering when data needs to be \textit{interpolated}. Informally, this is the process of predicting a quantity's value somewhere between two (or more) data points.
+\\ \\
+In this task you will be using the \textit{two-point formula} to interpolate between two data points. You can imagine these data points to be measurements of temperature / brightness / sound intensity / pressure / etc as a function of time.\\ \\
+The two-point formula states that the equation of a line passing through two points $(x_1, y_1)$ and $(x_2, y_2)$ is:
+\begin{equation}
+y = \frac{y_2 - y_1}{x_2 - x_1}(x - x_1) + y_1.
+\end{equation}
+The value of $y$ at some given $x$ can then be estimated. For the purposes of interpolation $x$ will always be in between the given data points. ie, assuming $x_2 > x_1$:
+\begin{equation}
+x_2 > x > x_1.
+\end{equation}
+Note that $y$ is only an \textit{estimate} of the true value. You will often see this notated as $\hat{y}$, especially in statistics.
+\\ \\
+And just to really hammer the point home: $x$ is any point; $(x_1,y_1)$ and $(x_2, y_2)$ are fixed points, and $y$ is the value to be calculated given $(x_1,y_1)$, $(x_2, y_2)$, and $x$.
+\\ \\
+The process of estimating values outside the $[x_1, x_2]$ interval is known as \textit{extrapolation}\footnote{\url{https://xkcd.com/605/}} and is beyond the scope of this task.
+\\ \\
+Given the above, write a Python script which implements the following pseudocode:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	Create variables for x1, y1, x2, y2, and x
+	Estimate the value of y at x using the linear interpolation formula
+	PRINT y
+END
+\end{lstlisting}
+
+\textbf{Extension:} Given any value of $(x_1,y_1)$ and $(x_2, y_2)$ plot the line which passes through these two points between $x=-10$ and $x=10$. You will need to create your own $x$ array with \texttt{linspace()}. Plot both the resulting line and the two input points with an \texttt{x} marker. An \texttt{x} can be placed at point \texttt{(x,y)} with \texttt{plt.plot(x,y,'x')}.
+
+\end{task}
 \end{document}
