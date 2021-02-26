@@ -158,6 +158,13 @@ Hint: Re-arrange both equations to make $y$ the subject and plot them both on th
 \begin{task}{Plotting Trigonometric Functions}{}
 The \texttt{numpy} library includes a vast array of mathematical functions from trigonometry to logarithms. Write a Python script which plots $\sin(x)$, $\cos(x)$, and $\tan(x)$ on the same graph from $0$ to $4\pi$.
 \\~\\
+Note that:
+\\~
+\begin{itemize}
+\item These functions assume \textit{radian} input
+\item Since they are from the \texttt{numpy} library you need to reference them appropriatly. Review Section 1.4 for details, or use \texttt{import numpy as np} followed by \texttt{np.sin()} (etc).
+\end{itemize}
+~\\
 You will encounter a problem: $tan(x)$ approaches $\pm \infty$ and, by default, totally obscures $\sin()$ and $\cos()$!
 \\~\\
 To fix this, read about the \texttt{ylim()} library function (from \texttt{pyplot}) and restrict the y-axis to the range $[-1.5, 1.5]$. The documentation is here: \url{https://stackabuse.com/how-to-set-axis-range-xlim-ylim-in-matplotlib/}
