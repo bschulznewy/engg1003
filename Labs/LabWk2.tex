@@ -122,10 +122,77 @@ print(y)
 
 With those fundamental principles explored, now is a good time to complete reading and executing textbook Sections 1.5 and 1.6.
 
-\begin{task}{Sections 1.5 and 1.6}{}
-Read through and execute all code in textbook Sections 1.5 and 1.6.
+\begin{task}{Section 1.5}{}
+Read through and execute all code in textbook Sections 1.5 to learn how to create basic plots using the \textit{vectorisation} techniques shown above.
 \\~\\
 Link: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_1#Sec16}
+\end{task}
+
+\pagebreak 
+Section 1.6 of the textbook covers a few examples which create ``complete'' plots with titles, labels, legends, etc. Since the full code can look overwhelming at first the following tasks show minimalistic examples of drawing multiple curves on one plot and creating \textit{subplots}.
+
+\begin{task}{Multiple curves in One Plot}{}
+As seen in Section 1.5, when drawing a plot two functions must be called:
+\begin{itemize}
+\item \texttt{plt.plot()} - to draw data to an ``internal buffer''
+\item \texttt{plt.show()} - to actually draw the plot to the screen
+\end{itemize}
+In order to draw multiple lines on the same plot your code can call \texttt{plt.plot()} more than once. Every set of data sent to \texttt{plt.plot()} will create a new curve that gets drawn to the plot window when \texttt{plt.show()} is called.
+\\~\\
+Run the following code as an example. It plots two straight lines.
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-2,2,100)
+y1 = 2*x+5
+y2 = -0.5*x+2
+
+plt.plot(x,y1)
+plt.plot(x,y2)
+plt.show()
+\end{lstlisting}
+
+Lastly, you can add a grid to the plot by running:
+\begin{lstlisting}
+plt.grid()
+\end{lstlisting}
+before calling \texttt{plt.show()}.
+\end{task}
+\pagebreak
+\begin{task}{Subplots}{}
+The creation of \textit{subplots} allows multiple separate graphs to be drawn in the same plot window. This is done by calling \texttt{plt.subplot()} \textit{before} calling \texttt{plt.plot()}. The \texttt{plt.subplot()} function selects which plotting area inside the complete plot window the next call to \texttt{plt.plot()} will draw to.
+\\~\\
+The \texttt{plt.subplot()} function has a syntax of \texttt{plt.subplot(r,c,n)} where \texttt{r} and \texttt{c} specify the shape of a grid of plots in terms of the number of rows, \texttt{r}, and columns, \texttt{c}. The parameter \texttt{n} specifies which subplot should be drawn to (indexed from 1) with following calls the \texttt{plt.plot()}.
+\\~\\
+Read, copy, then run the following code:
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(-2,2,100)
+y1 = 2*x+5
+y2 = -0.5*x+2
+
+plt.subplot(2,1,1)
+plt.plot(x,y1)
+
+plt.subplot(2,1,2)
+plt.plot(x,y2)
+
+plt.show()
+\end{lstlisting}
+The first call to \texttt{plt.subplot()} creates a 2x1 grid of plots and selects the first plot. The call to \texttt{plt.plot(x,y1)} below it then draws this line to plot number 1.
+\\~\\
+The second call to \texttt{plt.subplot()} continues to specify the 2x1 grid but selects plot number 2. The call to \texttt{plt.plot(x,y2)} therefore draws to the second subplot area.
+\\~\\
+Finally, \texttt{plt.show()} draws both graphs to the screen.
+\end{task}
+
+\begin{task}{Section 1.6}{}
+Read and execute the more detailed plotting examples in Section 1.6.
+
+Link: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_1#Sec17}
 \end{task}
 
 \pagebreak
