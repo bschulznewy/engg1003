@@ -565,7 +565,7 @@ Plotting commands are new, but simple:
 
 \begin{itemize}
 \item \texttt{Matplotlib} is standard plotting package in Python
-\item have already seen array \texttt{y} (heights) plotted against another corresponding array \texttt{t} (points in time) 
+\item have already seen array \texttt{y} (heights) plotted against another array \texttt{t} (points in time) 
 \end{itemize}
 \vspace*{-6mm}
 \begin{center}
@@ -585,12 +585,35 @@ Plotting commands are new, but simple:
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{Four plots}
+\frametitle{Line styles}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/LLp23aoutput}%
+	\includegraphics[width=0.5\textwidth]{figures/LLp23boutput}
+\end{figure}
+\vspace*{-8mm}
 \begin{itemize}
-\item plt.plot(y)
-\item plt.plot(t, y, ’k’) \# k - black, b - blue, r - red, g - green, ...
-\item plt.plot(t, y, ’--’) \# default color, dashed line
-\item plt.plot(t, y, ’r--’) \# red and dashed line
+\item[left:] \texttt{plt.plot(y) \# x-axis indices}
+\item[right:] \texttt{plt.plot(t, y, 'k')  \# black line}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{More line styles}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/LLp23coutput}%
+	\includegraphics[width=0.5\textwidth]{figures/LLp23doutput}
+\end{figure}
+\vspace*{-8mm}
+\begin{itemize}
+\item[left:] \texttt{plt.plot(t, y, '--') \# dashed}
+\item[right:] \texttt{plt.plot(t, y, 'r--') \# red dashed}
 \end{itemize}
 
 \end{frame}
@@ -626,15 +649,16 @@ Plotting commands are new, but simple:
 
 \begin{frame}[fragile]
 \frametitle{Decorating a plot}
+
 \begin{itemize}
-\item adding a legend
+\item add a legend
 \vspace*{-5mm}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{figures/LLp24c}
 \end{figure}
 
-\item adding a grid
+\item add a grid
 \vspace*{-5mm}
 \begin{figure}[ht]
 	\centering
@@ -681,11 +705,6 @@ Plotting commands are new, but simple:
 \end{figure}
 \vspace*{-3mm}
 Key line of code for multiple curves:
-%{\small\blue{
-%\textbf{
-%\texttt{plt.plot(t, f\_values, 'r', t, g\_values, 'b--')}}}
-%}
-
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/LLp25c}
@@ -696,9 +715,25 @@ Key line of code for multiple curves:
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{}
+\frametitle{Printing variables and strings}
+
 \begin{itemize}
-\item xxx
+\item print the value of variable \texttt{y}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp27a}
+\end{figure}
+
+\vspace*{10mm}
+\item print the string \texttt{This is some text}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp27b}
+\end{figure}
+	\begin{itemize}
+		\item enclose text in single quotes
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -706,9 +741,27 @@ Key line of code for multiple curves:
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{}
+\frametitle{Print \emph{one} variable and text combined}
+
 \begin{itemize}
-\item xxx
+\item if variable \texttt{v1} has value $10.0$ and you want to display as follows:
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp28a}
+\end{figure}
+
+%\vspace*{5mm}
+\item use the following Python code:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp28b}
+\end{figure}
+	\begin{itemize}
+		\item pair of curly brackets \{\} acts as a \red{\emph{placeholder}}
+		\item \ldots says \emph{where} to place value
+		\item \texttt{.format(v1)} converts variable \texttt{v1} to string \texttt{10.0}
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -716,9 +769,27 @@ Key line of code for multiple curves:
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{}
+\frametitle{Printing \emph{several} variables and text combined}
+
 \begin{itemize}
-\item xxx
+\item if \texttt{v1} and \texttt{v2} have values $10.0$ and $20.0$ and you want to display as follows:
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp28d}
+\end{figure}
+
+\item use the following Python code:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp28c}
+\end{figure}
+\vspace*{-3mm}
+	\begin{itemize}
+		\item now \emph{two} pairs of curly brackets \{\} act as a placeholders
+		\item \texttt{.format(v1,v2)} dictates the order in which placeholders are filled
+		\item in this case: \texttt{v1} first, then \texttt{v2}
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -726,7 +797,71 @@ Key line of code for multiple curves:
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{Live demo of plotting, printing and input data}
+
+\frametitle{Controlled printing: decimals, scientific notation \& strings}
+
+\begin{itemize}
+\item[] 	\begin{itemize}
+		\item real number $12.89643$
+		\item integer $42$
+		\item string \texttt{some message}
+	\end{itemize}
+
+\item supose you want to display as follows:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp29a}
+\end{figure}
+
+\item use the following Python code:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp29b}
+\end{figure}
+
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Controlled printing: decimals, scientific notation \& strings}
+
+\begin{itemize}
+\item first call to \texttt{print}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp30a}
+\end{figure}
+\vspace*{-3mm}
+	\begin{itemize}
+		\item \texttt{:.3f} \quad write number \texttt{r} compactly using 3 decimals
+		\item \texttt{:d} \quad~~~ write integer \texttt{i} as compactly as possible
+		\item \texttt{:s} \quad\quad~\!\! write string \texttt{s}
+	\end{itemize}
+	
+\item second call to \texttt{print}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp30b}
+\end{figure}
+\vspace*{-3mm}
+	\begin{itemize}
+		\item \texttt{:9.3e} \quad write number \texttt{r} in \red{\emph{scientific notation}} with \\
+		\qquad\qquad\qquad $3$ decimals in field of width $9$ characters
+		\item \texttt{:5d} \quad~~~ write integer \texttt{i} in field of width $5$ characters
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Live demo of plotting and printing}
 
 \end{frame}
 
