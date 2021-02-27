@@ -75,7 +75,6 @@
 	\begin{itemize}
 		\item principles
 		\item live demo
-%		\item LL text \red{\S1.3}
 	\end{itemize}
 \item importing from modules and packages \red{\S1.4}
 		\begin{itemize}
@@ -87,17 +86,18 @@
 	\begin{itemize}
 			\item principles
 		\item live demo
-%		\item %\& \red{\S1.8}
 	\end{itemize}
 	
 \item plotting, printing and input data \red{\S1.6}
 	\begin{itemize}
 	\item principles
 	\item live demo
-%	\item 
 	\end{itemize}
 \end{enumerate}
 
+%\begin{center}
+%\texttt{https://link.springer.com/book/10.1007\%2F978-3-030-16877-3}
+%\end{center}
 \end{frame}
 
 %==============================================================
@@ -224,7 +224,7 @@
 
 \begin{frame}[fragile]
 \frametitle{Live demo of Python program with a library function}
-blah
+
 \end{frame}
 
 %==============================================================
@@ -296,7 +296,7 @@ motivation and context
 \begin{itemize}
 \item[\red{\xmark}] Python code is a little harder for humans to read
 \item[\green{\cmark}\green{\cmark}] eliminates name conflicts!
-\item \textbf{standard and safer and preferred method of importing}
+\item \textbf{import with prefix is the standard and safer and preferred method of importing}
 \end{itemize}
 
 \end{frame}
@@ -412,21 +412,149 @@ motivation and context
 
 \begin{frame}[fragile]
 \frametitle{Live demo of importing from modules and packages}
-blah
+
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
 \frametitle{3) Simple plotting}
-blah
+
+Context and problem setting
+
+%We return to the problem where a ball is thrown up in the air and we have a formula
+%for the vertical position y of the ball. Say we are interested in y at everymilli-second
+%for the first second of the flight. This requires repeating the calculation of y =
+%v0t − 0.5gt2 one thousand times. As we will see, the computed heights appear very
+%informative when presented graphically with time, as opposed to a long printout of
+%all the numbers
+
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Simple plot program}
+
+\vspace*{-6mm}
+\begin{center}
+{\small
+\texttt{ball\_plot.py}
+}
+\end{center}
+\vspace*{-8mm}
+% screen grab of code from pp19-20 text
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp19}
+	\includegraphics[width=0.9\textwidth]{figures/LLp20a}
+\end{figure}
+\vspace*{-8mm}
+\begin{itemize}
+\item \texttt{linspace} function and our first \red{\emph{array}}
+\item \red{\emph{vectorisation}} in \texttt{y = v0*t - 0.5*g*t**2}
+\item plot commands
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Program output}
+When we run \texttt{ball\_plot.py} in PyCharm:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/LLp20output}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Our first array}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp20b}
+\end{figure}
+\vspace*{-8mm}
+\begin{itemize}
+\item creates $1001$ coordinates on the interval $[0,1]$:
+\item[] $0, 0.001, 0.002, \ldots, 1$
+\item Python stores these as an \red{\emph{array}}
+\item think of the array \texttt{t} as a collection of ``boxes'' in computer memory
+\item Python numbers these boxes consecutively from zero upwards:
+\item[] \texttt{t[0], t[1], t[2], \ldots, t[1000]}
+\end{itemize}
+
+%The linspace Function Next, there is a call to the function linspace from the
+%numpy library. When n evenly spaced floating point numbers are sought on an
+%interval [a, b], linspace may generally be called like this:
+%np.linspace(a, b, n)
+%This means that the call
+%t = np.linspace(0, 1, 1001)
+%creates 1001 coordinates between 0 and 1, inclusive at both ends. The mathematically
+%inclined reader might agree that 1001 coordinates correspond to 1000 equal
+%sized intervals in [0, 1] and that the coordinates are then given by ti = 1−0
+%1000 i = i
+%1000 ,
+%i = 0, 1, . . . , 1000.
+%The object returned from linspace is an array, i.e., a certain collection of (in
+%this case) numbers. Through the assignment, this array gets the name t. If we like,
+%we may think of the array t as a collection of “boxes” in computer memory (each
+%containing a number) that collectively go by the name t (later, we will demonstrate
+%how these boxes are numbered consecutively from zero and upwards, so that each
+%“box” may be identified and used individually).
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Vectorization}
+
+\vspace*{-4mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/LLp21a}
+\end{figure}
+\vspace*{-4mm}
+
+\begin{itemize}
+	\item right-hand side is computed for every entry in the array \texttt{t}
+	\item ie: for \texttt{t[0], t[1], t[2], \ldots, t[1000]}
+	\item[\green{\cmark}] yields a collection of 1001 numbers in the result \texttt{y}, which
+	(automatically) also becomes an array!
+	\item technique of computing all numbers ``in one chunk'' is called \red{\emph{vectorization}}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Plotting commands}
+
+Plotting commands are new, but simple:
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp21b}
+\end{figure}
+
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
 \frametitle{Live demo of simple plotting}
-blah
+
 \end{frame}
 
 %==============================================================
@@ -439,8 +567,78 @@ blah
 %==============================================================
 
 \begin{frame}[fragile]
+\frametitle{}
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{}
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{}
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{}
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{}
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{}
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{}
+\begin{itemize}
+\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
 \frametitle{Live demo of plotting, printing and input data}
-blah
+
 \end{frame}
 
 \end{document}
