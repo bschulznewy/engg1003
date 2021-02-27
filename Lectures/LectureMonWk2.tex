@@ -23,6 +23,7 @@
 
 \newcommand\red[1]{{\color{red} #1}}
 \newcommand\green[1]{{\color{green} #1}}
+\newcommand\blue[1]{{\color{blue} #1}}
 
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
@@ -58,7 +59,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Monday Week 2}
-\subtitle{First steps: libraries \& modules, printing and plotting}
+\subtitle{First steps: libraries \& modules, plotting and printing}
 \author{Steve Weller}
 \institute{University of Newcastle}
 \date{\today}
@@ -88,7 +89,7 @@
 		\item live demo
 	\end{itemize}
 	
-\item plotting, printing and input data \red{\S1.6}
+\item plotting and printing \red{\S1.6}
 	\begin{itemize}
 	\item principles
 	\item live demo
@@ -561,15 +562,35 @@ Plotting commands are new, but simple:
 
 \begin{frame}[fragile]
 \frametitle{4) Plotting, printing and input data}
-blah
+
+\begin{itemize}
+\item \texttt{Matplotlib} is standard plotting package in Python
+\item have already seen array \texttt{y} (heights) plotted against another corresponding array \texttt{t} (points in time) 
+\end{itemize}
+\vspace*{-6mm}
+\begin{center}
+{\small\blue{
+\textbf{
+\texttt{plt.plot(t,y)}}}
+}
+\end{center}
+\vspace*{-8mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/LLp22a}
+\end{figure}
+
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{}
+\frametitle{Four plots}
 \begin{itemize}
-\item xxx
+\item plt.plot(y)
+\item plt.plot(t, y, ’k’) \# k - black, b - blue, r - red, g - green, ...
+\item plt.plot(t, y, ’--’) \# default color, dashed line
+\item plt.plot(t, y, ’r--’) \# red and dashed line
 \end{itemize}
 
 \end{frame}
@@ -577,9 +598,60 @@ blah
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{}
+\frametitle{Plotting points only}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/LLp24a}
+	\includegraphics[width=\textwidth]{figures/LLp23a}
+	\includegraphics[width=\textwidth]{figures/LLp23b}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Decorating a plot}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp24output}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Decorating a plot}
 \begin{itemize}
-\item xxx
+\item adding a legend
+\vspace*{-5mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp24c}
+\end{figure}
+
+\item adding a grid
+\vspace*{-5mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp24d}
+\end{figure}
+\item display a title
+\vspace*{-5mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp24e}
+\end{figure}
+\item override default ranges for plot axes
+\vspace*{-5mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp24f}
+\end{figure}
 \end{itemize}
 
 \end{frame}
@@ -587,20 +659,37 @@ blah
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{}
-\begin{itemize}
-\item xxx
-\end{itemize}
+\frametitle{Multiple curves in the same plot}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp25b}
+\end{figure}
 
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{}
-\begin{itemize}
-\item xxx
-\end{itemize}
+\frametitle{Multiple curves in the same plot}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp24b}
+	\includegraphics[width=0.9\textwidth]{figures/LLp25a}
+\end{figure}
+\vspace*{-3mm}
+Key line of code for multiple curves:
+%{\small\blue{
+%\textbf{
+%\texttt{plt.plot(t, f\_values, 'r', t, g\_values, 'b--')}}}
+%}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/LLp25c}
+\end{figure}
 
 \end{frame}
 
