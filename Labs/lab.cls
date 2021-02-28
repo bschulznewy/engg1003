@@ -271,6 +271,12 @@
     classoffset=0
 }
 
+\lstdefinestyle{myPython}{
+	language=python,
+    	backgroundcolor=\color{backgroundColour}
+}
+	
+
 \lstdefinestyle{pseudo}{
 	basicstyle=\ttfamily,
 	keywordstyle=\color{lightBlue},

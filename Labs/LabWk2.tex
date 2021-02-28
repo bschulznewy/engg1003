@@ -90,7 +90,7 @@ This line of code uses the \texttt{linspace} library function to create an array
 \begin{task}{Your First Array}{}
 Run the following code in the Python Console and observe the resulting array of values:
 
-\begin{lstlisting}
+\begin{lstlisting}[style=myPython]
 import numpy as np
 x = np.linspace(0,10,11)
 print(x)
@@ -110,7 +110,7 @@ Note the output of the previous task: the variable \texttt{x} contained 11 value
 \begin{task}{Vectorisation Example}{}
 Building on the code in the previous task, copy the code below into a script and run it. Observe that the result of the $y = 2*x$ expression is also an array. This is a \textit{vectorised} expression because it operates on an entire array in one line of code. All 11 values in \texttt{x} have been multiplied by 2 and the results stored in the variable \texttt{y}.
 
-\begin{lstlisting}
+\begin{lstlisting}[style=myPython]
 import numpy as np
 x = np.linspace(0,10,11)
 print(x)
@@ -133,14 +133,23 @@ Section 1.6 of the textbook covers a few examples which create ``complete'' plot
 
 \begin{task}{Multiple curves in One Plot}{}
 As seen in Section 1.5, when drawing a plot two functions must be called:
+\\
 \begin{itemize}
 \item \texttt{plt.plot()} - to draw data to an ``internal buffer''
 \item \texttt{plt.show()} - to actually draw the plot to the screen
 \end{itemize}
-In order to draw multiple lines on the same plot your code can call \texttt{plt.plot()} more than once. Every set of data sent to \texttt{plt.plot()} will create a new curve that gets drawn to the plot window when \texttt{plt.show()} is called.
+~\\
+To draw more than one curve to the same plot window there are two options:
+\\~
+\begin{enumerate}
+\item List several $x-y$ arrays in the call to \texttt{plt.plot()}
+\item Call \texttt{plt.plot()} multiple times before calling \texttt{plt.show()}
+\end{enumerate}
+~\\
+The first method was demonstrated in lectures, here we will demonstrate the second. When \texttt{plt.plot()} is called more than once every set of data sent to \texttt{plt.plot()} will create a new curve that gets drawn to the plot window when \texttt{plt.show()} is called.
 \\~\\
 Run the following code as an example. It plots two straight lines.
-\begin{lstlisting}
+\begin{lstlisting}[style=myPython]
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -148,6 +157,7 @@ x = np.linspace(-2,2,100)
 y1 = 2*x+5
 y2 = -0.5*x+2
 
+# Equivalent to plt.plot(x,y1,x,y2)
 plt.plot(x,y1)
 plt.plot(x,y2)
 plt.show()
@@ -158,6 +168,8 @@ Lastly, you can add a grid to the plot by running:
 plt.grid()
 \end{lstlisting}
 before calling \texttt{plt.show()}.
+\\~\\
+Which method you use is up to you. Often the choice will be of little consequence but the general rule is that you should choose whichever method produces more \textit{readable} code as the execution speed will be effectively identical.
 \end{task}
 \pagebreak
 \begin{task}{Subplots}{}
@@ -166,7 +178,7 @@ The creation of \textit{subplots} allows multiple separate graphs to be drawn in
 The \texttt{plt.subplot()} function has a syntax of \texttt{plt.subplot(r,c,n)} where \texttt{r} and \texttt{c} specify the shape of a grid of plots in terms of the number of rows, \texttt{r}, and columns, \texttt{c}. The parameter \texttt{n} specifies which subplot should be drawn to (indexed from 1) with following calls to \texttt{plt.plot()}.
 \\~\\
 Read, copy, then run the following code:
-\begin{lstlisting}
+\begin{lstlisting}[style=myPython]
 import matplotlib.pyplot as plt
 import numpy as np
 
