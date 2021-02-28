@@ -96,21 +96,13 @@
 	\end{itemize}
 \end{enumerate}
 
-%\begin{center}
-%\texttt{https://link.springer.com/book/10.1007\%2F978-3-030-16877-3}
-%\end{center}
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{$1)$ Python program with a library function}
-%\begin{itemize}
-%\item describe the problem
-%\item simple diagram: $x, y, \theta$
-%\item maybe a ball?
-%\item algorithm is $\tan^{-1}$
-%\end{itemize}
 
 \begin{figure}[ht]
 	\centering
@@ -137,7 +129,6 @@
 \begin{frame}[fragile]
 \frametitle{The program}
 
-% screen grab of code from p.~12 text
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{figures/LLp12}
@@ -194,6 +185,7 @@
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Running the program in PyCharm}
 
 \begin{figure}[ht]
@@ -225,7 +217,6 @@ NameError: name 'atan' is not defined
 	\item \texttt{atan} function is grouped together with many other mathematical functions in a \red{\emph{library module}}  called \texttt{math}
 \end{itemize}
 
-% screen grab of code from p.~13 text
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{figures/LLp13a}
@@ -236,9 +227,9 @@ NameError: name 'atan' is not defined
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{The program: second attempt}
 
-% screen grab of code from p.~13 text
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/LLp13b}
@@ -297,6 +288,11 @@ NameError: name 'atan' is not defined
 	\item[]
 
 	\item[(b)] importing for use \textbf{\emph{with}} prefix %, eg: \texttt{ball\_angle\_prefix.py}
+	
+	\begin{itemize}
+		\item standard (and preferred) way to import
+	\end{itemize}
+
 \end{itemize}
 
 \end{frame}
@@ -306,7 +302,6 @@ NameError: name 'atan' is not defined
 \begin{frame}[fragile]
 \frametitle{Importing for use \emph{without} prefix}
 
-% screen grab of code from p.~13 text
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/LLp13b}
@@ -321,22 +316,32 @@ NameError: name 'atan' is not defined
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Name conflicts}
 
 \begin{itemize}
-	\item explain the basic idea
-	\item do \emph{not} explain example from text, which is too complicated
-	\item will show an example shortly
+	\item two libraries may each contain function with same name
 \end{itemize}
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp16}
+\end{figure}
+
+{\small
+\begin{itemize}
+	\item[\green{\cmark}] \texttt{x = exp([0, 1, 2])} using \texttt{exp} from \textbf{numpy} works
+	\item[\red{\xmark}] \texttt{x = exp([0, 1, 2])} using \texttt{exp} from \textbf{math} does not!
+\end{itemize}
+}
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Importing for use \emph{with} prefix}
 
-% screen grab of code from p14 text
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/LLp14}
@@ -352,9 +357,9 @@ NameError: name 'atan' is not defined
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Avoiding name conflict using prefixes}
 
-% screen grab of code from p17 text
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/LLp17}
@@ -373,9 +378,9 @@ NameError: name 'atan' is not defined
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Imports with name change}
 
-% screen grab of code from p18 text
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/LLp18}
@@ -416,34 +421,12 @@ NameError: name 'atan' is not defined
 
 \end{itemize}
 
-%math—see, e.g., ball_angle.py, Sect. 1.3.
-%• numpy—see, e.g., check_functions.py above.
-%• matplotlib.pyplot—see, e.g., ball_plot.py, Sect. 1.5.
-%• random—see, e.g., throw_2_dice.py in Sect. 2.4.
-%• sympy—see, e.g., Sect. 5.3.
-%• timeit—see, e.g., Sect. 5.6.
-%• sys—see, e.g., Sect. 7.2.2.
-
-%\item \texttt{random}---description
-%\item \texttt{sympy}---description
-%\item \texttt{timeit}---description
-%\item \texttt{sys}---description
-
 \end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%\frametitle{}
-%\begin{itemize}
-%\item xxx
-%\end{itemize}
-%
-%\end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Live demo of importing}
 
 \end{frame}
@@ -451,26 +434,31 @@ NameError: name 'atan' is not defined
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{3) Simple plotting}
 
-Context and problem setting
-
-%We return to the problem where a ball is thrown up in the air and we have a formula
-%for the vertical position y of the ball. Say we are interested in y at everymilli-second
-%for the first second of the flight. This requires repeating the calculation of y =
-%v0t − 0.5gt2 one thousand times. As we will see, the computed heights appear very
-%informative when presented graphically with time, as opposed to a long printout of
-%all the numbers
-
 \begin{itemize}
-\item xxx
+	\item from week 1 lecture, vertical position $y$ of ball at time $t$:
+	\[
+		y = v_0 t - 0.5gt^2
+	\]
+	\begin{itemize}
+		\item $v_0$ is initial upwards velocity ($\mathrm{m/s}$)
+		\item $g = 9.81$ is acceleration due to gravity ($\mathrm{m/s^2}$)
+		\item given $v_0$ and $t$, can calculate $y$
+	\end{itemize}
+	
+	\item now want to calculate height $y$ at every millisecond for first second of flight
+	\item \ldots and plot $y$ graphically with time $t$
 \end{itemize}
+
 
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Simple plot program}
 
 \vspace*{-6mm}
@@ -480,7 +468,6 @@ Context and problem setting
 }
 \end{center}
 \vspace*{-8mm}
-% screen grab of code from pp19-20 text
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/LLp19}
@@ -489,7 +476,7 @@ Context and problem setting
 \vspace*{-8mm}
 \begin{itemize}
 	\item \texttt{linspace} function and our first \red{\emph{array}}
-	\item \red{\emph{vectorisation}} in \texttt{y = v0*t - 0.5*g*t**2}
+	\item \red{\emph{vectorization}} in \texttt{y = v0*t - 0.5*g*t**2}
 	\item plot commands
 \end{itemize}
 
@@ -498,7 +485,9 @@ Context and problem setting
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Program output}
+
 When we run \texttt{ball\_plot.py} in PyCharm:
 \begin{figure}[ht]
 	\centering
@@ -510,6 +499,7 @@ When we run \texttt{ball\_plot.py} in PyCharm:
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Our first array}
 
 \begin{figure}[ht]
@@ -553,6 +543,7 @@ When we run \texttt{ball\_plot.py} in PyCharm:
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Plotting commands}
 
 Plotting commands are new, but simple:
@@ -567,6 +558,7 @@ Plotting commands are new, but simple:
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Live demo of simple plotting}
 
 \end{frame}
@@ -754,6 +746,7 @@ Key line of code for multiple curves:
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Print \emph{one} variable and text combined}
 
 \begin{itemize}
@@ -764,7 +757,6 @@ Key line of code for multiple curves:
 	\includegraphics[width=0.8\textwidth]{figures/LLp28a}
 \end{figure}
 
-%\vspace*{5mm}
 \item use the following Python code:
 \begin{figure}[ht]
 	\centering
@@ -820,7 +812,7 @@ Key line of code for multiple curves:
 		\item string \texttt{some message}
 	\end{itemize}
 
-\item supose you want to display as follows:
+\item suppose you want to display as follows:
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/LLp29a}
