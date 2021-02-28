@@ -59,7 +59,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Monday Week 2}
-\subtitle{First steps: libraries \& modules, plotting and printing}
+\subtitle{First steps: importing from modules, plotting and printing}
 \author{Steve Weller}
 \institute{University of Newcastle}
 \date{\today}
@@ -105,12 +105,31 @@
 
 \begin{frame}[fragile]
 \frametitle{$1)$ Python program with a library function}
-\begin{itemize}
-\item describe the problem
-\item simple diagram: $x, y, \theta$
-\item maybe a ball?
-\item algorithm is $\tan^{-1}$
-\end{itemize}
+%\begin{itemize}
+%\item describe the problem
+%\item simple diagram: $x, y, \theta$
+%\item maybe a ball?
+%\item algorithm is $\tan^{-1}$
+%\end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\begin{minipage}{0.4\textwidth}
+		\includegraphics[width=\textwidth]{figures/LLp12ball}
+	\end{minipage}\hfill
+	\begin{minipage}{0.6\textwidth}
+		\begin{itemize}
+			\item \textbf{Aim:} calculate angle $\theta$
+			\item[]
+			\item using trigonometry, $\tan(\theta) = y/x$
+			\item[]
+			\item \textbf{Algorithm:} $\theta = \tan^{-1}(y/x)$
+			\item[]
+			\item Math review: $\tan^{-1}(z)$ calculates the angle $\theta$ such that $\tan(\theta)=z$
+		\end{itemize}
+	\end{minipage}
+\end{figure}
+
 \end{frame}
 
 %==============================================================
@@ -134,10 +153,23 @@
 
 \begin{frame}[fragile]
 \frametitle{First use of a Python function}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/LLp12a}
+\end{figure}
+
 \begin{itemize}
-\item first use of a \red{\emph{function}}, in this case \texttt{atan}
-\item \red{\emph{argument}}
-\item \red{\emph{return value}}
+	\item our first use of a \red{\emph{function}}, in this case \texttt{atan}
+	\begin{itemize}
+		\item corresponds to $\tan^{-1}$ in mathematics
+	\end{itemize}
+	\item line of code above shows how function \texttt{atan} is \red{\emph{called}}
+	\item ratio $y/x$ is the \red{\emph{argument}} of function \texttt{atan}
+	\item computed value is \red{\emph{returned}} from \texttt{atan}
+	\begin{itemize}
+		\item \ldots and result is assigned to \texttt{angle}
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -146,31 +178,51 @@
 
 \begin{frame}[fragile]
 \frametitle{Math review: radians and degrees}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/LLp12b}
+\end{figure}
+
 \begin{itemize}
-\item Python's \texttt{atan} returns value in radians
-\item $\times \frac{180}{\pi}$ to get answer in degrees
+\item Python's \texttt{atan} function returns angle in \emph{radians}
+\item[]
+\item multiply radians by $180/\pi$ to convert to degrees
 \end{itemize}
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{Running the program}
+\frametitle{Running the program in PyCharm}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp12output}
+\end{figure}
+
+\begin{verbatim}
+ angle = atan(y/x) \\
+NameError: name 'atan' is not defined
+\end{verbatim}
+
 \begin{itemize}
-\item screen grab from PyCharm -- error message
+\item \textbf{Problem:} Python does not have \texttt{atan} \\ \qquad\qquad\quad function ``built-in''!
 \end{itemize}
+
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
 \frametitle{Python standard library and import}
+
 \begin{itemize}
-\item Python has plenty of functionality ``built-in''
-\item LOTS more can be \red{\emph{imported}}
-\item \texttt{atan} and other trigonometric functions not built in
-\item to activate that functionality, must explicitly import
-\item \texttt{atan} function is grouped together with many other mathematical functions in a \red{\emph{library module}}  called \texttt{math}
+	\item Python has some functionality built-in
+	\item \ldots but LOTS more can be \red{\emph{imported}}
+	\item \texttt{atan} and other trigonometric functions not built in
+	\item to activate that functionality, must explicitly import
+	\item \texttt{atan} function is grouped together with many other mathematical functions in a \red{\emph{library module}}  called \texttt{math}
 \end{itemize}
 
 % screen grab of code from p.~13 text
@@ -192,11 +244,11 @@
 	\includegraphics[width=0.9\textwidth]{figures/LLp13b}
 \end{figure}
 \begin{center}
-\texttt{ball\_angle.py}
+	\texttt{ball\_angle.py}
 \end{center}
 \begin{itemize}
-\item script correctly produces $45.0$ as output
-\item live demo in PyCharm shortly
+	\item script correctly produces $45.0$ as output
+	\item live demo in PyCharm shortly
 \end{itemize}
 
 \end{frame}
@@ -205,10 +257,10 @@
 
 \begin{frame}[fragile]
 \frametitle{Another way of importing}
+
 \begin{itemize}
-\item use the import statement import math, but require \texttt{atan} and \texttt{pi} to be \red{\emph{prefixed}} with math
-\item both techniques are commonly used and are the two basic ways of importing library code in Python
-%\item Importing code is an evident part of Python programming, so we better shed some more light on it
+	\item use the import statement import math, but require \texttt{atan} and \texttt{pi} to be \red{\emph{prefixed}} with math
+	\item both techniques are commonly used and are the two basic ways of importing library code in Python
 \end{itemize}
 \begin{figure}[ht]
 	\centering
@@ -216,7 +268,7 @@
 \end{figure}
 \vspace*{-5mm}
 \begin{center}
-\texttt{ball\_angle\_prefix.py}
+	\texttt{ball\_angle\_prefix.py}
 \end{center}
 
 \end{frame}
@@ -231,24 +283,20 @@
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{$2)$ Importing from modules and packages}
 
-motivation and context
-
-%At first, it may seem cumbersome to have code in different libraries, since it means
-%you have to know (or find out) what resides in which library.10 Also, there are
-%many libraries around in addition to the Python standard library itself. To your
-%comfort, you come a long way with just a few libraries, and for easy reference, the
-%handful of libraries used in this book is listed below (Sect. 1.4.5). Having everything
-%available at any time would be convenient, but this would also mean that computer
-%memory would be filled with a lot of unused information, causing less memory to be
-%available for computations on big data. Python has so many libraries, with so much
-%functionality, that importing what is needed is indeed a very sensible strategy.
+\begin{itemize}
+	\item Python has many libraries
+	\item importing what's needed (and only what's needed) is sensible
+\end{itemize}
 
 \begin{itemize}
-\item[(a)] importing for use \textbf{\emph{without}} prefix %, eg: \texttt{ball\_angle.py}
+	\item[(a)] importing for use \textbf{\emph{without}} prefix %, eg: \texttt{ball\_angle.py}
 
-\item[(b)] importing for use \textbf{\emph{with}} prefix %, eg: \texttt{ball\_angle\_prefix.py}
+	\item[]
+
+	\item[(b)] importing for use \textbf{\emph{with}} prefix %, eg: \texttt{ball\_angle\_prefix.py}
 \end{itemize}
 
 \end{frame}
@@ -264,11 +312,9 @@ motivation and context
 	\includegraphics[width=0.8\textwidth]{figures/LLp13b}
 \end{figure}
 \begin{itemize}
-\item[\green{\cmark}] Python code is easier to read
-\item[\red{\xmark}] allows name conflicts!
+	\item[\green{\cmark}] Python code is easier to read
+	\item[\red{\xmark}] allows name conflicts!
 \end{itemize}
-
-%\cmark
 
 \end{frame}
 
@@ -276,10 +322,11 @@ motivation and context
 
 \begin{frame}[fragile]
 \frametitle{Name conflicts}
+
 \begin{itemize}
-\item explain the basic idea
-\item do \emph{not} explain example from text, which is too complicated
-\item will show an example shortly
+	\item explain the basic idea
+	\item do \emph{not} explain example from text, which is too complicated
+	\item will show an example shortly
 \end{itemize}
 
 \end{frame}
@@ -295,9 +342,9 @@ motivation and context
 	\includegraphics[width=0.8\textwidth]{figures/LLp14}
 \end{figure}
 \begin{itemize}
-\item[\red{\xmark}] Python code is a little harder for humans to read
-\item[\green{\cmark}\green{\cmark}] eliminates name conflicts!
-\item \textbf{import with prefix is the standard and safer and preferred method of importing}
+	\item[\red{\xmark}] Python code is a little harder for humans to read
+	\item[\green{\cmark}\green{\cmark}] eliminates name conflicts!
+	\item \textbf{import with prefix is the standard and safer and preferred method of importing}
 \end{itemize}
 
 \end{frame}
@@ -335,57 +382,38 @@ motivation and context
 \end{figure}
 \vspace*{-8mm}
 \begin{itemize}
-\item using \red{as}, \texttt{numpy} name becomes \texttt{np} 
-\item similar for \texttt{math} and \texttt{m}
-\item[\green{\cmark}] Python code is easy to read
-\item[\green{\cmark}\green{\cmark}] eliminates name conflicts
+	\item using \red{as}, \texttt{numpy} name becomes \texttt{np} (``nickname'')
+	\item similar for \texttt{math} and \texttt{m}
+	\item[\green{\cmark}] Python code is easy to read
+	\item[\green{\cmark}\green{\cmark}] eliminates name conflicts
 \end{itemize}
 
 \end{frame}
 
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%\frametitle{Importing from packages}
-%\begin{itemize}
-%\item xxx
-%\end{itemize}
-%
-%\end{frame}
-%
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%\frametitle{}
-%\begin{itemize}
-%\item xxx
-%\end{itemize}
-%
-%\end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%\frametitle{}
-%\begin{itemize}
-%\item xxx
-%\end{itemize}
-%
-%\end{frame}
-
 %==============================================================
 
 \begin{frame}[fragile]
-%\frametitle{Main modules \& packages used in ENGG1003}
-\frametitle{Main modules used in ENGG1003}
+
+\frametitle{Main libraries used in ENGG1003}
 \begin{itemize}
-\item \texttt{math}---description
-\item \texttt{numpy}---description
-\item \texttt{matplotlib}---description
-%\item \texttt{random}---description
-%\item \texttt{sympy}---description
-%\item \texttt{timeit}---description
-%\item \texttt{sys}---description
+	\item \red{\textbf{\texttt{math}}}---basic mathematical operations \& constants
+	\begin{itemize}
+		\item math functions defined in C programming language
+	\end{itemize}
+	\item[]
+	\item \red{\textbf{\texttt{numpy}}}---numerical Python
+	\begin{itemize}
+		\item large collection of powerful mathematical functions for scientific computing
+		\item handles large datasets, matrices and arrays
+	\end{itemize}
+	\item[]
+	\item \red{\textbf{\texttt{matplotlib}}}---visualization
+	\begin{itemize}
+		\item comprehensive library for creating static, animated, and interactive visualizations
+		\item syntax closely follows MATLAB programming language
+	\end{itemize}
+
+
 \end{itemize}
 
 %math—see, e.g., ball_angle.py, Sect. 1.3.
@@ -396,6 +424,10 @@ motivation and context
 %• timeit—see, e.g., Sect. 5.6.
 %• sys—see, e.g., Sect. 7.2.2.
 
+%\item \texttt{random}---description
+%\item \texttt{sympy}---description
+%\item \texttt{timeit}---description
+%\item \texttt{sys}---description
 
 \end{frame}
 
@@ -412,7 +444,7 @@ motivation and context
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{Live demo of importing from modules and packages}
+\frametitle{Live demo of importing}
 
 \end{frame}
 
@@ -456,9 +488,9 @@ Context and problem setting
 \end{figure}
 \vspace*{-8mm}
 \begin{itemize}
-\item \texttt{linspace} function and our first \red{\emph{array}}
-\item \red{\emph{vectorisation}} in \texttt{y = v0*t - 0.5*g*t**2}
-\item plot commands
+	\item \texttt{linspace} function and our first \red{\emph{array}}
+	\item \red{\emph{vectorisation}} in \texttt{y = v0*t - 0.5*g*t**2}
+	\item plot commands
 \end{itemize}
 
 \end{frame}
@@ -482,36 +514,17 @@ When we run \texttt{ball\_plot.py} in PyCharm:
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.9\textwidth]{figures/LLp20b}
+	\includegraphics[width=0.7\textwidth]{figures/LLp20b}
 \end{figure}
 \vspace*{-8mm}
 \begin{itemize}
-\item creates $1001$ coordinates on the interval $[0,1]$:
-\item[] $0, 0.001, 0.002, \ldots, 1$
-\item Python stores these as an \red{\emph{array}}
-\item think of the array \texttt{t} as a collection of ``boxes'' in computer memory
-\item Python numbers these boxes consecutively from zero upwards:
-\item[] \texttt{t[0], t[1], t[2], \ldots, t[1000]}
+	\item creates $1001$ coordinates on the interval $[0,1]$:
+	\item[] $0, 0.001, 0.002, \ldots, 1$
+	\item Python stores these as an \red{\emph{array}}
+	\item think of the array \texttt{t} as a collection of ``boxes'' in computer memory
+	\item Python numbers these boxes consecutively from zero upwards:
+	\item[] \texttt{t[0], t[1], t[2], \ldots, t[1000]}
 \end{itemize}
-
-%The linspace Function Next, there is a call to the function linspace from the
-%numpy library. When n evenly spaced floating point numbers are sought on an
-%interval [a, b], linspace may generally be called like this:
-%np.linspace(a, b, n)
-%This means that the call
-%t = np.linspace(0, 1, 1001)
-%creates 1001 coordinates between 0 and 1, inclusive at both ends. The mathematically
-%inclined reader might agree that 1001 coordinates correspond to 1000 equal
-%sized intervals in [0, 1] and that the coordinates are then given by ti = 1−0
-%1000 i = i
-%1000 ,
-%i = 0, 1, . . . , 1000.
-%The object returned from linspace is an array, i.e., a certain collection of (in
-%this case) numbers. Through the assignment, this array gets the name t. If we like,
-%we may think of the array t as a collection of “boxes” in computer memory (each
-%containing a number) that collectively go by the name t (later, we will demonstrate
-%how these boxes are numbered consecutively from zero and upwards, so that each
-%“box” may be identified and used individually).
 
 \end{frame}
 
@@ -564,8 +577,8 @@ Plotting commands are new, but simple:
 \frametitle{4) Plotting, printing and input data}
 
 \begin{itemize}
-\item \texttt{Matplotlib} is standard plotting package in Python
-\item have already seen array \texttt{y} (heights) plotted against another array \texttt{t} (points in time) 
+	\item \texttt{Matplotlib} is standard plotting package in Python
+	\item have already seen array \texttt{y} (heights) plotted against another array \texttt{t} (points in time) 
 \end{itemize}
 \vspace*{-6mm}
 \begin{center}
@@ -594,8 +607,8 @@ Plotting commands are new, but simple:
 \end{figure}
 \vspace*{-8mm}
 \begin{itemize}
-\item[left:] \texttt{plt.plot(y) \# x-axis indices}
-\item[right:] \texttt{plt.plot(t, y, 'k')  \# black line}
+	\item[left:] \texttt{plt.plot(y) \# x-axis indices}
+	\item[right:] \texttt{plt.plot(t, y, 'k')  \# black line}
 \end{itemize}
 
 \end{frame}
@@ -612,8 +625,8 @@ Plotting commands are new, but simple:
 \end{figure}
 \vspace*{-8mm}
 \begin{itemize}
-\item[left:] \texttt{plt.plot(t, y, '--') \# dashed}
-\item[right:] \texttt{plt.plot(t, y, 'r--') \# red dashed}
+	\item[left:] \texttt{plt.plot(t, y, '--') \# dashed}
+	\item[right:] \texttt{plt.plot(t, y, 'r--') \# red dashed}
 \end{itemize}
 
 \end{frame}
@@ -651,31 +664,31 @@ Plotting commands are new, but simple:
 \frametitle{Decorating a plot}
 
 \begin{itemize}
-\item add a legend
-\vspace*{-5mm}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=\textwidth]{figures/LLp24c}
-\end{figure}
+	\item add a legend
+	\vspace*{-5mm}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\textwidth]{figures/LLp24c}
+	\end{figure}
 
-\item add a grid
+	\item add a grid
+	\vspace*{-5mm}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\textwidth]{figures/LLp24d}
+	\end{figure}
+	\item display a title
 \vspace*{-5mm}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=\textwidth]{figures/LLp24d}
-\end{figure}
-\item display a title
-\vspace*{-5mm}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=\textwidth]{figures/LLp24e}
-\end{figure}
-\item override default ranges for plot axes
-\vspace*{-5mm}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=\textwidth]{figures/LLp24f}
-\end{figure}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\textwidth]{figures/LLp24e}
+	\end{figure}
+	\item override default ranges for plot axes
+	\vspace*{-5mm}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=\textwidth]{figures/LLp24f}
+	\end{figure}
 \end{itemize}
 
 \end{frame}
