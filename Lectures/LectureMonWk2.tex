@@ -13,6 +13,14 @@
 % https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
 \usepackage{pifont}% http://ctan.org/pkg/pifont
 
+%% https://stackoverflow.com/questions/1435837/how-to-remove-footers-of-latex-beamer-templates
+%%gets rid of bottom navigation bars
+%\setbeamertemplate{footline}[page number]
+%
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
 \usefonttheme[onlymath]{serif}
 
 \definecolor{mGreen}{rgb}{0,0.6,0}
@@ -64,12 +72,19 @@
 \institute{University of Newcastle}
 \date{\today}
 
-\begin{document}
+% following is a bit of a hack, but forces page numbers (technically: frame numbers) to run 1,2,3,... 
+% with titlepage counting as frame 1
+
+\addtocounter{framenumber}{1}
 \titlepage
+
+\begin{document}
+\framebreak
 
 %==============================================================
 
 \begin{frame}[fragile]
+
 \frametitle{Lecture overview}
 \begin{enumerate}
 \item Python program with a library function \red{\S1.3}
