@@ -190,7 +190,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Operator precedence}
+\frametitle{Operator precedence---OMIT??}
 
 \end{frame}
 
@@ -198,7 +198,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Division---quotient and remainder}
+\frametitle{Division---quotient and remainder---OMIT??}
 
 \end{frame}
 
@@ -215,6 +215,34 @@
 
 \frametitle{2) Arrays in Python}
 
+\begin{itemize}
+	\item simple arrays used in Monday's lecture
+	\begin{itemize}
+		\item height of a ball was computed for each millisecond
+		\item time stored in array \texttt{t}
+		\item height stored in array \texttt{y}
+	\end{itemize}
+	\item[]
+	\item arrays we use in this course are imported from \texttt{numpy} library
+	\item[]
+	\item for each array, all array \red{\emph{elements}} must be of the same type
+	\begin{itemize}
+		\item eg: all \texttt{int}, or all \texttt{float}
+	\end{itemize}
+		
+\end{itemize}
+
+%We have seen simple use of arrays before, in ball_plot.py (Sect. 1.5), when
+%the height of a ball was computed a thousand times. Corresponding heights and
+%times were handled with arrays y and t, respectively. The kind of arrays used in
+%ball_plot.py is the kind we will use in this book. They are not part of standard
+%Python,8 however, so we import what is needed from numpy. The arrays will be of
+%type numpy.ndarray, referred to as N-dimensional arrays in NumPy.
+%Arrays are created and treated according to certain rules, and as a programmer,
+%you may direct Python to compute and handle arrays as a whole, or as individual
+%array elements. All array elements must be of the same type, e.g., all integers or all
+%floating point numbers.
+
 \end{frame}
 
 %==============================================================
@@ -223,17 +251,33 @@
 
 \frametitle{Array creation and array elements}
 
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.6\textwidth]{figures/arrayElements012}
+	\end{figure}
+
+\vspace*{-4mm}
+
 \begin{itemize}
-	\item \red{\S2.3.1}
-	\item array \red{\emph{index}}, plural array \red{\emph{indices}}
-	\item Python has \red{\emph{zero-based indexing}}
+
+	\item array \red{\emph{index}} used to identify array elements
+		\begin{itemize}
+			\item Python uses \red{\emph{zero-based indexing}}
+			\item indices start at zero: $0,1,2, \ldots$
+%			\item plural: array \red{\emph{indices}}
+		\end{itemize}
+					
+	\item[]
+	\vspace*{-4mm}
+							
 	\item four common ways of creating arrays:
 	\begin{itemize}
-		\item linspace
-		\item zeros
-		\item array
-		\item copy
+		\item \texttt{linspace}
+		\item \texttt{zeros}
+		\item \texttt{array}
+		\item \texttt{copy}
 	\end{itemize}
+	
 \end{itemize}
 
 \end{frame}
@@ -242,7 +286,68 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Zeros function}
+\frametitle{\#1 Linspace}
+
+\begin{itemize}
+	\item have seen \texttt{linspace} function already
+	\item \texttt{t = np.linspace(0, 1, 1001)} creates 1001 coordinates between 0 and 1, inclusive at both ends
+	
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.6\textwidth]{figures/arrayElementsMilliseconds}
+	\end{figure}
+
+	\item \texttt{t} is the name of the array
+	\item array indices are $0, 1, 2, \ldots$
+	\item array elements:~\texttt{t[0]},~\texttt{t[1]},~\texttt{t[2]},~\ldots,~\texttt{t[1000]}
+%	\item general form: if $n$ evenly spaced numbers are sought on interval $[a, b]$:
+%	\item[]
+%	\texttt{numpy.linspace(a, b, n)}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{itemize}
+	\item pp47-48 screenshot
+	\item p47: create array with linspace
+	\item p48 check array type, and array element type
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{\#2 Zeros function}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp49}
+\end{figure}
+\vspace*{-4mm}	
+\begin{itemize}
+	\item array of \texttt{int} or array of \texttt{float}
+	\begin{itemize}
+		\item but cannot mix \texttt{int} and \texttt{float} type!
+	\end{itemize}
+	\item \texttt{len(y)} is \red{\emph{length}} of array \texttt{y}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{\#3 Array function}
 
 \begin{itemize}
 	\item create an array of zeros
@@ -250,17 +355,7 @@
 
 \end{frame}
 
-%==============================================================
 
-\begin{frame}[fragile]
-
-\frametitle{Len function}
-
-\begin{itemize}
-	\item length of an array
-\end{itemize}
-
-\end{frame}
 
 %==============================================================
 
@@ -269,7 +364,7 @@
 \frametitle{Index out of bounds}
 
 \begin{itemize}
-	\item show error when access out of bounds
+	\item show error when access out of bounds---use PyCharm screenshot
 	\item contrast with C
 \end{itemize}
 
@@ -279,7 +374,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Copying an array}
+\frametitle{\#4 Copying an array}
 
 \begin{itemize}
 	\item \red{BE VERY CAREFUL} with naive/obvious copy method
