@@ -186,21 +186,21 @@
 
 \end{frame}
 
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Operator precedence---OMIT??}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Division---quotient and remainder---OMIT??}
-
-\end{frame}
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{Operator precedence---OMIT??}
+%
+%\end{frame}
+%
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{Division---quotient and remainder---OMIT??}
+%
+%\end{frame}
 
 %==============================================================
 
@@ -313,10 +313,22 @@
 
 \frametitle{}
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp47}
+	\includegraphics[width=\textwidth]{figures/LLp48}
+\end{figure}
+
+\vspace*{-4mm}
+	
 \begin{itemize}
-	\item pp47-48 screenshot
-	\item p47: create array with linspace
-	\item p48 check array type, and array element type
+	\item array has $3$ elements: \texttt{x[0], x[1], x[2]}
+	\item individual array elements have type \texttt{numpy.float64}
+	\begin{itemize}
+		\item \texttt{float64} is a particular float data type in NumPy
+	\end{itemize}
+	\item array \texttt{x} itself has type \texttt{numpy.ndarray}
+
 \end{itemize}
 
 \end{frame}
@@ -327,18 +339,29 @@
 
 \frametitle{\#2 Zeros function}
 
-\vspace*{-3mm}
+%\vspace*{-3mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp49}
+	\includegraphics[width=\textwidth]{figures/LLp49}
 \end{figure}
-\vspace*{-4mm}	
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
 \begin{itemize}
 	\item array of \texttt{int} or array of \texttt{float}
 	\begin{itemize}
-		\item but cannot mix \texttt{int} and \texttt{float} type!
+		\item but cannot mix \texttt{int} and \texttt{float} type in one array!
 	\end{itemize}
 	\item \texttt{len(y)} is \red{\emph{length}} of array \texttt{y}
+	\item zeros(3,int)
+	\item zeros(3)
+	\item 0 for int, 0. for float
 \end{itemize}
 
 \end{frame}
@@ -351,6 +374,8 @@
 
 \begin{itemize}
 	\item create an array of zeros
+	\item pp49-50 screenshot
+	\item Note the use of ``dots'' to get floating point numbers
 \end{itemize}
 
 \end{frame}
@@ -363,9 +388,15 @@
 
 \frametitle{Index out of bounds}
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/LLp50PyCharm}
+\end{figure}
+\vspace*{-5mm}
 \begin{itemize}
-	\item show error when access out of bounds---use PyCharm screenshot
-	\item contrast with C
+	\item for array with 3 elements \texttt{x[0], x[1], x[2]}, only legal indices are $0,1$ and $2$
+	\item ``out of bounds'' error if we try and access \texttt{x[3]}
+%	\item contrast with C
 \end{itemize}
 
 \end{frame}
@@ -374,7 +405,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{\#4 Copying an array}
+\frametitle{\#4 Copying an array---the problem}
 
 \begin{itemize}
 	\item \red{BE VERY CAREFUL} with naive/obvious copy method
@@ -390,11 +421,52 @@
 
 \begin{frame}[fragile]
 
+\frametitle{\#4 Copying an array---how to copy}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp51a}
+\end{figure}
+
+\vspace*{-5mm}
+
+\begin{itemize}
+	\item copy function--- actually \emph{creates} then copies values
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
 \frametitle{Slicing an array}
 
 \begin{itemize}
 	\item needs a figure showing boxes
+	\item ppt figure
+	\item colon x[i:j] address all elements from index i (inclusive) to j (exclusive)
+		\begin{itemize}
+			\item well that's confusing \ldots
+		\end{itemize}
+	\item x length 6, x[0],...x[5], write x[0:5], entries 11...16
+	\item y length 5, subset x[1:5]  from y
+	\item WARNING: When copying a slice, the same logic applies as when naively \emph{copying} the whole array
+	\item no screenshot needed, but illustrate live (maybe)
 \end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Slicing an array (ctd)}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp51}
+\end{figure}
 
 \end{frame}
 
