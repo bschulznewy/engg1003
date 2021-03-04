@@ -117,12 +117,24 @@
 \frametitle{$1)$ variables and data types}
 
 \begin{itemize}
-	\item variable names -- make them descriptive
+	\item variable names---make them descriptive but short(-ish), not always easy!
+		\begin{itemize}
+			\item[\green{\cmark}]  waterLevel, altitudeUAV, tunnelDepth
+			\item[\red{\xmark}] w, a, t
+			\item[\red{\xmark}] averageAnnualBatteryVoltage
+		\end{itemize}
 	\item camelCase
+		\begin{itemize}
+			\item lower camel case eg: iPhone, macOS
+			\item upper camel case eg: PlayStation, YouTube
+		\end{itemize}
 	\item snake$\_$case
+		\begin{itemize}
+			\item also known as lower\_case\_with\_underscores
+		\end{itemize}
 	\item matter of preference/style/taste
 		\begin{itemize}
-			\item experiment, find what works best for you %, won't be marked down for ``wrong'' style!			
+			\item experiment, find what works best for you! %, won't be marked down for ``wrong'' style!			
 		\end{itemize}
 \end{itemize}
 
@@ -136,29 +148,24 @@
 
 \begin{itemize}
 	\item \texttt{x = 2}
-	\item \texttt{x = x + 4}
-	\item \texttt{x+= 4} is short for \texttt{x = x + 4}
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{The type of a variable}
-
-\begin{itemize}
-%	\item \red{\S2.2.4}
-	\item types seen so far:
 	\begin{itemize}
-		\item \texttt{int}
-		\item \texttt{float}
-		\item \texttt{str}
-		\item another (final?) type will be introduced next lecture % Boolean
+		\item ``variable \texttt{x} is assigned the value of $2$''
 	\end{itemize}
-	\item explain ``floating point'' terminology---think of float as real number (fractional part, not an integer)
-	\item mention ``objects'' only in passing
+	\item[]
+	\item \texttt{x = x + 4}
+	\begin{itemize}
+		\item value of \texttt{x} is increased by $4$
+		\item new value of \texttt{x} over-writes old value
+	\end{itemize}
+	\item[]
+	\item abbreviations
+		\begin{itemize}
+		\item \texttt{x+= 4} is short for \texttt{x = x + 4}
+		\item \texttt{x -= 4} $\Longleftrightarrow$  \texttt{x = x - 4}
+		\item \texttt{x *= 4} $\Longleftrightarrow$ \texttt{x = x * 4}
+		\item \texttt{x /= 4} $\Longleftrightarrow$ \texttt{x = x / 4}
+	\end{itemize}
+
 \end{itemize}
 
 \end{frame}
@@ -167,9 +174,39 @@
 
 \begin{frame}[fragile]
 
-\frametitle{The type of a variable (ctd.)}
+\frametitle{Data types in Python}
+
+Python data types of variables seen so far:
+
+	\begin{itemize}
+		\item \textbf{\texttt{int}}
+		\item \textbf{\texttt{float}}
+		\item \textbf{\texttt{str}}
+		\item one more data type will be introduced next week *dramatic music plays*
+	\end{itemize}
+	
+\begin{itemize}
+\item[]
+	\begin{itemize}
+		\item \texttt{int}---integers, eg: $0,1,9,-10,452617$
+		\item \texttt{float}---real numbers, eg: $3.14159, -5.5, 2.0$
+			\begin{itemize}
+				\item will explain ``floating point number'' terminology later
+			\end{itemize}
+		\item \texttt{str}---strings, eg: `Hello ENGG1003'
+	\end{itemize}
+%	\item mention ``objects'' only in passing
+\end{itemize}
 
 \end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{The type of a variable (ctd.)}
+%
+%\end{frame}
 
 %==============================================================
 
@@ -216,7 +253,7 @@
 \frametitle{2) Arrays in Python}
 
 \begin{itemize}
-	\item simple arrays used in Monday's lecture
+	\item simple arrays appeared in Monday's lecture
 	\begin{itemize}
 		\item height of a ball was computed for each millisecond
 		\item time stored in array \texttt{t}
@@ -231,17 +268,6 @@
 	\end{itemize}
 		
 \end{itemize}
-
-%We have seen simple use of arrays before, in ball_plot.py (Sect. 1.5), when
-%the height of a ball was computed a thousand times. Corresponding heights and
-%times were handled with arrays y and t, respectively. The kind of arrays used in
-%ball_plot.py is the kind we will use in this book. They are not part of standard
-%Python,8 however, so we import what is needed from numpy. The arrays will be of
-%type numpy.ndarray, referred to as N-dimensional arrays in NumPy.
-%Arrays are created and treated according to certain rules, and as a programmer,
-%you may direct Python to compute and handle arrays as a whole, or as individual
-%array elements. All array elements must be of the same type, e.g., all integers or all
-%floating point numbers.
 
 \end{frame}
 
