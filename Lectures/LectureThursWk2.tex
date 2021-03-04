@@ -106,10 +106,6 @@
 
 \end{frame}
 
-%\begin{itemize}
-%	\item xxx
-%\end{itemize}
-
 %==============================================================
 
 \begin{frame}[fragile]
@@ -457,7 +453,7 @@ Python data types of variables seen so far:
 	\item[]
 	\begin{itemize}
 		\item \texttt{array([0, 1, 2]} creates array of integers
-		\item \texttt{array([0., 1., 2.]} creates array of real numbers %(\texttt{float})
+		\item \texttt{array([0., 1., 2.]} creates array of real numbers
 	\end{itemize}
 \end{itemize}
 
@@ -534,17 +530,14 @@ Python data types of variables seen so far:
 \frametitle{Slicing an array}
 
 \begin{itemize}
-	\item needs a figure showing boxes
-	\item ppt figure
-	\item colon x[i:j] address all elements from index i (inclusive) to j (exclusive)
-		\begin{itemize}
-			\item well that's confusing \ldots
-		\end{itemize}
-	\item x length 6, x[0],...x[5], write x[0:5], entries 11...16
-	\item y length 5, subset x[1:5]  from y
-	\item WARNING: When copying a slice, the same logic applies as when naively \emph{copying} the whole array
-	\item no screenshot needed, but illustrate live (maybe)
+	\item \red{\emph{slice}} of an array is a \emph{subset} of its elements
+	\item use colon to slice, eg: \texttt{x[i:j]}
 \end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/LLp51output}
+\end{figure}
 
 \end{frame}
 
@@ -552,12 +545,29 @@ Python data types of variables seen so far:
 
 \begin{frame}[fragile]
 
-\frametitle{Slicing an array (ctd)}
+\frametitle{Slicing an array (ctd.)}
+
+\vspace*{-5mm}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{figures/LLp51}
+	\includegraphics[width=0.9\textwidth]{figures/LLp51}
 \end{figure}
+
+\vspace*{-5mm}
+
+\begin{itemize}
+	\item[] \texttt{x[start:stop]} takes elements with indices \texttt{start} through \texttt{stop-1}
+	\item[] \textbf{Example} \texttt{x[1:5]~=~[x[1],x[2],x[3],x[4]}
+	\item[] \qquad\qquad~\texttt{=~[12.,13.,14.,15.]}
+%	\item colon x[i:j] address all elements from index i (inclusive) to j (exclusive)
+%		\begin{itemize}
+%			\item well that's confusing \ldots
+%		\end{itemize}
+%
+%	\item WARNING: When copying a slice, the same logic applies as when naively \emph{copying} the whole array
+%	\item no screenshot needed, but illustrate live (maybe)
+\end{itemize}
 
 \end{frame}
 
@@ -567,29 +577,5 @@ Python data types of variables seen so far:
 \frametitle{Live demo of Python arrays}
 
 \end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\end{frame}
-%
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\end{frame}
-%
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\end{frame}
 
 \end{document}
