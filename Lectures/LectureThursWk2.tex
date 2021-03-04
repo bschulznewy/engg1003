@@ -150,7 +150,7 @@
 \begin{itemize}
 	\item \texttt{x = 2}
 	\begin{itemize}
-		\item ``variable \texttt{x} is assigned the value of $2$''
+		\item ``variable \texttt{x} is \red{\emph{assigned}} the value of $2$''
 	\end{itemize}
 	\item[]
 	\item \texttt{x = x + 4}
@@ -230,17 +230,17 @@ Python data types of variables seen so far:
 
 \vspace*{-3mm}
 \begin{itemize}
-	\item type conversion
+	\item \red{\emph{type conversion}}---variables may be converted from one type to another (if it makes sense)
 \end{itemize}
 \vspace*{-3mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp43b}
-	\includegraphics[width=0.8\textwidth]{figures/LLp43c}
+	\includegraphics[width=0.7\textwidth]{figures/LLp43b}
+	\includegraphics[width=0.7\textwidth]{figures/LLp43c}
 \end{figure}
 
 \begin{itemize}
-	\item automatic type conversion
+	\item \red{\emph{automatic type conversion}}
 \end{itemize}
 \vspace*{-3mm}
 \begin{figure}[ht]
@@ -402,14 +402,41 @@ Python data types of variables seen so far:
 \frametitle{}
 
 \begin{itemize}
-	\item array of \texttt{int} or array of \texttt{float}
+
+	\item can define an array of \texttt{int}, or an array of \texttt{float}
 	\begin{itemize}
-		\item but cannot mix \texttt{int} and \texttt{float} type in one array!
+		\item but cannot mix \texttt{int} and \texttt{float} type in a single array!
 	\end{itemize}
+
+	\vspace*{2mm}
+
+	\item \texttt{zeros(3,int)}
+	
+	\vspace*{2mm}
+		
+	\begin{itemize}
+		\item creates an array of $3$ integer zeros
+	\end{itemize}
+	
+	\vspace*{2mm}
+		
+	\item \texttt{zeros(3)}
+	\begin{itemize}
+		\item creates an array of $3$ floating point (float) zeros
+	\end{itemize}
+	
+	\vspace*{2mm}
+		
+	\item how to tell if array of \texttt{int} or \texttt{float}?
+	\begin{itemize}
+		\item look carefully \ldots
+		\item \texttt{[0, 0, 0]} for \texttt{int}
+		\item \texttt{[0., 0., 0.]} for \texttt{float}
+	\end{itemize}
+
+	\vspace*{2mm}
+	
 	\item \texttt{len(y)} is \red{\emph{length}} of array \texttt{y}
-	\item zeros(3,int)
-	\item zeros(3)
-	\item 0 for int, 0. for float
 \end{itemize}
 
 \end{frame}
@@ -420,15 +447,21 @@ Python data types of variables seen so far:
 
 \frametitle{\#3 Array function}
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp49a}
+	\includegraphics[width=\textwidth]{figures/LLp50}
+\end{figure}
+
 \begin{itemize}
-	\item create an array of zeros
-	\item pp49-50 screenshot
-	\item Note the use of ``dots'' to get floating point numbers
+	\item[]
+	\begin{itemize}
+		\item \texttt{array([0, 1, 2]} creates array of integers
+		\item \texttt{array([0., 1., 2.]} creates array of real numbers %(\texttt{float})
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
-
-
 
 %==============================================================
 
@@ -443,7 +476,7 @@ Python data types of variables seen so far:
 \vspace*{-5mm}
 \begin{itemize}
 	\item for array with 3 elements \texttt{x[0], x[1], x[2]}, only legal indices are $0,1$ and $2$
-	\item ``out of bounds'' error if we try and access \texttt{x[3]}
+	\item[\red{\xmark}] ``out of bounds'' error if we try and access \texttt{x[3]}
 %	\item contrast with C
 \end{itemize}
 
@@ -453,14 +486,23 @@ Python data types of variables seen so far:
 
 \begin{frame}[fragile]
 
-\frametitle{\#4 Copying an array---the problem}
+\frametitle{\#4 Copying an array---\emph{take care!}}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp50a}
+	\includegraphics[width=0.8\textwidth]{figures/LLp51b}
+\end{figure}
+
+\vspace*{-5mm}
 
 \begin{itemize}
-	\item \red{BE VERY CAREFUL} with naive/obvious copy method
-	\item \texttt{copy} function creates new array and copies values
-	\begin{itemize}
-		\item use this method!
-	\end{itemize}
+	\item changed value of an element in array \texttt{y} \ldots
+	\item[] \ldots but it caused the same change in array \texttt{x} !
+	
+	\item why? Because assignment \texttt{y = x} creates another reference \emph{to the same array that \texttt{x} refers to}
+	\item \red{be very careful} with ``obvious'' array copy method
+
 \end{itemize}
 
 \end{frame}
@@ -479,7 +521,8 @@ Python data types of variables seen so far:
 \vspace*{-5mm}
 
 \begin{itemize}
-	\item copy function--- actually \emph{creates} then copies values
+	\item \texttt{copy} function---actually \emph{creates} a new array \ldots
+	\item[] \ldots then fills with values copied from another array
 \end{itemize}
 
 \end{frame}
