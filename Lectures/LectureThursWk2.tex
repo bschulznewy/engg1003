@@ -131,8 +131,9 @@
 	\item snake$\_$case
 		\begin{itemize}
 			\item also known as lower\_case\_with\_underscores
+			\item LL textbook uses this convention
 		\end{itemize}
-	\item matter of preference/style/taste
+	\item matter of preference/style/taste/context
 		\begin{itemize}
 			\item experiment, find what works best for you! %, won't be marked down for ``wrong'' style!			
 		\end{itemize}
@@ -195,18 +196,9 @@ Python data types of variables seen so far:
 			\end{itemize}
 		\item \texttt{str}---strings, eg: `Hello ENGG1003'
 	\end{itemize}
-%	\item mention ``objects'' only in passing
 \end{itemize}
 
 \end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{The type of a variable (ctd.)}
-%
-%\end{frame}
 
 %==============================================================
 
@@ -215,11 +207,46 @@ Python data types of variables seen so far:
 \frametitle{Type function}
 
 \begin{itemize}
-	\item \red{\S2.2.4} and \red{\S2.2.5}
-	\item built-in function \texttt{type}
+	\item built-in function \texttt{type} returns type of a variable
+	\begin{itemize}
+		\item technically: returns type of an \red{\emph{object}}
+		\item we won't emphasise objects in this course
+		\item see elsewhere, eg: SENG1100 Object Oriented Programming
+	\end{itemize}
+\end{itemize}
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/LLp43a}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Type function (ctd.)}
+
+\vspace*{-3mm}
+\begin{itemize}
 	\item type conversion
+\end{itemize}
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp43b}
+	\includegraphics[width=0.8\textwidth]{figures/LLp43c}
+\end{figure}
+
+\begin{itemize}
 	\item automatic type conversion
 \end{itemize}
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/LLp43d}
+\end{figure}
 
 \end{frame}
 
@@ -290,7 +317,6 @@ Python data types of variables seen so far:
 		\begin{itemize}
 			\item Python uses \red{\emph{zero-based indexing}}
 			\item indices start at zero: $0,1,2, \ldots$
-%			\item plural: array \red{\emph{indices}}
 		\end{itemize}
 					
 	\item[]
@@ -326,9 +352,6 @@ Python data types of variables seen so far:
 	\item \texttt{t} is the name of the array
 	\item array indices are $0, 1, 2, \ldots$
 	\item array elements:~\texttt{t[0]},~\texttt{t[1]},~\texttt{t[2]},~\ldots,~\texttt{t[1000]}
-%	\item general form: if $n$ evenly spaced numbers are sought on interval $[a, b]$:
-%	\item[]
-%	\texttt{numpy.linspace(a, b, n)}
 \end{itemize}
 
 \end{frame}
@@ -365,7 +388,6 @@ Python data types of variables seen so far:
 
 \frametitle{\#2 Zeros function}
 
-%\vspace*{-3mm}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{figures/LLp49}
@@ -447,7 +469,7 @@ Python data types of variables seen so far:
 
 \begin{frame}[fragile]
 
-\frametitle{\#4 Copying an array---how to copy}
+\frametitle{\#4 Copying an array---doing it right}
 
 \begin{figure}[ht]
 	\centering
