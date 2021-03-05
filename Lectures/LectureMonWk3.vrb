@@ -1,27 +1,3 @@
 
-\frametitle{Lecture overview}
-\begin{enumerate}
-	\item \texttt{for} loop \red{\S3.1}
-	\begin{itemize}
-		\item principles
-		\item live demo
-	\end{itemize}
-
-	\item[]
-	
-	\item \texttt{while} loop \red{\S3.2}
-		\begin{itemize}
-			\item principles
-			\item live demo
-		\end{itemize}
-
-	\item[]
-	
-	\item branching: \texttt{if}, \texttt{elif} and \texttt{else} \red{\S3.3}
-		\begin{itemize}
-			\item principles
-			\item live demo
-		\end{itemize}
-		
-\end{enumerate}
+\frametitle{Live demo: branching}
 
