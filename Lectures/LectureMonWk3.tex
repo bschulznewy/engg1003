@@ -59,6 +59,7 @@
     tabsize=2,
     language=C
 }
+
 \lstdefinestyle{pseudo}{
         basicstyle=\ttfamily\footnotesize,
         keywordstyle=\color{lightBlue},
@@ -130,7 +131,103 @@
 \frametitle{$1)$ for loop}
 
 \begin{itemize}
-	\item xxx
+	\item many computations are repetitive by nature and programming languages have certain loop structures to deal with this
+	\item one such loop structure is the for loop
+	\item printing the 5 times table
+	\item \textbf{at console---begin with live demo}
+\end{itemize}
+
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{itemize}
+	\item first loop for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
+	\item code fragment LLp60
+\end{itemize}
+
+%for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]: # Note... for, in and colon
+%print(’{:d}*5 = {:d}’.format(i, i*5)) # Note indent
+%With this construction, the loop variable i takes on each of the values 1 to 10, and
+%for each value, the print function is called.
+%Since the numbers 1 to 10 appear in square brackets, they constitute a special
+%structure called a list.
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{A typical for loop}
+
+\begin{itemize}
+	\item general loop structure
+	\item general format: LLp60 code fragment
+\end{itemize}
+
+%Loop Structure There are different ways to write for loops, but herein, they are
+%typically structured as
+%for loop_variable in some_numbers: # Loop header
+%<code line 1> # 1st line in loop body
+%<code line 2> # 2nd line in loop body
+%...
+%... # last line in loop body
+%# First line after the loop
+%where loop_variable runs through the numbers1 given by some_numbers. In the
+%very first line, called the for loop header, there are two reserved words, for and
+%in. They are compulsory, as is the colon at the end. Also, the block of code lines
+%inside a loop must be indented. These indented lines are referred to as the loop body.
+%Once the indent is reversed, we are outside (and after) the loop (as commented with
+%# First line after the loop, see code). One run-through of the loop body is
+%called an iteration, i.e., in our example above with the 5 times table, the loop will
+%do 10 iterations.
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Indentation and nested loops}
+
+\begin{itemize}
+	\item indentation---critical!
+	\item nested loops? maybe / maybe-not
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Combining for loop and array}
+
+\begin{itemize}
+	\item average height
+	\item \S3.1.3
+	\item program on LLp62
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{\texttt{range} function}
+
+\begin{itemize}
+	\item motivation: 
+	\item range(start, stop, step)
+	\item eg: range(0,5,1)
+	\item why tf the weird indexing?
 \end{itemize}
 
 \end{frame}
@@ -150,7 +247,12 @@
 \frametitle{$2)$ while loop}
 
 \begin{itemize}
-	\item xxx
+	\item for loop runs for prespecified number of iterations
+	\begin{itemize}
+		\item do NOT cover break and continue
+	\end{itemize}
+	\item The other basic loop construction in Python is the while loop, which runs as long as a condition is \textbf{True}
+	\item Boolean type \S2.2.10
 \end{itemize}
 
 \end{frame}
@@ -159,7 +261,15 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Live demo: while loop}
+\frametitle{Boolean Expressions}
+
+\begin{itemize}
+	\item screenshot LLp46, LLp47
+	\item but present at the console live demo, then skip over slides
+	\item conditions \texttt{True} and \texttt{False}
+	\item Boolean type
+	\item light touch: and, or, not but don't present truth tables (??)--- refer back to lecture 1. Hmmm 
+\end{itemize}
 
 \end{frame}
 
@@ -167,7 +277,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$3)$ branching}
+\frametitle{more Booleans---live demo}
 
 \begin{itemize}
 	\item xxx
@@ -179,7 +289,285 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Live demo: branching}
+\frametitle{Example: Finding the Time of Flight}
+
+\begin{itemize}
+	\item context/description
+	\item we modify/extend earlier example
+\end{itemize}
+
+%The Case Assume the ball is thrown with a slightly lower initial velocity, say
+%4.5 ms−1, while everything else is kept unchanged. Since we still look at the first
+%second of the flight, the heights at the end of the flight will then become negative.
+%However, this only means that the ball has fallen below its initial starting position,
+%i.e., the height where it left the hand, so there is nothing wrong with that. In an array
+%y, we will then have a series of heights which towards the end of y become negative.
+%As before, we will also have an array t with all the times for corresponding heights
+%in y.
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{itemize}
+	\item figure 3.1 ball height vs time
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{itemize}
+	\item show whole program LLp65
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{itemize}
+	\item zoom into 3 lines of code p65
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{itemize}
+	\item plot as * then zoom in to see time where crossing occurs
+	\item slowly and meticulously consider y[i] >= condition
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Characteristics of a Typical while Loop}
+
+\begin{itemize}
+	\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Characteristics of a Typical while Loop (ctd.)}
+
+\begin{itemize}
+	\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Infinite Loops}
+
+\begin{itemize}
+	\item It is possible to have a while loop in which the condition never evaluates to False, meaning that program execution can not escape the loop!
+	\item this is referred to as an infinite loop
+\end{itemize}
+
+\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{Live demo: while loop}
+%
+%\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$3)$ branching: if, elif and else)}
+
+%Very often in life,5 and in computer programs, the next action depends on the
+%outcome of a question starting with “if”. This gives the possibility of branching
+%into different types of action depending on some criterion.
+%As an introduction to branching, let us “build up” a little program that evaluates
+%a water temperature provided by the program user.
+
+\begin{itemize}
+	\item context
+	\item extended Example: Judging the Water Temperature (need to change numbers!)
+	\item will build up a program in stages
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{One if-test}
+
+\begin{itemize}
+	\item screenshot/code LLp68
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Two if-tests}
+
+\begin{itemize}
+	\item LLp68
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{An if-else Construction}
+
+\begin{itemize}
+	\item LLp69
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{An if-elif-else Construction}
+
+\begin{itemize}
+	\item LLp69
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{general form of an if-elif-else}
+
+\begin{itemize}
+	\item \S3.3.2
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{branching summary}
+
+\begin{itemize}
+	\item if
+	\item if / else
+	\item if / elif / else
+\end{itemize}
+
+\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{Example: Finding the Maximum Height}
+%
+%\begin{itemize}
+%	\item excellent illustration of further mod to ball plot
+%	\item \textbf{but save this for Thursday lecture}
+%	\item can solve in two ways: both shown on p71
+%\end{itemize}
+%
+%\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{}
+%
+%\begin{itemize}
+%	\item xxx
+%\end{itemize}
+%
+%\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{Live demo: branching}
+%
+%\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Lecture summary}
+
+%% https://www.overleaf.com/learn/latex/code_listing
+%
+%\begin{lstlisting}[language=Python]
+%import numpy as np
+%    
+%def incmatrix(genl1,genl2):
+%    m = len(genl1)
+%    n = len(genl2)
+%    M = None #to become the incidence matrix
+%    VT = np.zeros((n*m,1), int)  #dummy variable
+%    
+%    #compute the bitwise xor matrix
+%    M1 = bitxormatrix(genl1)
+%    M2 = np.triu(bitxormatrix(genl2),1) 
+%
+%    for i in range(m-1):
+%        for j in range(i+1, m):
+%            [r,c] = np.where(M2 == M1[i,j])
+%            for k in range(len(r)):
+%                VT[(i)*n + r[k]] = 1;
+%                VT[(i)*n + c[k]] = 1;
+%                VT[(j)*n + r[k]] = 1;
+%                VT[(j)*n + c[k]] = 1;
+%                
+%                if M is None:
+%                    M = np.copy(VT)
+%                else:
+%                    M = np.concatenate((M, VT), 1)
+%                
+%                VT = np.zeros((n*m,1), int)
+%    
+%    return M
+%\end{lstlisting}
 
 \end{frame}
 
