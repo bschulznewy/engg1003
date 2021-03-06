@@ -17,13 +17,19 @@
 
 \begin{itemize}
 \item arrays, indexing, sliding
-\item  for loops
+\item for loops
 \item boolean expressions / relational operators
 \item if statements
 \item while loops
 \end{itemize}
 
-\begin{task}{Array Reading}{}
+\begin{task}{Pre-Lab Reading}{}
+Read Sections 2.1 and 2.2 of the textbook: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_2}
+\\~\\
+These sections provide general background information which will help you write Python scripts with confidence. The content is best learned ``by immersion''. All the details covered in these sections will be constantly used throughout your programming career.
+\end{task}
+
+\begin{task}{Array Background Reading}{}
 Read Section 2.3 of the textbook, stopping at 2.3.6. Execute examples as you go.
 \\~\\
 Direct link: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_2#Sec16}
@@ -34,23 +40,68 @@ You are welcome to read 2.3.6 (regarding 2D arrays) but that content will be cov
 \begin{task}{Fibonacci  Sequence - Naive Implementation}{}
 The Fibonacci sequence is a sequence of numbers, $x_0$, $x_1$, $x_2$, ... etc, with the following equation used to calculate $x_n$ given $x_{n-1}$ and $x_{n-2}$:
 
-\begin{equation}
+\begin{equation}\label{eq:fib}
 x_n = x_{n-1} + x_{n-2}
 \end{equation}
 
 Write a Python script which, given $x_0=1$ and $x_1=1$, calculates and prints the next 8 values of the Fibonacci sequence.
 \\~\\
-To do this, create a NumPy array, \texttt{fib[]} containing 10 zeros, manually assign the above 1's to \texttt{fib[0]} and \texttt{fib[1]}, then write out the equation manually for the next 8 values, eg:
+To do this, create a NumPy array, \texttt{fib[]} containing 10 zeros, manually assign the above 1's to \texttt{fib[0]} and \texttt{fib[1]}, then write out the equation as follows for the next 8 values:
 \begin{lstlisting}
 fib[2] = fib[1] + fib[0]
-print(fib[2])
 fib[3] = fig[2] + fib[1]
-print(fib[3])
 ... etc
+print(fib)
 \end{lstlisting}
 
 Note that there is a far more efficient method using \textit{loops}. This will be explored later.
 \end{task}
 
+\begin{task}{\texttt{for} Loops - Reading}{}
+Read Section 3.1 of the textbook: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec1}
+\end{task}
+
+\begin{task}{Fibonacci Sequence with a \texttt{for} Loop}{}
+Modify your Fibonacci sequence script to utilise a \texttt{for} loop and the \texttt{range()} function. Note that by utilising a \texttt{for} loop you now only need to write out Equation \ref{eq:fib} \textit{once}, irrelevant of how many values you wish to calculate.
+\\~\\
+A few notes \& tips:
+\begin{itemize}
+\item Try to use a single variable \texttt{N} which specifies how many values to calculate
+\item Since the first calculation is giving the 3rd value the \texttt{range()} function needs to be called as \texttt{range(2,N)}.
+\item If \texttt{N} is large (more than about 90) care must be taken with the choice of data type. \texttt{np.zeros()} will, by default, create \texttt{np.float64}s but the Fibonacci sequence is intrinsically an \textit{integer} sequence. Experiment with different datatypes specified in the call to \texttt{np.zeros()}. eg: \texttt{fib = np.zeros(N,dtype=np.uint64)}\\~\\The full list of NumPy datatypes is here: \url{https://numpy.org/devdocs/user/basics.types.html}. How many terms can you calculate before an ``overflow'' error with \texttt{uint8}, \texttt{uint32}, and \texttt{uint64}?
+\item \texttt{print(fib)} should print the entire array but you can call \texttt{print()} from within the loop so that only a single value is printed on each line.
+\end{itemize}
+\end{task}
+
+\begin{task}{\texttt{while} Loops - Reading}{}
+Read Section 3.2 of the textbook: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec7}
+\end{task}
+
+\begin{task}{Fibonacci Sequence with \texttt{while} Loops}{}
+Fork your Fibonacci sequence code (ie: save a copy of it so it can be loaded later).
+\\~\\
+Using a \texttt{while} loop, implement a Fibonacci sequence generator which prints the Fibonacci sequence until the printed value exceeds 1 million.
+\end{task}
+
+\begin{task}{Fibonacci Sequence Without Arrays}{}
+Modify your code so that instead of using an array it calculates the sequence using only 3 variables:
+\\~
+\begin{itemize}
+\item \texttt{xn} - The current value
+\item \texttt{xnm1} - The previous value, $x_{n-1}$
+\item \texttt{xnm2} - The value of $x_{n-2}$
+\end{itemize}
+~\\
+The calculation will have to happen in two steps:
+\\
+\begin{enumerate}
+\item Calculate the current value, $x_n$
+\item ``Move forward in time'' by executing \texttt{xnm2 = xnm1} and \texttt{xnm1 = xn}.
+\end{enumerate}
+~\\
+You may use \texttt{for} or \texttt{while} loops to complete this task.
+\\~\\
+Note that this implementation has the advantage of using \textit{significantly} less RAM than the array-based version. The disadvantages are that you must print each value as it is calculated and the code is somewhat less ``readable'' - it looks less like Equation \ref{eq:fib} than the array based versions.
+\end{task}
 
 \end{document}
