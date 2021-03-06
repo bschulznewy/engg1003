@@ -99,7 +99,7 @@
 
 \frametitle{Lecture overview}
 \begin{enumerate}
-	\item Iteration using \texttt{for} loop \red{\S3.1}
+	\item Iteration using \textbf{\texttt{for}} loop \red{\S3.1}
 	\begin{itemize}
 		\item fixed number of iterations
 %		\item principles
@@ -108,7 +108,7 @@
 
 	\item[]
 	
-	\item Iteration using \texttt{while} loop \red{\S3.2}
+	\item Iteration using \textbf{\texttt{while}} loop \red{\S3.2}
 		\begin{itemize}
 			\item keep iterating whenever a condition is satisfied
 %			\item principles
@@ -117,7 +117,7 @@
 
 	\item[]
 	
-	\item Branching: \texttt{if}, \texttt{elif} and \texttt{else} \red{\S3.3}
+	\item Branching: \textbf{\texttt{if}}, \textbf{\texttt{elif}} and \textbf{\texttt{else}} \red{\S3.3}
 		\begin{itemize}
 			\item check condition before executing code block
 %			\item principles
@@ -191,7 +191,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{A typical for loop}
+\frametitle{A typical \texttt{for} loop}
 
 \begin{itemize}
 	\item general loop structure
@@ -229,19 +229,21 @@
 
 \frametitle{Nested loops}
 
-%\begin{itemize}
-%
-%	\item nested loops %? maybe / maybe-not
-%\end{itemize}
-
+\vspace*{-3mm}
+\begin{itemize}
+	\item for each iteration of a loop\ldots execute \emph{another} loop!
+	\item one loop ``inside'' another, hence \red{\emph{nested}}
+	\item \emph{two} levels of indentation are needed
+\end{itemize}
+	
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp61a}
+	\includegraphics[width=0.75\textwidth]{figures/LLp61a}
 \end{figure}
-
+\vspace*{-3mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp61b}
+	\includegraphics[width=0.75\textwidth]{figures/LLp61b}
 \end{figure}
 
 \end{frame}
@@ -250,12 +252,11 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Combining for loop and array}
+\frametitle{Combining \texttt{for} loop and \texttt{array}}
 
 \begin{itemize}
 	\item average height
 	\item \S3.1.3
-%	\item program on LLp62
 \end{itemize}
 
 \begin{figure}[ht]
@@ -294,7 +295,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Live demo: for loop}
+\frametitle{Live demo: \texttt{for} loop}
 
 \begin{itemize}
 %	\item run code from \S3.1.3
@@ -350,9 +351,9 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Relational operators:~comparing values}
+\frametitle{Comparing values}
 
-Live demo of relational operators
+Live demo
 
 \begin{figure}[ht]
 	\centering
@@ -369,7 +370,7 @@ Live demo of relational operators
 
 \frametitle{Boolean operators: \texttt{and}, \texttt{or}, \texttt{not}}
 
-Live demo of Boolean operators
+Live demo 
 
 \begin{figure}[ht]
 	\centering
@@ -379,7 +380,7 @@ Live demo of Boolean operators
 \begin{itemize}
 	\item Boolean variable type
 	\begin{itemize}
-		\item int, float, str, \red{bool}
+		\item int, float, str, \textbf{\red{bool}}
 	\end{itemize}
 
 	\item Boolean values may be combined into longer expressions by use of \texttt{and} and \texttt{or}
@@ -413,6 +414,11 @@ Live demo of Boolean operators
 \begin{itemize}
 	\item context/description
 	\item we modify/extend earlier example
+	\item now initial velocity is only $4.5$~m/s
+	\begin{itemize}
+		\item was $5$~m/s in last weeks lecture
+	\end{itemize}
+	\item calculate height for $1$~s and find ``height'' is negative for sufficiently large $t$---this is deliberate
 \end{itemize}
 
 %The Case Assume the ball is thrown with a slightly lower initial velocity, say
@@ -564,11 +570,32 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 
 \begin{frame}[fragile]
 
-\frametitle{Infinite Loops}
+\frametitle{Infinite loops}
 
 \begin{itemize}
-	\item It is possible to have a while loop in which the condition never evaluates to False, meaning that program execution can not escape the loop!
-	\item this is referred to as an infinite loop
+	\item Possible to have a \texttt{while} loop in which the condition \emph{never} evaluates to \texttt{False}
+	\begin{itemize}
+		\item program execution cannot escape the loop!
+	\end{itemize}
+	
+	\item[]
+	
+	\item Referred to as an \red{\emph{infinite loop}}
+	
+	\item[]
+	
+	\item Might be deliberate \ldots
+	\begin{itemize}
+		\item program runs ``forever'', eg: surveillance camera system
+	\end{itemize}
+	
+	\item[]
+	\item \ldots but infinite loops are usually unintentional
+	\begin{itemize}
+		\item result of a program \red{\emph{bug}}
+		\item \texttt{Ctrl+c} to stop program
+	\end{itemize}
+	
 \end{itemize}
 
 \end{frame}
@@ -585,7 +612,7 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 
 \begin{frame}[fragile]
 
-\frametitle{$3)$ branching: if, elif and else)}
+\frametitle{$3)$ Branching:~\texttt{if}, \texttt{elif} and \texttt{else}}
 
 %Very often in life,5 and in computer programs, the next action depends on the
 %outcome of a question starting with “if”. This gives the possibility of branching
@@ -593,10 +620,16 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 %As an introduction to branching, let us “build up” a little program that evaluates
 %a water temperature provided by the program user.
 
+Assume we want to write a program that helps us decide, based on water temperature
+alone (in degrees Celcius), whether we should go swimming or not.
+
 \begin{itemize}
 	\item context
 	\item extended Example: Judging the Water Temperature %(need to change numbers!)
 	\item will build up a program in stages
+	\begin{itemize}
+		\item programming as a step-wise process
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -605,10 +638,15 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 
 \begin{frame}[fragile]
 
-\frametitle{One if-test}
+\frametitle{One \texttt{if}-test}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp68a}
+\end{figure}
 
 \begin{itemize}
-	\item screenshot/code LLp68
+	\item xxx
 \end{itemize}
 
 \end{frame}
@@ -617,10 +655,15 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 
 \begin{frame}[fragile]
 
-\frametitle{Two if-tests}
+\frametitle{Two \texttt{if}-tests}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp68b}
+\end{figure}
 
 \begin{itemize}
-	\item LLp68
+	\item xxx
 \end{itemize}
 
 \end{frame}
@@ -629,10 +672,15 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 
 \begin{frame}[fragile]
 
-\frametitle{An if-else Construction}
+\frametitle{An \texttt{if}-\texttt{else} construction}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp69a}
+\end{figure}
 
 \begin{itemize}
-	\item LLp69
+	\item xxx
 \end{itemize}
 
 \end{frame}
@@ -641,37 +689,28 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 
 \begin{frame}[fragile]
 
-\frametitle{An if-elif-else Construction}
+\frametitle{An \texttt{if}-\texttt{elif}-\texttt{else} construction}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp69b}
+\end{figure}
 
 \begin{itemize}
-	\item LLp69
+	\item xxx
 \end{itemize}
-
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
 
-\frametitle{general form of an if-elif-else}
+\frametitle{General form of an \texttt{if}-\texttt{elif}-\texttt{else}}
 
-\begin{itemize}
-	\item \S3.3.2
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{branching summary}
-
-\begin{itemize}
-	\item if
-	\item if / else
-	\item if / elif / else
-\end{itemize}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp70a}
+\end{figure}
 
 \end{frame}
 
@@ -689,65 +728,37 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 %
 %\end{frame}
 
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\begin{itemize}
-%	\item xxx
-%\end{itemize}
-%
-%\end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{Live demo: branching}
-%
-%\end{frame}
-
 %==============================================================
 
 \begin{frame}[fragile]
 
 \frametitle{Lecture summary}
+\begin{itemize}
+	\item Iteration using \textbf{\texttt{for}} loop
+	\begin{itemize}
+		\item fixed number of iterations
+	\end{itemize}
 
-%% https://www.overleaf.com/learn/latex/code_listing
-%
-%\begin{lstlisting}[language=Python]
-%import numpy as np
-%    
-%def incmatrix(genl1,genl2):
-%    m = len(genl1)
-%    n = len(genl2)
-%    M = None #to become the incidence matrix
-%    VT = np.zeros((n*m,1), int)  #dummy variable
-%    
-%    #compute the bitwise xor matrix
-%    M1 = bitxormatrix(genl1)
-%    M2 = np.triu(bitxormatrix(genl2),1) 
-%
-%    for i in range(m-1):
-%        for j in range(i+1, m):
-%            [r,c] = np.where(M2 == M1[i,j])
-%            for k in range(len(r)):
-%                VT[(i)*n + r[k]] = 1;
-%                VT[(i)*n + c[k]] = 1;
-%                VT[(j)*n + r[k]] = 1;
-%                VT[(j)*n + c[k]] = 1;
-%                
-%                if M is None:
-%                    M = np.copy(VT)
-%                else:
-%                    M = np.concatenate((M, VT), 1)
-%                
-%                VT = np.zeros((n*m,1), int)
-%    
-%    return M
-%\end{lstlisting}
+	\item[]
+	
+	\item Iteration using \textbf{\texttt{while}}
+		\begin{itemize}
+			\item keep iterating whenever a Boolean condition is satisfied
+		\end{itemize}
+
+	\item[]
+	
+	\item Branching: \textbf{\texttt{if}}, \textbf{\texttt{elif}} and \textbf{\texttt{else}}
+		\begin{itemize}
+			\item conditional execution of code blocks
+			\begin{itemize}
+				\item \texttt{if}
+				\item \texttt{if}-\texttt{else}
+				\item \texttt{if}-\texttt{elif}-\texttt{else}
+			\end{itemize}
+		\end{itemize}
+		
+\end{itemize}
 
 \end{frame}
 

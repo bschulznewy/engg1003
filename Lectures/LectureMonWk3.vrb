@@ -1,37 +1,29 @@
 
 \frametitle{Lecture summary}
+\begin{itemize}
+	\item Iteration using \textbf{\texttt{for}} loop
+	\begin{itemize}
+		\item fixed number of iterations
+	\end{itemize}
 
-%% https://www.overleaf.com/learn/latex/code_listing
-%
-%\begin{lstlisting}[language=Python]
-%import numpy as np
-%
-%def incmatrix(genl1,genl2):
-%    m = len(genl1)
-%    n = len(genl2)
-%    M = None #to become the incidence matrix
-%    VT = np.zeros((n*m,1), int)  #dummy variable
-%
-%    #compute the bitwise xor matrix
-%    M1 = bitxormatrix(genl1)
-%    M2 = np.triu(bitxormatrix(genl2),1)
-%
-%    for i in range(m-1):
-%        for j in range(i+1, m):
-%            [r,c] = np.where(M2 == M1[i,j])
-%            for k in range(len(r)):
-%                VT[(i)*n + r[k]] = 1;
-%                VT[(i)*n + c[k]] = 1;
-%                VT[(j)*n + r[k]] = 1;
-%                VT[(j)*n + c[k]] = 1;
-%
-%                if M is None:
-%                    M = np.copy(VT)
-%                else:
-%                    M = np.concatenate((M, VT), 1)
-%
-%                VT = np.zeros((n*m,1), int)
-%
-%    return M
-%\end{lstlisting}
+	\item[]
+	
+	\item Iteration using \textbf{\texttt{while}}
+		\begin{itemize}
+			\item keep iterating whenever a Boolean condition is satisfied
+		\end{itemize}
+
+	\item[]
+	
+	\item Branching: \textbf{\texttt{if}}, \textbf{\texttt{elif}} and \textbf{\texttt{else}}
+		\begin{itemize}
+			\item conditional execution of code blocks
+			\begin{itemize}
+				\item \texttt{if}
+				\item \texttt{if}-\texttt{else}
+				\item \texttt{if}-\texttt{elif}-\texttt{else}
+			\end{itemize}
+		\end{itemize}
+		
+\end{itemize}
 
