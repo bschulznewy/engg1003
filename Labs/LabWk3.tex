@@ -97,8 +97,28 @@ Using a \texttt{while} loop, implement a Fibonacci sequence generator which prin
 You will need to compare the last printed value with the constant \texttt{1000000}. Assuming arrays are still used, you will also need to manually increment (and initialise) the variable used to index the array.
 \end{task}
 
+\section{\texttt{if} Statements}
+
+\begin{task}{\texttt{if} Statement Reading}{}
+Read Section 3.3 of the textbook, stopping at Section 3.3.4: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec10} 
+\end{task}
+
+\begin{task}{Testing Divisibility}{}
+In Python (and many other languages) the \texttt{\%} symbol is used as the \textit{modulo} operator. It provides the remainder of the division between two integers.
+\\~\\
+An integer $a$ is said to be divisible by another integer $b$ if \texttt{a \% b} is zero. In Python, such a divisibility test can be implemented with an \texttt{if} statement as:
+\\~\\
+\texttt{if a \% b == 0:}
+\\~\\
+Write a Python script which tests all integers between 1 and 100 for divisibility by both 3 and 5. When an integer is divisible by 3 print ``\texttt{n} is divisible by 3'' and similarly for when an integer is divisible by 5.
+\\~\\
+\textbf{Extension:} If an integer is divisible by both 3 and 5 print ``Bingo!''. A program which performs these three divisibility tests is commonly known as ``fizz-buzz'' and is a frequently used test in job interviews. There is extensive discussion about various implementations and optimisations online.
+\end{task}
+
+\section{Further Exercises}
+
 \begin{task}{Fibonacci Sequence Without Arrays}{}
-Modify your code so that instead of using an array it calculates the sequence using only 3 variables:
+Modify either the \texttt{for} or \texttt{while} loop Fibonacci sequence code so that instead of using an array it calculates the sequence using only 3 variables:
 \\~
 \begin{itemize}
 \item \texttt{xn} - The current value
@@ -106,16 +126,66 @@ Modify your code so that instead of using an array it calculates the sequence us
 \item \texttt{xnm2} - The value of $x_{n-2}$
 \end{itemize}
 ~\\
-The calculation will have to happen in two steps:
+The calculation needs to be performed in two steps:
 \\
 \begin{enumerate}
 \item Calculate the current value, $x_n$
 \item ``Move forward in time'' by executing \texttt{xnm2 = xnm1} and \texttt{xnm1 = xn}.
 \end{enumerate}
 ~\\
-You may use \texttt{for} or \texttt{while} loops to complete this task.
+Note that you can use other variables (eg, \texttt{N} for the number of terms to calculate) but the array which previously stored the sequence must not be used.
 \\~\\
-Note that this implementation has the advantage of using \textit{significantly} less RAM than the array-based version. The disadvantages are that you must print each value as it is calculated and the code is somewhat less ``readable'' - it looks less like Equation \ref{eq:fib} than the array based versions.
+This implementation has the advantage of using \textit{significantly} less RAM than the array-based version. The disadvantages are that you must print each value as it is calculated and the code is potentially less ``readable'' - it looks less like Equation \ref{eq:fib} than the array based versions.
+\end{task}
+
+\begin{task}{Quadratic formula}{}
+In Week 1 lectures the following algorithm was presented for finding the roots of a quadratic:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+        INPUT: a, b, c
+        D = b**2 - 4ac
+        IF D < 0
+                 N = 0
+        ELSEIF D == 0
+                N = 1
+                x1 = -b/(2a)
+        ELSEIF D > 0
+                N = 2
+                x1 = (-b + sqrt(D))/(2a)
+                x2 = (-b - sqrt(D))/(2a)
+        ENDIF
+        OUTPUT: N, x1, x2
+END
+\end{lstlisting}
+Write a Python script which implements this algorithm and prints any solutions found. If no (real valued) solutions exist print a message to the user saying as such.
+\\~\\
+You may initialise the variable \texttt{a}, \texttt{b}, and \texttt{c} or, if you know how, read them from the console.
+\end{task}
+
+\pagebreak
+\begin{task}{Calculating Square Roots}{}
+The square root of a number, $x = \sqrt{n}$, can be calculated with the iterative formula:
+\begin{equation}\label{eq:sqrt}
+x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
+\end{equation}
+Write a Python script which implements this formula to calculate square roots of real numbers. Initialise $x_0$ to a random (non-zero) value of your choosing.
+\\ \\
+The algorithm should be implemented with a loop. The loop's design condition could be one of several choices, in order of difficulty:\\
+\begin{enumerate}
+\item A \texttt{for} loop with a fixed number of iterations (eg: 10)
+\item A \texttt{while} loop which exits when $\left| x_k - x_{k-1} \right| < e$ where $e$ is some pre-defined precision of your choosing (eg, 1 millionth = \texttt{1e-6})
+\item A \texttt{while} loop which exists when either of the above conditions are met
+\end{enumerate}
+~\\
+To calculate precision you will need to explicitly save $x_k$ and $x_{k-1}$ in different variables.
+\\~\\
+\textbf{Hint:} You can place \texttt{print()} statements inside the loop to help you debug. Calculate the series of $x_n$'s for a particular value (eg: $\sqrt{2}=1.4142$) by hand (with the same value for $x_0$) so that you can compare your program's output with an output you have confidence in.
+\end{task}\label{tsk:sqrt}
+
+\begin{task}{Textbook Exercise: Calculating $\pi$}{}
+Complete exercise 3.11 from the textbook.
+\\~\\
+Section link: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec15}
 \end{task}
 
 \end{document}

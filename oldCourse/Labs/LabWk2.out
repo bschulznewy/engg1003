@@ -1,0 +1,31 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Pseudocode to C Conversion Examples}{}% 2
+\BOOKMARK [1][-]{section.3}{Data Type Subset and Format Specifiers}{}% 3
+\BOOKMARK [1][-]{section.4}{Usage of printf\(\); and scanf\(\);}{}% 4
+\BOOKMARK [1][-]{section.5}{Getting Started Questions}{}% 5
+\BOOKMARK [1][-]{section.6}{Input-Processing-Output Exercises}{}% 6
+\BOOKMARK [2][-]{subsection.6.1}{Example}{section.6}% 7
+\BOOKMARK [2][-]{subsection.6.2}{Tasks}{section.6}% 8
+\BOOKMARK [1][-]{section.7}{Flow Control Exercises}{}% 9
+\BOOKMARK [2][-]{subsection.7.1}{Else-If}{section.7}% 10
+\BOOKMARK [1][-]{section.8}{Random Numbers}{}% 11
+\BOOKMARK [1][-]{section.9}{Mandelbrot Set - Advanced}{}% 12
+\BOOKMARK [1][-]{section.10}{C Summary}{}% 13
+\BOOKMARK [2][-]{subsection.10.1}{Basic Structure}{section.10}% 14
+\BOOKMARK [2][-]{subsection.10.2}{Comments}{section.10}% 15
+\BOOKMARK [2][-]{subsection.10.3}{Code Blocks}{section.10}% 16
+\BOOKMARK [2][-]{subsection.10.4}{Operators}{section.10}% 17
+\BOOKMARK [2][-]{subsection.10.5}{Operator Shorthand}{section.10}% 18
+\BOOKMARK [2][-]{subsection.10.6}{Data Types}{section.10}% 19
+\BOOKMARK [2][-]{subsection.10.7}{Standard i/o}{section.10}% 20
+\BOOKMARK [2][-]{subsection.10.8}{Format Specifiers}{section.10}% 21
+\BOOKMARK [2][-]{subsection.10.9}{Type Casting}{section.10}% 22
+\BOOKMARK [2][-]{subsection.10.10}{Flow control}{section.10}% 23
+\BOOKMARK [3][-]{subsubsection.10.10.1}{if\(\)}{subsection.10.10}% 24
+\BOOKMARK [3][-]{subsubsection.10.10.2}{if\(\) ... else if\(\)}{subsection.10.10}% 25
+\BOOKMARK [3][-]{subsubsection.10.10.3}{while\(\)}{subsection.10.10}% 26
+\BOOKMARK [3][-]{subsubsection.10.10.4}{for\(;;\)}{subsection.10.10}% 27
+\BOOKMARK [2][-]{subsection.10.11}{Library Functions}{section.10}% 28
+\BOOKMARK [3][-]{subsubsection.10.11.1}{rand\(\)}{subsection.10.11}% 29
+\BOOKMARK [2][-]{subsection.10.12}{Glossary of Terms}{section.10}% 30
+\BOOKMARK [1][-]{section.11}{Getting Started Question Solutions}{}% 31
