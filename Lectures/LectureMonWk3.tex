@@ -409,7 +409,7 @@ Live demo
 	\end{itemize}
 
 	\item Boolean values may be combined into longer expressions using \texttt{and}, \texttt{or} and \texttt{not}
-%	\item light touch: and, or, not but don't present truth tables %(??)--- refer back to lecture 1. Hmmm 
+
 	\item basics of Boolean operators:~week 1 Thurs lecture
 	\begin{itemize}
 		\item covered in \emph{much} more depth in ELEC1710
@@ -418,18 +418,6 @@ Live demo
 
 \end{frame}
 
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{more Booleans---live demo}
-%
-%\begin{itemize}
-%	\item xxx
-%\end{itemize}
-%
-%\end{frame}
-
 %==============================================================
 
 \begin{frame}[fragile]
@@ -437,23 +425,15 @@ Live demo
 \frametitle{Example: Finding the time of flight}
 
 \begin{itemize}
-	\item context/description
-	\item we modify/extend earlier example
-	\item now initial velocity is slightly lower, only $4.5$~m/s
+	\item illustrate \texttt{while} loop by modifying earlier ``soccer ball'' example
+	\item[]
+	\item initial velocity of ball is slightly lower, only $4.5$~m/s
 	\begin{itemize}
 		\item was $5$~m/s in last weeks lecture
 	\end{itemize}
-	\item calculate height for $1$~s and find ``height'' is negative for sufficiently large $t$ %---this is deliberate
+	\item[]
+	\item[]\textbf{Goal:} compute how long ball is in the air
 \end{itemize}
-
-%The Case Assume the ball is thrown with a slightly lower initial velocity, say
-%4.5 ms−1, while everything else is kept unchanged. Since we still look at the first
-%second of the flight, the heights at the end of the flight will then become negative.
-%However, this only means that the ball has fallen below its initial starting position,
-%i.e., the height where it left the hand, so there is nothing wrong with that. In an array
-%y, we will then have a series of heights which towards the end of y become negative.
-%As before, we will also have an array t with all the times for corresponding heights
-%in y.
 
 \end{frame}
 
@@ -465,9 +445,15 @@ Live demo
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.9\textwidth]{figures/LLp66output}
+	\includegraphics[width=0.7\textwidth]{figures/LLp66output}
 \end{figure}
 
+\vspace*{-5mm}
+\begin{itemize}
+	\item height is eventually \emph{negative}, ie: for large enough~$t$
+	\item \textbf{Idea:} find smallest $t$ where height $y(t) < 0$
+\end{itemize}
+	
 \end{frame}
 
 %==============================================================
@@ -493,13 +479,25 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{figures/LLp65b}
+	\includegraphics[width=0.9\textwidth]{figures/LLp65b}
 \end{figure}
 
+\vspace*{-5mm}
 \begin{itemize}
-	\item slowly and meticulously consider y[i] \verb+>=+  condition
-	\item index i after loop is index to first element of array that is negative
-	\item confirm in Python
+	\item loop index \texttt{i} inialised at \texttt{0}
+	\begin{itemize}
+		\item interested in heights \texttt{y[0], y[1], y[2], \ldots} \\ at times \texttt{t[0], t[1], t[2], \ldots}
+	\end{itemize}
+	\item loop runs as long as condition \texttt{y[i] >= 0} evaluates to \texttt{True}
+	\begin{itemize}
+		\item \ldots and index \texttt{i} is incremented by $1$
+		\item checks successive elements in array \texttt{y}
+	\end{itemize}
+	\item when \texttt{y[i] >= 0} evaluates to \texttt{False}
+	\item[] \ldots we've found the first height that is negative!
+	\item loop terminates and code \emph{after} loop is executed
+	\item \texttt{i} is smallest index for which height \texttt{y[i] < 0}
+
 \end{itemize}
 
 \end{frame}
@@ -512,11 +510,13 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{figures/LLp66ZoomOutput}
+	\includegraphics[width=0.9\textwidth]{figures/LLp66ZoomOutput}
 \end{figure}
-
+\vspace*{-5mm}
 \begin{itemize}
-	\item plot as * then zoom in to see time where crossing occurs
+	\item \texttt{i} $= 917$
+	\item \texttt{y[916]} $= 0.002312$
+	\item \texttt{y[917]} $= -0.002190$
 \end{itemize}
 
 \end{frame}
@@ -580,8 +580,8 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 	\item if \texttt{some\_condition} is initially \texttt{True}:
 	\begin{itemize}
 		\item statements in loop body are evaluated once
-		\item \texttt{some\_condition} evaluated again
-		\item \ldots and the process continues
+		\item[] \qquad\texttt{some\_condition} evaluated again
+		\item[] \qquad\qquad \ldots and the process continues
 	\end{itemize}
 	
 	\item[]
