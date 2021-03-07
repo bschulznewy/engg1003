@@ -135,12 +135,35 @@
 \frametitle{$1)$ Iteration using \texttt{for} loop}
 
 \begin{itemize}
-	\item many computations are repetitive by nature and programming languages have certain loop structures to deal with this
-	\item one such loop structure is the for loop
-	\item printing the 5 times table
-	\item \textbf{at console---begin with live demo}
+	\item many computations for solving engineering problems are intrinsically repetitive
+	\item[]
+	\item all programming languages have certain \red{\emph{loop}} structures to enable repetitive code execution
+	\item[]
+	\item Python provides two such structures:
+	\begin{itemize}
+		\item \texttt{for} loop
+		\item \texttt{while} loop
+	\end{itemize}
+	\item[]
+	\vspace*{-3mm}
+	\item \textbf{Motivation:} print the 5 times table at the console
 \end{itemize}
 
+\end{frame}
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\frametitle{Live demo: $5$ times table, brute force} %\texttt{for} loop}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/LLp59aoutput}%
+	~~\includegraphics[width=0.5\textwidth]{figures/LLp59boutput}
+\end{figure}
+
 
 \end{frame}
 
@@ -148,42 +171,21 @@
 
 \begin{frame}[fragile]
 
-\frametitle{}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp59}
-\end{figure}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp60a}
-\end{figure}
-	
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{}
+\frametitle{Our first loop}
 
 \begin{itemize}
-	\item first loop for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
-	\item code fragment LLp60
+	\item using \texttt{for} loop, can replace $10$ lines of code \\ with just~$2$ lines:
 \end{itemize}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp60b}
+	\includegraphics[width=\textwidth]{figures/LLp60b}
 \end{figure}
 
-%for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]: # Note... for, in and colon
-%print(’{:d}*5 = {:d}’.format(i, i*5)) # Note indent
-%With this construction, the loop variable i takes on each of the values 1 to 10, and
-%for each value, the print function is called.
-%Since the numbers 1 to 10 appear in square brackets, they constitute a special
-%structure called a list.
+\begin{itemize}
+	\item \red{\emph{loop variable}} \texttt{i} takes on each of the values $1$ to $10$
+	\item \ldots and for each value the \texttt{print} function is called
+\end{itemize}
 
 \end{frame}
 
@@ -193,33 +195,26 @@
 
 \frametitle{A typical \texttt{for} loop}
 
-\begin{itemize}
-	\item general loop structure
-	\item indentation---critical!
-\end{itemize}
-
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp60c}
+	\includegraphics[width=0.9\textwidth]{figures/LLp60c}
 \end{figure}
-
-
-%Loop Structure There are different ways to write for loops, but herein, they are
-%typically structured as
-%for loop_variable in some_numbers: # Loop header
-%<code line 1> # 1st line in loop body
-%<code line 2> # 2nd line in loop body
-%...
-%... # last line in loop body
-%# First line after the loop
-%where loop_variable runs through the numbers1 given by some_numbers. In the
-%very first line, called the for loop header, there are two reserved words, for and
-%in. They are compulsory, as is the colon at the end. Also, the block of code lines
-%inside a loop must be indented. These indented lines are referred to as the loop body.
-%Once the indent is reversed, we are outside (and after) the loop (as commented with
-%# First line after the loop, see code). One run-through of the loop body is
-%called an iteration, i.e., in our example above with the 5 times table, the loop will
-%do 10 iterations.
+	\vspace*{-3mm}
+\begin{itemize}
+	\item first line is \red{\emph{for loop header}}
+	\begin{itemize}
+		\item reserved word \texttt{for}, ends with colon, both necessary
+	\end{itemize}
+	\item \red{\emph{indented}} lines after header are a \red{\emph{block}} of statements%
+	\begin{itemize}
+		\item called the \red{\emph{loop body}}
+	\end{itemize}
+	\item block of code inside a loop \emph{must} be indented 
+	\begin{itemize}
+		\item indentation is 4 spaces by convention %---but \emph{some} indentation is necessary!
+	\end{itemize}
+	\item once indentation is reversed, loop body has ended
+\end{itemize}
 
 \end{frame}
 
@@ -255,38 +250,18 @@
 \frametitle{Combining \texttt{for} loop and \texttt{array}}
 
 \begin{itemize}
-	\item average height
-	\item \S3.1.3
+	\item elements of each \texttt{array} are identified by an index
+	\item \texttt{for} loop can use array index as a loop variable
 \end{itemize}
-
+\vspace*{2mm}
+\textbf{Example:}~compute average of five numbers
+\[
+\frac{h[\red{0}] + h[\red{1}] + h[\red{2}] + h[\red{3}] + h[\red{4}]}{5}
+\]
+\vspace*{-6mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp62a}
-\end{figure}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{\texttt{range} function}
-
-\begin{itemize}
-	\item motivation: 
-	\item range(start, stop, step)
-	\item eg: range(0,5,1)
-	\item why tf the weird indexing?
-\end{itemize}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp63a}
-\end{figure}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/LLp63b}
+	\includegraphics[width=0.75\textwidth]{figures/LLp62a}
 \end{figure}
 
 \end{frame}
@@ -298,8 +273,41 @@
 \frametitle{Live demo: \texttt{for} loop}
 
 \begin{itemize}
-%	\item run code from \S3.1.3
 	\item Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/average_height.py}{\texttt{average\_height.py}}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Using the \texttt{range} function}
+
+\begin{itemize}
+	\item what about \texttt{for} loop with \emph{really large} number of iterations?
+	\begin{itemize}
+		\item[\red{\xmark}] \texttt{for i in [0,1,2,3,4 \ldots, 9999]:}
+	\end{itemize}
+	
+	\item built-in function \texttt{range} solves this problem
+	
+	\item instead of \verb+for i in [0, 1, 2, 3, 4]:+
+
+	\item \ldots use this~ \verb+for i in range(0, 5, 1):+
+	
+	\item general form of call to \texttt{range} as follows
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.75\textwidth]{figures/LLp64c}
+	\end{figure}
+	\item[]%
+	\begin{itemize}
+		\item \ldots start at integer \texttt{start}
+		\item[] \qquad\ldots increment by integer \texttt{step}
+		\item[] \qquad\qquad\ldots stop before integer \texttt{stop}
+	\end{itemize}
+
 \end{itemize}
 
 \end{frame}
