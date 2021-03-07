@@ -102,27 +102,21 @@
 	\item Iteration using \textbf{\texttt{for}} loop \red{\S3.1}
 	\begin{itemize}
 		\item fixed number of iterations
-%		\item principles
-%		\item live demo
 	\end{itemize}
 
 	\item[]
 	
 	\item Iteration using \textbf{\texttt{while}} loop \red{\S3.2}
-		\begin{itemize}
-			\item keep iterating whenever a condition is satisfied
-%			\item principles
-%			\item live demo
-		\end{itemize}
+	\begin{itemize}
+		\item keep iterating whenever a condition is satisfied
+	\end{itemize}
 
 	\item[]
 	
 	\item Branching: \textbf{\texttt{if}}, \textbf{\texttt{elif}} and \textbf{\texttt{else}} \red{\S3.3}
-		\begin{itemize}
-			\item check condition before executing code block
-%			\item principles
-%			\item live demo
-		\end{itemize}
+	\begin{itemize}
+		\item check condition before executing code block
+	\end{itemize}
 		
 \end{enumerate}
 
@@ -156,7 +150,7 @@
 
 \frametitle{}
 
-\frametitle{Live demo: $5$ times table, brute force} %\texttt{for} loop}
+\frametitle{Live demo: $5$ times table, brute force}
 
 \begin{figure}[ht]
 	\centering
@@ -211,7 +205,7 @@
 	\end{itemize}
 	\item block of code inside a loop \emph{must} be indented 
 	\begin{itemize}
-		\item indentation is 4 spaces by convention %---but \emph{some} indentation is necessary!
+		\item indentation is 4 spaces by convention
 	\end{itemize}
 	\item once indentation is reversed, loop body has ended
 \end{itemize}
@@ -331,9 +325,6 @@
 	\item[]
 	
 	\item how do we write ``conditions'' in Python?
-	
-%	\item[]
-	
 	\item how do we decide a condition is \texttt{True} or \texttt{False}?
 \end{itemize}
 
@@ -384,8 +375,6 @@ Live demo
 	\centering
 	\includegraphics[width=0.8\textwidth]{figures/LLp46}
 \end{figure}
-
-
 	
 \end{frame}
 
@@ -542,17 +531,9 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 	\begin{itemize}
 		\item called the \red{\emph{loop body}}
 	\end{itemize}
-	\item indentation is 4 spaces by convention %---but \emph{some} indentation is necessary!
+	\item indentation is 4 spaces by convention
 	\item once indentation is reversed, loop body has ended
 \end{itemize}
-
-%The first line here is the while loop header. It contains the reserved word while and
-%ends with a colon, both are compulsory. The indented lines that follow the header
-%(i.e., <code line 1>, <code line 2>, etc.) constitute a block of statements, the
-%loop body. Indentation is done as with for loops, i.e., 4 spaces by convention. In
-%our example above with the ball, there was only a single line in the loop body (i.e.,
-%i = i + 1). As with for loops, one run-through of the loop body is referred to as
-%an iteration. Once the indentation is reversed, the loop body has ended
 
 \end{frame}
 
@@ -625,32 +606,18 @@ Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/bal
 
 \end{frame}
 
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{Live demo: while loop}
-%
-%\end{frame}
-
 %==============================================================
 
 \begin{frame}[fragile]
 
 \frametitle{$3)$ Branching:~\texttt{if}, \texttt{elif} and \texttt{else}}
 
-%Very often in life,5 and in computer programs, the next action depends on the
-%outcome of a question starting with “if”. This gives the possibility of branching
-%into different types of action depending on some criterion.
-%As an introduction to branching, let us “build up” a little program that evaluates
-%a water temperature provided by the program user.
-
-Assume we want to write a program that helps us decide, based on water temperature
-alone (in degrees Celcius), whether we should go swimming or not.
-
 \begin{itemize}
-	\item context
-	\item extended Example: Judging the Water Temperature %(need to change numbers!)
+	\item[] \textbf{Aim:} write a program that helps us decide whether we should go swimming or not
+	\begin{itemize}
+		\item based on water temperature in degrees Celcius ($^\circ$C)
+	\end{itemize}
+	\item[]
 	\item will build up a program in stages
 	\begin{itemize}
 		\item programming as a step-wise process
@@ -669,9 +636,20 @@ alone (in degrees Celcius), whether we should go swimming or not.
 	\centering
 	\includegraphics[width=\textwidth]{figures/LLp68a}
 \end{figure}
-
+\vspace*{-3mm}
 \begin{itemize}
-	\item xxx
+	\item \texttt{T = float(input(\ldots}
+	\begin{itemize}
+		\item reads string from console, and converts to float \texttt{T}
+	\end{itemize}
+	\item[]
+	\item if $T > 24$, then string is printed
+	\item[]
+	\item \ldots and if $T \leq  24$ then
+	\begin{itemize}
+		\item print command is \emph{not} executed
+		\item program continues to \texttt{\# First line after if part}
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -686,9 +664,14 @@ alone (in degrees Celcius), whether we should go swimming or not.
 	\centering
 	\includegraphics[width=\textwidth]{figures/LLp68b}
 \end{figure}
-
+\vspace*{-3mm}
 \begin{itemize}
-	\item xxx
+	\item precisely one of the following two strings is displayed:
+	\begin{itemize}
+		\item ``Great, jump in!''
+		\item ``Do not swim. Too cold!''
+	\end{itemize}
+	
 \end{itemize}
 
 \end{frame}
@@ -699,14 +682,19 @@ alone (in degrees Celcius), whether we should go swimming or not.
 
 \frametitle{An \texttt{if}-\texttt{else} construction}
 
+\begin{itemize}
+	\item since the conditions are \red{\emph{mutually exclusive}}
+	\begin{itemize}
+		\item $T > 24$
+		\item $T \leq 24$
+	\end{itemize}
+	\item we can simplify code with \texttt{if}-\texttt{elif}
+\end{itemize}
+	
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{figures/LLp69a}
 \end{figure}
-
-\begin{itemize}
-	\item xxx
-\end{itemize}
 
 \end{frame}
 
@@ -722,8 +710,15 @@ alone (in degrees Celcius), whether we should go swimming or not.
 \end{figure}
 
 \begin{itemize}
-	\item xxx
+\item final enhancement of program has advice for \emph{three} temperature categories:
+	\begin{itemize}
+		\item $T > 24$
+		\item $20 \leq T \leq 24$
+		\item $T < 20$
+	\end{itemize}
+	\item $T < 20$ condition is captured by \texttt{else}
 \end{itemize}
+
 \end{frame}
 
 %==============================================================
