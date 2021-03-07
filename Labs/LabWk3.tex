@@ -15,14 +15,6 @@
 \begin{document}
 \maketitle
 
-\begin{itemize}
-\item arrays, indexing, slicing
-\item for loops
-\item boolean expressions / relational operators
-\item if statements
-\item while loops
-\end{itemize}
-
 \begin{task}{Pre-Lab Reading}{}
 Read Sections 2.1 and 2.2 of the textbook: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_2}
 \\~\\
@@ -36,11 +28,11 @@ Read Section 2.3 of the textbook, stopping at 2.3.6. Execute examples as you go.
 \\~\\
 Direct link: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_2#Sec16}
 \\~\\
-You are welcome to read 2.3.6 (regarding 2D arrays) but that content will be covered later.
+You are welcome to read 2.3.6 (regarding 2D arrays) but that content will be covered in a later week.
 \end{task}
 
 \begin{task}{Fibonacci  Sequence - Naive Implementation}{}
-The Fibonacci sequence is a sequence of numbers, $x_0$, $x_1$, $x_2$, ... etc, with the following equation used to calculate $x_n$ given $x_{n-1}$ and $x_{n-2}$:
+The Fibonacci sequence is a sequence of numbers, $x_0$, $x_1$, $x_2$, ... etc, with the following equation used to calculate new values, $x_n$, given the two previous values $x_{n-1}$ and $x_{n-2}$:
 
 \begin{equation}\label{eq:fib}
 x_n = x_{n-1} + x_{n-2}
@@ -48,7 +40,7 @@ x_n = x_{n-1} + x_{n-2}
 
 Write a Python script which, given $x_0=1$ and $x_1=1$, calculates and prints the next 8 values of the Fibonacci sequence.
 \\~\\
-To do this, create a NumPy array, \texttt{fib[]} containing 10 zeros, manually assign the above 1's to \texttt{fib[0]} and \texttt{fib[1]}, then write out the equation as follows for the next 8 values:
+To do this, create a NumPy array, \texttt{fib[]}, containing 10 zeros then manually assign 1 to \texttt{fib[0]} and \texttt{fib[1]}. Further values are then calculated by writing out the equation as follows:
 \begin{lstlisting}
 fib[2] = fib[1] + fib[0]
 fib[3] = fig[2] + fib[1]
@@ -56,14 +48,26 @@ fib[3] = fig[2] + fib[1]
 print(fib)
 \end{lstlisting}
 
-Note that there is a far more efficient method using \textit{loops}. This will be explored later.
+Note that there is a far more efficient method using \textit{loops}. This will be explored in the next section.
 \end{task}
+
+\pagebreak
 
 \section{\texttt{for} Loops}
 
 As seen in the previous section computers are able to perform the same calculation repeatedly but doing so with multiple copies of the expression is tedious and error prone.
 
-The \texttt{for} loop is a programming \textit{flow control} concept where a block of code is repeated a set number of times. Typically the number of repeats must be known at the time the loop executes.
+The \texttt{for} loop is a programming \textit{flow control} concept where a block of code is repeated a set number of times. In general, the number of repeats must be known at the time the loop executes.
+
+In Python the \texttt{for} loop takes the general form:
+
+\texttt{for <loop variable> in <list of things>:}
+
+where \texttt{<loop variable>} is a varible which is automatically assigned values from \texttt{<list of things>}.
+
+The \texttt{<list of things>}, for this lab, can be created using the built-in \texttt{range()} function. This function generates a list of integers, see Section 3.1.4\footnote{Mmmm, $\pi$.} for details.
+
+Note that the \texttt{<list of things>} doesn't have to be just integers. It is \textit{often} integers, but it could also be lines of text from a file, letters in a string, dates from a \texttt{csv} spreadsheet, etc.
 
 \begin{task}{\texttt{for} Loops - Reading}{}
 Read Section 3.1 of the textbook: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec1}
@@ -73,17 +77,31 @@ Read Section 3.1 of the textbook: \url{https://link.springer.com/chapter/10.1007
 Modify your Fibonacci sequence script to utilise a \texttt{for} loop and the \texttt{range()} function. Note that by utilising a \texttt{for} loop you now only need to write out Equation \ref{eq:fib} \textit{once}, irrelevant of how many values you wish to calculate.
 \\~\\
 A few notes \& tips:
+\\
 \begin{itemize}
-\item Try to use a single variable \texttt{N} which specifies how many values to calculate
-\item Since the first calculation is giving the 3rd value the \texttt{range()} function needs to be called as \texttt{range(2,N)}.
-\item If \texttt{N} is large (more than about 90) care must be taken with the choice of data type. \texttt{np.zeros()} will, by default, create \texttt{np.float64}s but the Fibonacci sequence is intrinsically an \textit{integer} sequence. Experiment with different datatypes specified in the call to \texttt{np.zeros()}. eg: \texttt{fib = np.zeros(N,dtype=np.uint64)}\\~\\The full list of NumPy datatypes is here: \url{https://numpy.org/devdocs/user/basics.types.html}. How many terms can you calculate before an ``overflow'' error with \texttt{uint8}, \texttt{uint32}, and \texttt{uint64}?
+\item Try to use a single variable \texttt{N} which specifies how many values to calculate. It will be needed when creating the \texttt{fib[]} array and when using the \texttt{range()} function in the \texttt{for} loop.
+\item Since the first calculation is giving, the 3rd value (ie: index 2) is where the \texttt{range()} function needs to start. eg: \texttt{range(2,N)}.
+\item If \texttt{N} is large (more than about 90) care must be taken with the choice of data type. \texttt{np.zeros()} will, by default, create \texttt{np.float64}s but the Fibonacci sequence is intrinsically an \textit{integer} sequence.
+
+\begin{itemize}
+\item Experiment with different datatypes specified in the call to \texttt{np.zeros()}. eg: \texttt{fib = np.zeros(N,dtype=np.uint64)}
+\item The full list of NumPy datatypes is here: \url{https://numpy.org/devdocs/user/basics.types.html}. How many terms can you calculate before an ``overflow'' error with \texttt{uint8}, \texttt{uint32}, and \texttt{uint64}?
+\end{itemize}
 \item \texttt{print(fib)} should print the entire array but you can call \texttt{print()} from within the loop so that only a single value is printed on each line.
 \end{itemize}
 \end{task}
 
+\pagebreak
+
 \section{\texttt{while} Loops}
 
-Contrasting with a \texttt{for} loop the \texttt{while} loop allows a block of code to be executed multiple times without the need for the repetition count to be known when the loop starts.
+Contrasting with a \texttt{for} loop, the \texttt{while} loop allows a block of code to be executed multiple times without the need for the repetition count to be known when the loop starts.
+
+A \texttt{while} loop takes the form:
+
+\texttt{while <condition>:}
+
+where \texttt{<condition>} is some Boolean expression which must remain true for the loop to continue (or even \textit{start}) executing.
 
 \begin{task}{\texttt{while} Loops - Reading}{}
 Read Section 3.2 of the textbook: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec7}
@@ -97,7 +115,15 @@ Using a \texttt{while} loop, implement a Fibonacci sequence generator which prin
 You will need to compare the last printed value with the constant \texttt{1000000}. Assuming arrays are still used, you will also need to manually increment (and initialise) the variable used to index the array.
 \end{task}
 
+\pagebreak
 \section{\texttt{if} Statements}
+An \texttt{if} statement takes the form:
+
+\texttt{if <condition>:}
+
+Where \texttt{<condition>} follows the same Boolean expression rules as the \texttt{while} loop.
+
+These are used when a block of code only needs to execute once if the \texttt{<condition>} expression is true.
 
 \begin{task}{\texttt{if} Statement Reading}{}
 Read Section 3.3 of the textbook, stopping at Section 3.3.4: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec10} 
@@ -106,14 +132,18 @@ Read Section 3.3 of the textbook, stopping at Section 3.3.4: \url{https://link.s
 \begin{task}{Testing Divisibility}{}
 In Python (and many other languages) the \texttt{\%} symbol is used as the \textit{modulo} operator. It provides the remainder of the division between two integers.
 \\~\\
-An integer $a$ is said to be divisible by another integer $b$ if \texttt{a \% b} is zero. In Python, such a divisibility test can be implemented with an \texttt{if} statement as:
+An integer $a$ is said to be divisible by another integer $b$ if \texttt{(a \% b)} is zero. In Python, such a divisibility test can be implemented with an \texttt{if} statement as:
 \\~\\
 \texttt{if a \% b == 0:}
 \\~\\
 Write a Python script which tests all integers between 1 and 100 for divisibility by both 3 and 5. When an integer is divisible by 3 print ``\texttt{n} is divisible by 3'' and similarly for when an integer is divisible by 5.
 \\~\\
-\textbf{Extension:} If an integer is divisible by both 3 and 5 print ``Bingo!''. A program which performs these three divisibility tests is commonly known as ``fizz-buzz'' and is a frequently used test in job interviews. There is extensive discussion about various implementations and optimisations online.
+\textbf{Extension:} If an integer is divisible by both 3 and 5 print ``Bingo!''.
+\\~\\
+A program which performs these three divisibility tests is commonly known as ``fizz-buzz'' and is a frequently used test in job interviews. There is extensive discussion about various implementations and optimisations online. Some of these are a bit crazy, eg: \url{https://www.tomdalling.com/blog/software-design/fizzbuzz-in-too-much-detail/}
 \end{task}
+
+\pagebreak
 
 \section{Further Exercises}
 
@@ -135,8 +165,8 @@ The calculation needs to be performed in two steps:
 ~\\
 Note that you can use other variables (eg, \texttt{N} for the number of terms to calculate) but the array which previously stored the sequence must not be used.
 \\~\\
-This implementation has the advantage of using \textit{significantly} less RAM than the array-based version. The disadvantages are that you must print each value as it is calculated and the code is potentially less ``readable'' - it looks less like Equation \ref{eq:fib} than the array based versions.
-\end{task}
+This implementation has the advantage of using \textit{significantly} less RAM than the array-based version. The disadvantages are that you must print each value as it is calculated and the code is potentially less ``readable''.
+\end{task}\label{task:noArray}
 
 \begin{task}{Quadratic formula}{}
 In Week 1 lectures the following algorithm was presented for finding the roots of a quadratic:
@@ -159,7 +189,7 @@ END
 \end{lstlisting}
 Write a Python script which implements this algorithm and prints any solutions found. If no (real valued) solutions exist print a message to the user saying as such.
 \\~\\
-You may initialise the variable \texttt{a}, \texttt{b}, and \texttt{c} or, if you know how, read them from the console.
+You may initialise the variables \texttt{a}, \texttt{b}, and \texttt{c} or, if you know how, read them from the console with \texttt{a = int(input("a:"))}, etc.
 \end{task}
 
 \pagebreak
@@ -168,13 +198,15 @@ The square root of a number, $x = \sqrt{n}$, can be calculated with the iterativ
 \begin{equation}\label{eq:sqrt}
 x_{k+1} = \frac{1}{2}\left(x_k + \frac{n}{x_k}\right)
 \end{equation}
-Write a Python script which implements this formula to calculate square roots of real numbers. Initialise $x_0$ to a random (non-zero) value of your choosing.
+Write a Python script which implements this formula to calculate square roots of real numbers. Initialise $x_0$ to a random (non-zero) value of your choosing. You may use an array or the technique similar to that presented in Task \ref{task:noArray} to solve this problem\footnote{You don't need an ``x minus 1'' variable to do the calulation correctly but it is needed if exiting on a precision specification.}.
+\\ \\
+\textbf{NB:} When using an array make sure it is large enough to store all iterations! A maximum iteration count must be enforced so the array is not written to ``out of bounds''.
 \\ \\
 The algorithm should be implemented with a loop. The loop's design condition could be one of several choices, in order of difficulty:\\
 \begin{enumerate}
-\item A \texttt{for} loop with a fixed number of iterations (eg: 10)
-\item A \texttt{while} loop which exits when $\left| x_k - x_{k-1} \right| < e$ where $e$ is some pre-defined precision of your choosing (eg, 1 millionth = \texttt{1e-6})
-\item A \texttt{while} loop which exists when either of the above conditions are met
+\item A \texttt{for} loop with a fixed number of iterations (eg: 10) - Fine for an array.
+\item A \texttt{while} loop which exits when $\left| x_k - x_{k-1} \right| < e$ where $e$ is some pre-defined precision of your choosing (eg, 1 millionth = \texttt{1e-6}) - Problematic when using an array.
+\item A \texttt{while} loop which exists when either of the above conditions are met - Also fine with an array.
 \end{enumerate}
 ~\\
 To calculate precision you will need to explicitly save $x_k$ and $x_{k-1}$ in different variables.
