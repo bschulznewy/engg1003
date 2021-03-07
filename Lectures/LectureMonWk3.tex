@@ -287,14 +287,14 @@
 \begin{itemize}
 	\item what about \texttt{for} loop with \emph{really large} number of iterations?
 	\begin{itemize}
-		\item[\red{\xmark}] \texttt{for i in [0,1,2,3,4 \ldots, 9999]:}
+		\item[\red{\xmark}] \texttt{for i in [0,1,2,3,4, \ldots, 9999]:}
 	\end{itemize}
 	
 	\item built-in function \texttt{range} solves this problem
 	
 	\item instead of \verb+for i in [0, 1, 2, 3, 4]:+
 
-	\item \ldots use this~ \verb+for i in range(0, 5, 1):+
+	\item[] \ldots use this~ \verb+for i in range(0, 5, 1):+
 	
 	\item general form of call to \texttt{range} as follows
 	\begin{figure}[ht]
@@ -303,7 +303,7 @@
 	\end{figure}
 	\item[]%
 	\begin{itemize}
-		\item \ldots start at integer \texttt{start}
+		\item start at integer \texttt{start}
 		\item[] \qquad\ldots increment by integer \texttt{step}
 		\item[] \qquad\qquad\ldots stop before integer \texttt{stop}
 	\end{itemize}
@@ -319,12 +319,22 @@
 \frametitle{$2)$ Iteration using \texttt{while} loop}
 
 \begin{itemize}
-	\item for loop runs for a specified number of iterations
-%	\begin{itemize}
-%		\item do NOT cover break and continue
-%	\end{itemize}
-	\item The other basic loop construction in Python is the while loop, which runs as long as a condition is~\texttt{True}
+	\item \texttt{for} loop runs for a specified number of iterations
 
+	\item[]
+	
+	\item second basic loop construction in Python is the \texttt{while} loop
+	\begin{itemize}
+		\item runs as long as a \red{\emph{condition}} is~\texttt{True}
+	\end{itemize}
+	
+	\item[]
+	
+	\item how do we write ``conditions'' in Python?
+	
+%	\item[]
+	
+	\item how do we decide a condition is \texttt{True} or \texttt{False}?
 \end{itemize}
 
 \end{frame}
@@ -334,22 +344,29 @@
 \begin{frame}[fragile]
 
 \frametitle{Boolean expressions}
-
-	
 	
 \begin{itemize}
-%	\item Boolean type \S2.2.10
-%	\item screenshot LLp46, LLp47
-%	\item present at the console live demo, then skip over slides
-	\item aka \red{\emph{logical expressions}}
+	\item in programming, often need to check whether something is true or not true
+	\begin{itemize}
+		\item \ldots and take action accordingly
+		\item[] eg: mass loading on bridge $< 30,000$~kg?
+		\item[] eg: pH in a tank above $10$?
+	\end{itemize}
+	
+	\item handled using \red{\emph{logical}} or \red{\emph{Boolean expressions}}
+
 	\item these evaluate to \red{\emph{Boolean values}} \texttt{True} and \texttt{False}
 	\begin{itemize}
 		\item note capital letters T and F
 	\end{itemize}
-	\item  there are 6 \red{\emph{relational operators}} in Python---comparing values
-	 \verb+>, <, >=, <=, ==+ and \verb+!=+
-	 \item typeset as simple table
-	 %https://www.geeksforgeeks.org/relational-operators-in-python/
+	\item  six \red{\emph{relational operators}} to compare values in Python
+	
+	\item[]	\begin{itemize}[]
+		\begin{tabular}{llll}
+		\textbf{\texttt{>}} 	&  greater than\qquad\qquad 	& \textbf{\texttt{>=}} 	& greater than or equal to \\
+		\textbf{\texttt{<}} 	&  less than\qquad\qquad 		& \textbf{\texttt{<=}} 	& less than or equal to \\						\textbf{\texttt{==}} 	&  equal to\qquad\qquad 		& \textbf{\texttt{!=}} 		& not equal to
+		\end{tabular}
+	\end{itemize}
 	 
 \end{itemize}
 
@@ -391,7 +408,7 @@ Live demo
 		\item int, float, str, \textbf{\red{bool}}
 	\end{itemize}
 
-	\item Boolean values may be combined into longer expressions by use of \texttt{and} and \texttt{or}
+	\item Boolean values may be combined into longer expressions using \texttt{and}, \texttt{or} and \texttt{not}
 %	\item light touch: and, or, not but don't present truth tables %(??)--- refer back to lecture 1. Hmmm 
 	\item basics of Boolean operators:~week 1 Thurs lecture
 	\begin{itemize}
@@ -417,16 +434,16 @@ Live demo
 
 \begin{frame}[fragile]
 
-\frametitle{Example: Finding the Time of Flight}
+\frametitle{Example: Finding the time of flight}
 
 \begin{itemize}
 	\item context/description
 	\item we modify/extend earlier example
-	\item now initial velocity is only $4.5$~m/s
+	\item now initial velocity is slightly lower, only $4.5$~m/s
 	\begin{itemize}
 		\item was $5$~m/s in last weeks lecture
 	\end{itemize}
-	\item calculate height for $1$~s and find ``height'' is negative for sufficiently large $t$---this is deliberate
+	\item calculate height for $1$~s and find ``height'' is negative for sufficiently large $t$ %---this is deliberate
 \end{itemize}
 
 %The Case Assume the ball is thrown with a slightly lower initial velocity, say
