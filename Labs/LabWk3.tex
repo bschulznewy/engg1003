@@ -16,7 +16,7 @@
 \maketitle
 
 \begin{itemize}
-\item arrays, indexing, sliding
+\item arrays, indexing, slicing
 \item for loops
 \item boolean expressions / relational operators
 \item if statements
@@ -28,6 +28,8 @@ Read Sections 2.1 and 2.2 of the textbook: \url{https://link.springer.com/chapte
 \\~\\
 These sections provide general background information which will help you write Python scripts with confidence. The content is best learned ``by immersion''. All the details covered in these sections will be constantly used throughout your programming career.
 \end{task}
+
+\section{Arrays}
 
 \begin{task}{Array Background Reading}{}
 Read Section 2.3 of the textbook, stopping at 2.3.6. Execute examples as you go.
@@ -57,6 +59,12 @@ print(fib)
 Note that there is a far more efficient method using \textit{loops}. This will be explored later.
 \end{task}
 
+\section{\texttt{for} Loops}
+
+As seen in the previous section computers are able to perform the same calculation repeatedly but doing so with multiple copies of the expression is tedious and error prone.
+
+The \texttt{for} loop is a programming \textit{flow control} concept where a block of code is repeated a set number of times. Typically the number of repeats must be known at the time the loop executes.
+
 \begin{task}{\texttt{for} Loops - Reading}{}
 Read Section 3.1 of the textbook: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec1}
 \end{task}
@@ -73,6 +81,10 @@ A few notes \& tips:
 \end{itemize}
 \end{task}
 
+\section{\texttt{while} Loops}
+
+Contrasting with a \texttt{for} loop the \texttt{while} loop allows a block of code to be executed multiple times without the need for the repetition count to be known when the loop starts.
+
 \begin{task}{\texttt{while} Loops - Reading}{}
 Read Section 3.2 of the textbook: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec7}
 \end{task}
@@ -81,6 +93,8 @@ Read Section 3.2 of the textbook: \url{https://link.springer.com/chapter/10.1007
 Fork your Fibonacci sequence code (ie: save a copy of it so it can be loaded later).
 \\~\\
 Using a \texttt{while} loop, implement a Fibonacci sequence generator which prints the Fibonacci sequence until the printed value exceeds 1 million.
+\\~\\
+You will need to compare the last printed value with the constant \texttt{1000000}. Assuming arrays are still used, you will also need to manually increment (and initialise) the variable used to index the array.
 \end{task}
 
 \begin{task}{Fibonacci Sequence Without Arrays}{}
