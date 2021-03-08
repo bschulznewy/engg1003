@@ -94,7 +94,6 @@ A few notes \& tips:
 \pagebreak
 
 \section{\texttt{while} Loops}
-
 Contrasting with a \texttt{for} loop, the \texttt{while} loop allows a block of code to be executed multiple times without the need for the repetition count to be known when the loop starts.
 
 A \texttt{while} loop takes the form:
@@ -107,12 +106,21 @@ where \texttt{<condition>} is some Boolean expression which must remain true for
 Read Section 3.2 of the textbook: \url{https://link.springer.com/chapter/10.1007/978-3-030-16877-3_3#Sec7}
 \end{task}
 
-\begin{task}{Fibonacci Sequence with \texttt{while} Loops}{}
-Fork your Fibonacci sequence code (ie: save a copy of it so it can be loaded later).
+\begin{task}{Printing Multiples With \texttt{while} Loops}{}
+Using a \texttt{while} loop, write a Python script which prints all multiples of a given number, \texttt{N}, which are strictly less than 100.
 \\~\\
-Using a \texttt{while} loop, implement a Fibonacci sequence generator which prints the Fibonacci sequence until the printed value exceeds 1 million.
+Note that there are two methods for achieving this:
+\\
+\begin{itemize}
+\item Using a loop variable which is incremented by \texttt{N} each iteration and print it directly
+\item Using a loop variable which is incrememted by 1 each iteration and multiply it by \texttt{N} when printing
+\end{itemize}
+~\\
+You should implement this task using both methods.
 \\~\\
-You will need to compare the last printed value with the constant \texttt{1000000}. Assuming arrays are still used, you will also need to manually increment (and initialise) the variable used to index the array.
+Initialise the value of \texttt{N} near the start of your script.
+\\~\\
+Note an important detail: depending on the order in which the calculation, comparison, and \texttt{print()} are done your code may or may not print the value which is greater than or equal to 100. Write two versions of this script: one which prints the value which is 100 or more and one which stops at the value before it.
 \end{task}
 
 \pagebreak
@@ -145,6 +153,32 @@ A program which performs these three divisibility tests is commonly known as ``f
 
 \pagebreak
 
+\begin{task}{Quadratic formula}{}
+In Week 1 lectures the following algorithm was presented for finding the roots of a quadratic:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+        INPUT: a, b, c
+        D = b**2 - 4ac
+        IF D < 0
+                 N = 0
+        ELSEIF D == 0
+                N = 1
+                x1 = -b/(2a)
+        ELSEIF D > 0
+                N = 2
+                x1 = (-b + sqrt(D))/(2a)
+                x2 = (-b - sqrt(D))/(2a)
+        ENDIF
+        OUTPUT: N, x1, x2
+END
+\end{lstlisting}
+Write a Python script which implements this algorithm and prints any solutions found. If no (real valued) solutions exist print a message to the user saying as such.
+\\~\\
+You may initialise the variables \texttt{a}, \texttt{b}, and \texttt{c} or, if you know how, read them from the console with \texttt{a = int(input("a:"))}, etc.
+\end{task}
+
+\pagebreak
+
 \section{Further Exercises}
 
 \begin{task}{Fibonacci Sequence Without Arrays}{}
@@ -168,28 +202,18 @@ Note that you can use other variables (eg, \texttt{N} for the number of terms to
 This implementation has the advantage of using \textit{significantly} less RAM than the array-based version. The disadvantages are that you must print each value as it is calculated and the code is potentially less ``readable''.
 \end{task}\label{task:noArray}
 
-\begin{task}{Quadratic formula}{}
-In Week 1 lectures the following algorithm was presented for finding the roots of a quadratic:
-\begin{lstlisting}[style=pseudo]
-BEGIN
-        INPUT: a, b, c
-        D = b**2 - 4ac
-        IF D < 0
-                 N = 0
-        ELSEIF D == 0
-                N = 1
-                x1 = -b/(2a)
-        ELSEIF D > 0
-                N = 2
-                x1 = (-b + sqrt(D))/(2a)
-                x2 = (-b - sqrt(D))/(2a)
-        ENDIF
-        OUTPUT: N, x1, x2
-END
-\end{lstlisting}
-Write a Python script which implements this algorithm and prints any solutions found. If no (real valued) solutions exist print a message to the user saying as such.
+\begin{task}{Fibonacci Sequence with \texttt{while} Loops And Arrays}{}
+Fork your Fibonacci sequence code (ie: save a copy of it so it can be loaded later).
 \\~\\
-You may initialise the variables \texttt{a}, \texttt{b}, and \texttt{c} or, if you know how, read them from the console with \texttt{a = int(input("a:"))}, etc.
+Using a \texttt{while} loop, implement a Fibonacci sequence generator which prints the Fibonacci sequence until the printed value exceeds 1 million.
+\\~\\
+You will need to compare the last printed value with the constant \texttt{1000000}. Assuming arrays are still used, you will also need to manually increment (and initialise) the variable used to index the array.
+\\~\\
+Be very careful with the value which is used in the \texttt{while} loop's comparison. It needs to be the last value calculated so consideration must be made for the value of the array index. Note also that the array index variable must exist \textit{before} entering the loop or an error may occur.
+\end{task}\label{task:fibWhileArray}
+
+\begin{task}{Fibonacci Sequence with \texttt{while} Loops \textit{Without} Arrays}{}
+Fork your Task \ref{task:fibWhileArray} code and modify it so that the same \texttt{while} loop condition exists but the calculation is performed using the ``no array'' technique from Task \ref{task:noArray}.
 \end{task}
 
 \pagebreak
