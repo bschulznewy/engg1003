@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.3.1)  9 MAR 2021 05:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.3.1)  10 MAR 2021 06:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1520,7 +1520,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 27--32
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--44
+Underfull \hbox (badness 10000) in paragraph at lines 41--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--57
 
  []
 
@@ -1528,147 +1543,173 @@ Underfull \hbox (badness 10000) in paragraph at lines 41--44
 
 
 ]
-Underfull \hbox (badness 1968) in paragraph at lines 73--74
+Underfull \hbox (badness 1968) in paragraph at lines 78--79
 []\OT1/cmr/m/n/10 Read Sec-tion 3.1 of the text-book: []$\OT1/pcr/m/n/10 https 
 : / / link . springer . com / chapter / 10 . 1007 /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 77--82
+Underfull \hbox (badness 10000) in paragraph at lines 82--87
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 77--82
+Underfull \hbox (badness 10000) in paragraph at lines 82--87
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--97
+
+ []
+
+
+Underfull \hbox (badness 1603) in paragraph at lines 91--97
+\OT1/cmr/m/n/10 Experiment with dif-fer-ent datatypes spec-i-fied in the call t
+o \OT1/pcr/m/n/10 np.zeros()\OT1/cmr/m/n/10 . eg: \OT1/pcr/m/n/10 fib =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--97
 
  []
 
 [2]
-Underfull \hbox (badness 1968) in paragraph at lines 106--107
+Underfull \hbox (badness 1968) in paragraph at lines 112--113
 []\OT1/cmr/m/n/10 Read Sec-tion 3.2 of the text-book: []$\OT1/pcr/m/n/10 https 
 : / / link . springer . com / chapter / 10 . 1007 /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 110--115
+Underfull \hbox (badness 10000) in paragraph at lines 116--121
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 110--115
+Underfull \hbox (badness 10000) in paragraph at lines 116--121
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--124
+Underfull \hbox (badness 10000) in paragraph at lines 124--132
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--124
+Underfull \hbox (badness 10000) in paragraph at lines 124--132
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--132
 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 141--152
+Underfull \hbox (badness 10000) in paragraph at lines 162--173
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--152
+Underfull \hbox (badness 10000) in paragraph at lines 162--173
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--152
+Underfull \hbox (badness 10000) in paragraph at lines 162--173
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--152
+Underfull \hbox (badness 10000) in paragraph at lines 162--173
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--152
+Underfull \hbox (badness 10000) in paragraph at lines 162--173
 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 175--178
+Underfull \hbox (badness 10000) in paragraph at lines 196--202
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 196--202
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 185--188
+Underfull \hbox (badness 10000) in paragraph at lines 209--212
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 192--196
+Underfull \hbox (badness 10000) in paragraph at lines 216--220
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--203
+Underfull \hbox (badness 10000) in paragraph at lines 223--227
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--213
+Underfull \hbox (badness 10000) in paragraph at lines 230--237
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--213
+Underfull \hbox (badness 10000) in paragraph at lines 230--237
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--213
+Underfull \hbox (badness 10000) in paragraph at lines 230--237
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 224--231
+Underfull \hbox (badness 10000) in paragraph at lines 248--255
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--231
+Underfull \hbox (badness 10000) in paragraph at lines 248--255
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--231
+Underfull \hbox (badness 10000) in paragraph at lines 248--255
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 235--239
+Underfull \hbox (badness 10000) in paragraph at lines 259--263
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 242--245
+Underfull \hbox (badness 10000) in paragraph at lines 266--269
 
  []
 
 
 AED: lastpage setting LastPage
 [7]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 247.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 247.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 271.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 271.
  (./LabWk3.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 247.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 247.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 271.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 271.
 Package rerunfilecheck Info: File `LabWk3.out' has not changed.
 (rerunfilecheck)             Checksum: F3C2A2F32C6DC8025C9C565613B22DF0;231.
  ) 
 Here is how much of TeX's memory you used:
- 54888 strings out of 482736
- 1403236 string characters out of 5954140
- 1973181 words of memory out of 5000000
+ 54898 strings out of 482736
+ 1403376 string characters out of 5954140
+ 1973238 words of memory out of 5000000
  69352 multiletter control sequences out of 15000+600000
  546473 words of font info for 73 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
@@ -1690,10 +1731,10 @@ e1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/cm/cmti7.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm100
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb>
-Output written on LabWk3.pdf (7 pages, 196703 bytes).
+Output written on LabWk3.pdf (7 pages, 198376 bytes).
 PDF statistics:
- 257 PDF objects out of 1000 (max. 8388607)
- 204 compressed objects within 3 object streams
- 58 named destinations out of 1000 (max. 500000)
+ 267 PDF objects out of 1000 (max. 8388607)
+ 214 compressed objects within 3 object streams
+ 68 named destinations out of 1000 (max. 500000)
  197 words of extra memory for PDF output out of 10000 (max. 10000000)
 
