@@ -1,2 +1,27 @@
-\frametitle{Live demo of Python arrays}
+
+\frametitle{Lecture summary}
+\begin{itemize}
+	\item Iteration again
+	\begin{itemize}
+		\item for vs while
+	\end{itemize}
+
+	\item[]
+	
+	\item debugging strategies
+		\begin{itemize}
+			\item blah
+			\item blah
+			\item blah
+		\end{itemize}
+
+	\item[]
+	
+	\item random numbers
+		\begin{itemize}
+			\item random module: randint, random and uniform
+			\item random module in numpy library: randint, random and uniform
+		\end{itemize}
+		
+\end{itemize}
 
