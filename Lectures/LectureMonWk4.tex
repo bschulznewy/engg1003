@@ -142,8 +142,8 @@ Two Python programs to count from $1$ to $10$
 \begin{itemize}
 	\item in \texttt{while} loop, counter \texttt{i} needs to be:
 	\begin{itemize}
-		\item \emph{initialised} before loop header
-		\item \emph{incremented} in loop body
+		\item \red{\emph{initialised}} before loop header
+		\item \red{\emph{incremented}} in loop body
 	\end{itemize}
 	\item[]
 	\item \texttt{for} loop does these two tasks automatically
@@ -186,8 +186,10 @@ Two Python programs to count from $1$ to $10$
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{figures/LLp71a}
+	\includegraphics[width=0.9\textwidth]{figures/LLp71a}
 \end{figure}
+\vspace*{-3mm}
+Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/ball_max_height.py}{\texttt{ball\_max\_height.py}}
 
 \end{frame}
 
@@ -249,10 +251,6 @@ Strategy is to examine successive pairs of heights:
 	\centering
 	\includegraphics[width=\textwidth]{figures/LLp71d}
 \end{figure}
-%\vspace*{-5mm}
-%\begin{itemize}
-%	\item live demo
-%\end{itemize}
 
 \end{frame}
 
@@ -264,51 +262,25 @@ Strategy is to examine successive pairs of heights:
 
 \begin{enumerate}
 	\item running code by hand
+	\begin{itemize}
+		\item know what you expect code your code to do
+		\item use pen and paper to ``think like a computer''
+		\item very easy to fool yourself with ``looks about right\ldots''
+		\item use ``toy problems'': use tiny arrays, and values calculated at console
+		\item near enough isn't good enough when debugging
+	\end{itemize}
+	
 	\item don't guess, print!
+	\begin{itemize}
+		\item use temporary debug \texttt{print()} statements to check values and types of
+		variables during loop iterations
+	\end{itemize}
 	\item take baby steps
+		\begin{itemize}
+			\item change one line at a time, then re-run code
+			\item if interpreter generates an error, must have been the most recent change
+		\end{itemize}
 \end{enumerate}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Running code by hand}
-
-\begin{itemize}
-	\item Work through your code line-by-line, with a piece of paper and a pen
-	\item Use paper/notes-app before you run code, so that you know what you want program to calculate on each line before you run code
-	\item Second-best: use notes app on iPad or similar---idea is to \emph{think before computing}
-	\item Check that every line of code, with every use of an array index (hint) matches what you expect
-	\item Near enough isn't good enough here. Think like a computer: work systematically through each line of code. Is it doing what you want it to do?
-	\item It's easy (but often misleading) to look at code and think you know what it's doing. But is it really?
-	\item mindset shift: rather than hoping or thinking it's OK, try and find the bug (might be more than one)
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Don't guess, print!}
-
-\begin{itemize}
-	\item xxx
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Take baby steps}
-
-\begin{itemize}
-	\item xxx
-\end{itemize}
 
 \end{frame}
 
