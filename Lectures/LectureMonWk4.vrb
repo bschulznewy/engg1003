@@ -3,24 +3,24 @@
 \begin{itemize}
 	\item Iteration again
 	\begin{itemize}
-		\item for vs while
+		\item \texttt{for} vs.~\texttt{while}
 	\end{itemize}
 
 	\item[]
 	
-	\item debugging strategies
-		\begin{itemize}
-			\item blah
-			\item blah
-			\item blah
-		\end{itemize}
+	\item Debugging strategies
+	\begin{itemize}
+		\item running code by hand
+		\item don't guess, print!
+		\item take baby steps
+	\end{itemize}
 
 	\item[]
 	
-	\item random numbers
+	\item Random numbers
 		\begin{itemize}
-			\item random module: randint, random and uniform
-			\item random module in numpy library: randint, random and uniform
+			\item random module---random numbers one at a time %: \texttt{randint}, \texttt{random} and \texttt{uniform}
+			\item random module in \texttt{numpy} library---arrays of random numbers % :~\texttt{randint}, \texttt{random} and \texttt{uniform}
 		\end{itemize}
 		
 \end{itemize}

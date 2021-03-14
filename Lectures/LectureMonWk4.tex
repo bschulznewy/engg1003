@@ -88,15 +88,15 @@
 
 \frametitle{Lecture overview}
 \begin{enumerate}
-	\item iteration again (again): \texttt{for} vs.~\texttt{while} loops \red{\S3.3.3}
+	\item Iteration again (again): \texttt{for} vs.~\texttt{while} loops \red{\S3.3.3}
 
 	\item[]
 	
-	\item debugging strategies
+	\item Debugging strategies
 	
 	\item[]
 	
-	\item random numbers in Python \red{\S2.4}
+	\item Random numbers in Python \red{\S2.4}
 
 \end{enumerate}
 
@@ -159,7 +159,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Focus on code to find max using for}
+\frametitle{Focus:~\texttt{for} loop to find max height}
 
 \begin{itemize}
 	\item describe strategy in words
@@ -185,7 +185,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Focus on code to find max using while}
+\frametitle{Focus:~\texttt{while} loop to find max height}
 
 \begin{itemize}
 	\item describe strategy in words
@@ -214,13 +214,12 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$2)$ debugging strategies}
+\frametitle{$2)$ Debugging strategies}
 
 \begin{enumerate}
 	\item running code by hand
 	\item don't guess, print!
 	\item take baby steps
-	\item use comments to hide debug code
 \end{enumerate}
 
 \end{frame}
@@ -229,7 +228,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{running code by hand}
+\frametitle{Running code by hand}
 
 \begin{itemize}
 	\item Work through your code line-by-line, with a piece of paper and a pen
@@ -247,7 +246,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{don't guess, print!}
+\frametitle{Don't guess, print!}
 
 \begin{itemize}
 	\item xxx
@@ -259,7 +258,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{take baby steps}
+\frametitle{Take baby steps}
 
 \begin{itemize}
 	\item xxx
@@ -271,37 +270,21 @@
 
 \begin{frame}[fragile]
 
-\frametitle{use comments to hide debug code}
-
-\begin{itemize}
-	\item but don't delete it
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{$3)$ random numbers in Python}
+\frametitle{$3)$ Random numbers in Python}
 
 \begin{itemize}
 	\item Python provides ability to produce (apparently) random numbers
+	\item[]
 	\item referred to as \red{\emph{pseudo-random numbers}}
-	\item these numbers are not truly random, but produced in a predictable way once a \red{\emph{seed}} has been set
-	\item the seed is a number which depends on the current time
-%	\begin{itemize}
-%		\item restartin your computer in between the two runs, get a new
-%	\end{itemize}
+	\item[]
+	\item these numbers are not \emph{truly} random
+	\begin{itemize}
+		\item produced in a complicated (but ``deterministic'' or predictable) way once a \red{\emph{seed}} has been set
+	\end{itemize}	
+	\item[]
+	\item seed is a number which depends on the current time
 		
 \end{itemize}
-
-%. 
-
-%\begin{itemize}
-%	\item drawing \textbf{one} random number at a time
-%	\item drawing \textbf{many} random numbers at a time
-%\end{itemize}
 
 \end{frame}
 
@@ -311,12 +294,19 @@
 
 \frametitle{Drawing \textbf{one} random number at a time}
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp54}
+\end{figure}
+
+Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/throw_2_dice.py}{\texttt{throw\_2\_dice.py}}
+
 \begin{itemize}
-	\item LL p54
-	\item \verb+throw_2_dice.py+
-	\item live demo
-	\item function randint is available from the imported module random, which is part of the standard Python library
-	\item randint(a,b) returns a pseudo-random \emph{integer} in the range $[a,b]$ where $a \leq b$
+	\item function \texttt{randint(a,b)}
+	\begin{itemize}
+		\item available from imported module \texttt{random} %, part of the standard Python library
+		\item returns a pseudo-random \emph{integer} in the range $[a,b]$ where $a \leq b$
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -328,11 +318,16 @@
 \frametitle{Fixing the seed}
 
 \begin{itemize}
-	\item When debugging programs that involve pseudo-random number generation, it is a great advantage to \red{\emph{fix the seed}}
-	\item ensures that the very same sequence of numbers will be generated each time the code is run
-	\item simply means that you pick the seed yourself and tell Python what that seed should be
-	\item example: random.seed(10)
-	\item live demo of  \verb+throw_2_dice.py+
+	\item when debugging programs that involve pseudo-random numbers, often helps to \red{\emph{fix the seed}}
+	\item[]
+	\item ensures that \emph{identical sequence of numbers will be generated} each time code is run
+	\begin{itemize}
+		\item hence results are \emph{repeatable}
+	\end{itemize}
+	\item[]
+	\item tell Python what seed should be using \texttt{random.seed} function
+	\item[]
+	\item \textbf{Example:} \texttt{random.seed(10)} and run Python code:~\href{https://github.com/slgit/prog4comp_2/blob/master/py36-src/throw_2_dice.py}{\texttt{throw\_2\_dice.py}}
 \end{itemize}
 
 \end{frame}
@@ -341,14 +336,28 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Two useful functions: random and uniform}
+\frametitle{Two functions: \texttt{random} and \texttt{uniform}}
 
 \begin{itemize}
-	\item both of these functions return a floating point number from an interval where each number has equal probability of being drawn
-	\item confusing: random function in random module
-	\item random, the interval is always [0, 1) (i.e. 0 is included, but 1 is not)
-	\item uniform requires the programmer to specify the interval [a, b] (where both a and b are included)
-	\item text doesn't mention Gaussian (normal) random numbers
+	\item both \texttt{random} and \texttt{uniform} return a floating point number from an interval where each number has \emph{equal probability} of being drawn
+	\begin{itemize}
+		\item random number drawn from \red{\emph{uniform}} probability distribution
+		\item Note: \texttt{random} function in \texttt{random} module
+	\end{itemize}
+	\item[]
+	\item \texttt{random}
+	\begin{itemize}
+		\item draw from interval $[0, 1)$
+%		\item 0 is included, but 1 is not
+	\end{itemize}
+	
+	\item[]
+	\item \texttt{uniform}
+	\begin{itemize}
+		\item draw from interval $[a, b]$
+	\end{itemize}
+
+%	\item text doesn't mention Gaussian (normal) random numbers
 \end{itemize}
 
 \end{frame}
@@ -357,13 +366,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Live demo: random and uniform}
-
-\begin{itemize}
-	\item LLp55 screengrab
-	\item live demo
-	\item a word about In[] and Out[]
-\end{itemize}
+\frametitle{Live demo:~\texttt{random} and \texttt{uniform}}
 
 \begin{figure}[ht]
 	\centering
@@ -379,13 +382,16 @@
 \frametitle{Drawing \textbf{many} random numbers at a time}
 
 \begin{itemize}
-	\item three PRN generators so far: one at a time
-	\item could use in a loop, call once each time
-	\item much better: vectorization (have seen before)
-	\item need another module called random
+	\item three random number generators seen so far
 	\begin{itemize}
-		\item this one inside numpy library
+		\item each generates just \emph{one} random number at a time
 	\end{itemize}
+	\item[]
+	\item to generate an \emph{array} of random numbers\ldots
+	\item[] \ldots could use a loop \& generate one random number in each iteration
+	\item[]
+	\item better (faster) solution: use \texttt{random} module in \texttt{numpy} library
+
 \end{itemize}
 
 \end{frame}
@@ -394,14 +400,15 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Live demo: random numbers from numpy library}
+\frametitle{Live demo: random numbers from \texttt{numpy} library}
+
+\textbf{Example:} \texttt{np.random.randint}
 
 \begin{itemize}
-	\item LLp55b screen grab
-	\item live demo
-	\item np.random.randint
+	\item[]
 	\begin{itemize}
-		\item np library, random module, randint function
+		\item \texttt{numpy} library / \texttt{random} module / \texttt{randint} function
+		\item \texttt{randint(a,b,n)} generates $n$ integers from $[a,b)$
 	\end{itemize}
 \end{itemize}
 
@@ -410,18 +417,8 @@
 	\includegraphics[width=\textwidth]{figures/LLp55b}
 \end{figure}
 
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{}
-
 \begin{itemize}
-	\item live demo
-	\item numpy allows the seed to be set. For example, setting the seed to 10 (as above), could be done by
-np.random.seed(10)
+	\item live demo, also fix seed:~\texttt{np.random.seed(10)}
 \end{itemize}
 
 \end{frame}
@@ -434,24 +431,24 @@ np.random.seed(10)
 \begin{itemize}
 	\item Iteration again
 	\begin{itemize}
-		\item for vs while
+		\item \texttt{for} vs.~\texttt{while}
 	\end{itemize}
 
 	\item[]
 	
-	\item debugging strategies
-		\begin{itemize}
-			\item blah
-			\item blah
-			\item blah
-		\end{itemize}
+	\item Debugging strategies
+	\begin{itemize}
+		\item running code by hand
+		\item don't guess, print!
+		\item take baby steps
+	\end{itemize}
 
 	\item[]
 	
-	\item random numbers
+	\item Random numbers
 		\begin{itemize}
-			\item random module: randint, random and uniform
-			\item random module in numpy library: randint, random and uniform
+			\item random module---random numbers one at a time %: \texttt{randint}, \texttt{random} and \texttt{uniform}
+			\item random module in \texttt{numpy} library---arrays of random numbers % :~\texttt{randint}, \texttt{random} and \texttt{uniform}
 		\end{itemize}
 		
 \end{itemize}
