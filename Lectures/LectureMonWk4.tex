@@ -1,4 +1,4 @@
-\documentclass[14pt]{beamer}
+\documentclass[english,14pt]{beamer}
 \usetheme{EastLansing}
 \usecolortheme{spruce}
 
@@ -9,6 +9,11 @@
 \usepackage{amsmath}
 \usepackage{algorithm2e}
 \usepackage{multicol}
+\usepackage{hyperref}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
 
 % https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
 \usepackage{pifont}% http://ctan.org/pkg/pifont
@@ -55,6 +60,7 @@
     tabsize=2,
     language=C
 }
+
 \lstdefinestyle{pseudo}{
         basicstyle=\ttfamily\footnotesize,
         keywordstyle=\color{lightBlue},
@@ -80,6 +86,11 @@
 \titlepage
 
 \begin{document}
+
+\begin{flushleft}
+{\scriptsize Last compiled:~\DTMnow}
+\vspace*{-5mm}
+\end{flushleft}
 \framebreak
 
 %==============================================================
@@ -108,10 +119,16 @@
 
 \frametitle{$1)$ iteration again: \texttt{for} vs.~\texttt{while} loops}
 
+Two Python programs to count from $1$ to $10$
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/for1to10}%
+	\hspace*{3mm}\includegraphics[width=0.5\textwidth]{figures/while1to10}
+\end{figure}
+
 \begin{itemize}
-	\item side-by-side comparison for print-1-to-10
-	\item similarities and differences
-	\item when to use each
+	\item recall: \texttt{range(1,11,1)} generates list \texttt{[1,2,3,4,5,6,7,8,9,10]} 
 \end{itemize}
 
 \end{frame}
@@ -120,10 +137,23 @@
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{ \texttt{for} vs.~\texttt{while}}
 
 \begin{itemize}
-	\item xxx
+	\item in \texttt{while} loop, counter \texttt{i} needs to be:
+	\begin{itemize}
+		\item \emph{initialised} before loop header
+		\item \emph{incremented} in loop body
+	\end{itemize}
+	\item[]
+	\item \texttt{for} loop does these two tasks automatically
+	\item[]
+	\item shorter \texttt{for} loop code here, but that does \emph{not} mean it's preferred in general
+	\begin{itemize}
+		\item \texttt{while} often more efficient
+	\end{itemize}
+	\item[]	
+	\item which of \texttt{for} or \texttt{while} is ``best'' usually determined by problem at hand---both are useful!
 \end{itemize}
 
 \end{frame}
@@ -134,10 +164,16 @@
 
 \frametitle{Example: Finding the maximum height}
 
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/LLp20c}
+\end{figure}
+\vspace*{-3mm}
 \begin{itemize}
-	\item \S3.3.3
-	\item new program instead finds the maximum height achieved by the ball
-	\item will solve in two ways: for and while
+	\item previously calculated height vs.\ time, and time of flight
+	\item now calculate \textbf{maximum height} of ball
+	\item will solve using \texttt{for} and \texttt{while} loops
 \end{itemize}
 
 \end{frame}
@@ -161,23 +197,26 @@
 
 \frametitle{Focus:~\texttt{for} loop to find max height}
 
+Strategy:
 \begin{itemize}
-	\item describe strategy in words
-	\item live demo
+	\item compute array of ball heights, \texttt{y}
+	\begin{itemize}
+		\item values stored as \texttt{y[0], y[1], y[2], \ldots}
+	\end{itemize}
+	\item largest height initialised to \texttt{y[0]}
+	\item work through remaining indices \texttt{i = 2,3,\ldots}
+	\item each time \texttt{y[i]} is bigger than largest, it becomes the new largest
 \end{itemize}
-
-% We focus our attention on the new thing here, the search performed by the for
-%loop. The value in y[0] is used as a starting value for largest_height. The very
-%first check then, tests whether y[1] is larger than this height. If so, y[1] is stored
-%as the largest height. The for loop then updates i to 2, and continues to check
-%y[2], and so on. Each time we find a larger number, we store it. When finished,
-%largest_height will contain the largest number from the array y.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{figures/LLp71b}
 	\includegraphics[width=\textwidth]{figures/LLp71c}
 \end{figure}
+\vspace*{-3mm}
+\begin{itemize}
+	\item live demo
+\end{itemize}
 
 \end{frame}
 
@@ -187,26 +226,33 @@
 
 \frametitle{Focus:~\texttt{while} loop to find max height}
 
+Strategy is to examine successive pairs of heights:
 \begin{itemize}
-	\item describe strategy in words
-	\item live demo
+	\item[]
+	\begin{itemize}
+		\item \texttt{y[0]} and \texttt{y[1]} 
+		\item \texttt{y[1]} and \texttt{y[2]} 
+		\item \texttt{y[2]} and \texttt{y[3]}
+		\item $\cdots$
+	\end{itemize}
+	
+	\item ball still rising when \texttt{y[i]} $<$ \texttt{y[i+1]}
+	\item ball has reached maximum height when \\
+	\item[] \texttt{y[i+1]} $\leq$ \texttt{y[i]}
+	\begin{itemize}
+		\item[] ie: when \texttt{y[i+1]} $>$ \texttt{y[i]} is \texttt{False}
+	\end{itemize}
+	\item report \texttt{y[i]} as maximum height
 \end{itemize}
-
-%The observant reader has already seen the similarity of finding the maximum
-%height and finding the time of flight, as we addressed previously in Sect. 3.2.1.
-%In fact, we could alternatively have solved the maximum height problem here by
-%utilizing that y[i+1] > y[i] as the ball moves towards the top. Doing this, our
-%search loop could have been written
-%i = 0
-%while y[i+1] > y[i]:
-%i = i + 1
-%When the condition y[i+1] > y[i] becomes False, we could report y[i+1] as
-%our approximation of the maximum height, for example.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{figures/LLp71d}
 \end{figure}
+%\vspace*{-5mm}
+%\begin{itemize}
+%	\item live demo
+%\end{itemize}
 
 \end{frame}
 
