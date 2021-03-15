@@ -1,0 +1,587 @@
+\documentclass[english,14pt]{beamer}
+\usetheme{EastLansing}
+\usecolortheme{spruce}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{hyperref}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
+
+% https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+%% https://stackoverflow.com/questions/1435837/how-to-remove-footers-of-latex-beamer-templates
+%%gets rid of bottom navigation bars
+%\setbeamertemplate{footline}[page number]
+%
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\newcommand\red[1]{{\color{red} #1}}
+\newcommand\green[1]{{\color{green} #1}}
+\newcommand\blue[1]{{\color{blue} #1}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Monday Week 5}
+\subtitle{Functions}
+\author{Sarah Johnson}
+\institute{University of Newcastle}
+%\date{\today}
+\date{22 March, 2021}
+
+% following is a bit of a hack, but forces page numbers (technically: frame numbers) to run 1,2,3,... 
+% with titlepage counting as frame 1
+
+\addtocounter{framenumber}{1}
+\titlepage
+
+\begin{document}
+
+\begin{flushleft}
+{\scriptsize Last compiled:~\DTMnow}
+\vspace*{-5mm}
+\end{flushleft}
+\framebreak
+
+
+
+\begin{frame}
+\frametitle{Functions}
+\begin{itemize}
+\item A \textit{function} is a block of code which can be \textit{called} multiple times, from multiple places
+\item They are used when you want the same block of code to execute in many places throughout your code
+\item A function requires:
+	\begin{itemize}
+		\item A name
+		\item (optional) A \textit{return value}
+		\item (optional) One or more \textit{arguments}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Functions in Mathematics}
+\begin{itemize}
+\item In mathematics you saw functions written as:
+\begin{equation*}
+y = f(x)
+\end{equation*}
+\item Here, the function is called $f$, takes an argument of $x$ and returns a value which is assigned to $y$
+\item Python and pure mathematics have these general ideas in common
+\pause
+\item The similarities stop there
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions in Programming}
+\begin{itemize}
+\item When a function is called:
+	\begin{enumerate}
+		\item Program execution jumps to the function
+		\item The function's code is executed
+		\item Program execution jumps back to where it left off
+		\item The function often 'returns' a value required by the program
+		(functions can also return many or no values but we will assume one return value for now)
+	\end{enumerate}
+\item The code inside the function can be any valid Python code, not just mathematics
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Function Examples}
+\begin{itemize}
+\item So far, we have already used several functions
+\item These are functions are either built in python functions or imported from the libraries we have been using
+\item Function call syntax is:\\
+{\small \texttt{name(argument1,argument2, ...)} } \\
+ though not all functions take arguments 
+\item Some examples:
+	\begin{itemize}
+		\item \texttt{sqrt()  \;\;\;\; -- from numpy library}
+		\item \texttt{print() \;\; -- built in function}
+		\item \texttt{random()  \;\; -- from random library}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Function Examples}
+\begin{itemize}
+\item Example 1:
+\begin{lstlisting}[style=CStyle]
+x = random.random()
+\end{lstlisting}
+	\begin{itemize}
+		\item \texttt{random} is the function name (from the library \texttt{random})
+		\item It returns a random number between 0.0 and 1.0
+		\item The return value is assigned to \texttt{x}
+		\item It doesn't take an argument 	
+	\end{itemize}
+\pause
+\item Example 2:
+\begin{lstlisting}[style=CStyle]
+y = numpy.sqrt(x)
+\end{lstlisting}
+	\begin{itemize}
+		\item \texttt{sqrt} is the function name (from the library \texttt{numpy})
+		\item \texttt{x} is the argument
+		\item It returns the square root of \texttt{x}
+		\item The return value is assigned to \texttt{y}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Examples}
+\begin{itemize}
+\item Example 3:
+\begin{lstlisting}[style=CStyle]
+print('Hello World')
+\end{lstlisting}
+	\begin{itemize}
+		\item \texttt{print} is the function name (it's a built-in function)
+		\item The string \texttt{'Hello World'} is the argument
+		\item There is no return value (technically it returns 'None')
+		\item Even though it does not return a value it still does something
+		\item Another example would be the \texttt{seed()} function
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%\begin{frame}
+%\frametitle{Functions}
+%\begin{itemize}
+%\item Function arguments and return values have pre-defined %data types
+%\pause
+%\item Example from documentation
+%\begin{itemize}
+%\item \texttt{int~rand(void);}%
+%	\begin{itemize}
+%		\item The return value is an \texttt{int}
+%		\item The argument is type \texttt{void}
+%		\item This just means ``there are no arguments''
+%	\end{itemize}
+%\pause
+%\item \texttt{float sqrtf(float x);}
+%	\begin{itemize}
+%		\item The return value is a \texttt{float}
+%		\item The argument is a \texttt{float}
+%		\item Argument is called \texttt{x} in documentation %but you can pass it any \texttt{float} variable or literal
+%	\end{itemize}
+%\end{itemize}
+%\end{itemize}
+%\end{frame}
+
+\begin{frame}
+\frametitle{Return Values (an Engineer's View)}
+\begin{itemize}
+\item The function's \textit{return value} is the number a function gets ``replaced with'' in a line of code
+\pause
+\item Function return values, variables, and literals can all be used in the same places:
+	\begin{itemize}
+		\item In arithmetic
+		\item In conditions
+		\item As arguments to other functions
+	\end{itemize}	 
+\pause
+%\item The C standard is \textit{very} specific about what return values are but I will be informal for now
+%	\begin{itemize}
+%		\item Technically, for example, an expression like %\texttt{x=y+5.0;} also has a ``return value`` equal to the %value assigned to \texttt{x}
+%	\end{itemize}
+\item The following are all valid:
+	\begin{itemize}
+		\item \texttt{x = rand()}
+		\item \texttt{print("Sine \{\} is \{\}".value(x,sin(x)))}
+		\item \texttt{if( (rand()\%6) < 2)}
+		\item \texttt{while( cos(x) < 0 )}
+		%\item This next one is complicated...
+		%\pause
+		%\item \texttt{x = sin((double)rand());}
+		%	\begin{itemize}
+		%	\pause
+		%		\item Generates a random integer, casts to %\texttt{double}, uses that number as an argument to %the \texttt{sin()} function
+		%	\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Writing Functions}
+Writing your own functions:
+	\begin{enumerate}
+		\item Decide (for yourself) what the function needs to do
+		\pause
+		\item Choose a name
+		\pause
+		\item Decide on the function parameters
+		\pause
+		\item Decide on the return value(s)
+		\pause
+		\item Define the function (write the function code)
+		\item Call the function in your code where you need to use it	
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example}
+\begin{itemize}
+\item Lets see our code to calculate the height of a ball (from week 1) as a function
+\begin{lstlisting}[style=CStyle]
+# Function Definition
+def ball_height(v0, t):           # Function header
+    g = 9.81                     # Function body
+    y = v0*t - 0.5*g*t**2
+    return y                     # Return statement
+\end{lstlisting}
+\pause
+\item Here is how we could use this function in our main program
+\begin{lstlisting}[style=CStyle]
+v0 = 5
+time1 = 0.6
+height1 = ball_height(v0,time1)
+time2 = 0.9
+height2 = ball_height(v0,time2)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Function Definition}
+ The function definition must be \textit{before} the function's first use
+ \begin{itemize}
+        \item This could be in a library which must be \textit{included} before the function is called
+		\item Or in the same .py file placed before (above) the function call 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Definition}
+ \begin{itemize}
+		\item The first line in the function definition is the function \textit{header}
+			\begin{lstlisting}[style=CStyle]
+			      def ball_height(v0, t): 
+			\end{lstlisting}
+		\item The header starts with the reserved word \texttt{def} 
+		\item Followed by the function name (here \texttt{ball\_height}) and 
+		\item Followed by the function \textit{parameters} in brackets (here the initial velocity and the time point to calculate the height) 
+		\item Ending with a colon
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Definition}
+\begin{itemize}
+    \item After the function header is the function body which is all the lines of code inside the function
+    \item The block of statements inside the function body must be indented  
+    \item An optional docstring describing the function can be added as the first line in the function body
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+       def ball_height(v0, t):       
+        """ Calculates the height of a ball at time t
+             given an initial velocity of v0 """
+        g = 9.81                    
+        y = v0*t - 0.5*g*t**2
+        return y                    
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{\texttt{return} Statements}
+\begin{itemize}
+    \item The function will jump back when it hits a \texttt{return} statement or the end of the function's code
+	\item Functions which return a value \textit{must} have a \texttt{return} statement
+	\item Functions which return nothing don't need one
+	\item Omitting it will cause the function to return \texttt{None}
+    \item Examples:
+    \begin{lstlisting}[style=CStyle] 
+        return  
+        return x          
+        return v0*t - 0.5*g*t**2 
+        return 1          
+    \end{lstlisting} %# Nothing ('None') is returned
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Function Example}
+\begin{center}
+... Do it live!
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions}
+\begin{itemize}
+    \item Let's view a common error
+    \begin{lstlisting}[style=pseudo]
+    Traceback (most recent call last):
+    File "Path/main.py", line 14, in <module>
+    y = array_sum(array_x)
+    NameError: name 'array_sum' is not defined
+    \end{lstlisting}
+    \item The function definition is missing. Some possible causes:
+    \begin{itemize}
+        \item The function definition may be below the first call on line 14
+        \item You may have forgotten to include the library which defines it
+        \item The function exits but you have a typo in the name 
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Terminology Reminder}
+\begin{lstlisting}[style=CStyle]
+# Function Definition 
+# Define by function_name(function parameters)  
+def ball_height(v0, t):          # Function header
+   """ Details .... """          # Docustring
+    g = 9.81                     # Function body
+    y = v0*t - 0.5*g*t**2        # Function body
+    return y                     # Return statement
+    
+# Main Program
+# Function call via function_name(function arguments)
+v0 = 5                        
+time1 = 0.6                       
+height1 = ball_height(v0,time1)  # Function call  
+time2 = 0.9
+height2 = ball_height(v0,time2)  # Function call  
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Function Variables}
+\begin{itemize}
+    \item The input variables specified in the function definition are called the \textit{parameters} of the function. The function the values provided in the call are called \textit{arguments}
+    \item Variable names of the arguments in function calls do not have to have the same name as in the parameters in the function definition 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Function Variables}
+\begin{itemize}
+    \item By default, function arguments are ``passed by value''
+    \item The function gets \textit{copies} of the variable's value
+    \item Modifying them in a function doesn't change the original variable
+	\begin{itemize}
+		\item No, not even if they have the same name
+		\item The function's copy occupies a different memory address
+	\end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Variables}
+\begin{itemize}
+    \item Any \textit{local variables}, those defined inside the function, are only known inside the function (e.g. \texttt{g} in the function above)
+    \item The argument variables and local variables are discarded when the function finishes (returns)
+    \item The return value is the \textit{only thing} that goes back
+    \item An exception is to define a variable as \textit{global} inside the function but it's generally not recommended
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Alternative Function Definitions}
+\begin{itemize}
+\item So far we have seen functions with positional parameters
+\item \textit{Keyword parameters} can be used to specify default values
+\item If both positional and keyword parameters are specified positional parameters must come first
+\begin{lstlisting}[style=CStyle]
+def ball_height(v0, t, g=9.81):    
+    return v0*t - 0.5*g*t**2      
+
+height = ball_height(5, 0.6)   
+more_precise_height = ball_height(5, 0.6, 9.80665)  
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Alternative Function Calls}
+\begin{itemize}
+\item It is possible to use function input parameter names as \textit{keyword arguments} in the function call
+\item The order of the arguments can be switched and the code can be more readable
+\item Keyword arguments can be used even if the function is defined with positional parameters
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+def ball_height(v0, t, g=9.81):    
+    return v0*t - 0.5*g*t**2      
+
+# all of these function calls are correct
+height = ball_height(v0=5, t=0.6)   
+height = ball_height(v0=5, t=0.6, g=9.80665)  
+height = ball_height(t=0.6, g=9.80665, v0=5) 
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Alternative Function Calls}
+\begin{itemize}
+\item A mix or arguments can be used but all positional arguments must precede keyword arguments
+\item The positional arguments must be in the correct order
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+def ball_height(v0, t, g=9.81):    
+    return v0*t - 0.5*g*t**2     
+    
+# these function calls are correct
+height = ball_height(5, 0.6, g=9.80665 )   
+height = ball_height(5, g=9.80665, t=0.6)  
+\end{lstlisting}
+\end{frame}
+
+
+
+% try and call g outside the code
+% check if changing the value of a function variable changes the variable outside
+% pass g into the function instead
+% use g as a keyword variable
+% use a global variable --- 
+
+\begin{frame}[fragile]
+\frametitle{Functions With Multiple Return Values}
+\begin{itemize}
+\item In the function definition return values are separated by commas 
+\item In the function call return values are also separated by commas
+\item The order of the results returned from the function must be the same
+\end{itemize}
+\begin{lstlisting}[style=CStyle]
+import numpy as np
+
+def circle(r):
+    return 2*np.pi*r, np.pi*r**2
+
+circ, area = circle(5)
+print('Circumference: {} Area: {}'.format(circ, area)) 
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example 2}
+\begin{itemize}
+\item Lets implement the \texttt{sqrt} algorithm from the week 3 lab as a function
+\item ...Then compare with \texttt{the numpy sqrt()}
+\item Keep it simple: fixed iteration count \texttt{n=10}
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example 2}
+\begin{itemize}
+\item In mathematics, calculate $\sqrt{k}$ by iterating:
+\begin{align*}
+x_n &= \frac{1}{2}\left(x_{n-1} + \frac{k}{x_{n-1}}\right)\\
+x_0 &\neq 0
+\end{align*}
+\item In python we can encode this algorithm as:  
+\begin{lstlisting}[style=CStyle]
+# Calculate sqrt(k)
+k = 26.0           # Test value
+xn = x/2.0         # Start value x0 = x/2
+for i in range(0, 10, 1):
+	xn = 0.5*(xn + k/xn)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Writing Functions - Example 2}
+\begin{itemize}
+\item Lets make some design decisions:
+	\begin{itemize}
+		\item Name: \texttt{mySqrt()}
+		\item Argument: \texttt{k}
+		\item Return Value: \texttt{the square root of k}
+	\end{itemize}
+\item The function definition is therefore:
+\begin{lstlisting}[style=CStyle]
+def mySqrt(k):
+	xn = k/2.0      # Start value x0 = x/2
+    for i in range(0, 10, 1):
+	   xn = 0.5*(xn + k/xn)
+	return xn
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Example}
+\begin{center}
+... Do it live!
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{More Information}
+\begin{center}
+	\begin{itemize}
+		\item Further Reading: Section 4.1 of the course textbook
+        \item More Practice: All the exercises in section 4.3 of the course textbook  
+    \end{itemize}
+\end{center}
+\end{frame}
+\end{document}
+
+
+
