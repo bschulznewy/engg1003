@@ -1,4 +1,4 @@
-\documentclass[14pt]{beamer}
+\documentclass[english,14pt]{beamer}
 \usetheme{EastLansing}
 \usecolortheme{spruce}
 
@@ -9,6 +9,11 @@
 \usepackage{amsmath}
 \usepackage{algorithm2e}
 \usepackage{multicol}
+\usepackage{hyperref}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
 
 % https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
 \usepackage{pifont}% http://ctan.org/pkg/pifont
@@ -55,6 +60,7 @@
     tabsize=2,
     language=C
 }
+
 \lstdefinestyle{pseudo}{
         basicstyle=\ttfamily\footnotesize,
         keywordstyle=\color{lightBlue},
@@ -62,9 +68,6 @@
         morecomment=[l]{//},
         commentstyle=\color{mGreen}
 }
-
-\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
-\lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Thursday Week 2}
 \subtitle{Data types, and introduction to arrays}
@@ -80,6 +83,11 @@
 \titlepage
 
 \begin{document}
+
+\begin{flushleft}
+{\scriptsize Last compiled:~\DTMnow}
+\vspace*{-5mm}
+\end{flushleft}
 \framebreak
 
 %==============================================================
@@ -110,7 +118,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$1)$ variables and data types}
+\frametitle{$1)$ Variables and data types}
 
 \begin{itemize}
 	\item variable names---make them descriptive but short(-ish), not always easy!
@@ -370,7 +378,7 @@ Python data types of variables seen so far:
 	\item array has $3$ elements: \texttt{x[0], x[1], x[2]}
 	\item individual array elements have type \texttt{numpy.float64}
 	\begin{itemize}
-		\item \texttt{float64} is a particular float data type in NumPy
+		\item \texttt{float64} is a particular float data type in numpy
 	\end{itemize}
 	\item array \texttt{x} itself has type \texttt{numpy.ndarray}
 
@@ -452,8 +460,8 @@ Python data types of variables seen so far:
 \begin{itemize}
 	\item[]
 	\begin{itemize}
-		\item \texttt{array([0, 1, 2]} creates array of integers
-		\item \texttt{array([0., 1., 2.]} creates array of real numbers
+		\item \texttt{array([0, 1, 2])} creates array of integers
+		\item \texttt{array([0., 1., 2.])} creates array of real numbers
 	\end{itemize}
 \end{itemize}
 
@@ -531,9 +539,12 @@ Python data types of variables seen so far:
 
 \begin{itemize}
 	\item \red{\emph{slice}} of an array is a \emph{subset} of its elements
-	\item use colon to slice, eg: \texttt{x[i:j]}
+	\item use colon to slice, 
+	\begin{itemize}
+		\item \texttt{x[i:j]} addresses elements from index \texttt{i} to index \texttt{j-1}
+	\end{itemize}
 \end{itemize}
-
+\vspace*{-3mm}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.6\textwidth]{figures/LLp51output}
