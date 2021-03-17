@@ -115,10 +115,18 @@
 
 \frametitle{$1)$ Using random numbers}
 
+\textbf{Recap:~} generating random numbers
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LLp55b}
+\end{figure}
+\vspace*{-3mm}
+Using \texttt{numpy} library:
 \begin{itemize}
-	\item reminder and recap
 	\item random integers
-	\item random floats
+	\item random floats from $[0,1)$
+	\item random floats from $[a,b]$
 \end{itemize}
 
 \end{frame}
@@ -127,12 +135,19 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Random integers: simulating fair coin toss}
+\frametitle{Random integers: simulating coin toss}
 
 \textbf{Example 1}\\
 \vspace*{5mm}
+
+Simulate the toss of a fair coin as follows:
+
 \begin{itemize}
-	\item generate array of 0s and 1s length $N$
+	\item generate a length-$N$ array of randomly chosen $0$s and $1$s
+	\begin{itemize}
+		\item $0 = $~heads
+		\item $1 = $~tails
+	\end{itemize}
 	\item 0=heads, 1=tails
 	\item expected number of 0s (heads)?
 \end{itemize}
@@ -318,16 +333,16 @@ Live demo
 
 \frametitle{$2)$ Reading from spreadsheets}
 
-%\begin{itemize}
-%\item Lets see our code to calculate the height of a ball (from week 1) as a function
-%\begin{lstlisting}[style=CStyle]
-%# Function Definition
-%def ball_height(v0, t):           # Function header
-%    g = 9.81                     # Function body
-%    y = v0*t - 0.5*g*t**2
-%    return y                     # Return statement
-%\end{lstlisting}
-%\end{itemize}
+\begin{itemize}
+\item Lets see our code to calculate the height of a ball (from week 1) as a function
+\begin{lstlisting}[style=CStyle]
+# Function Definition
+def ball_height(v0, t):           # Function header
+    g = 9.81                     # Function body
+    y = v0*t - 0.5*g*t**2
+    return y                     # Return statement
+\end{lstlisting}
+\end{itemize}
 
 \end{frame}
 

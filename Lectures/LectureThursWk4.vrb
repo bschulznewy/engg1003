@@ -1,14 +1,14 @@
 
 \frametitle{$2)$ Reading from spreadsheets}
 
-%\begin{itemize}
-%\item Lets see our code to calculate the height of a ball (from week 1) as a function
-%\begin{lstlisting}[style=CStyle]
-%# Function Definition
-%def ball_height(v0, t):           # Function header
-%    g = 9.81                     # Function body
-%    y = v0*t - 0.5*g*t**2
-%    return y                     # Return statement
-%\end{lstlisting}
-%\end{itemize}
+\begin{itemize}
+\item Lets see our code to calculate the height of a ball (from week 1) as a function
+\begin{lstlisting}[style=CStyle]
+# Function Definition
+def ball_height(v0, t):           # Function header
+    g = 9.81                     # Function body
+    y = v0*t - 0.5*g*t**2
+    return y                     # Return statement
+\end{lstlisting}
+\end{itemize}
 
