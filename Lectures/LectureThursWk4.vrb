@@ -1,27 +1,14 @@
 
-\frametitle{Lecture summary}
-\begin{itemize}
-	\item Iteration again
-	\begin{itemize}
-		\item \texttt{for} vs.~\texttt{while}
-	\end{itemize}
+\frametitle{$2)$ Reading from spreadsheets}
 
-	\item[]
-	
-	\item Debugging strategies
-	\begin{itemize}
-		\item running code by hand
-		\item don't guess, print!
-		\item take baby steps
-	\end{itemize}
-
-	\item[]
-	
-	\item Random numbers
-		\begin{itemize}
-			\item random module---random numbers one at a time %: \texttt{randint}, \texttt{random} and \texttt{uniform}
-			\item random module in \texttt{numpy} library---arrays of random numbers % :~\texttt{randint}, \texttt{random} and \texttt{uniform}
-		\end{itemize}
-		
-\end{itemize}
+%\begin{itemize}
+%\item Lets see our code to calculate the height of a ball (from week 1) as a function
+%\begin{lstlisting}[style=CStyle]
+%# Function Definition
+%def ball_height(v0, t):           # Function header
+%    g = 9.81                     # Function body
+%    y = v0*t - 0.5*g*t**2
+%    return y                     # Return statement
+%\end{lstlisting}
+%\end{itemize}
 
