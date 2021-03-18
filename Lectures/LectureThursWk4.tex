@@ -102,11 +102,17 @@
 \begin{enumerate}
 	\item Using random numbers
 
+
 	\item[]
 	
 	\item Reading from spreadsheets
 
+	\item[]
 \end{enumerate}
+
+\begin{itemize}
+	\item More practice with arrays, iteration, \\ conditional code execution (\texttt{if}) and plotting
+\end{itemize}
 
 \end{frame}
 
@@ -197,7 +203,7 @@ print('Observed number of heads: {}'.format(headCnt))
 \textbf{Example 2}\\
 \vspace*{2mm}
 \begin{itemize}
-	\item steel bolts manufactured, length uniformly distributed between $17~$mm and $19$~mm
+	\item steel bolts manufactured with length uniformly distributed between $17~$mm and $19$~mm
 	\item only bolts with length in range $[17.25,18.75]$~mm are within tolerance ie: acceptable
 	\item write Python code with random numbers to estimate percentage of bolts which are acceptable
 	\begin{itemize}
@@ -247,10 +253,26 @@ print('Percentage of parts within tolerance: {}%'.format(100*goodCnt/N))
 \frametitle{Random floats: simulate dartboard}
 
 \textbf{Example 3}\\
-\vspace*{5mm}
+\vspace*{1mm}
 \begin{itemize}
-	\item values in circle
-	\item plot red inside, blue outside
+	\item a circular dartboard radius $1$m is centred in the middle of a square, side length $2$~m
+	\item darts are thrown randomly and land with uniform probability in the square
+	\begin{itemize}
+		\item some (but not all) darts land inside the circle
+	\end{itemize}
+	\item write a Python program which puts a \red{red} dot if the dart lands inside (or on the perimeter) of the circle, and a \blue{blue} dot otherwise
+	\begin{itemize}
+		\item Hint: points inside (or on perimeter) of circle satisfy
+		\[
+		x^2 + y^2 \leq 1
+		\]
+	\end{itemize}
+	\item run your program with $N=100$, $N = 1000$ and $N = 10,000$
+	
+%	
+%	
+%	\item values in circle
+%	\item plot red inside, blue outside
 \end{itemize}
 
 \end{frame}
@@ -259,7 +281,7 @@ print('Percentage of parts within tolerance: {}%'.format(100*goodCnt/N))
 
 \begin{frame}[fragile]
 
-\frametitle{Dartboard simulation}
+\frametitle{Dartboard simulation: code}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
 import numpy as np
 import matplotlib.pyplot as plt
@@ -290,22 +312,23 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{Dartboard simulation}
+\frametitle{Dartboard simulation: output}
 
-\begin{itemize}
-	\item dartboard red/blue simulation output plots
-	\item N = 100
-%	\pause
-%	\item N = 1000
-%	\pause
-%	\item N = 10K
-\end{itemize}
+%Corners of square:
+%\begin{itemize}
+%	\item NE corner: $[+1,+1]$
+%	\item SE corner: $[+1,-1]$
+%	\item NW corner: $[-1,+1]$
+%	\item SW corner: $[-1,-1]$
+%\end{itemize}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.3\textwidth]{figures/dartboard100}%
-	\includegraphics[width=0.3\textwidth]{figures/dartboard1000}%
-	\includegraphics[width=0.3\textwidth]{figures/dartboard10000}
+	\includegraphics[width=0.33\textwidth]{figures/dartboard100}%
+	\pause
+	\includegraphics[width=0.33\textwidth]{figures/dartboard1000}%
+	\pause
+	\includegraphics[width=0.33\textwidth]{figures/dartboard10000}
 \end{figure}
 
 \end{frame}
