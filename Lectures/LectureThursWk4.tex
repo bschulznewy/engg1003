@@ -310,14 +310,6 @@ plt.show()
 
 \frametitle{Dartboard simulation: output}
 
-%Corners of square:
-%\begin{itemize}
-%	\item NE corner: $[+1,+1]$
-%	\item SE corner: $[+1,-1]$
-%	\item NW corner: $[-1,+1]$
-%	\item SW corner: $[-1,-1]$
-%\end{itemize}
-
 \begin{itemize}
 	\item two length-$N$ arrays of random numbers
 	\begin{itemize}
@@ -373,7 +365,7 @@ plt.show()
 \begin{frame}[fragile]
 
 \frametitle{Estimate $\pi$: code}
-\vspace*{-3mm}
+\vspace*{-5mm}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
 import numpy as np
 import matplotlib.pyplot as plt
@@ -398,44 +390,11 @@ print('Estimate of pi: {}'.format(4*R))
 plt.axis('equal')
 plt.show()
 \end{lstlisting}
-
+\vspace*{-3mm}
+\begin{itemize}
+	\item Live demo of \texttt{estimatePi.py}
+\end{itemize}
 \end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\begin{itemize}
-%	\item xxx
-%\end{itemize}
-%
-%\end{frame}
-%
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\begin{itemize}
-%	\item xxx
-%\end{itemize}
-%
-%\end{frame}
-%
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\begin{itemize}
-%	\item xxx
-%\end{itemize}
-%
-%\end{frame}
 
 %==============================================================
 
@@ -463,47 +422,71 @@ import pandas as pd
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{Working with Data}
+
+\frametitle{Data import using pandas}
 \begin{itemize}
-    \item To import the data is then relatively straightforward
-    \item For a CSV file the instruction is
+    
+    \item to import data from \red{\emph{comma-separated values}} (CSV) file into Python:
 \begin{lstlisting}[style=CStyle]
 import pandas as pd
 mydata = pd.read_csv('filename.csv')
 \end{lstlisting}
-    \item If the CSV file is not in the same folder as the python project you can specify its location with a path
+
+	\item[]
+
+	\item if CSV file is not in the same folder as Python project, need to specify its location with a path:
 \begin{lstlisting}[style=CStyle]
 import pandas as pd
 mydata = pd.read_csv('c:\Myfolder\filename.csv')
 \end{lstlisting}
 \end{itemize}
+
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{Working with Data}
+
+\frametitle{Checking data import}
+
 \begin{itemize}
-    \item Pandas will import the contents of the spreadsheet into something called a data structure (which we won't spend any time on today but may get back to later in the course)
-    \item To check on the data imported into 'mydata' the following instruction is very useful
+	\item \texttt{pandas} imports contents of spreadsheet into something called a \red{\emph{data structure}}
+	
+	\begin{itemize}
+	    \item we won't spend any time on today but may get back to later in the course
+	\end{itemize}
+	\item[]
+	\item To check data imported into \texttt{mydata} the following instruction is very useful:
 \begin{lstlisting}[style=CStyle]
 print(mydata.head())
 \end{lstlisting}
-    \item This prints out the first few lines of the data set
+	\item[]
+	\item This prints out the first few lines of the data set
 \end{itemize}
+
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{Working with Data}
+
+\frametitle{Extracting data into an array}
+
 \begin{itemize}
-    \item One final very useful instruction will extract a column of the data and save it as a numpy array using the column name in the original spreadsheet
+	\item One final very useful instruction will extract a column of the data and save it as a \texttt{numpy} array
+	\begin{itemize}
+		\item uses the column name in the original spreadsheet
+	\end{itemize}
+	
+	\item[]
+	
 \begin{lstlisting}[style=CStyle]
 mycolumn = mydata['column_name'].values   
 \end{lstlisting}
-    \item We can now process this data using the python skills we have been building in this course 
+	\item[]
+	\item We can now process this data using the Python skills we have been building in this course
 \end{itemize}
+
 \end{frame}
 
 %==============================================================
@@ -511,7 +494,7 @@ mycolumn = mydata['column_name'].values
 \begin{frame}[fragile]
 \frametitle{Example}
 \begin{itemize}
-    \item We have a csv spreadsheet (Rainfall.csv) which records annual rainfall for 20 regions over the last 10 years
+    \item We have a CSV spreadsheet (\texttt{Rainfall.csv}) which records annual rainfall for 20 regions over the last 10 years
     \begin{figure} 
         \centering
         \includegraphics[width=5cm]{figures/excel_rainfall.PNG}
