@@ -10,6 +10,7 @@
 \usepackage{algorithm2e}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{textcomp}
 
 % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
 \usepackage{babel}
@@ -140,16 +141,18 @@ Using \texttt{numpy} library:
 \textbf{Example 1}\\
 \vspace*{5mm}
 
-Simulate the toss of a fair coin as follows:
+Simulate the toss of a coin $N$ times as follows:
 
 \begin{itemize}
 	\item generate a length-$N$ array of randomly chosen $0$s and $1$s
 	\begin{itemize}
-		\item $0 = $~heads
-		\item $1 = $~tails
+		\item $0 = $~heads, $1 = $~tails
+		\item equally likely heads and tails ie: fair coin
 	\end{itemize}
-	\item 0=heads, 1=tails
-	\item expected number of 0s (heads)?
+	\item[]
+	\item display \emph{expected} number of heads observed
+	\item display \emph{actual} number of heads observed
+	\item test/debug with $N=100$, then $N=100,000$
 \end{itemize}
 
 \end{frame}
@@ -159,17 +162,29 @@ Simulate the toss of a fair coin as follows:
 \begin{frame}[fragile]
 
 \frametitle{Coin toss simulation}
+\vspace*{-3mm}
+\begin{lstlisting}[style=CStyle]
+import numpy as np
 
+# generate random array of 0s and 1s
+# 0==heads & 1==tails
+# N integers from [0,2) ie: 0 or 1
+N = 100000
+x = np.random.randint(0, 2, N)
+print(x)
+
+headCnt = 0;
+for i in range(0,N,1):
+    if x[i]==0:
+        headCnt += 1
+
+print('Expected number of heads: {}'.format(N/2))
+print('Observed number of heads: {}'.format(headCnt))
+\end{lstlisting}
+\vspace*{-3mm}
 \begin{itemize}
-	\item Python code for coin toss
-	\item headsTails.py
-	\item live demo
+	\item Live demo of \texttt{headsTails.py}
 \end{itemize}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{figures/headsTails}
-\end{figure}
 
 \end{frame}
 
@@ -193,18 +208,28 @@ Simulate the toss of a fair coin as follows:
 \begin{frame}[fragile]
 
 \frametitle{Engineering tolerance simulation}
+\vspace*{-3mm}
+\begin{lstlisting}[style=CStyle]
+import numpy as np
 
+# generate random array of N floats in range [17,19]
+N = 10000
+x = np.random.uniform(17,19,N)
+tolLow = 17.25
+tolHigh = 18.75
+#print(x)
+
+goodCnt = 0;
+for i in range(0,N,1):
+    if tolLow <= x[i] <= tolHigh:
+        goodCnt += 1
+
+print('Percentage of parts within tolerance: {}%'.format(100*goodCnt/N))
+\end{lstlisting}
+\vspace*{-3mm}
 \begin{itemize}
-	\item Python code for engineering tolerance
-	\item engTolerance.py
-	\item live demo
+	\item Live demo of \texttt{engTolerance.py}
 \end{itemize}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{figures/engTolerance}
-\end{figure}
-
 \end{frame}
 
 %==============================================================
@@ -337,10 +362,10 @@ Live demo
 \item Lets see our code to calculate the height of a ball (from week 1) as a function
 \begin{lstlisting}[style=CStyle]
 # Function Definition
-def ball_height(v0, t):           # Function header
+def ball_height(v0, t):       # Function header
     g = 9.81                     # Function body
     y = v0*t - 0.5*g*t**2
-    return y                     # Return statement
+    return y                # Return statement
 \end{lstlisting}
 \end{itemize}
 
