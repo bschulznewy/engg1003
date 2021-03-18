@@ -255,24 +255,20 @@ print('Percentage of parts within tolerance: {}%'.format(100*goodCnt/N))
 \textbf{Example 3}\\
 \vspace*{1mm}
 \begin{itemize}
-	\item a circular dartboard radius $1$m is centred in the middle of a square, side length $2$~m
+	\item a circular dartboard radius $1$~m is centred in the middle of a square, side length $2$~m
 	\item darts are thrown randomly and land with uniform probability in the square
 	\begin{itemize}
-		\item some (but not all) darts land inside the circle
+		\item most (but not all) darts land inside the circle
 	\end{itemize}
+	\pause
 	\item write a Python program which puts a \red{red} dot if the dart lands inside (or on the perimeter) of the circle, and a \blue{blue} dot otherwise
 	\begin{itemize}
 		\item Hint: points inside (or on perimeter) of circle satisfy
-		\[
-		x^2 + y^2 \leq 1
-		\]
-	\end{itemize}
-	\item run your program with $N=100$, $N = 1000$ and $N = 10,000$
-	
-%	
-%	
-%	\item values in circle
-%	\item plot red inside, blue outside
+			\[
+			x^2 + y^2 \leq 1
+			\]
+		\end{itemize}
+	\item run your program with $N=100, 1000$ and $10,000$
 \end{itemize}
 
 \end{frame}
@@ -322,6 +318,16 @@ plt.show()
 %	\item SW corner: $[-1,-1]$
 %\end{itemize}
 
+\begin{itemize}
+	\item two length-$N$ arrays of random numbers
+	\begin{itemize}
+		\item \texttt{x = [x[0],x[1],...,x[N-1]]}
+		\item \texttt{y = [y[0],y[1],...,y[N-1]]}
+	\end{itemize}
+	\item \texttt{x[i]} $\in [-1,+1]$ for all $i$, similar for \texttt{y[i]}
+	\item position $(x_i,y_i)$ of $i$-th dart is (\texttt{x[i],y[i]})
+\end{itemize}
+
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.33\textwidth]{figures/dartboard100}%
@@ -340,10 +346,24 @@ plt.show()
 \frametitle{Random floats: estimate $\pi$}
 
 \textbf{Example 4}\\
-\vspace*{5mm}
 \begin{itemize}
-	\item modify previous example to count points inside circle, hence\ldots
-	\item estimate $\pi$
+	\item modify Example~3 to count number of points inside (or on) circle
+	\item use your results to estimate the value of $\pi$
+	\pause
+	\item strategy:
+	\begin{itemize}
+		\item area of square: $2 \times 2 = 4$
+		\item area of circle: $\pi r^2$, where radius $r=1$, hence area is $\pi$
+		\item[]
+		\[
+			R = \frac{\mathrm{area~of~circle}}{\mathrm{area~of~square}} = \frac{\pi}{4}
+		\]
+		\pause		
+		\begin{eqnarray*}
+			\mathrm{estimate~of~} \pi & = & 4\times \mathrm{estimate~of~ratio~} R \\
+			& =& 4 \times \frac{\mathrm{number~of~points~in~circle}}{\mathrm{total~number~of~points}}
+		\end{eqnarray*}
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -352,14 +372,32 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{Random floats: estimate $\pi$}
+\frametitle{Estimate $\pi$: code}
+\vspace*{-3mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+import numpy as np
+import matplotlib.pyplot as plt
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.6\textwidth]{figures/estimatePi}
-\end{figure}
+# generate random array of (x,y) pairs covering
+# square with edge length 2
+N = 10000
+x = np.random.uniform(-1, 1, N)      # N floats from [-1,1]
+y = np.random.uniform(-1, 1, N)      # N floats from [-1,1]
 
-Live demo
+insideCnt = 0;
+for i in range(0,N,1):
+    if x[i]**2 + y[i]**2 <= 1:
+        plt.plot(x[i],y[i],'r.')
+        insideCnt += 1
+    else:
+        plt.plot(x[i],y[i],'b.')
+
+R = insideCnt/N
+print('Estimate of pi: {}'.format(4*R))
+
+plt.axis('equal')
+plt.show()
+\end{lstlisting}
 
 \end{frame}
 
@@ -524,15 +562,18 @@ print('Of the {} regions, {} have reduced rainfall which is {:f6.2}% '.format(N,
 \begin{frame}[fragile]
 
 \frametitle{Lecture summary}
+\begin{enumerate}
+	\item Using random numbers
+	\item[]
+	
+	\item Reading from spreadsheets
+\end{enumerate}
+
 \begin{itemize}
-	\item blah
 	\item[]
-	
-	\item blah
-	\item[]
-	
-	\item what's next = functions
+	\item \textbf{Next lecture:~} functions in Python, Chapter 4 \\ of LL textbook
 \end{itemize}
+
 \end{frame}
 
 \end{document}

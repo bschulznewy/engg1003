@@ -1,11 +1,14 @@
 
 \frametitle{Lecture summary}
+\begin{enumerate}
+	\item Using random numbers
+	\item[]
+	
+	\item Reading from spreadsheets
+\end{enumerate}
+
 \begin{itemize}
-	\item blah
 	\item[]
-	
-	\item blah
-	\item[]
-	
-	\item what's next = functions
+	\item \textbf{Next lecture:~} functions in Python, Chapter 4 \\ of LL textbook
 \end{itemize}
+
