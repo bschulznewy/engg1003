@@ -133,7 +133,7 @@ Using \texttt{numpy} library:
 \begin{itemize}
 	\item random integers
 	\item random floats from $[0,1)$
-	\item random floats from $[a,b]$
+	\item random floats from $[a,b)$
 \end{itemize}
 
 \end{frame}
@@ -226,12 +226,12 @@ print('Observed number of heads: {}'.format(headCnt))
 \begin{lstlisting}[style=CStyle]
 import numpy as np
 
-# generate random array of N floats in range [17,19]
+# generate random array of N floats in range [17,19)
 N = 10000
 x = np.random.uniform(17,19,N)
 tolLow = 17.25
 tolHigh = 18.75
-#print(x)
+print(x)
 
 goodCnt = 0;
 for i in range(0,N,1):
@@ -285,10 +285,9 @@ import matplotlib.pyplot as plt
 # generate random array of (x,y) pairs covering
 # square with edge length 2
 N = 10000
-x = np.random.uniform(-1, 1, N)   # N floats from [-1,1]
-y = np.random.uniform(-1, 1, N)   # N floats from [-1,1]
+x = np.random.uniform(-1, 1, N)   # N floats from [-1,1)
+y = np.random.uniform(-1, 1, N)   # N floats from [-1,1)
 
-insideCnt = 0;
 for i in range(0,N,1):
     if x[i]**2 + y[i]**2 <= 1:
         plt.plot(x[i],y[i],'r.')
@@ -296,6 +295,7 @@ for i in range(0,N,1):
         plt.plot(x[i],y[i],'b.')
 
 plt.axis('equal')   # plot with aspect ratio 1:1
+plt.title('N = {}'.format(N))
 plt.show()
 \end{lstlisting}
 \vspace*{-3mm}
@@ -316,7 +316,7 @@ plt.show()
 		\item \texttt{x = [x[0],x[1],...,x[N-1]]}
 		\item \texttt{y = [y[0],y[1],...,y[N-1]]}
 	\end{itemize}
-	\item \texttt{x[i]} $\in [-1,+1]$ for all $i$, similar for \texttt{y[i]}
+	\item \texttt{x[i]} $\in [-1,+1)$ for all $i$, similar for \texttt{y[i]}
 	\item position $(x_i,y_i)$ of $i$-th dart is (\texttt{x[i],y[i]})
 \end{itemize}
 
@@ -373,10 +373,10 @@ import matplotlib.pyplot as plt
 # generate random array of (x,y) pairs covering
 # square with edge length 2
 N = 10000
-x = np.random.uniform(-1, 1, N)      # N floats from [-1,1]
-y = np.random.uniform(-1, 1, N)      # N floats from [-1,1]
+x = np.random.uniform(-1, 1, N)      # N floats from [-1,1)
+y = np.random.uniform(-1, 1, N)      # N floats from [-1,1)
 
-insideCnt = 0;
+insideCnt = 0
 for i in range(0,N,1):
     if x[i]**2 + y[i]**2 <= 1:
         plt.plot(x[i],y[i],'r.')
