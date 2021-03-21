@@ -123,6 +123,8 @@ Observe that the same rainfall data is provided in two layouts:\\
 \end{itemize}
 ~\\
 Note that there are several \texttt{null} values in the file ending \texttt{\_Data12.csv}. These are missing data points. Missing data in \texttt{\_Data1.csv} is indicated with missing rows where adjacent year/month combinations are discontinuous (eg: It jumps from \texttt{1864,08} to \texttt{1867,01}).
+\\~\\
+For use in the next task there are \texttt{csv} files which contain a gap-free subset of this data: \texttt{rainfall-1.csv} and \texttt{rainfall-12.csv}.
 \end{task}
 
 In this course we will use the \texttt{pandas} library to read \texttt{csv} files. Before it can be used you must run \texttt{pip install pandas} to install it.
@@ -130,42 +132,33 @@ In this course we will use the \texttt{pandas} library to read \texttt{csv} file
 \pagebreak
 \begin{task}{Reading and Analysing Rainfall Data}{}
 This task is presented in multiple parts and is presented in a more ``real'' style compared to previous lab tasks. You are welcome to discuss problem solving strategies with your lab peers as well as demonstrators.
-\\~
+\\~\\
+Background lecture material: \\~\\
+See Slide 18f of the Thursday Week 4 lecture slides for a \texttt{pandas} example. The recording timestamp is: \url{https://www.youtube.com/watch?v=GZmJTGqh5pw#t=50m45s}\\
 \begin{enumerate}
-\item Write a Python script which uses \texttt{pandas} to open either of the provided \texttt{csv} files and produces a single \texttt{numpy} array of monthly rainfall data.
+\item \textbf{Download \texttt{rainfall-1.csv} from Blackboard}.
+\item Write a Python script which uses \texttt{pandas} to open \texttt{rainfall-1.csv} and use the \texttt{head()} function to print the first few lines. Ensure that they match what you saw in the text editor during the previous task.
+\item Extend your script to load rainfall data from \texttt{rainfall-1.csv} into a single \texttt{numpy} array called \texttt{rainfall}.
 \\~\\
-Your array should be 1910 elements. Data is provided from Janurary 1862 to Feburary 2021 which is $159\times 12 = 1908$ months plus Janurary and Feburary 2021 $=1910$ data points.
+Your array should be 1584 elements. Data is provided from Janurary 1867 to December 1998.
 \\~\\
-See Slide 18f of the Thursday Week 4 lecture slides for a \texttt{pandas} example. The recording timestamp is: \url{https://www.youtube.com/watch?v=GZmJTGqh5pw#t=50m45s}
-\\~\\
-Note that \texttt{null}, or missing, data should, be stored in your array as a value of -1. Since negative rainfall is physically impossible this value unambiguously indicates missing data as opposed to, say, zero rainfall.
-\\~\\
-Depending on which file you choose to read from different challenges will arise. For example, \texttt{\_Data1.csv} contains missing rows so you can't simply copy the rainfall data column to an array - the index of the array must be calculated from the year and month columns. If you read from the ``2D grid'' format you will need to make special provisions for the \texttt{null} values.
+Observe the first line of the file to work out the correct column heading.
+\item Plot the timeseries data. A simple \texttt{plot(rainfall)} will suffice here as we are visulising the data for development purposes - not producing a plot for publication.
 
-\item Plot the timeseries data, leaving missing values as -1. A simple \texttt{plot(rainfall)} will suffice here as we are visulising the data for development purposes - not producing a plot for publication.
+\item Summary statistics for Nobbys Signal Station are provided by the BOM at the bottom of this page: \url{http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=139&p_display_type=dataFile&p_startYear=&p_c=&p_stn_num=061055}
+\\~\\
+From data in the \texttt{rainfall} array calculate the mean, lowest, and highest rainfall figures for each month and compare them with BOM's calculations. Use one (or more) \texttt{for} loops to perform this analysis.
+\\~\\
+Note that the \texttt{\%} (modulus) operator may be useful when converting an array index to a month. ie: the index modulo 12 will provide a month number where 0 is Janurary and 11 is December.
+\\~\\
+It is simpler to complete this task with twelve variables (ie: one running sum for each month) but an attempt should be made to solve this problem with two \textit{nested} \texttt{for} loops: an outer loop which counts months and an inner loop which tests every index for inclusion in that month. The nested loop method allows for the use of an array to store the monthly means and greatly reduces the code complexity.
 
-\item Plot a \textit{histogram} of the monthly rainfall data. To do this you can use the \texttt{plt.hist()} function from \texttt{matplotlib.pyplot}. If the data is stored in the \texttt{numpy} array \texttt{rainfall} then the histogram can be plotted with:
+\item \textbf{Extension:} Plot a \textit{histogram} of the monthly rainfall data. To do this you can use the \texttt{plt.hist()} function from \texttt{matplotlib.pyplot}. If the data is stored in the \texttt{numpy} array \texttt{rainfall} then the histogram can be plotted with:
 
 \begin{lstlisting}
 plt.hist(rainfall)
 plt.show()
 \end{lstlisting}
-
-\item Summary statistics for Nobbys Signal Station are provided by the BOM at the bottom of this page: \url{http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=139&p_display_type=dataFile&p_startYear=&p_c=&p_stn_num=061055}
-
-From your data, calculate the mean, lowest, and highest rainfall figures for each month and compare them with BOM's calculations.
-\\~\\
-Note that the \texttt{\%} (modulus) operator may be useful when converting an array index to a month. ie: the index modulo 12 will provide a month number where 0 is Janurary and 11 is December.
-
-\item Because the data is missing values we will make some effort to take a ``best guess'' and fill them in. The timeseries plot would have shown that rainfall data is very random so a technique such as linear interpolation is not appropriate - we need a method based in statistics.
-\\~\\
-Fill in the missing data with one twelth of the annual mean figure as reported by the BOM. This is 1118 / 12 = 93mm.
-
-\item Plot the histogram of the ``filled in'' data. Does it look like the technique above works or have you, say, created false lumps in the histogram?
-
-\item Fill in all missing figures with the mean of that month for all years. ie: if a \texttt{null} occurs in Janurary fill it in with 88.7~mm.
-\\~\\
-Re-plot the histogram. Is this method any better? Does the histogram look ``smoother''?
 
 \end{enumerate}
 \end{task}
