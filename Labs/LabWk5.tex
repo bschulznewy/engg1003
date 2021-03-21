@@ -110,9 +110,9 @@ This lab will make use of a real scientific dataset from the Bureau of Meteorolo
 \\~\\
 You are welcome to browse data as it suits your interest but this lab will make use of the monthly rainfall data for the Nobbys Signal Station weather station on the coast of Newcastle.
 \\~\\
-Download the \texttt{zip} containing the above \texttt{csv} data from here:\\~\\ \url{http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=monthlyZippedDataFile&p_stn_num=061055&p_c=-745551072&p_nccObsCode=139&p_startYear=}
+The data used in this lab (see \texttt{rainfall-1.csv} on Blackboard) has been extracted from the \texttt{zip} containing the Nobbys rainfall \texttt{csv} data from here:\\~\\ \url{http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=monthlyZippedDataFile&p_stn_num=061055&p_c=-745551072&p_nccObsCode=139&p_startYear=}
 \\~\\
-Unzip the file and open the three included files in a \textbf{text editor}. The lab computers have Notepad++ installed but you could also use Notepad or, at worst, open them in PyCharm.
+Extract the \texttt{zip} and open the three included files in a \textbf{text editor}. The lab computers have Notepad++ installed but you could also use Notepad or, at worst, open them in PyCharm.
 \\~\\
 Observe the ``human readable'' nature of the \texttt{csv} format. You may wish to keep this file open for debugging purposes.
 \\~\\
@@ -124,7 +124,7 @@ Observe that the same rainfall data is provided in two layouts:\\
 ~\\
 Note that there are several \texttt{null} values in the file ending \texttt{\_Data12.csv}. These are missing data points. Missing data in \texttt{\_Data1.csv} is indicated with missing rows where adjacent year/month combinations are discontinuous (eg: It jumps from \texttt{1864,08} to \texttt{1867,01}).
 \\~\\
-For use in the next task there are \texttt{csv} files which contain a gap-free subset of this data: \texttt{rainfall-1.csv} and \texttt{rainfall-12.csv}.
+For use in the next task download the gap-free subset of this data, \texttt{rainfall-1.csv}, from Blackboard.
 \end{task}
 
 In this course we will use the \texttt{pandas} library to read \texttt{csv} files. Before it can be used you must run \texttt{pip install pandas} to install it.
@@ -147,7 +147,7 @@ Observe the first line of the file to work out the correct column heading.
 
 \item Summary statistics for Nobbys Signal Station are provided by the BOM at the bottom of this page: \url{http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=139&p_display_type=dataFile&p_startYear=&p_c=&p_stn_num=061055}
 \\~\\
-From data in the \texttt{rainfall} array calculate the mean, lowest, and highest rainfall figures for each month and compare them with BOM's calculations. Use one (or more) \texttt{for} loops to perform this analysis.
+From data in the \texttt{rainfall} array calculate the mean, lowest, and highest rainfall figures for each month and compare them with the BOM's calculations. Use one (or more) \texttt{for} loops to perform this analysis.
 \\~\\
 Note that the \texttt{\%} (modulus) operator may be useful when converting an array index to a month. ie: the index modulo 12 will provide a month number where 0 is Janurary and 11 is December.
 \\~\\
