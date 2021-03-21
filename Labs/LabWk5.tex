@@ -45,7 +45,7 @@ Breaking down this notation:
 Putting it all together, the first few terms of Equation \ref{eq:pi} can be written out as:
 
 \begin{equation}
-\frac{1}{(4\times 0 + 1)(4 \times 0 + 5)} + \frac{1}{(4\times 1 + 1)(4 \times 1 + 5)} + \frac{1}{(4\times 2 + 1)(4 \times 2 + 5)} + ...
+\frac{1}{(4\times 0 + 1)(4 \times 0 + 3)} + \frac{1}{(4\times 1 + 1)(4 \times 1 + 3)} + \frac{1}{(4\times 2 + 1)(4 \times 2 + 3)} + ...
 \end{equation}
 
 It turns out that expressions of this form map quite cleanly to \texttt{for} loops when programming:
@@ -58,7 +58,7 @@ It turns out that expressions of this form map quite cleanly to \texttt{for} loo
 		\item Pay close attention to the starting value of \texttt{k=0}
 		\item Computer's can't count to $\infty$, so choose a ``reasonable'' value of, say, 100 000 for the final value of \texttt{k}
 	\end{itemize}
-\item The $\frac{1}{(4k+1)(4k+3)}$ expression becomes the Python expression \texttt{1/((4*k+1)*(4*k+3))} (note double level nesting of \texttt{( ()() )} in the denomenator - without the outer \texttt{( )} the expression becomes $\frac{4k+3}{4k+1}$.
+\item The $\frac{1}{(4k+1)(4k+3)}$ expression becomes the Python expression \texttt{1/((4*k+1)*(4*k+3))} (note double level nesting of \texttt{( ()() )} in the denominator - without the outer \texttt{( )} the expression becomes $\frac{4k+3}{4k+1}$.
 \end{itemize}
 
 \begin{task}{Python Implementation of Equation \ref{eq:pi}}{}
@@ -143,7 +143,7 @@ See Slide 18f of the Thursday Week 4 lecture slides for a \texttt{pandas} exampl
 Your array should be 1584 elements. Data is provided from Janurary 1867 to December 1998.
 \\~\\
 Observe the first line of the file to work out the correct column heading.
-\item Plot the timeseries data. A simple \texttt{plot(rainfall)} will suffice here as we are visulising the data for development purposes - not producing a plot for publication.
+\item Plot the timeseries data. A simple \texttt{plot(rainfall)} will suffice here as we are visualising the data for development purposes - not producing a plot for publication.
 
 \item Summary statistics for Nobbys Signal Station are provided by the BOM at the bottom of this page: \url{http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=139&p_display_type=dataFile&p_startYear=&p_c=&p_stn_num=061055}
 \\~\\
