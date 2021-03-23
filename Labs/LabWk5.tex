@@ -131,7 +131,18 @@ See Slide 18f of the Thursday Week 4 lecture slides for a \texttt{pandas} exampl
 \item \textbf{Download \texttt{rainfall-1.csv} from Blackboard}.
 \item To open this file with \texttt{pandas} you must either:
 \begin{itemize}
-\item Copy \texttt{rainfall-1.csv} to the same folder as your \texttt{.py} script file, or
+\item Copy \texttt{rainfall-1.csv} to the same folder as your \texttt{.py} script file
+	\begin{itemize}
+		\item You can get the project's folder by right clicking on the ``tab'' for a \texttt{.py} file and selecting ``Open in -> Explorer''
+		\item You can also drag \& drop the \texttt{.csv} file to the project,  dropping it over the ``top level'' project name.
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{Wk5Figs/project.png}
+\end{center}
+\caption{Drag and drop \texttt{rainfall-1.csv} to ``pythonProject''.}
+\end{figure}
+
+	\end{itemize}
 \item Reference it with an absolute file path. The complication with this method is that the \texttt{\textbackslash} character, when used in a Python string, indicates an ``escape sequence''. For example \texttt{\textbackslash n} is a special character which prints a new line.
 \\~\\
 As such, the \texttt{\textbackslash} characters in the file path need to be ``escaped'' by placing an \textit{additional} \texttt{\textbackslash} before them. eg: \texttt{C:\textbackslash\textbackslash Users\textbackslash \textbackslash me\textbackslash \textbackslash Downloads\textbackslash \textbackslash rainfall-1.csv}.
