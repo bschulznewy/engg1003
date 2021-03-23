@@ -148,7 +148,11 @@ Observe the first line of the file to work out the correct column heading.
 \\~\\
 From data in the \texttt{rainfall} array calculate the mean, lowest, and highest rainfall figures for each month and compare them with the BOM's calculations. Use one (or more) \texttt{for} loops to perform this analysis.
 \\~\\
+Your calculations won't be exactly the same as the BOM data because \texttt{rainfall-1.csv} is a subset of the full rainfall \texttt{csv} file. You can, however, use the summary statistics as a rough guide to judge if your calculations are correct or not.
+\\~\\
 Note that the \texttt{\%} (modulus) operator may be useful when converting an array index to a month. ie: the index modulo 12 will provide a month number where 0 is Janurary and 11 is December.
+\\~\\
+Alternatively, you can write one or more \texttt{for} loops which count in increments of 12 to ``pick out'' all values from a given month. Starting from index 0 and counting by 12s will provide all January data. Starting from index 1 will pick out all February data, etc.
 \\~\\
 It is simpler to complete this task with twelve variables (ie: one running sum for each month) but an attempt should be made to solve this problem with two \textit{nested} \texttt{for} loops: an outer loop which counts months and an inner loop which tests every index for inclusion in that month. The nested loop method allows for the use of an array to store the monthly means and greatly reduces the code complexity.
 
