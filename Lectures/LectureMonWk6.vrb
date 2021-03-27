@@ -1,27 +1,7 @@
 
-\frametitle{Lecture summary}
+\frametitle{}
+
 \begin{itemize}
-	\item Iteration again
-	\begin{itemize}
-		\item \texttt{for} vs.~\texttt{while}
-	\end{itemize}
-
-	\item[]
-	
-	\item Debugging strategies
-	\begin{itemize}
-		\item running code by hand
-		\item don't guess, print!
-		\item take baby steps
-	\end{itemize}
-
-	\item[]
-	
-	\item Random numbers
-		\begin{itemize}
-			\item random module---random numbers one at a time %: \texttt{randint}, \texttt{random} and \texttt{uniform}
-			\item random module in \texttt{numpy} library---arrays of random numbers % :~\texttt{randint}, \texttt{random} and \texttt{uniform}
-		\end{itemize}
-		
+	\item xxx
 \end{itemize}
 
