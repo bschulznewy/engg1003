@@ -1,7 +1,24 @@
 
-\frametitle{}
-
+\frametitle{Lecture summary}
 \begin{itemize}
-	\item xxx
-\end{itemize}
+	\item Interpolation
+	\begin{itemize}
+		\item linear interpolation (straight line ``join the dots'')
+		\item cubic spline
+	\end{itemize}
 
+	\item[]
+	
+	\item Assignment 1
+	\begin{itemize}
+		\item xxx
+	\end{itemize}
+
+	\item[]
+	
+	\item Mid-term quiz
+		\begin{itemize}
+			\item xxx
+		\end{itemize}
+		
+\end{itemize}
