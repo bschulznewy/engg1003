@@ -246,10 +246,14 @@ Two common forms of \red{\emph{curve-fitting}} in Engineering applications:
 \frametitle{Functions}
 
 \begin{itemize}
-
-	\item review mathematical functions: week 5 Monday lecture, page 3
-	\item function $f$ takes data point $t$ and returns $y = f(t)$
-%	\item review in PyCharm
+	\item in maths, you've seen functions written as follows:
+	\[
+		y = f(t)
+	\]
+	\item[]
+	\item function $f$, takes \emph{argument} $t$ and returns a \emph{value} which is assigned to $y$
+	\item []
+	\item \ldots and last week we saw Python uses the same terminology with functions
 \end{itemize}
 
 \end{frame}
@@ -416,10 +420,31 @@ plt.show()
 
 \frametitle{Cubic spline in Python code}
 
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# INTERPOLATION
+f3 = interp1d(t, y, 'cubic')
+
+# PLOT RESULTS
+plt.plot(t, y, 'ro')
+plt.xlabel('t')
+plt.ylabel('y(t)')
+plt.plot(tnew, f3(tnew), 'b')
+plt.title('Cubic spline interpolation')
+plt.show()
+\end{lstlisting}
+
+Linear interpolation:
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+f = interp1d(t, y)
+\end{lstlisting}
+
+Cubic spline interpolation:
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+f3 = interp1d(t, y, 'cubic')
+\end{lstlisting}
+
 \begin{itemize}
-	\item half page code
-	\item \texttt{Week6MonCubic.py}
-	\item live demo
+	\item Live demo of \texttt{Week6MonCubic.py}
 \end{itemize}
 
 \end{frame}
@@ -449,14 +474,37 @@ plt.show()
 \frametitle{$2)$ Assignment 1}
 
 \begin{itemize}
-	\item key dates: out, due date for submission
+	\item released today, Monday 29 March 2021
+	\item upload Python file to BB no later than \red{9:00~am, Monday 19 April}
 	\item counts for $20$\% of course grade
-	\item how assessed: in lab, week 7 (after recess)
-	\item the basic ideas behind the lab
-	\item this weeks 2-hr face-face lab:
+	\item each student will be assessed by demonstrator in week 7 face-face computer lab (after recess)
+
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$2)$ Assignment 1}
+
+\begin{itemize}
+	\item basic idea in assignment: analysis of GPS data
+	\item[]
+	\item in more detail:
 	\begin{itemize}
-		\item get started on the assignment
-		\item there isn't a week 6 lab sheet: assignment in place of work sheet
+		\item GPS data collected during a mountain bike ride
+		\item GPS track log is presented in a \texttt{csv} file containing timestamps, latitude, longitude, and elevation
+columns recorded at 1 second intervals
+		\item project asks you to analyse GPS data, eg: fitness trackers
+		\item use interpolation where GPS signal was lost
+	\end{itemize}
+	\item[]
+	\item computer labs this week:
+	\begin{itemize}
+		\item there is no week 6 lab sheet
+		\item get started on assignment in place of lab sheet
 	\end{itemize}
 \end{itemize}
 
@@ -470,16 +518,24 @@ plt.show()
 
 \begin{itemize}
 	\item Thursday 1 April, 4--5pm
+	\item[]
 	\begin{itemize}
 		\item during scheduled lecture time
-		\item but there will not be any Zoom or YouTube livestream on 1 April
+		\item mid-term quiz instead of lecture this week so\ldots
+		\item \textbf{NO Zoom or YouTube livestream on 1 April}
 	\end{itemize}
-	\item 40-minute quiz
+	\item[]
+	\item 50-minute quiz
+	\item[]
 	\item open-book
-
-	\item quiz will appear on BB at 4:10~pm
+	\item[]
+	\item quiz will appear on BB at 4:05~pm
+	\begin{itemize}
+		\item[] \ldots and will disappear at 4:55~pm
+	\end{itemize}
+	\item[]
 	\item counts for $15$\% of course grade
-	\item what you'll be asked
+
 \end{itemize}
 
 \end{frame}
@@ -488,18 +544,26 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{What to expect, and how to prepare}
 
 \begin{itemize}
-	\item what you can do to prepare for the quiz
+	\item the quiz will ask you to write Python code to:
 	\begin{itemize}
-		\item read THIS csv--- can get started now!
-		\item you'll be asked to write Python code to do some calculations on a specified column
-		\item enter your results into BB
-		\item cut-and-paste code into BB
+		\item load a \texttt{csv} file
+		\item perform some calculations on a specified column of the file ie: array processing
+		\item[] (each student gets assigned a unique column in the file)
 	\end{itemize}
-	\item can practice NOW in BB
-	\item demo to class in lecture
+	\item once your program is complete, you do two things:
+	\begin{enumerate}
+		\item enter the results of your program into BB
+		\item upload your Python code to BB
+	\end{enumerate}
+
+	\item \textbf{there is a practice quiz NOW on BB}
+	\begin{itemize}
+		\item you can practice as many times as you like!
+	\end{itemize}
+	\item live demo of how the mid-term quiz will run
 \end{itemize}
 
 \end{frame}
@@ -526,14 +590,18 @@ plt.show()
 	
 	\item Assignment 1
 	\begin{itemize}
-		\item xxx
+		\item released today
+		\item submissions due on BB by \red{9:00~am, Monday 19 April}
+		\item worth 20\%
 	\end{itemize}
 
 	\item[]
 	
 	\item Mid-term quiz
 		\begin{itemize}
-			\item xxx
+			\item \textbf{there is a practice quiz NOW on BB}
+			\item done on BB at \red{4:00~pm, Thursday 1 April}
+			\item worth 15\%
 		\end{itemize}
 		
 \end{itemize}
