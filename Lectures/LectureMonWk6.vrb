@@ -3,8 +3,14 @@
 \begin{itemize}
 	\item Interpolation
 	\begin{itemize}
-		\item linear interpolation (straight line ``join the dots'')
-		\item cubic spline
+		\item linear interpolation
+		\begin{itemize}
+			\item straight line ``join the dots''
+		\end{itemize}
+		\item cubic spline interpolation
+		\begin{itemize}
+			\item smoothly connects data points
+		\end{itemize}
 	\end{itemize}
 
 	\item[]
