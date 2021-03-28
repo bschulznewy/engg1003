@@ -232,9 +232,6 @@ Two common forms of \red{\emph{curve-fitting}} in Engineering applications:
 	\end{itemize}
 	\item[]
 	\item both interpolation \& regression involve creating a function \blue{(blue line)} from data \red{(red dots)}
-%	\begin{itemize}
-%		\item that requires some explanation! so let's do that
-%	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -303,9 +300,21 @@ Two common forms of \red{\emph{curve-fitting}} in Engineering applications:
 
 \begin{itemize}
 	\item \texttt{interp1d} function from \texttt{scipy.interpolate}
-	\item \texttt{pip install scipy} at console first
+	\begin{itemize}
+		\item \texttt{pip install scipy} at terminal before using \texttt{scipy} for the first time
+	\end{itemize}
+	\item[]
+	\item \texttt{t} and \texttt{y} are arrays of values used to approximate some function: $y = f(t)$
+\end{itemize}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\large]
+f = interp1d(t, y)
+\end{lstlisting}	
+\begin{itemize}
 	\item call to \texttt{interp1d} returns a function
-	\item use the function in console
+	\begin{itemize}
+		\item first time we've seen a \emph{function} returned by a function
+	\end{itemize}
 	\item live demo
 \end{itemize}
 
@@ -356,6 +365,12 @@ plt.plot(tnew, f(tnew), 'b')
 plt.title('Linear interpolation')
 plt.show()
 \end{lstlisting}
+
+\begin{itemize}
+	\item \textbf{line~2:} create function \texttt{f} to interpolate data in arrays \texttt{t} and \texttt{y}
+	\item \textbf{line~8:} use function \texttt{f} using ``high resolution'' time data in array \texttt{tnew}
+\end{itemize}
+
 \end{frame}
 
 %==============================================================
@@ -380,7 +395,24 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{Beyond linear interpolation}
+\frametitle{Beyond linear interpolation: Cubic splines}
+
+\begin{itemize}
+	\item[] \textbf{Problem:} slopes of adjacent \blue{straight lines} change abruptly at \red{data points}
+	\item[]
+	\item \emph{could} solve by stitching together quadratic polynomials (parabolas) between consecutive point pairs
+	\begin{itemize}
+		\item adjacent parabolas pass through data points
+		\item \emph{and also have slopes that match at data points}
+	\end{itemize}
+	\item[]
+	\item very common to use degree-$3$ polynomials (cubics) instead of degree-$2$ parabolas
+	\begin{itemize}
+		\item even smoother fit to data
+		\item \red{\emph{cubic splines}} very popular in computer graphics
+	\end{itemize}
+	
+\end{itemize}
 
 %The problem with this approach is that the slopes of adjacent lines change abruptly at each data-point –called as C1discontinuity.
 %•This can be resolved by stitching piecewise quadratic polynomials between consecutive point pairs and requiring that
@@ -393,24 +425,6 @@ plt.show()
 %•This type of interpolation is called cubic-splineinterpolationand is very popular in graphics and image processing.
 %•The data-points (where the continuity conditions) are imposed are called as knotsor control points.
 %•A cubic splineis a piecewise polynomial that is twice continuously differentiable (including at the knots).
-
-\begin{itemize}
-	\item[] \textbf{Problem:} slopes of adjacent \blue{straight lines} change abruptly at \red{data points}
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Cubic splines}
-
-\begin{itemize}
-	\item degree 1 is linear, degree 2 is parabola, degree 3 is cubic
-	\item we're hiding lots of maths here, but we can use Python to implement without needing that maths
-	\item maths is interesting!
-\end{itemize}
 
 \end{frame}
 
@@ -434,12 +448,12 @@ plt.show()
 \end{lstlisting}
 
 Linear interpolation:
-\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+\begin{lstlisting}[style=CStyle,basicstyle=\small]
 f = interp1d(t, y)
 \end{lstlisting}
 
 Cubic spline interpolation:
-\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+\begin{lstlisting}[style=CStyle,basicstyle=\small]
 f3 = interp1d(t, y, 'cubic')
 \end{lstlisting}
 
@@ -475,8 +489,11 @@ f3 = interp1d(t, y, 'cubic')
 
 \begin{itemize}
 	\item released today, Monday 29 March 2021
+	\item[]
 	\item upload Python file to BB no later than \red{9:00~am, Monday 19 April}
+	\item[]
 	\item counts for $20$\% of course grade
+	\item[]
 	\item each student will be assessed by demonstrator in week 7 face-face computer lab (after recess)
 
 \end{itemize}
@@ -490,14 +507,14 @@ f3 = interp1d(t, y, 'cubic')
 \frametitle{$2)$ Assignment 1}
 
 \begin{itemize}
-	\item basic idea in assignment: analysis of GPS data
+	\item assignment topic: analysis of GPS data
 	\item[]
 	\item in more detail:
 	\begin{itemize}
 		\item GPS data collected during a mountain bike ride
 		\item GPS track log is presented in a \texttt{csv} file containing timestamps, latitude, longitude, and elevation
 columns recorded at 1 second intervals
-		\item project asks you to analyse GPS data, eg: fitness trackers
+		\item project asks you to analyse GPS data, eg: fitness tracker
 		\item use interpolation where GPS signal was lost
 	\end{itemize}
 	\item[]
@@ -517,7 +534,7 @@ columns recorded at 1 second intervals
 \frametitle{$3)$ Mid-term quiz}
 
 \begin{itemize}
-	\item Thursday 1 April, 4--5pm
+	\item Thursday 1 April, 4--5~pm
 	\item[]
 	\begin{itemize}
 		\item during scheduled lecture time
@@ -558,7 +575,7 @@ columns recorded at 1 second intervals
 		\item enter the results of your program into BB
 		\item upload your Python code to BB
 	\end{enumerate}
-
+	\item[]
 	\item \textbf{there is a practice quiz NOW on BB}
 	\begin{itemize}
 		\item you can practice as many times as you like!
