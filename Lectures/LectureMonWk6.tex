@@ -117,12 +117,21 @@
 \begin{frame}[fragile]
 
 \frametitle{The story so far}
-
+\vspace*{-5mm}
 \begin{itemize}
-	\item see SJJ lecture thursday week 5
-	\item xxx
-	\item xxx
+	\item variables and data types
+	\item arrays (using \texttt{numpy})
+	\item plotting (using \texttt{matplotlib})
+	\item flow control
+	\begin{itemize}
+		\item \texttt{if}
+		\item \texttt{while}
+		\item \texttt{for}
+	\end{itemize}
+	\item functions
 \end{itemize}
+\vspace*{3mm}
+Most of ENGG1003 from here uses these elements of Python to solve Engineering problems
 
 \end{frame}
 
@@ -132,12 +141,22 @@
 
 \frametitle{$1)$ Interpolation}
 
-Compare and contrast, both special cases of \red{\emph{curve-fitting}}
+Two common forms of \red{\emph{curve-fitting}} in Engineering applications:
 
+\begin{enumerate}
+	\item \red{\emph{interpolation}}
+	\begin{itemize}
+		\item today's lecture
+	\end{itemize}
+	\item[]
+	\item \red{\emph{regression}}
+	\begin{itemize}
+		\item considered in detail later in ENGG1003
+	\end{itemize}
+\end{enumerate}
+	
 \begin{itemize}
-	\item interpolation---today
-	\item regression---later in course
-	\item demonstrate both with the same small dataset
+	\item we now demonstrate both curve-fitting methods applied to the same dataset
 \end{itemize}
 
 \end{frame}
@@ -146,25 +165,74 @@ Compare and contrast, both special cases of \red{\emph{curve-fitting}}
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Curve-fitting dataset}
+
+\texttt{Week6Mon.py}
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/Week6MonDataset}
+\end{figure}
+\vspace*{-5mm}
+\begin{itemize}
+	\item 11 pairs of data points $(t_i,y_i), i = 0,1,2,\ldots,10$
+	\item[] {\small $(0,51.29), (10,65.24), (20,124.89), \ldots,(100,361.32)$}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Interpolation}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/Week6MonLinearInterp}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Regression}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/Week6MonLinearRegression}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Interpolation vs.\ regression}
 
 \begin{itemize}
-	\item regression: curve-fitting (eg: fitting a straight line)
-	\begin{itemize}
-		\item obtain a ``functional form'' eg: identify a model, F=kx for Hookes' law
-		\item too much data
-		\item simplify data down to a straight line (plus noise)
-	\end{itemize}
-	\item[]
-	\item interpolation: joining the dots
+	\item \textbf{interpolation:} joining the dots
 	\begin{itemize}
 		\item obtain value of $y$ at some intermediate point
 	\end{itemize}
 	\item[]
-	\item both involve creating a function from data
+	\item \textbf{regression:} fitting a straight line
 	\begin{itemize}
-		\item that requires some explanation! so let's do that
+		\item when there's ``too much data'', simplify
+		\item here, simplifying to a straight line
+		\item will return to choosing ``best'' straight line later in ENGG1003
+%		\item obtain a ``functional form'' eg: identify a model, F=kx for Hookes' law
 	\end{itemize}
+	\item[]
+	\item both interpolation \& regression involve creating a function \blue{(blue line)} from data \red{(red dots)}
+%	\begin{itemize}
+%		\item that requires some explanation! so let's do that
+%	\end{itemize}
 \end{itemize}
 
 \end{frame}
