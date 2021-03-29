@@ -264,7 +264,7 @@ Two common forms of \red{\emph{curve-fitting}} in Engineering applications:
 \vspace*{-5mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/InterpMeaning}
+	\includegraphics[width=0.75\textwidth]{figures/InterpMeaning}
 \end{figure}
 \vspace*{-5mm}
 \begin{itemize}
@@ -280,10 +280,10 @@ Two common forms of \red{\emph{curve-fitting}} in Engineering applications:
 
 \frametitle{Linear interpolation}
 
-\vspace*{-5mm}
+\vspace*{-3mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/LinInterpMeaning}
+	\includegraphics[width=0.75\textwidth]{figures/LinInterpMeaning}
 \end{figure}
 \vspace*{-5mm}
 \begin{itemize}
@@ -337,7 +337,7 @@ from scipy.interpolate import interp1d
 np.random.seed(27101967)
 
 N = 11
-t = np.linspace(0,100,11)           # 0,10,20,...,100
+t = np.linspace(0,100,N)            # 0,10,20,...,100
 tnew = np.linspace(0,100,100*N)     # 0,0.1,0.2,...,100
 n = np.random.uniform(-25,25,N)     # noise on linear function
 
