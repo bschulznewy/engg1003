@@ -1,0 +1,117 @@
+\documentclass{lab}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{soul}
+\usepackage{multicol}
+
+\addtolength{\oddsidemargin}{-.4in}
+\addtolength{\evensidemargin}{-.4in}
+
+\title{ENGG1003 - Lab Week 7}
+\author{Brenton Schulz}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This lab covers Python functions and a prime number generating algorithm. The intention is that it is completed during your Zoom lab and while waiting to have your assignment graded.
+
+\section{Tasks}
+
+\begin{task}{Basic Functions}{}
+Write three separate Python functions which perform as follows:
+\\~
+\begin{itemize}
+\item Function 1 takes no argument and always returns the value \texttt{42}
+\item Function 2 takes a single, \texttt{x} argument and returns its square, \texttt{x**2}
+\item Function 3 takes two arguments, \texttt{x} and \texttt{y} and returns their product \texttt{x*y}
+\end{itemize}
+~\\
+Write these functions in the same script and include ``test code'' below them which calls the functions with synthetic test data (ie: any numbers for which you already know the answer) and prints the results.
+\\~\\
+You will need to create your own names for the functions. This exercise is purely intended as practice implementing correct function \texttt{def} syntax so the exact names are not important. Choose \textit{anything} which gets the job done without error or ambiguity.\end{task}
+
+\begin{task}{Intermediate Functions}{}
+Modify your Assignment 1 code so that the distance calculation (either the equirectangular approximation or haversine formula) is implemented in a function.
+\\~\\
+Test if your function is correct with synthetic data and compare your result to that of an online calculator, eg: \url{https://www.nhc.noaa.gov/gccalc.shtml}
+\end{task}
+
+\pagebreak
+\begin{task}{Prime Number Generation: Sieve of Eratosthenes}{}
+
+\textit{This task is intended as an algorithmically complex task. Start by reading the task then completing an example \textbf{by hand} to get a ``feel'' for the algorithm.}
+\\~\\
+The \textit{Sieve of Eratosthenes} is an algorithm for generating prime numbers. The method is attributed to the ancient Greek scholar Eratosthenes of Cyrene (276-194 BC).
+\\~\\
+If implemented by hand, the algorithm requires the following steps:
+
+\begin{enumerate}
+\item Write a list of integers from 2 to some ``large'' number, $N$
+\item Observe that 2 is prime and that any multiple of 2 would \textit{not} be prime
+\item Moving down the list, cross out every multiple of 2
+\item Choosing the next highest number which is not crossed out, 3, move down the list and cross out every multiple of 3
+\item Choosing the next highest number which is not crossed out, 5, move down the list and cross out every multiple of 5
+\item Repeat the pattern until you no longer cross out any values
+\item All numbers which were not crossed out are prime
+\end{enumerate}
+~\\
+\textbf{Example:}
+\\~\\
+Listing integers from 2 to 16:\\
+\texttt{2 3 4 5 6 7 8 9 10 11 12 13 14 15 16}
+\\~\\
+Crossing out every multiple of 2:\\
+\texttt{2 3 \st{4} 5 \st{6} 7 \st{8} 9 \st{10} 11 \st{12} 13 \st{14} 15 \st{16}}
+\\~\\
+Crossing out every multiple of 3:\\
+\texttt{2 3 \st{4} 5 \st{6} 7 \st{8} \st{9} \st{10} 11 \st{12} 13 \st{14} \st{15} \st{16}}
+\\~\\
+Crossing out every multiple of 5 (ok, they're all crossed out by now already so we can stop):\\
+\texttt{2 3 \st{4} 5 \st{6} 7 \st{8} \st{9} \st{10} 11 \st{12} 13 \st{14} \st{15} \st{16}}
+\\~\\
+All the numbers left over are prime:\\
+\texttt{2 3 5 7 11 13}
+\\~\\
+\textbf{Task:} Write a Python script which uses this method to find all prime numbers strictly less than some number $N$. Declare $N$ as a variable near the start of your script, debugging with a small value (eg: 16) then choosing a large value (eg: 1 million) for further testing.
+\\~\\
+Since we need to remember a ``long'' list of numbers (and whether or not they are ``crossed out'') this is a perfect application for an array.
+\\~\\
+To complete this task, declare an array full of ones with \texttt{np.ones()}. This function behaves identically to \texttt{np.zeros()} except it fills the array with 1's instead of 0's.
+\\~\\
+The array should be initialised to all 1's to indicate that, at the start of the algorithm, nothing has been crossed out. As elements are ``crossed out'' they should be set to zero.
+\\~\\
+The list of indices will form the list of integers. The array elements (the numbers stored at each index) indicate whether that index has been "crossed out" or not.
+\\~\\
+The array includes indices 0 and 1 which are integers not considered by the original algorithm. Your code may either ignore them, force the array elements to zero (0 and 1 are \textit{not} prime) or treat them as special cases when printing the result (ie: have an explicit \texttt{if index == 0 or index == 1:} statement).
+\\~\\
+Your program should implement the following pseudocode:
+\begin{lstlisting}[style=pseudo]
+BEGIN
+	N = 16
+	numbers[] is an array with every element initialised to 1
+	
+	FOR index = 2, 3, 4, ..., N
+		IF numbers[index] is 1
+			FOR j = 2*index, 3*index, 4*index, ... N
+				numbers[j] = 0
+			ENDFOR
+		ENDIF
+	ENDFOR
+	Print every index for which numbers[index] is 1
+END
+\end{lstlisting}
+
+Note the complex flow control structure: there is a \textit{nested} \texttt{for} loop where the inner loop's execution is conditional (ie: inside an \texttt{if} statement).
+\\~\\
+Also observe that the inner \texttt{for} loop loops over \texttt{n*index}. Carefully consider how this can be achieved with the \texttt{range()} function (or, indeed, if it is even possible). There are many ways to implement this loop but they are all non-trivial and require some thought.
+\\~\\
+\textbf{Extension 1:} Declare the \texttt{numbers} array of type \texttt{numpy.byte} to minimise RAM usage. This uses an eighth of the RAM of the \texttt{np.float64} default.
+\\~\\
+\textbf{Extension 2:} The \underline{\href{https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes}{Wikipedia}} article covering the Sieve of Eratosthenes describes several optimisations. Implement the one which only crosses out \texttt{index} values starting at \texttt{index**2} (instead of \texttt{2*index}) and the algorithm exit condition of not attempting to cross out values larger than $\sqrt{N}$. How much faster does this make the code execute?
+\end{task}
+
+\end{document}

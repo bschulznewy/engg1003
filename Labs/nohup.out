@@ -1,0 +1,4 @@
+[GFX1-]: glxtest: libEGL initialize failed
+[GFX1-]: glxtest: X error, error_code=2, request_code=151, minor_code=3
+[GFX1-]: glxtest: process failed (exited with status 1)
+ICE default IO error handler doing an exit(), pid = 38768, errno = 11
