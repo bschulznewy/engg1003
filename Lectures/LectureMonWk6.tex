@@ -1,0 +1,627 @@
+\documentclass[english,14pt]{beamer}
+\usetheme{EastLansing}
+\usecolortheme{spruce}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{textcomp}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
+
+% https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+%% https://stackoverflow.com/questions/1435837/how-to-remove-footers-of-latex-beamer-templates
+%%gets rid of bottom navigation bars
+%\setbeamertemplate{footline}[page number]
+%
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\newcommand\red[1]{{\color{red} #1}}
+\newcommand\green[1]{{\color{green} #1}}
+\newcommand\blue[1]{{\color{blue} #1}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Monday Week 6}
+\subtitle{Interpolation, Assignment 1 and Mid-term quiz}
+\author{Steve Weller}
+\institute{University of Newcastle}
+%\date{\today}
+\date{29 March 2021}
+
+% following is a bit of a hack, but forces page numbers (technically: frame numbers) to run 1,2,3,... 
+% with titlepage counting as frame 1
+
+\addtocounter{framenumber}{1}
+\titlepage
+
+\begin{document}
+
+\begin{flushleft}
+{\scriptsize Last compiled:~\DTMnow}
+\vspace*{-5mm}
+\end{flushleft}
+\framebreak
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Lecture overview}
+\begin{enumerate}
+	\item Interpolation
+	\item[]
+	
+	\item Assignment 1
+	
+	\item[]
+	
+	\item Mid-term quiz
+
+\end{enumerate}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{The story so far}
+\vspace*{-5mm}
+\begin{itemize}
+	\item variables and data types
+	\item arrays (using \texttt{numpy})
+	\item plotting (using \texttt{matplotlib})
+	\item flow control
+	\begin{itemize}
+		\item \texttt{if}
+		\item \texttt{while}
+		\item \texttt{for}
+	\end{itemize}
+	\item functions
+\end{itemize}
+\vspace*{3mm}
+Most of ENGG1003 from here uses these elements of Python to solve Engineering problems
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$1)$ Interpolation}
+
+Two common forms of \red{\emph{curve-fitting}} in Engineering applications:
+
+\begin{enumerate}
+	\item \red{\emph{interpolation}}
+	\begin{itemize}
+		\item today's lecture
+	\end{itemize}
+	\item[]
+	\item \red{\emph{regression}}
+	\begin{itemize}
+		\item considered in detail later in ENGG1003
+	\end{itemize}
+\end{enumerate}
+	
+\begin{itemize}
+	\item we now demonstrate both curve-fitting methods applied to the same dataset
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Curve-fitting dataset}
+
+\texttt{Week6Monday.py}
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/Week6MonDataset}
+\end{figure}
+\vspace*{-5mm}
+\begin{itemize}
+	\item 11 pairs of data points $(t_i,y_i), i = 0,1,2,\ldots,10$
+	\item[] {\small $(0,51.29), (10,65.24), (20,124.89), \ldots,(100,361.32)$}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Interpolation}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/Week6MonLinearInterp}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Regression}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/Week6MonLinearRegression}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Interpolation vs.\ regression}
+
+\begin{itemize}
+	\item \textbf{interpolation:} joining the dots
+	\begin{itemize}
+		\item obtain value of $y$ at some intermediate point
+	\end{itemize}
+	\item[]
+	\item \textbf{regression:} fitting a straight line
+	\begin{itemize}
+		\item when there's ``too much data'', simplify
+		\item here, simplifying to a straight line
+		\item we return to choosing ``best'' straight line later in ENGG1003
+		\item no more regression in this lecture
+%		\item obtain a ``functional form'' eg: identify a model, F=kx for Hookes' law
+	\end{itemize}
+	\item[]
+	\item both interpolation \& regression involve creating a function \blue{(blue line)} from data \red{(red dots)}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Functions}
+
+\begin{itemize}
+	\item in maths, you've seen functions written as follows:
+	\[
+		y = f(t)
+	\]
+	\item[]
+	\item function $f$, takes \emph{argument} $t$ and returns a \emph{value} which is assigned to $y$
+	\item []
+	\item \ldots and last week we saw Python uses the same terminology with functions
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{The interpolation problem}
+
+\vspace*{-5mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{figures/InterpMeaning}
+\end{figure}
+\vspace*{-5mm}
+\begin{itemize}
+	\item[] \textbf{Given:} data points $(t_0,y(t_0))$ \& $(t_1,y(t_1))$ and $t_\star$
+	\item[] \textbf{Calculate:} interpolated value $\hat{y}(t_\star)$
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Linear interpolation}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{figures/LinInterpMeaning}
+\end{figure}
+\vspace*{-5mm}
+\begin{itemize}
+	\item interpolated value $\hat{y}(t_\star)$ lies on straight line connecting $(t_0,y(t_0))$ \& $(t_1,y(t_1))$
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Linear interpolation using \texttt{interp1d}}
+
+\begin{itemize}
+	\item \texttt{interp1d} function from \texttt{scipy.interpolate}
+	\begin{itemize}
+		\item \texttt{pip install scipy} at terminal before using \texttt{scipy} for the first time
+	\end{itemize}
+	\item[]
+	\item \texttt{t} and \texttt{y} are arrays of values used to approximate some function: $y = f(t)$
+\end{itemize}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\large]
+f = interp1d(t, y)
+\end{lstlisting}	
+\begin{itemize}
+	\item call to \texttt{interp1d} returns a function
+	\begin{itemize}
+		\item first time we've seen a \emph{function} returned by a function
+	\end{itemize}
+	\item live demo
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Linear interpolation in Python}
+
+\texttt{Week6MonLinear.py}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import interp1d
+
+# seed random number generator to reproduce lecture results
+np.random.seed(27101967)
+
+N = 11
+t = np.linspace(0,100,N)            # 0,10,20,...,100
+tnew = np.linspace(0,100,100*N)     # 0,0.1,0.2,...,100
+n = np.random.uniform(-25,25,N)     # noise on linear function
+
+m = 3                               # gradient
+b = 50                              # intercept
+y = m*t + b + n                # dataset is straight line + noise
+\end{lstlisting}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Linear interpolation in Python (ctd.)}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# INTERPOLATION
+f = interp1d(t, y)
+
+# PLOT RESULTS
+plt.plot(t, y, 'ro')
+plt.xlabel('t')
+plt.ylabel('y(t)')
+plt.plot(tnew, f(tnew), 'b')
+plt.title('Linear interpolation')
+plt.show()
+\end{lstlisting}
+
+\begin{itemize}
+	\item \textbf{line~2:} create function \texttt{f} to interpolate data in arrays \texttt{t} and \texttt{y}
+	\item \textbf{line~8:} use function \texttt{f} using ``high resolution'' time data in array \texttt{tnew}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Linear interpolation}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/Week6MonLinearInterp}
+\end{figure}
+\vspace*{-5mm}
+\begin{itemize}
+	\item ``stitches together'' straight line segments
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Beyond linear interpolation: Cubic splines}
+
+\begin{itemize}
+	\item[] \textbf{Problem:} slopes of adjacent \blue{straight lines} change abruptly at \red{data points}
+	\item[]
+	\item \emph{could} solve by stitching together quadratic polynomials (parabolas) between consecutive point pairs
+	\begin{itemize}
+		\item adjacent parabolas pass through data points
+		\item \emph{and also have slopes that match at data points}
+	\end{itemize}
+	\item[]
+	\item very common to use degree-$3$ polynomials (cubics) instead of degree-$2$ parabolas
+	\begin{itemize}
+		\item even smoother fit to data
+		\item \red{\emph{cubic splines}} very popular in computer graphics
+	\end{itemize}
+	
+\end{itemize}
+
+%The problem with this approach is that the slopes of adjacent lines change abruptly at each data-point –called as C1discontinuity.
+%•This can be resolved by stitching piecewise quadratic polynomials between consecutive point pairs and requiring that
+%Adjacent polynomials actually pass through the point (interpolatorycondition)
+%Adjacent polynomials have the same slope at that point (C1continuity condition)
+%
+%We could go one step further and require that
+%Adjacent polynomials have the same second derivative at that point (C2continuity condition)
+%•This requires that the polynomials be piecewise cubic(degree 3) at least.
+%•This type of interpolation is called cubic-splineinterpolationand is very popular in graphics and image processing.
+%•The data-points (where the continuity conditions) are imposed are called as knotsor control points.
+%•A cubic splineis a piecewise polynomial that is twice continuously differentiable (including at the knots).
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Cubic spline in Python code}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# INTERPOLATION
+f3 = interp1d(t, y, 'cubic')
+
+# PLOT RESULTS
+plt.plot(t, y, 'ro')
+plt.xlabel('t')
+plt.ylabel('y(t)')
+plt.plot(tnew, f3(tnew), 'b')
+plt.title('Cubic spline interpolation')
+plt.show()
+\end{lstlisting}
+
+Linear interpolation:
+\begin{lstlisting}[style=CStyle,basicstyle=\small]
+f = interp1d(t, y)
+\end{lstlisting}
+
+Cubic spline interpolation:
+\begin{lstlisting}[style=CStyle,basicstyle=\small]
+f3 = interp1d(t, y, 'cubic')
+\end{lstlisting}
+
+\begin{itemize}
+	\item Live demo of \texttt{Week6MonCubic.py}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Cubic spline interpolation}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/Week6MonCubicSpline}
+\end{figure}
+\vspace*{-5mm}
+\begin{itemize}
+	\item ``stitches together'' \emph{cubic} polynomials
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$2)$ Assignment 1}
+
+\begin{itemize}
+	\item released today, Monday 29 March 2021
+	\item[]
+	\item upload Python file to BB no later than \red{9:00~am, Monday 19 April}
+	\item[]
+	\item counts for $20$\% of course grade
+	\item[]
+	\item each student will be assessed by demonstrator in week 7 face-face computer lab (after recess)
+
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$2)$ Assignment 1}
+
+\begin{itemize}
+	\item assignment topic: analysis of GPS data
+	\item[]
+	\item in more detail:
+	\begin{itemize}
+		\item GPS data collected during a mountain bike ride
+		\item GPS track log is presented in a \texttt{csv} file containing timestamps, latitude, longitude, and elevation
+columns recorded at 1 second intervals
+		\item project asks you to analyse GPS data, eg: fitness tracker
+		\item use interpolation where GPS signal was lost
+	\end{itemize}
+	\item[]
+	\item computer labs this week:
+	\begin{itemize}
+		\item there is no week 6 lab sheet
+		\item get started on assignment in place of lab sheet
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$3)$ Mid-term quiz}
+
+\begin{itemize}
+	\item Thursday 1 April, 4--5~pm
+	\item[]
+	\begin{itemize}
+		\item during scheduled lecture time
+		\item mid-term quiz instead of lecture this week so\ldots
+		\item \textbf{NO Zoom or YouTube livestream on 1 April}
+	\end{itemize}
+	\item[]
+	\item 50-minute quiz
+	\item[]
+	\item open-book
+	\item[]
+	\item quiz will appear on BB at 4:05~pm
+	\begin{itemize}
+		\item[] \ldots and will disappear at 4:55~pm
+	\end{itemize}
+	\item[]
+	\item counts for $15$\% of course grade
+
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{What to expect, and how to prepare}
+
+\begin{itemize}
+	\item the quiz will ask you to write Python code to:
+	\begin{itemize}
+		\item load a \texttt{csv} file
+		\item perform some calculations on a specified column of the file ie: array processing
+		\item[] (each student gets assigned a unique column in the file)
+	\end{itemize}
+	\item once your program is complete, you do two things:
+	\begin{enumerate}
+		\item enter the results of your program into BB
+		\item upload your Python code to BB
+	\end{enumerate}
+	\item[]
+	\item \textbf{there is a practice quiz NOW on BB}
+	\begin{itemize}
+		\item you can practice as many times as you like!
+	\end{itemize}
+	\item live demo of how the mid-term quiz will run
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Lecture summary}
+\begin{itemize}
+	\item Interpolation
+	\begin{itemize}
+		\item linear interpolation
+		\begin{itemize}
+			\item straight line ``join the dots''
+		\end{itemize}
+		\item cubic spline interpolation
+		\begin{itemize}
+			\item smoothly connects data points
+		\end{itemize}
+	\end{itemize}
+
+	\item[]
+	
+	\item Assignment 1
+	\begin{itemize}
+		\item released today
+		\item submissions due on BB by \red{9:00~am, Monday 19 April}
+		\item worth 20\%
+	\end{itemize}
+
+	\item[]
+	
+	\item Mid-term quiz
+		\begin{itemize}
+			\item \textbf{there is a practice quiz NOW on BB}
+			\item done on BB at \red{4:00~pm, Thursday 1 April}
+			\item worth 15\%
+		\end{itemize}
+		
+\end{itemize}
+\end{frame}
+
+\end{document}
