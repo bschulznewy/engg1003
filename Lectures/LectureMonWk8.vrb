@@ -1,0 +1,22 @@
+
+\frametitle{Lecture summary}
+\begin{itemize}
+	\item Solving nonlinear algebraic equations
+
+	\item[]
+	
+	\item Bisection method
+
+	\item[]
+	
+	\item Secant method
+	\begin{itemize}
+		\item Newton--Raphson method
+	\end{itemize}
+	
+	\item[]
+	
+	\item Computing integrals
+		
+\end{itemize}
+
