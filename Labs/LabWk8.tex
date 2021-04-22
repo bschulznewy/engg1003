@@ -15,24 +15,40 @@
 \begin{document}
 \maketitle
 
-\begin{task}{}{}
+\begin{task}{Indexing and Slicing 2D Arrays}{}
+Similarly to the ``plus symbol'' example in the Week 7 Thursday lecture (slides 3-7), create a 10x10 2D array of 1s and, using array indexing, draw a 1-pixel black square along the border (edge).
+\end{task}
+
+\begin{task}{Indexing 2D Arrays}{}
+
+Using four \texttt{for} or \texttt{while} loops, draw a 1-pixel black square of side length \texttt{N}, with upper left corner at row \texttt{r} and column \texttt{c}, inside an \texttt{M}x\texttt{M} array. Note that \texttt{r=0} and \texttt{c=0} indexes the top left corner. Initialise \texttt{N}, \texttt{r}, \texttt{c}, and \texttt{M} near the start of your Python script. Confirm your method works with several different test values. 
+	\begin{itemize}
+		\item Extension: Write a function which takes \texttt{N}, \texttt{r}, \texttt{c}, and \texttt{M} as arguments and returns the array above.
+	\end{itemize}
 
 \end{task}
 
-\begin{task}{Creating 2D and 3D Arrays}{}
-
-\end{task}
-
-\begin{task}{Indexing 2D and 3D Arrays}{}
-
-\end{task}
-
-\begin{task}{Slicing 2D and 3D Arrays}{}
-
-\end{task}
-
+\pagebreak
 \begin{task}{Mapping Cartesian Coordinates to 2D Array Indices}{}
-
+Many problems require an image which covers part of an $x$-$y$ plane to be ``projected'' (drawn) onto it. To do this a ``mapping'' is required which converts a Cartesian point, ($x$,$y$), to an array row, \texttt{r}, and column, \texttt{c} of a matrix with \texttt{M} rows and \texttt{N} columns.
+\\~\\
+Consider the sketch in Figure \ref{fig:mapping}. It shows how a column index would map from a minimum value, \texttt{MIN}, at column zero, to a maximum value, \texttt{MAX}, at column \texttt{N}. You can think of the \texttt{x}-\texttt{MIN} and \texttt{-MAX} values as the $x$ coordinate of the left and right edges of the image, respectively.
+\\~\\
+\textbf{NB:} The sketch shows a ``smooth'' line but in reality array indices are only integers; the real function ends up being a staircase.
+\\~\\
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{mapping.png}
+\end{center}
+\caption{A linear mapping from an $x$ or $y$ coordinate to an array row or column.}\label{fig:mapping}
+\end{figure}
+\textbf{Task:} Applying the 2-point formula:
+\begin{equation}
+y = \frac{y_2 - y_1}{x_2 - x_1}(x-x_1)+y_1
+\end{equation}
+write an equation which converts a Cartesian $x$ coordinate to a 2D array column index. To do this, take the point ($x_1,y_1$) to be the Figure \ref{fig:mapping} point ($0,\texttt{MIN}$) and ($x_2,y_2$) to be the point (\texttt{MAX}, \texttt{N}), and substitute them into the 2-point formula.
+\\~\\
+Repeat this method to calculate a row number given the top and bottom $y$-coordinate extremes of an image. Create your own sketch then substitude into the 2-point formula. Note that the top (ie: maximum value of $y$) now maps to row zero and the bottom (minimum value of $y$) to row \texttt{M}.
 \end{task}
 
 \begin{task}{Barnsley Fern}{}
@@ -51,12 +67,29 @@ The Barnsley fern is from a class of fractals known as iterated function systems
 
 The rules for the Barnsley fern are as follows:
 \begin{itemize}
-\item There are four functions which generate a new point:
+\item There are four functions which generate a new point, ($x_{n+1}, y{n+1}$), from an old point ($x_n,y_x$):
 	\begin{itemize}
-		\item 
-		\item 
-		\item
-		\item
+		\item $f_1:$
+		 \begin{flalign*}
+x_{n+1} &= 0 &&\\
+y_{n+1} &= 0.16y_n &&
+		\end{flalign*}
+ 
+		\item $f_2:$
+		 \begin{flalign*}
+x_{n+1} &= 0.85 x_n + 0.04y_n &&\\
+y_{n+1} &= -0.04x_n + 0.85y_n + 1.6 &&
+		\end{flalign*}
+		\item $f_3:$
+		 \begin{flalign*}
+x_{n+1} &= 0.2 x_n - 0.26y_n &&\\
+y_{n+1} &= 0.23x_n + 0.22 y_n + 1.6 &&
+		\end{flalign*}
+		\item $f_4:$
+		 \begin{flalign*}
+x_{n+1} &= -0.15 x_n + 0.28 y_n &&\\
+y_{n+1} &= 0.26 x_n + 0.24y_n + 0.44 &&
+		\end{flalign*}
 	\end{itemize}
 \item Each iteration, \textit{one} of the four functions is chosen at random with a probability, $p$, of:
 	\begin{itemize}
@@ -67,6 +100,26 @@ The rules for the Barnsley fern are as follows:
 	\end{itemize}
 \end{itemize}
 
+\textbf{Task:} Open the Barnsley Fern Wikipedia page: \url{https://en.wikipedia.org/wiki/Barnsley_fern}
+\\~\\
+Navigate to the ``Syntax examples'' section, copy the Python script (the first one) and run it (after a \texttt{pip install turtle}). Note that execution is \textit{very} slow, about 10 points per second.
+\\~\\
+Using your results from the previous task, modify this code to draw directly to an \texttt{MxN} array instead of plotting with the \texttt{turtle} library.
+\\~\\
+To do this, use the following values for the edges of the image:
+\\
+\begin{itemize}
+\item Left edge: $x=-2.5$
+\item Right edge: $x=2.7$
+\item Top edge: $y=10.0$
+\item Bottom edge: $y=0$
+\end{itemize}
+~\\
+Start with a small image (say 200x200 pixels) and a small iteration count (say, 10 000) so that debugging can be performed in a reasonable time.
+\\~\\
+Initialise the drawing to all zeros and assign a value of 1 to every pixel the algorithm ``visits''.
+\\~\\
+\textbf{Extension:} Instead of simply assigning 1 to each visited pixel \textit{increment} the value by 1. When plotting use a plot command which specifies the minimum and maximum values so that the brightness and contrast are scaled correctly. eg, if the image is called \texttt{im\_gray}:\\ \texttt{plt.imshow(im\_gray,cmap='gray', vmin = 0, vmax = im\_gray.max())}
 \end{task}
 
 \end{document}
