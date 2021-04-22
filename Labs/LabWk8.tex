@@ -15,99 +15,58 @@
 \begin{document}
 \maketitle
 
-\section{Introduction}
+\begin{task}{}{}
 
-This lab covers the three topics which will be assessed during the Week 9 assessed lab. It includes:
+\end{task}
 
+\begin{task}{Creating 2D and 3D Arrays}{}
+
+\end{task}
+
+\begin{task}{Indexing 2D and 3D Arrays}{}
+
+\end{task}
+
+\begin{task}{Slicing 2D and 3D Arrays}{}
+
+\end{task}
+
+\begin{task}{Mapping Cartesian Coordinates to 2D Array Indices}{}
+
+\end{task}
+
+\begin{task}{Barnsley Fern}{}
+
+In this task you will modify an existing Python program to generate an image file of the \textit{Barnsley fern} \textit{fractal}.
+\\~\\
+A fractal is a mathematically generated image which exhibits ``self-similar'' geometry. As the image is zoomed in the the same patterns are seen repeated and, in theory, the image can be zoomed in forever and still show the same level of detail as it did when zoomed out.
+\\~\\
+The Barnsley fern is from a class of fractals known as iterated function systems (IFS). The general pattern for generating fractals of this type is to:
+\begin{enumerate}
+\item Pick (or be given) a point $x_0,y_0$
+\item Generate a new point, $x_1,y_1$, by applying some mathematical rules
+\item Draw a dot on an $x$-$y$ plane where the new point lies
+\item Repeat millions (or billions) of times until an image is drawn
+\end{enumerate}
+
+The rules for the Barnsley fern are as follows:
 \begin{itemize}
-	\item Functions which accept pointer arguments
-	\item Multi-Dimensional arrays
-	\item File I/O
+\item There are four functions which generate a new point:
+	\begin{itemize}
+		\item 
+		\item 
+		\item
+		\item
+	\end{itemize}
+\item Each iteration, \textit{one} of the four functions is chosen at random with a probability, $p$, of:
+	\begin{itemize}
+		\item $f_1$: $p=0.01$
+		\item $f_2$: $p=0.85$
+		\item $f_3$: $p=0.07$
+		\item $f_4$: $p=0.07$
+	\end{itemize}
 \end{itemize}
 
-\section{Pointers}
-
-\begin{task}{}{}
-(Basic ``toy'' example)
-\\~\\
-Write a C function which takes a single \texttt{int *} argument and zeros it. The function prototype is:
-\begin{lstlisting}[style=Ctable]
-void zeroInt(int *x);
-\end{lstlisting}
-
-Write your own ``test code'' to verify the function's operation.
-\end{task}
-
-\begin{task}{}{}
-Write a C function which accepts two arguments of type \texttt{int *} and swaps them. The function prototype is:
-
-\begin{lstlisting}[style=Ctable]
-void swap(int *a, int *b);
-\end{lstlisting}
-
-Write your own ``test code'' to verify the function's operation.
-\end{task}
-
-\begin{task}{}{}
-Write a C function which accepts three \texttt{int *} arguments, assigns the mean of the three numbers to the first argument and zeros the others. The function prototype is:
-
-\begin{lstlisting}[style=Ctable]
-void mean(int *a, int *b, int *c);
-\end{lstlisting}
-
-Write your own ``test code'' to verify the function's operation.
-\end{task}
-
-\pagebreak
-
-\section{Multi-Dimensional Arrays}
-
-\begin{task}{}{}
-Using the template below, write a C program which calculates the mean of the initialised 2D array and prints the result to the console.
-
-\begin{lstlisting}[style=Ctable]
-#include <stdio.h>
-
-main() {
-	float myArray[3][3] = { { 0.1, 0.2, 0.3 }, { 1.1, 1.2, 1.3 }, { 2.1, 2.2, 2.3 } };
-}
-\end{lstlisting}
-\end{task}
-
-
-\section{File I/O}
-
-\begin{task}{}{}
-Write a C program which initialises a 2D array with data in a file. The file's contents is:
-
-\begin{lstlisting}[style=Ctable]
-12 31 35
-23 5 43
-434 63 64
-\end{lstlisting}
-
-Create a file and copy the contents above into it. The filename can be anything of your choosing.\\~
-
-Use array indexing in the format: \texttt{arrayDame[row][column]}.\\~
-
-After reading the data, find the largest number in the 2D array and print its value and indices (ie: location or address within the array).
-\\~\\
-You may use the following template:
-
-\begin{lstlisting}[style=Ctable]
-#include <stdio.h>
-
-main() {
-	int arrayData[3][3];
-	FILE *input;
-	
-	// Open the file
-	
-	// Read the data from the file into arrayData
-	
-	// Find the largest value, print it, and it's indices
-}
-\end{lstlisting}
 \end{task}
 
 \end{document}
