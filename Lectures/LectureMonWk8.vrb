@@ -1,22 +1,18 @@
 
-\frametitle{Lecture summary}
+\frametitle{More information}
 \begin{itemize}
-	\item Solving nonlinear algebraic equations
-
-	\item[]
-	
-	\item Bisection method
-
-	\item[]
-	
-	\item Secant method
+	\item Newton--Raphson method in \red{\S7.2} textbook
 	\begin{itemize}
-		\item Newton--Raphson method
+		\item known as Newton's method
+		\item needs differential calculus MATH1110
 	\end{itemize}
+	\item[]
+	
+	\item \red{\S7.3} and \red{\S7.4 }text for ``optimised'' versions of bisection and secant methods, which minimise number of function calls
 
 	\item[]
 	
-	\item Extensions
+	\item extension: proof of measuring cup volume \verb+https://www.sjsu.edu/me/docs/hsu-Chapter\%2010\%20Numerical\%20solution\%20methods.pdf+
 	
 \end{itemize}
 

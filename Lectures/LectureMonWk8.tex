@@ -101,13 +101,13 @@
 \begin{enumerate}
 	\item Solving nonlinear algebraic equations \red{pp.~175-176}
 	\begin{itemize}
-		\item generic
+		\item general setting
 		\item two problems: flight time, fluid level
 	\end{itemize}
 	
 	\item[]
 	
-	\item Bisection method \red{\S7.7}
+	\item Bisection method \red{\S7.4}
 	
 	\item[]
 	
@@ -120,10 +120,10 @@
 	
 	\item Extensions
 	\begin{itemize}
-		\item bisection vs.~secant re-write as functions
+		\item bisection \& secant methods: re-write as functions
 		\item timing code in Python
-		\item initialisation \& speed comparisons
-		\item failure to converge
+		\item speed comparisons
+%		\item initialisation \& failure to converge
 	\end{itemize}
 	
 \end{enumerate}
@@ -137,9 +137,49 @@
 \frametitle{$1)$ Solving nonlinear algebraic equations}
 
 \begin{itemize}
-	\item find $x$ satisfying $f(x) = 0$
-	\item aka root-finding
+	\item \red{\emph{linear}} equations: $ax + b = 0$
+	\begin{itemize}
+		\item solution $x = -b/a$
+	\end{itemize}
+	\item[]
+	\item \red{\emph{nonlinear}} equations
+	\begin{itemize}
+		\item quadratic $ax^2 + bx+c = 0$: solution $x = \frac{-b \pm\sqrt{b^2-4ac}}{2a}$
+		\item cubic and quartic (orders $3$ and $4$): exact solutions exist but are \emph{very} complicated
+		\item quintic (order $5$) equations: exact solutions \emph{do not exist} in general, proving that needs \emph{serious} mathematics
+	\end{itemize}
+	\item[]
+	\item most equations in engineering applications have no exact ``pen and paper'' solutions!
+	
+	
 \end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Numerical solutions to equations}
+
+\begin{flushright}
+\small \emph{``An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem''\\ ---John Tukey}
+\end{flushright}
+\vspace*{-3mm}
+\textbf{General problem:} find $x$ satisfying
+	\[
+		f(x) = 0
+	\]
+	where $f(x)$ is a formula involving $x$
+	
+	\textbf{Example}
+	\[
+		f(x) = e^{-x}\sin(x) - \cos(x)
+	\]
+	has solution $x = 7.85359326$ because
+	\[
+	e^{-7.85359326}\sin(7.85359326) - \cos(7.85359326) = 0.00
+	\]
 
 \end{frame}
 
@@ -239,6 +279,7 @@ image of measuring cup
 
 \begin{itemize}
 	\item bisection method: Python code
+	\item live demo
 \end{itemize}
 
 \end{frame}
@@ -299,6 +340,7 @@ image of measuring cup
 
 \begin{itemize}
 	\item secant method: Python code
+	\item live demo
 \end{itemize}
 
 \end{frame}
@@ -319,7 +361,7 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Newton--Raphson method}
 
 \begin{itemize}
 	\item xxx
@@ -331,11 +373,11 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{$4)$ Computing integrals}
+\frametitle{$4)$ Extensions: re-write methods as functions}
 
 \begin{itemize}
-	\item xxx
-\end{itemize}
+	\item bisection re-write as function
+\end{itemize}		
 
 \end{frame}
 
@@ -346,10 +388,52 @@ image of measuring cup
 \frametitle{}
 
 \begin{itemize}
+	\item secant re-write as function
+\end{itemize}		
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Timing code in Python}
+
+\begin{itemize}
+	\item import time
+	\item \verb+tStart = time.perf_counter()+
+	\item (code)
+	\item \verb+tStop = time.perf_counter()+
+	\item elapsedTime = tStop-tStart
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Speed comparisons: bisection vs.~secant}
+
+\begin{itemize}
+	\item xxx
 	\item xxx
 \end{itemize}
 
 \end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{}
+%
+%\begin{itemize}
+%	\item initialisation
+%	\item failure to converge
+%\end{itemize}
+%
+%\end{frame}
 
 %==============================================================
 
@@ -373,6 +457,29 @@ image of measuring cup
 	\item[]
 	
 	\item Extensions
+	
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{More information}
+\begin{itemize}
+	\item Newton--Raphson method in \red{\S7.2} textbook
+	\begin{itemize}
+		\item known as Newton's method
+		\item needs differential calculus MATH1110
+	\end{itemize}
+	\item[]
+	
+	\item \red{\S7.3} and \red{\S7.4 }text for ``optimised'' versions of bisection and secant methods, which minimise number of function calls
+
+	\item[]
+	
+	\item extension: proof of measuring cup volume \verb+https://www.sjsu.edu/me/docs/hsu-Chapter\%2010\%20Numerical\%20solution\%20methods.pdf+
 	
 \end{itemize}
 
