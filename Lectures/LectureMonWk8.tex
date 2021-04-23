@@ -102,7 +102,7 @@
 	\item Solving nonlinear algebraic equations \red{pp.~175-176}
 	\begin{itemize}
 		\item generic
-		\item three problems: flight time, fluid level, resonant system
+		\item two problems: flight time, fluid level
 	\end{itemize}
 	
 	\item[]
@@ -126,10 +126,6 @@
 		\item failure to converge
 	\end{itemize}
 	
-%	\item[]
-%	
-%	\item Computing integrals \red{\S6}
-
 \end{enumerate}
 
 \end{frame}
@@ -141,7 +137,8 @@
 \frametitle{$1)$ Solving nonlinear algebraic equations}
 
 \begin{itemize}
-	\item xxx
+	\item find $x$ satisfying $f(x) = 0$
+	\item aka root-finding
 \end{itemize}
 
 \end{frame}
@@ -150,10 +147,50 @@
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Flight time}
 
 \begin{itemize}
-	\item xxx
+	\item one more time!
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Fluid level}
+
+image of measuring cup
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/cupDimensions}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Fluid level}
+
+% https://www.sjsu.edu/me/docs/hsu-Chapter%2010%20Numerical%20solution%20methods.pdf
+% Section 10.3.2
+
+\begin{itemize}
+	\item cup dimension figure
+	\item water in dam, coal in stockpile
+	\item volume $V$ (mL) depends on depth $L$ as follows, \emph{presented without proof:}
+	\[
+		V = 0.0268L^3 + 1.884L^2 + 44.15L
+	\]
+	\item Question: depth $L$ when cup holds $500$~mL of water?
+	\item solve $f(L) = 0$ where
+	\[
+		F(L) = 0.0268L^3 + 1.884L^2 + 44.15L - 500
+	\]
 \end{itemize}
 
 \end{frame}
@@ -332,11 +369,11 @@
 	\begin{itemize}
 		\item Newton--Raphson method
 	\end{itemize}
-	
+
 	\item[]
 	
-	\item Computing integrals
-		
+	\item Extensions
+	
 \end{itemize}
 
 \end{frame}
