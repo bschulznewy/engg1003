@@ -10,6 +10,7 @@
 \usepackage{algorithm2e}
 \usepackage{multicol}
 \usepackage{hyperref}
+\usepackage{textcomp}
 
 % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
 \usepackage{babel}
@@ -58,13 +59,13 @@
     showstringspaces=false,
     showtabs=false,                  
     tabsize=2,
-    language=C
+    language=Python
 }
 
 \lstdefinestyle{pseudo}{
         basicstyle=\ttfamily\footnotesize,
         keywordstyle=\color{lightBlue},
-        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT,CONDITIONS},
         morecomment=[l]{//},
         commentstyle=\color{mGreen}
 }
@@ -113,7 +114,7 @@
 	
 	\item Secant method \red{\S7.3}
 	\begin{itemize}
-		\item Newton--Raphson method
+		\item Newton's method
 	\end{itemize}
 	
 	\item[]
@@ -122,7 +123,7 @@
 	\begin{itemize}
 		\item bisection \& secant methods: re-write as functions
 		\item timing code in Python
-		\item speed comparisons
+		\item speed comparisons: bisection vs.~secant
 %		\item initialisation \& failure to converge
 	\end{itemize}
 	
@@ -163,7 +164,8 @@
 \frametitle{Numerical solutions to equations}
 
 \begin{flushright}
-\small \emph{``An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem''\\ ---John Tukey}
+%\small \emph{``An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem''\\ ---John Tukey}
+\small\emph{``Far better an approximate answer to the right question\ldots \\ than an exact answer to the wrong question''}\\---John Tukey
 \end{flushright}
 \vspace*{-3mm}
 \textbf{General problem:} find $x$ satisfying
@@ -178,7 +180,7 @@
 	\]
 	has solution $x = 7.85359326$ because
 	\[
-	e^{-7.85359326}\sin(7.85359326) - \cos(7.85359326) = 0.00
+	e^{-7.85359326}\sin(7.85359326) - \cos(7.85359326) = 0.000
 	\]
 
 \end{frame}
@@ -201,7 +203,8 @@
 
 \frametitle{Fluid level}
 
-image of measuring cup
+image of measuring cup \\
+Engineering applications: water in dam, coal in stockpile
 
 \begin{figure}[ht]
 	\centering
@@ -220,12 +223,37 @@ image of measuring cup
 % Section 10.3.2
 
 \begin{itemize}
-	\item cup dimension figure
-	\item water in dam, coal in stockpile
-	\item volume $V$ (mL) depends on depth $L$ as follows, \emph{presented without proof:}
+	\item volume $V$ (in millilitres, mL) depends on depth $L$ (in cm) as follows: %, \emph{presented without proof:}
 	\[
 		V = 0.0268L^3 + 1.884L^2 + 44.15L
 	\]
+	\item plot V vs L
+	\item link to proof: volumes of solids of revolution (needs calculus, MATH1110) \verb+https://www.sjsu.edu/me/docs/hsu-Chapter\%2010\%20Numerical\%20solution\%20methods.pdf+
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Fluid level}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/fluidVvsL}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Fluid level}
+
+\begin{itemize}
+
 	\item Question: depth $L$ when cup holds $500$~mL of water?
 	\item solve $f(L) = 0$ where
 	\[
@@ -251,11 +279,27 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Bisection method: pseudocode}
 
-\begin{itemize}
-	\item bisection method: key equations
-\end{itemize}
+\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\footnotesize]
+INPUT: function f
+       endpoint values xLO, xHI
+       tolerance TOL
+CONDITIONS: xLO < xHI
+       f(xLO)<0 and f(xHI)>0  or  f(xLO)>0 and f(xHI)<0
+       
+xMID = (xLO + xHI)/2
+WHILE |f(xMID)| > TOL
+	IF f(xMID) is same sign as f(xLO)
+		# case A
+		set xLO = xMID
+	ELSE
+		# case B
+		set xHI = xMID
+	ENDIF	
+	xMID = (xLO + xHI)/2
+END WHILE
+\end{lstlisting}
 
 \end{frame}
 
@@ -263,11 +307,34 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Bisection method: Python code}
+\vspace*{-4mm}
+{\small \texttt{bisection.py}}
+\vspace*{-2mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+import numpy as np
 
-\begin{itemize}
-	\item bisection method: pseudocode
-\end{itemize}
+def f(L):
+    return L**3 + 70.3*L**2 + 1647.39*L - 18656.72
+
+eps = 1e-6
+x_LO = 6
+x_HI = 10
+
+x_MID = (x_LO + x_HI)/2
+itCnt = 0
+while abs(f(x_MID)) > eps:
+    if f(x_MID)*f(x_LO) > 0:
+        x_LO = x_MID
+    else:
+        x_HI = x_MID
+    x_MID = (x_LO + x_HI)/2
+    itCnt += 1
+
+print('Solution: {}'.format(x_MID))
+print('Number of iterations: {}'.format(itCnt))
+print('Check: f({:.8f}) = {:.8f}'.format(x_MID,f(x_MID)))
+\end{lstlisting}
 
 \end{frame}
 
@@ -275,23 +342,12 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Bisection method: simulation results}
 
 \begin{itemize}
-	\item bisection method: Python code
+	\item code commentary
+	\item simulation results
 	\item live demo
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{}
-
-\begin{itemize}
-	\item bisection method: simulation results
 \end{itemize}
 
 \end{frame}
@@ -320,15 +376,47 @@ image of measuring cup
 
 \end{frame}
 
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{}
+%
+%\begin{itemize}
+%	\item secant method: pseudocode
+%\end{itemize}
+%
+%\end{frame}
+
 %==============================================================
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Secant method: Python code}
 
-\begin{itemize}
-	\item secant method: pseudocode
-\end{itemize}
+\texttt{secant.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+import numpy as np
+
+def f(L):
+    return L**3 + 70.3*L**2 + 1647.39*L - 18656.72
+
+eps = 1e-6
+x0 = 6
+x1 = 10
+itCnt = 0       # iteration counter
+while abs(f(x1)) > eps:
+    # line (=secant) through (x0,f(x)) and (x1,f(x1)) intersects
+    # horizontal axis at (x,0)
+    x = x1 - f(x1)*((x1 - x0)/(f(x1) - f(x0)))
+    x0 = x1
+    x1 = x
+    itCnt += 1
+
+print('Solution: {}'.format(x))
+print('Number of iterations: {}'.format(itCnt))
+print('Check: f({:.8f}) = {:.8f}'.format(x,f(x)))
+\end{lstlisting}
 
 \end{frame}
 
@@ -336,10 +424,11 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Secant method: simulation results}
 
 \begin{itemize}
-	\item secant method: Python code
+	\item code commentary
+	\item simulation results
 	\item live demo
 \end{itemize}
 
@@ -349,10 +438,14 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Newton's method}
 
 \begin{itemize}
-	\item secant method: simulation results
+	\item aka Newton--Raphson method
+	\item discussion of derivatives, and how they're needed in Newton's method
+	\item we won't consider Newton's method in this course, as can't assume knowledge of calculus
+	\item secant as approximation to Newton's method
+	\item Newton's method is \emph{really} popular
 \end{itemize}
 
 \end{frame}
@@ -361,10 +454,57 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{Newton--Raphson method}
+\frametitle{Newton's method}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/NewtonsMethod}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$4)$ Extensions}
+
+\texttt{bisection\_fn.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+def f(L):
+    return L**3 + 70.3*L**2 + 1647.39*L - 18656.72
+
+def my_bisection(f, x_LO, x_HI, tol):
+    x_MID = (x_LO + x_HI) / 2
+    itCnt = 0
+    while abs(f(x_MID)) > tol:
+        if f(x_MID) * f(x_LO) > 0:
+            x_LO = x_MID
+        else:
+            x_HI = x_MID
+        x_MID = (x_LO + x_HI) / 2
+        itCnt += 1
+    return x_MID, itCnt
+
+x, numIt = my_bisection(f, 6, 10, 1e-6)
+
+print('Solution: {}'.format(x))
+print('Number of iterations: {}'.format(numIt))
+print('Check: f({:.8f}) = {:.8f}'.format(x,f(x)))
+\end{lstlisting}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Bisection method as a function}
 
 \begin{itemize}
-	\item xxx
+	\item code commentary
+	\item simulation results
+	\item live demo
 \end{itemize}
 
 \end{frame}
@@ -373,11 +513,28 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{$4)$ Extensions: re-write methods as functions}
+\frametitle{Secant method as a function}
 
-\begin{itemize}
-	\item bisection re-write as function
-\end{itemize}		
+\texttt{secant\_fn.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+def f(L):
+    return L**3 + 70.3*L**2 + 1647.39*L - 18656.72
+
+def my_secant(f, x0, x1, tol):
+    itCnt = 0
+    while abs(f(x1)) > tol:
+        x = x1 - f(x1) * ((x1 - x0) / (f(x1) - f(x0)))
+        x0 = x1
+        x1 = x
+        itCnt += 1
+    return x1, itCnt
+
+x, numIt = my_secant(f, 6, 10, 1e-6)
+
+print('Solution: {}'.format(x))
+print('Number of iterations: {}'.format(numIt))
+print('Check: f({:.8f}) = {:.8f}'.format(x,f(x)))
+\end{lstlisting}
 
 \end{frame}
 
@@ -385,27 +542,44 @@ image of measuring cup
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Secant method as a function}
 
 \begin{itemize}
-	\item secant re-write as function
-\end{itemize}		
+	\item code commentary
+	\item simulation results
+	\item live demo
+\end{itemize}
 
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
+
+\begin{itemize}
+	\item often useful to measure time taken to perform calculations; easy in Python!
+	\item start by importing \texttt{time} module:
+\end{itemize}
 
 \frametitle{Timing code in Python}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+import time
+\end{lstlisting}
 
 \begin{itemize}
-	\item import time
-	\item \verb+tStart = time.perf_counter()+
-	\item (code)
-	\item \verb+tStop = time.perf_counter()+
-	\item elapsedTime = tStop-tStart
+	\item function \texttt{time.perf\_counter()} returns value of a clock
+	\begin{itemize}
+		\item \texttt{float} value (in seconds) 
+	\end{itemize}
+	\item elapsed time is \emph{difference} between two successive calls
 \end{itemize}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+tStart = time.perf_counter()
+xB, numItB = my_bisection(f, 6, 10, 1e-6)
+tStop = time.perf_counter()
+tBisect = tStop - tStart
+\end{lstlisting}
 
 \end{frame}
 
@@ -416,9 +590,14 @@ image of measuring cup
 \frametitle{Speed comparisons: bisection vs.~secant}
 
 \begin{itemize}
-	\item xxx
-	\item xxx
+	\item live demo \texttt{bisectionvssecant.py}
+%	\item LL text has optimised bisection and secant to minimise function calls (typically most time-consuming operation)
 \end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/BisectionSecantSpeed}
+\end{figure}
 
 \end{frame}
 
@@ -451,7 +630,7 @@ image of measuring cup
 	
 	\item Secant method
 	\begin{itemize}
-		\item Newton--Raphson method
+		\item Newton's method
 	\end{itemize}
 
 	\item[]
@@ -468,18 +647,20 @@ image of measuring cup
 
 \frametitle{More information}
 \begin{itemize}
-	\item Newton--Raphson method in \red{\S7.2} textbook
+	\item Newton's method in textbook \red{\S7.2}
 	\begin{itemize}
-		\item known as Newton's method
-		\item needs differential calculus MATH1110
+		\item needs \emph{differentiation} from calculus (MATH1110)
+		\item in particular: need expression for \emph{tangent lines} to function $f(x)$, written as $f'(x)$
 	\end{itemize}
-	\item[]
-	
-	\item \red{\S7.3} and \red{\S7.4 }text for ``optimised'' versions of bisection and secant methods, which minimise number of function calls
 
 	\item[]
 	
-	\item extension: proof of measuring cup volume \verb+https://www.sjsu.edu/me/docs/hsu-Chapter\%2010\%20Numerical\%20solution\%20methods.pdf+
+	\item ``optimised'' versions of bisection and secant methods in textbook \red{\S7.3} and \red{\S7.4}
+	\begin{itemize}
+		\item maximise speed of computation by minimising number of function evaluations $f(x)$
+	\end{itemize}
+	
+	\item[]
 	
 \end{itemize}
 

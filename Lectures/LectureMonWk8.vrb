@@ -1,18 +1,20 @@
 
 \frametitle{More information}
 \begin{itemize}
-	\item Newton--Raphson method in \red{\S7.2} textbook
+	\item Newton's method in textbook \red{\S7.2}
 	\begin{itemize}
-		\item known as Newton's method
-		\item needs differential calculus MATH1110
+		\item needs \emph{differentiation} from calculus (MATH1110)
+		\item in particular: need expression for \emph{tangent lines} to function $f(x)$, written as $f'(x)$
 	\end{itemize}
-	\item[]
-	
-	\item \red{\S7.3} and \red{\S7.4 }text for ``optimised'' versions of bisection and secant methods, which minimise number of function calls
 
 	\item[]
 	
-	\item extension: proof of measuring cup volume \verb+https://www.sjsu.edu/me/docs/hsu-Chapter\%2010\%20Numerical\%20solution\%20methods.pdf+
+	\item ``optimised'' versions of bisection and secant methods in textbook \red{\S7.3} and \red{\S7.4}
+	\begin{itemize}
+		\item maximise speed of computation by minimising number of function evaluations $f(x)$
+	\end{itemize}
+	
+	\item[]
 	
 \end{itemize}
 
