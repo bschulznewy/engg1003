@@ -15,22 +15,32 @@
 \begin{document}
 \maketitle
 
+TODO: Basic tasks from Monday's lecture, indexing/slicing to pull out data - Monday wk 7 slide 19; same array, pull out different row and/or col.
+
 \begin{task}{Indexing and Slicing 2D Arrays}{}
 Similarly to the ``plus symbol'' example in the Week 7 Thursday lecture (slides 3-7), create a 10x10 2D array of 1s and, using array indexing, draw a 1-pixel black square along the border (edge).
 \end{task}
 
-\begin{task}{Indexing 2D Arrays}{}
+\begin{task}{Drawing on 2D Arrays with Loops}{}
 
 Using four \texttt{for} or \texttt{while} loops, draw a 1-pixel black square of side length \texttt{N}, with upper left corner at row \texttt{r} and column \texttt{c}, inside an \texttt{M}x\texttt{M} array. Note that \texttt{r=0} and \texttt{c=0} indexes the top left corner. Initialise \texttt{N}, \texttt{r}, \texttt{c}, and \texttt{M} near the start of your Python script. Confirm your method works with several different test values. 
 	\begin{itemize}
 		\item Extension: Write a function which takes \texttt{N}, \texttt{r}, \texttt{c}, and \texttt{M} as arguments and returns the array above.
 	\end{itemize}
+TODO: Include an image
+\end{task}
 
+\begin{task}{Drawing on 2D Arrays with Slicing}{}
+Repeat Task 2 by using array indexing instead of loops. You will need four sets of indexing (one for each side of the square) to draw the whole square.
 \end{task}
 
 \pagebreak
 \begin{task}{Mapping Cartesian Coordinates to 2D Array Indices}{}
-Many problems require an image which covers part of an $x$-$y$ plane to be ``projected'' (drawn) onto it. To do this a ``mapping'' is required which converts a Cartesian point, ($x$,$y$), to an array row, \texttt{r}, and column, \texttt{c} of a matrix with \texttt{M} rows and \texttt{N} columns.
+TODO: Provide a motivator - specific example of robot in a room wanting to know what "cell" it is in within a 2D occupancy grid.
+
+TODO: Explicitly mention turning floating point results into integers with \texttt{int()} or \texttt{round()}.
+
+Any visualisation problem which produces an image requires $x$-$y$ coordinates to be ``projected'' (drawn) onto a 2D array. To do this a ``mapping'' is required which converts a Cartesian point, ($x$,$y$), to an array row, \texttt{r}, and column, \texttt{c} of a matrix with \texttt{M} rows and \texttt{N} columns.
 \\~\\
 Consider the sketch in Figure \ref{fig:mapping}. It shows how a column index would map from a minimum value, \texttt{MIN}, at column zero, to a maximum value, \texttt{MAX}, at column \texttt{N}. You can think of the \texttt{x}-\texttt{MIN} and \texttt{-MAX} values as the $x$ coordinate of the left and right edges of the image, respectively.
 \\~\\
