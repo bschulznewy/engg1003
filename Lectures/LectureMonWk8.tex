@@ -124,7 +124,6 @@
 		\item bisection \& secant methods: re-write as functions
 		\item timing code in Python
 		\item speed comparisons: bisection vs.~secant
-%		\item initialisation \& failure to converge
 	\end{itemize}
 	
 \end{enumerate}
@@ -164,7 +163,6 @@
 \frametitle{Numerical solutions to equations}
 
 \begin{flushright}
-%\small \emph{``An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem''\\ ---John Tukey}
 \small\emph{``Far better an approximate answer to the right question\ldots \\ than an exact answer to the wrong question''}\\---John Tukey
 \end{flushright}
 \vspace*{-3mm}
@@ -184,18 +182,6 @@
 	\]
 
 \end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{Flight time}
-%
-%\begin{itemize}
-%	\item one more time!
-%\end{itemize}
-%
-%\end{frame}
 
 %==============================================================
 
@@ -278,8 +264,8 @@
 \vspace*{-10mm}
 \begin{itemize}
 \item continuous function $f(x)$ on interval $[x_\mathrm{LO},x_\mathrm{HI}]$, where value of $f$ \emph{changes sign} from $x_\mathrm{LO}$ to $x_\mathrm{HI}$
-\item divide interval in two, $f(x)=0$ in one subinterval
-\item select subinterval where sign of $f$ changes \& repeat
+\item divide interval in two, $f(x)=0$ in one sub-interval
+\item select sub-interval where sign of $f$ changes \& repeat
 \end{itemize}
 
 \end{frame}
@@ -298,7 +284,7 @@
 \vspace*{-10mm}
 \begin{itemize}
 \item[] $f(x_\mathrm{MID}) \times f(x_\mathrm{LO}) > 0$
-\item[] \ldots select \emph{upper subinterval} by updating $x_\mathrm{LO} = x_\mathrm{MID}$
+\item[] \ldots select \emph{upper sub-interval} by updating $x_\mathrm{LO} = x_\mathrm{MID}$
 \item[] \quad\ldots and repeat
 \end{itemize}
 
@@ -318,7 +304,7 @@
 \vspace*{-10mm}
 \begin{itemize}
 \item[] $f(x_\mathrm{MID}) \times f(x_\mathrm{LO}) < 0$
-\item[] \ldots select \emph{lower subinterval} by updating $x_\mathrm{HI} = x_\mathrm{MID}$
+\item[] \ldots select \emph{lower sub-interval} by updating $x_\mathrm{HI} = x_\mathrm{MID}$
 \end{itemize}
 
 \end{frame}
@@ -341,38 +327,10 @@
 	x_\mathrm{MID} = (x_\mathrm{LO}+x_\mathrm{HI})/2
 \]
 \item each iteration halves the width of interval $[x_\mathrm{LO},x_\mathrm{HI}]$
-\item continue until $f(x_\mathrm{MID}) < \mathrm{tolerance}$, eg: $10^{-6}$
+\item continue until $|f(x_\mathrm{MID})| < \mathrm{tolerance}$, eg: $10^{-6}$
 \end{itemize}
 
 \end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{Bisection method: pseudocode}
-%
-%\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\footnotesize]
-%INPUT: function f
-%       endpoint values xLO, xHI
-%       tolerance TOL
-%CONDITIONS: xLO < xHI
-%       f(xLO)<0 and f(xHI)>0  or  f(xLO)>0 and f(xHI)<0
-%       
-%xMID = (xLO + xHI)/2
-%WHILE |f(xMID)| > TOL
-%	IF f(xMID) is same sign as f(xLO)
-%		# case A
-%		set xLO = xMID
-%	ELSE
-%		# case B
-%		set xHI = xMID
-%	ENDIF	
-%	xMID = (xLO + xHI)/2
-%END WHILE
-%\end{lstlisting}
-%
-%\end{frame}
 
 %==============================================================
 
@@ -414,10 +372,16 @@ print('Check: f({:.8f}) = {:.8f}'.format(x_MID,f(x_MID)))
 \frametitle{Bisection method: simulation results}
 
 \begin{itemize}
-	\item code commentary
-	\item simulation results
+	\item lines 1--2: function $f$, want $L$ such that $f(L)=0$
+	\item line 4: tolerance $10^{-6}$
+	\item lines 9 \& 16: count loop iterations
 	\item live demo
 \end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/bisectionOutput}
+\end{figure}
 
 \end{frame}
 
@@ -507,18 +471,6 @@ Solving for intersection of secant with $x$-axis:
 
 \end{frame}
 
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\begin{itemize}
-%	\item secant method: pseudocode
-%\end{itemize}
-%
-%\end{frame}
-
 %==============================================================
 
 \begin{frame}[fragile]
@@ -556,9 +508,34 @@ print('Check: f({:.8f}) = {:.8f}'.format(x,f(x)))
 \frametitle{Secant method: simulation results}
 
 \begin{itemize}
-	\item code commentary
-	\item simulation results
+	\item lines 12--13: this update simpler to code than $\{x_0, x_1\} \rightarrow x_2$, $\{x_1, x_2\} \rightarrow x_3$, $\{x_2, x_3\} \rightarrow x_4$, \ldots
 	\item live demo
+\end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/secantOutput}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Newton's method}
+
+\vspace*{-6mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.55\textwidth]{figures/NewtonsMethod}
+\end{figure}
+\vspace*{-7mm}
+\begin{itemize}
+	\item choose initial estimate $x_0$
+	\item $x_1$ is intersection of \emph{\red{tangent line}} through $(x_0,f(x_0))$
+	\item $x_2$ is intersection of tangent line through $(x_1,f(x_1))$
+	\item[] \ldots
 \end{itemize}
 
 \end{frame}
@@ -570,25 +547,15 @@ print('Check: f({:.8f}) = {:.8f}'.format(x,f(x)))
 \frametitle{Newton's method}
 
 \begin{itemize}
-	\item Newton's method is \emph{really} popular
-	\item aka Newton--Raphson method
-	\item discussion of derivatives, and how they're needed in Newton's method
-	\item we won't consider Newton's method in this course, as can't assume knowledge of calculus
-	\item secant as approximation to Newton's method
+	\item also known as \emph{Newton--Raphson method}
+	\item Newton's method much more popular than bisection or secant methods
+	\item calculation of ``tangent lines'' requires \emph{\red{derivative}} of function $f(x)$
+	\begin{itemize}
+		\item therefore needs \emph{calculus} (eg: MATH1110)
+		\item beyond assumed knowledge for ENGG1003, won't consider Newton's method in this course
+	\end{itemize}
+	\item secant method can be considered as an approximation to Newton's method
 \end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Newton's method}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/NewtonsMethod}
-\end{figure}
 
 \end{frame}
 
@@ -631,8 +598,13 @@ print('Check: f({:.8f}) = {:.8f}'.format(x,f(x)))
 \frametitle{Bisection method as a function}
 
 \begin{itemize}
-	\item code commentary
-	\item simulation results
+	\item line 4: \texttt{my\_bisection} function takes function \texttt{f} as first argument
+	\item[] \ldots also pass in $x_\mathrm{LO}$, $x_\mathrm{HI}$ and convergence tolerance
+	\item[]
+	\item line 14: function returns approximate solution \& iteration count
+	\item[]
+	\item line 16: call \texttt{my\_bisection} function with four arguments
+	\item[]
 	\item live demo
 \end{itemize}
 
@@ -665,17 +637,7 @@ print('Number of iterations: {}'.format(numIt))
 print('Check: f({:.8f}) = {:.8f}'.format(x,f(x)))
 \end{lstlisting}
 
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Secant method as a function}
-
 \begin{itemize}
-	\item code commentary
-	\item simulation results
 	\item live demo
 \end{itemize}
 
@@ -721,7 +683,6 @@ tBisect = tStop - tStart
 \begin{itemize}
 	\item live demo \texttt{bisectionvssecant.py}
 	\item code in \#lecturecode
-%	\item LL text has optimised bisection and secant to minimise function calls (typically most time-consuming operation)
 \end{itemize}
 
 \begin{figure}[ht]
@@ -730,19 +691,6 @@ tBisect = tStop - tStart
 \end{figure}
 
 \end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\begin{itemize}
-%	\item initialisation
-%	\item failure to converge
-%\end{itemize}
-%
-%\end{frame}
 
 %==============================================================
 
