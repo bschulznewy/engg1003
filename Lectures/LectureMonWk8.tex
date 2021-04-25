@@ -103,7 +103,7 @@
 	\item Solving nonlinear algebraic equations \red{pp.~175-176}
 	\begin{itemize}
 		\item general setting
-		\item two problems: flight time, fluid level
+		\item problem: fluid level in measuring cup
 	\end{itemize}
 	
 	\item[]
@@ -185,14 +185,33 @@
 
 \end{frame}
 
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{Flight time}
+%
+%\begin{itemize}
+%	\item one more time!
+%\end{itemize}
+%
+%\end{frame}
+
 %==============================================================
 
 \begin{frame}[fragile]
 
-\frametitle{Flight time}
+\frametitle{Fluid level in truncated cone}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.45\textwidth]{figures/measuringCup}\hspace*{2mm}%
+	\includegraphics[width=0.45\textwidth]{figures/cupDimensions}
+\end{figure}
 
 \begin{itemize}
-	\item one more time!
+	\item applications: water in dam, coal in conical hopper
 \end{itemize}
 
 \end{frame}
@@ -203,34 +222,23 @@
 
 \frametitle{Fluid level}
 
-image of measuring cup \\
-Engineering applications: water in dam, coal in stockpile
-
+\vspace*{-4mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/cupDimensions}
+	\includegraphics[width=0.6\textwidth]{figures/fluidVvsL}
 \end{figure}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Fluid level}
-
-% https://www.sjsu.edu/me/docs/hsu-Chapter%2010%20Numerical%20solution%20methods.pdf
-% Section 10.3.2
-
+\vspace*{-4mm}
 \begin{itemize}
-	\item volume $V$ (in millilitres, mL) depends on depth $L$ (in cm) as follows: %, \emph{presented without proof:}
+	\item volume $V$ depends on depth $L$ as follows: %, \emph{presented without proof:}
 	\[
 		V = 0.0268L^3 + 1.884L^2 + 44.15L
 	\]
-	\item plot V vs L
-	\item link to proof: volumes of solids of revolution (needs calculus, MATH1110) \verb+https://www.sjsu.edu/me/docs/hsu-Chapter\%2010\%20Numerical\%20solution\%20methods.pdf+
+	\vspace*{-4mm}
+	\begin{itemize}
+		\item $V$ (in millilitres, mL),  $L$ (in cm) 
+	\end{itemize}
 \end{itemize}
-
+	
 \end{frame}
 
 %==============================================================
@@ -239,28 +247,21 @@ Engineering applications: water in dam, coal in stockpile
 
 \frametitle{Fluid level}
 
+\vspace*{-4mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/fluidVvsL}
+	\includegraphics[width=0.5\textwidth]{figures/fluidVvsL}
 \end{figure}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Fluid level}
-
+\vspace*{-4mm}
 \begin{itemize}
-
-	\item Question: depth $L$ when cup holds $500$~mL of water?
-	\item solve $f(L) = 0$ where
+	\item[] \textbf{Q: depth $L$ when cup holds $500$~mL of water?}
+	\item need to solve equation
 	\[
-		F(L) = 0.0268L^3 + 1.884L^2 + 44.15L - 500
+	500 = 0.0268L^3 + 1.884L^2 + 44.15L
 	\]
+	$f(L) = 0.0268L^3 + 1.884L^2 + 44.15L - 500 = 0$
 \end{itemize}
-
+	
 \end{frame}
 
 %==============================================================
@@ -269,8 +270,16 @@ Engineering applications: water in dam, coal in stockpile
 
 \frametitle{$2)$ Bisection method}
 
+\vspace*{-15mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/bisection1}
+\end{figure}
+\vspace*{-10mm}
 \begin{itemize}
-	\item basic idea: visualisation
+\item continuous function $f(x)$ on interval $[x_\mathrm{LO},x_\mathrm{HI}]$, where value of $f$ \emph{changes sign} from $x_\mathrm{LO}$ to $x_\mathrm{HI}$
+\item divide interval in two, $f(x)=0$ in one subinterval
+\item select subinterval where sign of $f$ changes \& repeat
 \end{itemize}
 
 \end{frame}
@@ -279,29 +288,91 @@ Engineering applications: water in dam, coal in stockpile
 
 \begin{frame}[fragile]
 
-\frametitle{Bisection method: pseudocode}
+\frametitle{Bisection method}
 
-\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\footnotesize]
-INPUT: function f
-       endpoint values xLO, xHI
-       tolerance TOL
-CONDITIONS: xLO < xHI
-       f(xLO)<0 and f(xHI)>0  or  f(xLO)>0 and f(xHI)<0
-       
-xMID = (xLO + xHI)/2
-WHILE |f(xMID)| > TOL
-	IF f(xMID) is same sign as f(xLO)
-		# case A
-		set xLO = xMID
-	ELSE
-		# case B
-		set xHI = xMID
-	ENDIF	
-	xMID = (xLO + xHI)/2
-END WHILE
-\end{lstlisting}
+\vspace*{-15mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/bisection2}
+\end{figure}
+\vspace*{-10mm}
+\begin{itemize}
+\item[] $f(x_\mathrm{MID}) \times f(x_\mathrm{LO}) > 0$
+\item[] \ldots select \emph{upper subinterval} by updating $x_\mathrm{LO} = x_\mathrm{MID}$
+\item[] \quad\ldots and repeat
+\end{itemize}
 
 \end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Bisection method}
+
+\vspace*{-15mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/bisection3}
+\end{figure}
+\vspace*{-10mm}
+\begin{itemize}
+\item[] $f(x_\mathrm{MID}) \times f(x_\mathrm{LO}) < 0$
+\item[] \ldots select \emph{lower subinterval} by updating $x_\mathrm{HI} = x_\mathrm{MID}$
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Bisection method}
+
+\vspace*{-10mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/bisection4}
+\end{figure}
+\vspace*{-10mm}
+\begin{itemize}
+\item[] \quad\ldots and repeat, with new midpoint
+\[
+	x_\mathrm{MID} = (x_\mathrm{LO}+x_\mathrm{HI})/2
+\]
+\item each iteration halves the width of interval $[x_\mathrm{LO},x_\mathrm{HI}]$
+\item continue until $f(x_\mathrm{MID}) < \mathrm{tolerance}$, eg: $10^{-6}$
+\end{itemize}
+
+\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{Bisection method: pseudocode}
+%
+%\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\footnotesize]
+%INPUT: function f
+%       endpoint values xLO, xHI
+%       tolerance TOL
+%CONDITIONS: xLO < xHI
+%       f(xLO)<0 and f(xHI)>0  or  f(xLO)>0 and f(xHI)<0
+%       
+%xMID = (xLO + xHI)/2
+%WHILE |f(xMID)| > TOL
+%	IF f(xMID) is same sign as f(xLO)
+%		# case A
+%		set xLO = xMID
+%	ELSE
+%		# case B
+%		set xHI = xMID
+%	ENDIF	
+%	xMID = (xLO + xHI)/2
+%END WHILE
+%\end{lstlisting}
+%
+%\end{frame}
 
 %==============================================================
 
@@ -312,10 +383,8 @@ END WHILE
 {\small \texttt{bisection.py}}
 \vspace*{-2mm}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
-import numpy as np
-
 def f(L):
-    return L**3 + 70.3*L**2 + 1647.39*L - 18656.72
+    return  0.0268*L**3 + 1.884*L**2 + 44.15*L - 500
 
 eps = 1e-6
 x_LO = 6
@@ -358,8 +427,18 @@ print('Check: f({:.8f}) = {:.8f}'.format(x_MID,f(x_MID)))
 
 \frametitle{$3)$ Secant method}
 
+\vspace*{-15mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/secant1}
+\end{figure}
+\vspace*{-10mm}
 \begin{itemize}
-	\item basic idea: visualisation
+	\item start with two points $(x_0,f(x_0))$ and $(x_1,f(x_1))$
+	\begin{itemize}
+		\item \red{red dots}
+		\item $f(x_0)$ and $f(x_1)$ do \emph{not} necessarily have opposite signs
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -368,11 +447,63 @@ print('Check: f({:.8f}) = {:.8f}'.format(x_MID,f(x_MID)))
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Secant method}
 
+\vspace*{-15mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/secant2}
+\end{figure}
+\vspace*{-10mm}
 \begin{itemize}
-	\item secant method: key equations
+	\item \emph{\red{secant}} is line through $(x_0,f(x_0))$ and $(x_1,f(x_1))$
+	\item define $x_2$ as point where secant intersects $x$-axis
 \end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Secant method}
+
+\vspace*{-15mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/secant3}
+\end{figure}
+\vspace*{-10mm}
+\begin{itemize}
+	\item[] \ldots and repeat, with $x_3$ defined as point where secant through $(x_1,f(x_1))$ and $(x_2,f(x_2))$ intersects $x$-axis
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Secant method equations}
+\vspace*{-2mm}
+Equation of secant connecting $(x_0,f(x_0))$ \& $(x_1,f(x_1))$:
+\[
+	y = \frac{f(x_1)-f(x_0)}{x_1 - x_0}\cdot\left( x - x_1 \right) + f(x_1)
+\]
+Solving for intersection of secant with $x$-axis:
+\[
+	x_2 = x_1 - f(x_1)\cdot\frac{x_1 - x_0}{f(x_1) - f(x_0)}
+\]
+\pause
+\[
+	x_3 = x_2 - f(x_2)\cdot\frac{x_2 - x_1}{f(x_2) - f(x_1)}
+\]
+\[
+	x_4 = x_3 - f(x_3)\cdot\frac{x_3 - x_2}{f(x_3) - f(x_2)}
+\]
+\[
+	\vdots
+\]
 
 \end{frame}
 
@@ -396,10 +527,8 @@ print('Check: f({:.8f}) = {:.8f}'.format(x_MID,f(x_MID)))
 
 \texttt{secant.py}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
-import numpy as np
-
 def f(L):
-    return L**3 + 70.3*L**2 + 1647.39*L - 18656.72
+    return  0.0268*L**3 + 1.884*L**2 + 44.15*L - 500
 
 eps = 1e-6
 x0 = 6
@@ -441,11 +570,11 @@ print('Check: f({:.8f}) = {:.8f}'.format(x,f(x)))
 \frametitle{Newton's method}
 
 \begin{itemize}
+	\item Newton's method is \emph{really} popular
 	\item aka Newton--Raphson method
 	\item discussion of derivatives, and how they're needed in Newton's method
 	\item we won't consider Newton's method in this course, as can't assume knowledge of calculus
 	\item secant as approximation to Newton's method
-	\item Newton's method is \emph{really} popular
 \end{itemize}
 
 \end{frame}
@@ -587,10 +716,11 @@ tBisect = tStop - tStart
 
 \begin{frame}[fragile]
 
-\frametitle{Speed comparisons: bisection vs.~secant}
+\frametitle{Speed comparison: bisection vs.~secant}
 
 \begin{itemize}
 	\item live demo \texttt{bisectionvssecant.py}
+	\item code in \#lecturecode
 %	\item LL text has optimised bisection and secant to minimise function calls (typically most time-consuming operation)
 \end{itemize}
 
@@ -662,6 +792,7 @@ tBisect = tStop - tStart
 	
 	\item[]
 	
+	\item volume of truncated cone based on volumes of solids of revolution (needs calculus, MATH1110) \href{https://bit.ly/3sOsaj4}{https://bit.ly/3sOsaj4}
 \end{itemize}
 
 \end{frame}
