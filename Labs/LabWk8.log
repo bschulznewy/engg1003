@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.3.1)  25 APR 2021 19:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/Debian) (preloaded format=pdflatex 2021.3.1)  26 APR 2021 08:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1606,7 +1606,7 @@ Package rerunfilecheck Info: File `LabWk8.out' has not changed.
 Here is how much of TeX's memory you used:
  54808 strings out of 482736
  1402442 string characters out of 5954140
- 1978172 words of memory out of 5000000
+ 1978171 words of memory out of 5000000
  69305 multiletter control sequences out of 15000+600000
  546390 words of font info for 73 fonts, out of 8000000 for 9000
  81 hyphenation exceptions out of 8191
@@ -1625,7 +1625,7 @@ e/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texmf/fonts/type1/p
 ublic/cm-super/sfrm1000.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/cour
 ier/ucrr8a.pfb>
-Output written on LabWk8.pdf (5 pages, 169060 bytes).
+Output written on LabWk8.pdf (5 pages, 169057 bytes).
 PDF statistics:
  162 PDF objects out of 1000 (max. 8388607)
  113 compressed objects within 2 object streams
