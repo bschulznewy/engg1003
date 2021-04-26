@@ -1,7 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-x = np.zeros([10,10])
+r = 3
+c = 2
+N = 4
+M = 10
+
+x = np.zeros([M,M])
 
 x[3, 2:6] = 1
 x[6, 2:6] = 1
