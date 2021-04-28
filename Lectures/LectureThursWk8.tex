@@ -34,10 +34,12 @@
 \definecolor{mPurple}{rgb}{0.8,0,0.82}
 \definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
 \definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+\definecolor{darkGreen}{rgb}{0, 0.39, 0}
 
 \newcommand\red[1]{{\color{red} #1}}
 \newcommand\green[1]{{\color{green} #1}}
 \newcommand\blue[1]{{\color{blue} #1}}
+\newcommand\darkGreen[1]{{\color{darkGreen} #1}}
 
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
@@ -103,7 +105,7 @@
 	\item Basic ideas of numerical integration \red{\S6.1}
 	\begin{itemize}
 		\item engineering applications
-		\item terminology
+		\item terminology \& notation
 		\item additivity
 	\end{itemize}
 	
@@ -113,7 +115,7 @@
 	
 	\item[]
 	
-	\item Midpoint method \red{\S6.3}
+	\item Midpoint method, upper/lower and left/right Riemann sums \red{\S6.3}
 	
 	\item[]
 	
@@ -129,8 +131,37 @@
 
 \frametitle{$1)$ Basic ideas of numerical integration}
 
+% https://en.wikipedia.org/wiki/File:Integral_as_region_under_curve.svg
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/integralArea}
+\end{figure}
+
 \begin{itemize}
-	\item xxx
+	\item integral is area under curve
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Engineering applications of integration}
+
+% https://www.whitman.edu/mathematics/calculus_online/chapter09.html
+
+\begin{itemize}
+	\item 1. Area between curves
+2. Distance, Velocity, Acceleration
+3. Volume
+4. Average value of a function
+5. Work
+6. Center of Mass
+7. Kinetic energy; improper integrals
+8. Probability
+9. Arc Length
+10. Surface Area
 \end{itemize}
 
 \end{frame}
@@ -142,7 +173,6 @@
 \frametitle{$2)$ Trapezoidal method}
 
 \begin{itemize}
-	\item simple four-panel example on pp.~134--135
 	\item Python code for simple example
 	\item use \texttt{fill\_between} ??
 % https://www.kite.com/python/docs/matplotlib.pyplot.fill_between
@@ -180,11 +210,63 @@
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/fivePanel}
+	\includegraphics[width=0.7\textwidth]{figures/fourPanel}
 \end{figure}
 
 \begin{itemize}
 	\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Area of trapezoid}
+
+\begin{itemize}
+	\item xxx
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/fourPanel}
+\end{figure}
+\vspace*{-5mm}
+{\small
+\begin{eqnarray*}
+\int_0^1 v(t)dt & = & \int_0^{0.2} v(t)dt + \int_{0.2}^{0.6} v(t)dt + \int_{0.6}^{0.8} v(t)dt + \int_{0.8}^1 v(t)dt \\
+\pause
+&\approx & h_1 \frac{v(0) + v(0.2)}{2} + \darkGreen{h_2 \frac{v(0.2) + v(0.6)}{2}} + \\
+& & +h_3 \red{\frac{v(0.6) + v(0.8)}{2}} + \blue{h_4 \frac{v(0.8) + v(1)}{2}} 
+\end{eqnarray*}
+}
+\pause
+\vspace*{-5mm}
+\[
+h_1 = 0.2, \quad h_2 = 0.4, \quad h_3 = 0.2, \quad h_4 = 0.2
+\]
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code for trapezoidal method}
+
+\begin{itemize}
+	\item write as a function
+	\item live demo, experiment with number of panels
 \end{itemize}
 
 \end{frame}
@@ -207,9 +289,29 @@
 
 \frametitle{$4)$ Simpson's rule}
 
-\begin{itemize}
-	\item xxx
-\end{itemize}
+% https://en.wikipedia.org/wiki/Simpson%27s_rule
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/SimpsonsRule}
+\end{figure}
+
+Approximate \blue{$f(x)$} with parabola \red{$P(x)$}, for which integral
+\[
+\int_a^b P(x) dx
+\]
+can be calculated \emph{exactly}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\[
+\int_a^b f(x)dx \approx \frac{b-a}{6} \left[ f(a) + 4f\left(\frac{a+b}{2}\right) + f(b)\right]
+\]
 
 \end{frame}
 
