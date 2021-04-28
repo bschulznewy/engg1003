@@ -240,40 +240,16 @@ Example:
 
 \begin{frame}[fragile]
 
-\frametitle{Numerical integration}
+\frametitle{Area of trapezoid}
 
 \begin{itemize}
-	\item \red{\emph{trapezoid}} is a ``convex quadrilateral with at least one pair of parallel sides''
-	% https://en.wikipedia.org/wiki/Trapezoid
-	\item area of trapezoid $\frac{a+b}{2} h$
-	\item want ``vertical'' version -- create image in PPT
-	
-%	\item use \texttt{fill\_between} ??
-% https://www.kite.com/python/docs/matplotlib.pyplot.fill_between
+	\item area of trapezoid $\frac{A+B}{2} h$
 \end{itemize}
-
+\vspace*{-3mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/Trapezoid}
+	\includegraphics[width=0.4\textwidth]{figures/trapezoidArea}
 \end{figure}
-
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width=0.5\textwidth]{figures/LLp134}
-%\end{figure}
-
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width=0.5\textwidth]{figures/fourPanel}
-%\end{figure}
-%
-%\begin{itemize}
-%	\item approximate area under curve by total area of four trapezoids
-%	\begin{itemize}
-%		\item black + \darkGreen{green} + \red{red} + \blue{blue}
-%	\end{itemize}
-%	\item area of trapezoids is easy: $\frac{a+b}{2} h$
-%\end{itemize}
 
 \end{frame}
 
@@ -436,12 +412,14 @@ print('Exact answer: {:.8f}'.format(exact))
 \[
 \int_a^b P(x) dx
 \]
-\item[] \ldots which can be calculated \emph{exactly} (proof omitted):
+\item[] \ldots which can be calculated \emph{exactly} for a parabola (proof omitted):
 
+\blue{
 \[
 \int_a^b f(x)dx \approx \frac{b-a}{6} \left[ f(a) + 4f\left(\frac{a+b}{2}\right) + f(b)\right]
 \]
-\item as for trapezoidal rule, apply Simpson's rule on each ``panel'' of width $h$ %, composite method
+}
+
 \end{itemize}
 
 \end{frame}
@@ -450,11 +428,71 @@ print('Exact answer: {:.8f}'.format(exact))
 
 \begin{frame}[fragile]
 
-\frametitle{Python code for Simpson's rule}
+\frametitle{Applying Simpson's rule}
 
 \begin{itemize}
-	\item write as a function
-	\item live demo, experiment with number of panels
+\item as for trapezoidal rule, apply Simpson's rule on each sub-interval of width $h = x_i - x_{i-1} = (b-a)/n$
+	\begin{itemize}
+		\item total of $n$ intervals: $[x_0,x_1]$, $[x_1,x_2]$, \ldots $[x_{n-1},x_n]$
+	\end{itemize}
+\end{itemize}
+
+{\small
+\[
+\int_a^b f(x)dx = \int_{x_0}^{x_1} f(x)dx + \int_{x_1}^{x_2} f(x)dx + \cdots + \int_{x_{n-1}}^{x_n} f(x)dx
+\]
+}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code for Simpson's rule}
+\vspace*{-2mm}
+\texttt{simpsons\_rule.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+import numpy as np
+
+def v(t):
+    return 3*t**2*np.exp(t**3)
+
+def simpson(f, a, b, n):
+    h = (b-a)/n
+    x0 = a
+    summ = 0
+    # i-th sub-interval (i=0,1,...,n-1) is [x_i,x_{i+1}]
+    for i in range(0,n,1):
+        xi = x0 + i*h
+        summ += (f(xi) + 4*f((xi+xi+h)/2) + f(xi+h))*h/6
+    return summ
+
+n = 4
+simp = simpson(v, 0, 1, n)
+exact = np.exp(1) - 1
+
+print('Simpson, {} sub-intervals: {:.8f}'.format(n,simp))
+print('Exact answer: {:.8f}'.format(exact))
+\end{lstlisting}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Simpson's rule: simulation results}
+
+\begin{itemize}
+	\item lines 3--4: function to be integrated
+	\item[]
+	\item lines 6--14: function to approximate integral using Simpson's rule on each of $n$ sub-intervals $[x_i,x_{i+1}], i = 0,1,2,\ldots,n-1$
+	\begin{itemize}
+		\item line 13: Simpson's rule with $a=x_i$ and $b=x_{i+1}$
+	\end{itemize}
+	\item[]
+	\item live demo, try $n=4$, $n=10$ and $n=100$ sub-intervals
 \end{itemize}
 
 \end{frame}
