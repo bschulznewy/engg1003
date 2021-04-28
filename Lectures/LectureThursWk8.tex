@@ -113,9 +113,9 @@
 	
 	\item Trapezoidal method \red{\S6.2}
 	
-	\item[]
-	
-	\item Midpoint method, upper/lower and left/right Riemann sums \red{\S6.3}
+%	\item[]
+%	
+%	\item Midpoint method, upper/lower and left/right Riemann sums \red{\S6.3}
 	
 	\item[]
 	
@@ -177,9 +177,9 @@ S = \int_a^b f(x) dx
 
 \begin{frame}[fragile]
 
-\frametitle{Distance:~area under speed vs.~time function}
+\frametitle{Distance $=$ area under speed-time function}
 
-Our specific integral is taken from basic physics. Assume that you speed up your car from rest, on a straight road, and wonder how far you go in T seconds. The displacement is given by the integral
+Assume that you speed up your car from rest, on a straight road, and wonder how far you go in T seconds. The displacement is given by the integral
 \[
 \int_0^T v(t)dt
 \]
@@ -229,7 +229,7 @@ Example:
 	\begin{itemize}
 		\item black + \darkGreen{green} + \red{red} + \blue{blue}
 	\end{itemize}
-	\item area of trapezoids is easy %: $\frac{a+b}{2} h$
+	\item area of each trapezoid is easy to calculate %: $\frac{a+b}{2} h$
 \end{itemize}
 
 
@@ -308,39 +308,109 @@ h_1 = 0.2, \quad h_2 = 0.4, \quad h_3 = 0.2, \quad h_4 = 0.2
 
 \begin{frame}[fragile]
 
-\frametitle{Python code for trapezoidal method}
+\frametitle{General trapezoidal method}
 
 \begin{itemize}
-	\item write as a function
-	\item live demo, experiment with number of panels
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{$3)$ Midpoint method}
-
-\begin{itemize}
-	\item skip details, all give quite similar results to trapezoidal method, esp for narrow width panels, some details in \red{\S6.3}
-	\item[]
-	\item mention/visualise different methods:
+	\item want to approximate integral $\int_a^b f(x)dx$ by $n$ trapezoids \emph{of equal width}
 	\begin{itemize}
-		\item midpoint method
-		\item upper/lower Riemann sums 
-		\item left/right Riemann sums
+		\item total of $n$ intervals: $[x_0,x_1]$, $[x_1,x_2]$, \ldots $[x_{n-1},x_n]$
 	\end{itemize}
 \end{itemize}
 
+{\small
+\[
+\int_a^b f(x)dx = \int_{x_0}^{x_1} f(x)dx + \int_{x_1}^{x_2} f(x)dx + \cdots + \int_{x_{n-1}}^{x_n} f(x)dx
+\]
+\pause
+\[
+\approx h\frac{f(x_0)+f(x_1)}{2} + h\frac{f(x_1)+f(x_2)}{2} + \cdots + h\frac{f(x_{n-1}) + f(x_n)}{2}
+\]
+\pause
+In compact form:
+\blue{
+\[
+\int_a^b f(x)dx \approx h \left[ \frac{1}{2}f(x_0) + \left\{ f(x_1)+\cdots+f(x_{n-1}) \right\} + \frac{1}{2}f(x_n) \right]
+\]
+}}
+
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
 
-\frametitle{$4)$ Simpson's rule}
+\frametitle{Python code for trapezoidal method}
+
+\texttt{trapezoidal\_method.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+import numpy as np
+
+def v(t):
+    return 3*t**2*np.exp(t**3)
+
+def trapezoidal(f, a, b, n):
+    h = (b-a)/n
+    f_sum = 0
+    for i in range(1, n, 1):
+        x = a + i*h
+        f_sum = f_sum + f(x)
+    return h*(0.5*f(a) + f_sum + 0.5*f(b))
+
+n = 4
+trap = trapezoidal(v, 0, 1, n)
+exact = np.exp(1) - 1
+
+print('Trapezoidal, {} sub-intervals: {:.8f}'.format(n,trap))
+print('Exact answer: {:.8f}'.format(exact))
+\end{lstlisting}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Trapezoidal method: simulation results}
+
+\begin{itemize}
+	\item lines 3--4: function to be integrated
+	\item[]
+	\item lines 6--12: function to approximate integral using $n$ trapezoids of equal width $h$
+	\begin{itemize}
+		\item lines 8--11: compute $f(x_1) + \cdots f(x_{n-1})$
+	\end{itemize}
+	\item[]
+	\item line 16: exact result $\int_0^1 3t^2e^{t^3}dt = e - 1$
+	\item[]
+	\item live demo, try $n=4$, $n=100$ and $n=1000$ sub-intervals
+\end{itemize}
+
+\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{$3)$ Midpoint method}
+%
+%\begin{itemize}
+%	\item skip details, all give quite similar results to trapezoidal method, esp for narrow width panels, some details in \red{\S6.3}
+%	\item[]
+%	\item mention/visualise different methods:
+%	\begin{itemize}
+%		\item midpoint method
+%		\item upper/lower Riemann sums 
+%		\item left/right Riemann sums
+%	\end{itemize}
+%\end{itemize}
+%
+%\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$3)$ Simpson's rule}
 
 % https://en.wikipedia.org/wiki/Simpson%27s_rule
 \begin{figure}[ht]
@@ -371,7 +441,7 @@ h_1 = 0.2, \quad h_2 = 0.4, \quad h_3 = 0.2, \quad h_4 = 0.2
 \[
 \int_a^b f(x)dx \approx \frac{b-a}{6} \left[ f(a) + 4f\left(\frac{a+b}{2}\right) + f(b)\right]
 \]
-\item as for trapezoidal rule, apply Simpson's rule on each ``panel'' of width $h$, composite method
+\item as for trapezoidal rule, apply Simpson's rule on each ``panel'' of width $h$ %, composite method
 \end{itemize}
 
 \end{frame}
@@ -402,9 +472,9 @@ h_1 = 0.2, \quad h_2 = 0.4, \quad h_3 = 0.2, \quad h_4 = 0.2
 	
 	\item Trapezoidal method \red{\S6.2}
 	
-	\item[]
-	
-	\item Midpoint method \red{\S6.3}
+%	\item[]
+%	
+%	\item Midpoint method \red{\S6.3}
 	
 	\item[]
 	
@@ -413,31 +483,5 @@ h_1 = 0.2, \quad h_2 = 0.4, \quad h_3 = 0.2, \quad h_4 = 0.2
 \end{enumerate}
 
 \end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{More information}
-%\begin{itemize}
-%	\item Newton's method in textbook \red{\S7.2}
-%	\begin{itemize}
-%		\item needs \emph{differentiation} from calculus (MATH1110)
-%		\item in particular: need expression for \emph{tangent lines} to function $f(x)$, written as $f'(x)$
-%	\end{itemize}
-%
-%	\item[]
-%	
-%	\item ``optimised'' versions of bisection and secant methods in textbook \red{\S7.3} and \red{\S7.4}
-%	\begin{itemize}
-%		\item maximise speed of computation by minimising number of function evaluations $f(x)$
-%	\end{itemize}
-%	
-%	\item[]
-%	
-%	\item volume of truncated cone based on volumes of solids of revolution (needs calculus, MATH1110) \href{https://bit.ly/3sOsaj4}{https://bit.ly/3sOsaj4}
-%\end{itemize}
-%
-%\end{frame}
 
 \end{document}
