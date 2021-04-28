@@ -129,16 +129,23 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$1)$ Basic ideas of numerical integration}
+\frametitle{$1)$ Basic ideas of integration}
 
 % https://en.wikipedia.org/wiki/File:Integral_as_region_under_curve.svg
+\vspace*{-5mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/integralArea}
+	\includegraphics[width=0.35\textwidth]{figures/integralArea}
 \end{figure}
-
+\vspace*{-5mm}
+\[
+S = \int_a^b f(x) dx
+\]
+\vspace*{-5mm}
 \begin{itemize}
-	\item integral is area under curve
+	\item area $S$ is area under function $f(x)$ between lower limit $a$ and upper limit $b$
+	\item assume $f(x) \geq 0$
+	\item calculus, eg: MATH1002, MATH1110
 \end{itemize}
 
 \end{frame}
@@ -170,37 +177,20 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$2)$ Trapezoidal method}
+\frametitle{Distance:~area under speed vs.~time function}
 
-\begin{itemize}
-	\item Python code for simple example
-	\item use \texttt{fill\_between} ??
-% https://www.kite.com/python/docs/matplotlib.pyplot.fill_between
-\end{itemize}
+Our specific integral is taken from basic physics. Assume that you speed up your car from rest, on a straight road, and wonder how far you go in T seconds. The displacement is given by the integral
+\[
+\int_0^T v(t)dt
+\]
+where $v(t)$ is the velocity (speed) as a function of time
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.5\textwidth]{figures/LLp134}
-\end{figure}
+Example:
+\[
+v(t) = 3t^2e^{t^3}
+\]
 
 \end{frame}
-
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{}
-%
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width=0.5\textwidth]{figures/LLp135}
-%\end{figure}
-%
-%\begin{itemize}
-%	\item xxx
-%\end{itemize}
-%
-%\end{frame}
 
 %==============================================================
 
@@ -210,12 +200,39 @@
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/fourPanel}
+	\includegraphics[width=0.5\textwidth]{figures/LLp134}
 \end{figure}
 
+distance traveled in first second is cross-hatched area:
+\[
+\int_0^1 v(t)dt
+\]
+
+Start at time $0$, end at time $1$ (these are the lower and upper limits)
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$2)$ Trapezoidal method}
+
+Example:
+\vspace*{-5mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/fourPanel}
+\end{figure}
+\vspace*{-3mm}
 \begin{itemize}
-	\item xxx
+	\item approximate area under curve by total area of four trapezoids
+	\begin{itemize}
+		\item black + \darkGreen{green} + \red{red} + \blue{blue}
+	\end{itemize}
+	\item area of trapezoids is easy %: $\frac{a+b}{2} h$
 \end{itemize}
+
+
 
 \end{frame}
 
@@ -223,11 +240,40 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Area of trapezoid}
+\frametitle{Numerical integration}
 
 \begin{itemize}
-	\item xxx
+	\item \red{\emph{trapezoid}} is a ``convex quadrilateral with at least one pair of parallel sides''
+	% https://en.wikipedia.org/wiki/Trapezoid
+	\item area of trapezoid $\frac{a+b}{2} h$
+	\item want ``vertical'' version -- create image in PPT
+	
+%	\item use \texttt{fill\_between} ??
+% https://www.kite.com/python/docs/matplotlib.pyplot.fill_between
 \end{itemize}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/Trapezoid}
+\end{figure}
+
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.5\textwidth]{figures/LLp134}
+%\end{figure}
+
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.5\textwidth]{figures/fourPanel}
+%\end{figure}
+%
+%\begin{itemize}
+%	\item approximate area under curve by total area of four trapezoids
+%	\begin{itemize}
+%		\item black + \darkGreen{green} + \red{red} + \blue{blue}
+%	\end{itemize}
+%	\item area of trapezoids is easy: $\frac{a+b}{2} h$
+%\end{itemize}
 
 \end{frame}
 
@@ -278,7 +324,14 @@ h_1 = 0.2, \quad h_2 = 0.4, \quad h_3 = 0.2, \quad h_4 = 0.2
 \frametitle{$3)$ Midpoint method}
 
 \begin{itemize}
-	\item xxx
+	\item skip details, all give quite similar results to trapezoidal method, esp for narrow width panels, some details in \red{\S6.3}
+	\item[]
+	\item mention/visualise different methods:
+	\begin{itemize}
+		\item midpoint method
+		\item upper/lower Riemann sums 
+		\item left/right Riemann sums
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -295,11 +348,10 @@ h_1 = 0.2, \quad h_2 = 0.4, \quad h_3 = 0.2, \quad h_4 = 0.2
 	\includegraphics[width=0.4\textwidth]{figures/SimpsonsRule}
 \end{figure}
 
-Approximate \blue{$f(x)$} with parabola \red{$P(x)$}, for which integral
-\[
-\int_a^b P(x) dx
-\]
-can be calculated \emph{exactly}
+\begin{itemize}
+	\item approximate \blue{$f(x)$} with parabola \red{$P(x)$}
+	\item parabola $P(x)$ takes same values as $f(x)$ at end-points $a$ and $b$, and midpoint $m = (a+b)/2$
+\end{itemize}
 
 \end{frame}
 
@@ -307,11 +359,33 @@ can be calculated \emph{exactly}
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Simpson's rule}
+
+\begin{itemize}
+	\item area under parabola $P(x)$ between $a$ and $b$ is:
+\[
+\int_a^b P(x) dx
+\]
+\item[] \ldots which can be calculated \emph{exactly} (proof omitted):
 
 \[
 \int_a^b f(x)dx \approx \frac{b-a}{6} \left[ f(a) + 4f\left(\frac{a+b}{2}\right) + f(b)\right]
 \]
+\item as for trapezoidal rule, apply Simpson's rule on each ``panel'' of width $h$, composite method
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code for Simpson's rule}
+
+\begin{itemize}
+	\item write as a function
+	\item live demo, experiment with number of panels
+\end{itemize}
 
 \end{frame}
 
@@ -322,7 +396,7 @@ can be calculated \emph{exactly}
 \frametitle{Lecture summary}
 
 \begin{enumerate}
-	\item Basic ideas of numerical integration
+	\item Basic ideas of integration
 	
 	\item[]
 	
