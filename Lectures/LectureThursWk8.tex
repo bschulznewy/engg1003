@@ -102,12 +102,7 @@
 
 \frametitle{Lecture overview}
 \begin{enumerate}
-	\item Basic ideas of numerical integration \red{\S6.1}
-	\begin{itemize}
-		\item engineering applications
-		\item terminology \& notation
-		\item additivity
-	\end{itemize}
+	\item Basic ideas of integration \red{\S6.1}
 	
 	\item[]
 	
@@ -137,15 +132,17 @@
 	\centering
 	\includegraphics[width=0.35\textwidth]{figures/integralArea}
 \end{figure}
-\vspace*{-5mm}
+\vspace*{-3mm}
 \[
-S = \int_a^b f(x) dx
+\boxed{S = \int_a^b f(x) dx}
 \]
-\vspace*{-5mm}
+
+\vspace*{-3mm}
 \begin{itemize}
-	\item area $S$ is area under function $f(x)$ between lower limit $a$ and upper limit $b$
-	\item assume $f(x) \geq 0$
-	\item calculus, eg: MATH1002, MATH1110
+	\item interested in calculating shaded area $S$ under function $f(x)$ between $a$ and $b$
+	\begin{itemize}
+		\item $S$ is the \emph{definite integral} of $f$ over $[a,b]$
+	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -154,21 +151,49 @@ S = \int_a^b f(x) dx
 
 \begin{frame}[fragile]
 
-\frametitle{Engineering applications of integration}
+\frametitle{}
+
+% https://en.wikipedia.org/wiki/File:Integral_as_region_under_curve.svg
+\vspace*{-4mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.35\textwidth]{figures/integralArea}
+\end{figure}
+\vspace*{-3mm}
+\[
+\boxed{S = \int_a^b f(x) dx}
+\]
+\vspace*{-3mm}
+\begin{itemize}
+	\item for some choices of $f$, possible to use calculus to compute $S$ exactly
+	\begin{itemize}
+		\item eg: MATH1002, MATH1110
+		\item numerical methods in this lecture apply even when $f$ is hard (or impossible!) to integrate
+	\end{itemize}
+	\item assume $f(x) \geq 0$
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Many applications of integration}
 
 % https://www.whitman.edu/mathematics/calculus_online/chapter09.html
 
 \begin{itemize}
-	\item 1. Area between curves
-2. Distance, Velocity, Acceleration
-3. Volume
-4. Average value of a function
-5. Work
-6. Center of Mass
-7. Kinetic energy; improper integrals
-8. Probability
-9. Arc Length
-10. Surface Area
+	\item area between curves
+	\item \textbf{distance, velocity}, acceleration
+	\item volume of solids
+	\item average value of a function
+	\item work done by a variable force
+	\item center of mass
+	\item kinetic energy
+	\item probability
+	\item arc length
+	\item surface area
 \end{itemize}
 
 \end{frame}
@@ -179,13 +204,18 @@ S = \int_a^b f(x) dx
 
 \frametitle{Distance $=$ area under speed-time function}
 
-Assume that you speed up your car from rest, on a straight road, and wonder how far you go in T seconds. The displacement is given by the integral
+\begin{itemize}
+	\item accelerate a car from rest
+	\item car speed $v$ depends on time $t$, write: $v(t)$
+	\item[] \textbf{Q:} how far does the car travel in $T=1$ seconds?
+\end{itemize}
+
+Distance traveled in $T$ seconds given by the integral:
 \[
 \int_0^T v(t)dt
 \]
-where $v(t)$ is the velocity (speed) as a function of time
 
-Example:
+\textbf{Example:}
 \[
 v(t) = 3t^2e^{t^3}
 \]
@@ -198,17 +228,22 @@ v(t) = 3t^2e^{t^3}
 
 \frametitle{}
 
+\vspace*{-1mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/LLp134}
+	\includegraphics[width=0.55\textwidth]{figures/LLp134}
 \end{figure}
-
-distance traveled in first second is cross-hatched area:
+\vspace*{-4mm}
+Distance traveled in first second is cross-hatched area:
 \[
 \int_0^1 v(t)dt
 \]
 
-Start at time $0$, end at time $1$ (these are the lower and upper limits)
+\begin{itemize}
+	\item start at time $0$, lower limit of integration
+	\item end at time $1$, upper limit of integration
+\end{itemize}
+	
 \end{frame}
 
 %==============================================================
@@ -217,7 +252,7 @@ Start at time $0$, end at time $1$ (these are the lower and upper limits)
 
 \frametitle{$2)$ Trapezoidal method}
 
-Example:
+\textbf{Example:}
 \vspace*{-5mm}
 \begin{figure}[ht]
 	\centering
@@ -229,7 +264,7 @@ Example:
 	\begin{itemize}
 		\item black + \darkGreen{green} + \red{red} + \blue{blue}
 	\end{itemize}
-	\item area of each trapezoid is easy to calculate %: $\frac{a+b}{2} h$
+	\item area of each trapezoid is easy to calculate
 \end{itemize}
 
 
@@ -243,7 +278,7 @@ Example:
 \frametitle{Area of trapezoid}
 
 \begin{itemize}
-	\item area of trapezoid $\frac{A+B}{2} h$
+	\item area of trapezoid $= h\cdot\frac{A+B}{2}$
 \end{itemize}
 \vspace*{-3mm}
 \begin{figure}[ht]
@@ -259,6 +294,10 @@ Example:
 
 \frametitle{}
 
+\vspace*{-1mm}
+{\footnotesize
+\texttt{fourPanels.py}}
+\vspace*{-3mm}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/fourPanel}
@@ -268,8 +307,8 @@ Example:
 \begin{eqnarray*}
 \int_0^1 v(t)dt & = & \int_0^{0.2} v(t)dt + \int_{0.2}^{0.6} v(t)dt + \int_{0.6}^{0.8} v(t)dt + \int_{0.8}^1 v(t)dt \\
 \pause
-&\approx & h_1 \frac{v(0) + v(0.2)}{2} + \darkGreen{h_2 \frac{v(0.2) + v(0.6)}{2}} + \\
-& & +h_3 \red{\frac{v(0.6) + v(0.8)}{2}} + \blue{h_4 \frac{v(0.8) + v(1)}{2}} 
+&\approx & h_1 \frac{v(0) + v(0.2)}{2} \quad+\quad \darkGreen{h_2 \frac{v(0.2) + v(0.6)}{2}} \\
+& & \quad+\quad \red{h_3 \frac{v(0.6) + v(0.8)}{2}} \quad+\quad \blue{h_4 \frac{v(0.8) + v(1)}{2}} 
 \end{eqnarray*}
 }
 \pause
@@ -358,7 +397,7 @@ print('Exact answer: {:.8f}'.format(exact))
 	\item[]
 	\item line 16: exact result $\int_0^1 3t^2e^{t^3}dt = e - 1$
 	\item[]
-	\item live demo, try $n=4$, $n=100$ and $n=1000$ sub-intervals
+	\item live demo: try $n=4$, $n=100$ and $n=1000$ sub-intervals
 \end{itemize}
 
 \end{frame}
@@ -439,7 +478,8 @@ print('Exact answer: {:.8f}'.format(exact))
 
 {\small
 \[
-\int_a^b f(x)dx = \int_{x_0}^{x_1} f(x)dx + \int_{x_1}^{x_2} f(x)dx + \cdots + \int_{x_{n-1}}^{x_n} f(x)dx
+\int_a^b f(x)dx = \underbrace{\int_{x_0}^{x_1} f(x)dx}_{\text{apply Simpson's rule}} + 
+\underbrace{\int_{x_1}^{x_2} f(x)dx}_{\text{apply Simpson's rule}} + \cdots + \underbrace{\int_{x_{n-1}}^{x_n} f(x)dx}_{\text{apply Simpson's rule}}
 \]
 }
 
@@ -492,7 +532,7 @@ print('Exact answer: {:.8f}'.format(exact))
 		\item line 13: Simpson's rule with $a=x_i$ and $b=x_{i+1}$
 	\end{itemize}
 	\item[]
-	\item live demo, try $n=4$, $n=10$ and $n=100$ sub-intervals
+	\item live demo: try $n=4$, $n=10$ and $n=100$ sub-intervals
 \end{itemize}
 
 \end{frame}
@@ -509,10 +549,6 @@ print('Exact answer: {:.8f}'.format(exact))
 	\item[]
 	
 	\item Trapezoidal method \red{\S6.2}
-	
-%	\item[]
-%	
-%	\item Midpoint method \red{\S6.3}
 	
 	\item[]
 	
