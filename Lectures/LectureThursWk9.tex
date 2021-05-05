@@ -76,7 +76,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Thursday Week 9}
-\subtitle{Normally distributed random numbers}
+\subtitle{Introduction to random numbers from \\ normal distributions}
 \author{Steve Weller}
 \institute{University of Newcastle}
 %\date{\today}
@@ -111,7 +111,7 @@
 
 	\item[]
 	
-	\item standard normal distribution (bell curve)
+	\item \textbf{standard} normal distribution (bell curve)
 	\begin{itemize}
 		\item pdf, mean $\mu = 0$ and $\sigma = 1$ %zero and std 1, 
 		\item generate using Python
@@ -134,9 +134,9 @@
 %		\item area (needs integration) and probability
 %	\end{itemize}
 	
-	\item[]
-	
-	\item engineering application
+%	\item[]
+%	
+%	\item engineering application
 	
 \end{enumerate}
 
@@ -289,6 +289,23 @@ plt.show()
 
 \begin{frame}[fragile]
 
+\frametitle{}
+
+\begin{itemize}
+	\item code commentary
+	\item normal random numbers aka Gaussian distribution
+	\item general form of call to normal()
+	\item explain hist()
+	\item live demo
+	\item nothing much to see in plot of numbers themselves ``noise'' 
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
 \frametitle{Histogram}
 
 \begin{itemize}
@@ -383,6 +400,8 @@ plt.plot(x, f, color='r', linewidth=3)
 
 \frametitle{Standard normal distribution}
 
+Equation of red function
+
 \[
 f(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}
 \]
@@ -397,16 +416,10 @@ plt.plot(x, f, color='r', linewidth=3)
 \end{lstlisting}
 
 \begin{itemize}
-	\item area under $f(x)$ is $1$
-	\begin{itemize}
-		\item reason for the $1/\sqrt{2\pi}$ factor
-	\end{itemize}
-	
-	\item $f(x) \geq 0$ for all $x$
+	\item[] $f(x)$ is an example of a \red{\emph{probability density function (pdf)}}
 \end{itemize}
 
 \end{frame}
-
 
 %==============================================================
 
@@ -415,16 +428,15 @@ plt.plot(x, f, color='r', linewidth=3)
 \frametitle{Probability density functions}
 
 \begin{itemize}
-\item Probability that $X$ takes a value in interval $[a,b]$ is
+\item probability that $X$ takes a value in interval $[a,b]$ is
 	\item[] \[
-\mathrm{Pr}(a \leq X \leq b) = \int_a^b f(x) dx
+\mathrm{P}(a \leq X \leq b) = \int_a^b f(x) dx
 \]
- %$\int_a^b f(x) dx$
-\item[]
-\[
-\int_{-\infty}^\infty f(x) dx = \mathrm{Pr}(-\infty \leq X \leq \infty) = 1
-\]
-\item needs an image
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.7\textwidth]{figures/genericPDF}
+\end{figure}
+
 \end{itemize}
 
 \end{frame}
@@ -433,14 +445,74 @@ plt.plot(x, f, color='r', linewidth=3)
 
 \begin{frame}[fragile]
 
-\frametitle{$3)$ Engineering application}
+\frametitle{pdf properties}
+
+To qualify as a PDF, function $f$ must be non-negative, and must have the normalization property. Thsi means the entire area under the graph of $f$ must be equal to $1$
 
 \begin{itemize}
-	\item xxx
+	\item area under $f(x)$ is $1$
+	\begin{itemize}
+		\item reason for the $1/\sqrt{2\pi}$ factor
+	\end{itemize}
+	
+	\item[]
+	
+	\item $f(x) \geq 0$ for all $x$, since probability can't be negative
+	
+	\item[]
+	
+	\item total area under pdf is $1$, since $X$ must take some value
+\[
+\int_{-\infty}^\infty f(x) dx = \mathrm{P}(-\infty \leq X \leq \infty) = 1
+\]
 \end{itemize}
 
 \end{frame}
 
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$2)$ Integration}
+
+the story so far \ldots
+
+\begin{itemize}
+	\item PDF of random numbers following \red{\emph{standard normal distribution}} is a ``bell curve''
+\[
+	f(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}
+\]
+	\item probability of a random number drawn from standard normal distribution taking value in interval $[a,b]$ is
+	\[
+	\mathrm{P}(a \leq X \leq b) = \frac{1}{\sqrt{2\pi}} \int_a^b  e^{-x^2/2} dx
+	\]
+
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Example: ``engineering'' application}
+
+\begin{itemize}
+	\item exact expression doesn't exist for $\int_a^b e^{-x^2/2} dx$
+	\item need to use numerical integration
+\end{itemize}
+
+\textbf{Example}
+
+\begin{itemize}
+	\item $a = 1$, $b = 2$
+	\item calculated probability using \texttt{standardnormal.py} is $0.1359$
+	\begin{itemize}
+		\item uses trapezoidal method with $100$ sub-intervals on $[1,2]$
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
 
 %==============================================================
 
@@ -448,9 +520,114 @@ plt.plot(x, f, color='r', linewidth=3)
 
 \frametitle{}
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.7\textwidth]{figures/stdnormal_12}
+\end{figure}
+
+red shaded area is
+\[
+\int_1^2 e^{-x^2/2} dx \approx 0.1359
+\]
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code}
+
+\texttt{standardnormal.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# standardnormal
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+def f(x):
+    return 1/(np.sqrt(2 * np.pi)) * np.exp(-x**2 / 2)
+
+def trapezoidal(f, a, b, n):
+    h = (b-a)/n
+    f_sum = 0
+    for i in range(1, n, 1):
+        x = a + i*h
+        f_sum = f_sum + f(x)
+    return h*(0.5*f(a) + f_sum + 0.5*f(b))
+\end{lstlisting}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code}
+
+\texttt{standardnormal.py}---continued
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+a = 1
+b = 2
+
+prob_ab = trapezoidal(f, a, b, 100)
+print('Probability X in range [{},{}] is: {:.4f}'.format(a, b, prob_ab))
+
+x = np.linspace(-4, 4, 1000)
+xab = np.linspace(a, b, 100)
+
+plt.plot(x, f(x), 'b')             # standard normal pdf
+plt.plot(xab,f(xab),'r')
+plt.fill_between(xab,f(xab),color='r',alpha=0.5) #alpha=transparency
+plt.axis([-4, 4, 0, 0.42])
+
+plt.show()
+\end{lstlisting}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Demo of standard normal generation}
+
 \begin{itemize}
-	\item xxx
+	\item generate $10^6$ random numbers
+	\item expect $10^6 \times 0.1359 = 135,900$ in range $[1,2]$
+	\item live demo
+	\item results
 \end{itemize}
+
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code}
+
+\texttt{standardnormaldemo.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# standardnormaldemo
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+N = 1000000
+x = np.random.normal(0.0, 1.0, size=N)
+a = 1
+b = 2
+num_ab = 0
+for k in range(0, len(x)):
+    #print(k)
+    if a <= x[k] <= b:
+        num_ab += 1
+
+print('{} standard normal random numbers'.format(N))
+print('#random numbers in range [{},{}] = {}'.format(a, b, num_ab))
+\end{lstlisting}
 
 \end{frame}
 
@@ -461,10 +638,6 @@ plt.plot(x, f, color='r', linewidth=3)
 \frametitle{Lecture summary}
 
 \begin{enumerate}
-	\item xxx
-	
-	\item[]
-	
 	\item xxx
 	
 	\item[]
