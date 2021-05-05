@@ -102,12 +102,12 @@
 
 \frametitle{Lecture overview}
 \begin{enumerate}
-	\item recap: uniformly distributed random numbers
-	\begin{itemize}
-		\item pdf of uniformly distributed rv
-		\item area under pdf is probability
-		\item histogram, normalized histogram is basically pdf
-	\end{itemize}
+%	\item recap: uniformly distributed random numbers
+%	\begin{itemize}
+%		\item pdf of uniformly distributed rv
+%		\item area under pdf is probability
+%		\item histogram, normalized histogram is basically pdf
+%	\end{itemize}
 
 	\item[]
 	
@@ -115,6 +115,13 @@
 	\begin{itemize}
 		\item pdf, mean $\mu = 0$ and $\sigma = 1$ %zero and std 1, 
 		\item generate using Python
+		\item histogram
+	\end{itemize}
+	
+	\item[]
+	
+	\item using integration to compute probabilities using standard normal distribution
+	\begin{itemize}
 		\item area (needs integration) and probability
 	\end{itemize}
 	
@@ -135,56 +142,144 @@
 
 \end{frame}
 
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{$1)$ Uniformly distributed random numbers}
+%
+%% https://www.w3schools.com/python/python_ml_data_distribution.asp
+%
+%\begin{itemize}
+%	\item reminder: introduced in week 4
+%	\item general form: random.uniform(low=0.0, high=1.0, size=None)
+%	\item Create an array containing 250 random floats between 0 and 5
+%\end{itemize}
+%
+%%  random.uniform(low=0.0, high=1.0, size=None)
+%
+%\texttt{filename.py}
+%\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+%import numpy as np
+%
+%x = np.random.uniform(0.0, 5.0, 250)
+%
+%print(x) 
+%\end{lstlisting}
+%
+%\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{histogram}
+%
+%% https://www.w3schools.com/python/matplotlib_histograms.asp
+%
+%% https://www.w3schools.com/python/python_ml_data_distribution.asp
+%
+%\begin{itemize}
+%	\item A histogram is a graph showing frequency distributions
+%	\item It is a graph showing the number of observations within each given interval.
+%	\item To visualize the data set we can draw a histogram with the data we collected
+%	\item We will use the Python module Matplotlib to draw a histogram
+%\end{itemize}
+%
+%\texttt{filename.py}
+%\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+%import numpy as np
+%import matplotlib.pyplot as plt
+%
+%x = np.random.uniform(0.0, 5.0, 250)
+%
+%plt.hist(x, 5)
+%plt.show() 
+%\end{lstlisting}
+%
+%\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{}
+%
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics[width=0.8\textwidth]{figures/uniformOutput}
+%\end{figure}
+%
+%\begin{itemize}
+%	\item interpret in terms of numbers in each bin
+%	\item be clear about bin ranges $[a,b)$
+%\end{itemize}
+%
+%\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{pdf of uniformly distributed rv}
+%
+%\begin{itemize}
+%	\item probability density function of the uniform distribution is
+%	\[
+%		p(x) = \frac{1}{b-a}
+%	\]
+%	anywhere in the interval $[a,b)$, and zero elsewhere
+%	\item needs an image
+%\end{itemize}
+%
+%\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{normalized histogram is basically pdf}
+%
+%\begin{itemize}
+%	\item same plot as previous, but now normalize using \texttt{density=True} in \texttt{hist}
+%\end{itemize}
+%
+%\end{frame}
+
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{area under pdf is probability}
+%
+%\begin{itemize}
+%	\item xxx
+%\end{itemize}
+%
+%\end{frame}
+
 %==============================================================
 
 \begin{frame}[fragile]
 
-\frametitle{$1)$ Uniformly distributed random numbers}
-
-% https://www.w3schools.com/python/python_ml_data_distribution.asp
+\frametitle{$1)$ Standard normal distribution}
 
 \begin{itemize}
-	\item Create an array containing 250 random floats between 0 and 5
+	\item Straight into it, generate $100,000$ random numbers generated using \texttt{normal} function in numpy's random library
+	\item mean = 0, std = 1
 \end{itemize}
 
-%  random.uniform(low=0.0, high=1.0, size=None)
 
-\texttt{filename.py}
-\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
-import numpy as np
-
-x = np.random.uniform(0.0, 5.0, 250)
-
-print(x) 
-\end{lstlisting}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{histogram}
-
-% https://www.w3schools.com/python/matplotlib_histograms.asp
-
-% https://www.w3schools.com/python/python_ml_data_distribution.asp
-
-\begin{itemize}
-	\item A histogram is a graph showing frequency distributions
-	\item It is a graph showing the number of observations within each given interval.
-	\item To visualize the data set we can draw a histogram with the data we collected
-	\item We will use the Python module Matplotlib to draw a histogram
-\end{itemize}
 
 \texttt{filename.py}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
 import numpy as np
 import matplotlib.pyplot as plt
 
-x = np.random.uniform(0.0, 5.0, 250)
+np.random.seed(1)
+x = np.random.normal(0.0, 1.0, size=100000)
 
-plt.hist(x, 5)
+plt.hist(x, 10)
 plt.show() 
 \end{lstlisting}
 
@@ -194,11 +289,33 @@ plt.show()
 
 \begin{frame}[fragile]
 
+\frametitle{Histogram}
+
+\begin{itemize}
+	\item interpret histogram
+	\item bins, counts, examples
+	\item call hist to return bins---too hard?
+\end{itemize}
+
+\begin{itemize}
+	\item A histogram is a graph showing frequency distributions
+	\item It is a graph showing the number of observations within each given interval.
+	\item To visualize the data set we can draw a histogram with the data we collected
+	\item We will use the Python module Matplotlib to draw a histogram
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
 \frametitle{}
 
+10 bins
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/uniformOutput}
+	\includegraphics[width=0.8\textwidth]{figures/hist10BinsExample}
 \end{figure}
 
 \end{frame}
@@ -207,47 +324,14 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{normalized histogram is basically pdf}
+\frametitle{}
 
-\begin{itemize}
-	\item same plot as previous, but now normalize using \texttt{density=True} in \texttt{hist}
-\end{itemize}
+Identical data, but now 100 bins
 
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{pdf of uniformly distributed rv}
-
-\begin{itemize}
-	\item xxx
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{area under pdf is probability}
-
-\begin{itemize}
-	\item xxx
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{$2)$ Standard normal distribution}
-
-\begin{itemize}
-	\item xxx
-\end{itemize}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/hist100BinsExample}
+\end{figure}
 
 \end{frame}
 
@@ -257,9 +341,16 @@ plt.show()
 
 \frametitle{}
 
-\begin{itemize}
-	\item xxx
-\end{itemize}
+Identical data, same 100 bins, now area under histogram is normalized to $1$
+
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+plt.hist(x, 100, density=True)
+\end{lstlisting}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/hist100BinsDensity}
+\end{figure}
 
 \end{frame}
 
@@ -269,9 +360,20 @@ plt.show()
 
 \frametitle{}
 
-\begin{itemize}
-	\item xxx
-\end{itemize}
+Now with standard normal pdf as red line
+
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+x = np.linspace(-5,5,num=1000)
+f = 1/(np.sqrt(2 * np.pi)) * np.exp(-x**2 / 2)
+
+plt.hist(d, 100, density=True)
+plt.plot(x, f, color='r', linewidth=3)
+\end{lstlisting}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/histWithpdf}
+\end{figure}
 
 \end{frame}
 
@@ -279,10 +381,50 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Standard normal distribution}
+
+\[
+f(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}
+\]
+
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(-5,5,num=1000)
+f = 1/(np.sqrt(2 * np.pi)) * np.exp(-x**2 / 2)
+plt.plot(x, f, color='r', linewidth=3)
+\end{lstlisting}
 
 \begin{itemize}
-	\item xxx
+	\item area under $f(x)$ is $1$
+	\begin{itemize}
+		\item reason for the $1/\sqrt{2\pi}$ factor
+	\end{itemize}
+	
+	\item $f(x) \geq 0$ for all $x$
+\end{itemize}
+
+\end{frame}
+
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Probability density functions}
+
+\begin{itemize}
+\item Probability that $X$ takes a value in interval $[a,b]$ is
+	\item[] \[
+\mathrm{Pr}(a \leq X \leq b) = \int_a^b f(x) dx
+\]
+ %$\int_a^b f(x) dx$
+\item[]
+\[
+\int_{-\infty}^\infty f(x) dx = \mathrm{Pr}(-\infty \leq X \leq \infty) = 1
+\]
+\item needs an image
 \end{itemize}
 
 \end{frame}
@@ -299,6 +441,18 @@ plt.show()
 
 \end{frame}
 
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{itemize}
+	\item xxx
+\end{itemize}
+
+\end{frame}
 
 %==============================================================
 
