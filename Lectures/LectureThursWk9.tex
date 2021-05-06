@@ -76,7 +76,8 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Thursday Week 9}
-\subtitle{Introduction to random numbers from \\ normal distributions}
+\subtitle{Random numbers from normal distributions \\
+---aka random numbers from Gaussian distributions}
 \author{Steve Weller}
 \institute{University of Newcastle}
 %\date{\today}
@@ -111,18 +112,19 @@
 
 	\item[]
 	
-	\item \textbf{standard} normal distribution (bell curve)
+	\item normal distribution
 	\begin{itemize}
-		\item pdf, mean $\mu = 0$ and $\sigma = 1$ %zero and std 1, 
-		\item generate using Python
-		\item histogram
+		\item also known as ``bell curve'', or Gaussian distribution
+%		\item today: ``standard'' normal ie: mean $\mu = 0$ and $\sigma = 1$ %zero and std 1, 
+		\item today: draw random samples from ``standard'' normal distribution
+%		\item histogram
 	\end{itemize}
 	
 	\item[]
 	
-	\item using integration to compute probabilities using standard normal distribution
+	\item compute probabilities using normal distribution
 	\begin{itemize}
-		\item area (needs integration) and probability
+		\item uses numerical integration
 	\end{itemize}
 	
 %	\item[]
@@ -262,11 +264,27 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$1)$ Standard normal distribution}
+\frametitle{$1)$ Normal distribution}
+
+\begin{itemize}
+	\item intoduced \emph{uniformly} distributed random numbers in week 4
+	\item today: will focus on ``standard'' normal, extend next week to general form
+	\item goal today is to random samples from a standard normal (Gaussian) distribution, and compute probability of number falling in specified range
+	\item aka Gaussian random numbers
+	\item widely appear in engineering
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Standard normal distribution}
 
 \begin{itemize}
 	\item Straight into it, generate $100,000$ random numbers generated using \texttt{normal} function in numpy's random library
-	\item mean = 0, std = 1
+	\item standard: mean = 0, std = 1
 \end{itemize}
 
 
@@ -327,13 +345,31 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Python code}
 
-10 bins
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.8\textwidth]{figures/hist10BinsExample}
-\end{figure}
+\texttt{histdemo.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# histdemo
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(1)
+d = np.random.normal(0.0, 1.0, size=100000)
+
+x = np.linspace(-5,5,num=1000)
+f = 1/(np.sqrt(2 * np.pi)) * np.exp(-x**2 / 2)
+
+plt.hist(d, 100, density=True)
+plt.plot(x, f, color='r', linewidth=3)
+#plt.hist(d, 100)
+
+#plt.plot(d, 'o')
+plt.show()
+\end{lstlisting}
+
+%\begin{itemize}
+%	\item lines 5--6: PDF of standard normal distribution
+%\end{itemize}
 
 \end{frame}
 
@@ -341,14 +377,16 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{}
-
-Identical data, but now 100 bins
+\frametitle{Histogram: 10 bins}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/hist100BinsExample}
+	\includegraphics[width=0.7\textwidth]{figures/hist10BinsExample}
 \end{figure}
+
+\begin{itemize}
+	\item eg: XXX samples in range $[XXX,XXX]$
+\end{itemize}
 
 \end{frame}
 
@@ -356,9 +394,24 @@ Identical data, but now 100 bins
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Histogram: 100 bins}
 
-Identical data, same 100 bins, now area under histogram is normalized to $1$
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/hist100BinsExample}
+\end{figure}
+
+\begin{itemize}
+	\item identical data set as for $10$ bins
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Normalized histogram (area $1$): 100 bins}
 
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
 plt.hist(x, 100, density=True)
@@ -366,7 +419,7 @@ plt.hist(x, 100, density=True)
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/hist100BinsDensity}
+	\includegraphics[width=0.7\textwidth]{figures/hist100BinsDensity}
 \end{figure}
 
 \end{frame}
@@ -375,22 +428,16 @@ plt.hist(x, 100, density=True)
 
 \begin{frame}[fragile]
 
-\frametitle{}
-
-Now with standard normal pdf as red line
-
-\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
-x = np.linspace(-5,5,num=1000)
-f = 1/(np.sqrt(2 * np.pi)) * np.exp(-x**2 / 2)
-
-plt.hist(d, 100, density=True)
-plt.plot(x, f, color='r', linewidth=3)
-\end{lstlisting}
+\frametitle{Normalized histogram with PDF}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.8\textwidth]{figures/histWithpdf}
+	\includegraphics[width=0.7\textwidth]{figures/histWithpdf}
 \end{figure}
+
+\begin{itemize}
+	\item[] red curve is \red{\emph{probability density function (PDF)}}
+\end{itemize}
 
 \end{frame}
 
@@ -400,23 +447,26 @@ plt.plot(x, f, color='r', linewidth=3)
 
 \frametitle{Standard normal distribution}
 
-Equation of red function
-
+Standard normal probability density function:
 \[
-f(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}
+\boxed{
+f(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}}
 \]
 
-\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
-import numpy as np
-import matplotlib.pyplot as plt
-
-x = np.linspace(-5,5,num=1000)
-f = 1/(np.sqrt(2 * np.pi)) * np.exp(-x**2 / 2)
-plt.plot(x, f, color='r', linewidth=3)
-\end{lstlisting}
+%\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+%import numpy as np
+%import matplotlib.pyplot as plt
+%
+%x = np.linspace(-5,5,num=1000)
+%f = 1/(np.sqrt(2 * np.pi)) * np.exp(-x**2 / 2)
+%plt.plot(x, f, color='r', linewidth=3)
+%\end{lstlisting}
 
 \begin{itemize}
-	\item[] $f(x)$ is an example of a \red{\emph{probability density function (pdf)}}
+	\item we'll see a more general form of normal distribution next lecture
+	\item standard normal is a special case: mean 0 and std 1
+	\item reflections
+	\item qualitative description of what a pdf is
 \end{itemize}
 
 \end{frame}
@@ -427,17 +477,17 @@ plt.plot(x, f, color='r', linewidth=3)
 
 \frametitle{Probability density functions}
 
-\begin{itemize}
-\item probability that $X$ takes a value in interval $[a,b]$ is
-	\item[] \[
-\mathrm{P}(a \leq X \leq b) = \int_a^b f(x) dx
+If $X$ is a random number drawn from a distribution with PDF $f(x)$, probability $X$ takes a value in interval $[a,b]$ is
+\vspace*{-2mm}
+\[
+	\boxed{
+\mathrm{P}(a \leq X \leq b) = \int_a^b f(x) dx}
 \]
+\vspace*{-5mm}
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=.7\textwidth]{figures/genericPDF}
 \end{figure}
-
-\end{itemize}
 
 \end{frame}
 
@@ -445,7 +495,7 @@ plt.plot(x, f, color='r', linewidth=3)
 
 \begin{frame}[fragile]
 
-\frametitle{pdf properties}
+\frametitle{Properties of a PDF}
 
 To qualify as a PDF, function $f$ must be non-negative, and must have the normalization property. Thsi means the entire area under the graph of $f$ must be equal to $1$
 
@@ -495,7 +545,7 @@ the story so far \ldots
 
 \begin{frame}[fragile]
 
-\frametitle{Example: ``engineering'' application}
+\frametitle{Example}
 
 \begin{itemize}
 	\item exact expression doesn't exist for $\int_a^b e^{-x^2/2} dx$
@@ -527,7 +577,7 @@ the story so far \ldots
 
 red shaded area is
 \[
-\int_1^2 e^{-x^2/2} dx \approx 0.1359
+\frac{1}{\sqrt{2\pi}} \int_1^2 e^{-x^2/2} dx \approx 0.1359
 \]
 
 \end{frame}
@@ -536,12 +586,11 @@ red shaded area is
 
 \begin{frame}[fragile]
 
-\frametitle{Python code}
+\frametitle{Python code: fraction of numbers in $[a,b]$}
 
 \texttt{standardnormal.py}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
 # standardnormal
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -557,6 +606,10 @@ def trapezoidal(f, a, b, n):
     return h*(0.5*f(a) + f_sum + 0.5*f(b))
 \end{lstlisting}
 
+\begin{itemize}
+	\item lines 5--6: PDF of standard normal distribution
+\end{itemize}
+
 \end{frame}
 
 %==============================================================
@@ -569,7 +622,6 @@ def trapezoidal(f, a, b, n):
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
 a = 1
 b = 2
-
 prob_ab = trapezoidal(f, a, b, 100)
 print('Probability X in range [{},{}] is: {:.4f}'.format(a, b, prob_ab))
 
@@ -580,9 +632,13 @@ plt.plot(x, f(x), 'b')             # standard normal pdf
 plt.plot(xab,f(xab),'r')
 plt.fill_between(xab,f(xab),color='r',alpha=0.5) #alpha=transparency
 plt.axis([-4, 4, 0, 0.42])
-
 plt.show()
 \end{lstlisting}
+
+\begin{itemize}
+	\item line 3: approximate $\frac{1}{\sqrt{2\pi}} \int_1^2 e^{-x^2/2} dx$
+	\item line 7: $1 \leq x \leq 2$ for red shaded area plot
+\end{itemize}
 
 \end{frame}
 
@@ -599,7 +655,6 @@ plt.show()
 	\item results
 \end{itemize}
 
-
 \end{frame}
 
 %==============================================================
@@ -611,9 +666,7 @@ plt.show()
 \texttt{standardnormaldemo.py}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
 # standardnormaldemo
-
 import numpy as np
-import matplotlib.pyplot as plt
 
 N = 1000000
 x = np.random.normal(0.0, 1.0, size=N)
@@ -621,13 +674,16 @@ a = 1
 b = 2
 num_ab = 0
 for k in range(0, len(x)):
-    #print(k)
     if a <= x[k] <= b:
         num_ab += 1
 
 print('{} standard normal random numbers'.format(N))
-print('#random numbers in range [{},{}] = {}'.format(a, b, num_ab))
+print('Fraction of random numbers in range [{},{}] = {:.4f}'.format(a, b, num_ab/N))
 \end{lstlisting}
+
+\begin{itemize}
+	\item fraction of random numbers in range $[1,2] \approx 0.136$
+\end{itemize}
 
 \end{frame}
 
