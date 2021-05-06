@@ -411,7 +411,7 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{Normalized histogram (area $1$): 100 bins}
+\frametitle{Normalized histogram (area $1$), 100 bins}
 
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
 plt.hist(x, 100, density=True)
@@ -568,16 +568,16 @@ the story so far \ldots
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Example: fraction of standard normal numbers in $[1,2]$}
 
+\vspace*{-2mm}
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=.7\textwidth]{figures/stdnormal_12}
+	\includegraphics[width=.6\textwidth]{figures/stdnormal_12}
 \end{figure}
-
-red shaded area is
+\vspace*{-3mm}
 \[
-\frac{1}{\sqrt{2\pi}} \int_1^2 e^{-x^2/2} dx \approx 0.1359
+\mathsf{Red~shaded~area~} = \frac{1}{\sqrt{2\pi}} \int_1^2 e^{-x^2/2} dx \approx 0.1359
 \]
 
 \end{frame}
@@ -586,7 +586,7 @@ red shaded area is
 
 \begin{frame}[fragile]
 
-\frametitle{Python code: fraction of numbers in $[a,b]$}
+\frametitle{Python code: fraction of numbers in $[1,2]$}
 
 \texttt{standardnormal.py}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
@@ -636,7 +636,7 @@ plt.show()
 \end{lstlisting}
 
 \begin{itemize}
-	\item line 3: approximate $\frac{1}{\sqrt{2\pi}} \int_1^2 e^{-x^2/2} dx$
+	\item line 3: approximate $\frac{1}{\sqrt{2\pi}} \int_1^2 e^{-x^2/2} dx$, $100$ panels
 	\item line 7: $1 \leq x \leq 2$ for red shaded area plot
 \end{itemize}
 
@@ -646,13 +646,20 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{Demo of standard normal generation}
+\frametitle{Live demo: standard normal generation}
 
 \begin{itemize}
-	\item generate $10^6$ random numbers
-	\item expect $10^6 \times 0.1359 = 135,900$ in range $[1,2]$
-	\item live demo
-	\item results
+	\item draw $N = 10^6$ random numbers from standard normal distribution
+	\item[]
+	\item for large $N$, expect fraction of random numbers $X$ in range $[1,2]$ to be close to
+	\[
+	\mathrm{P}(1 \leq X \leq 2)  = \frac{1}{\sqrt{2\pi}} \int_1^2 e^{-x^2/2} dx \approx \red{0.1359}
+	\]
+	\item[]
+	\item live demo of \texttt{standardnormaldemo.py}
+	\item[]
+	\item observed fraction $\approx \red{0.136}$
+	\item[]
 \end{itemize}
 
 \end{frame}
@@ -682,7 +689,7 @@ print('Fraction of random numbers in range [{},{}] = {:.4f}'.format(a, b, num_ab
 \end{lstlisting}
 
 \begin{itemize}
-	\item fraction of random numbers in range $[1,2] \approx 0.136$
+	\item lines 8--12: \texttt{for} loop counts number of random numbers $x$ satisfying $1 \leq x \leq 2$
 \end{itemize}
 
 \end{frame}
@@ -694,15 +701,24 @@ print('Fraction of random numbers in range [{},{}] = {:.4f}'.format(a, b, num_ab
 \frametitle{Lecture summary}
 
 \begin{enumerate}
-	\item xxx
+	\item standard normal distribution
+	\begin{itemize}
+		\item drawing \texttt{N} random samples using \texttt{numpy.random.normal(0.0, 1.0, size=N)}
+	\end{itemize}
 	
 	\item[]
 	
-	\item xxx
+	\item compute probability $\mathrm{P}(a \leq X \leq b)$ for standard normal distribution
+	\begin{itemize}
+		\item needs numerical integration using PDF
+		\[
+			f(x) = \frac{1}{\sqrt{2\pi}} \int_a^b e^{-x^2/2} dx
+		\]
+	\end{itemize}
 	
 	\item[]
 	
-	\item what's next
+	\item generalise standard normal distribution, and applications
 	
 \end{enumerate}
 
