@@ -76,7 +76,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Monday Week 10}
-\subtitle{Normal distributions: extensions and applications \\ Curve-fitting}%\\ \& computing integrals}
+\subtitle{Normal distribution: extensions and applications \\ Fitting straight line to data}%\\ \& computing integrals}
 \author{Steve Weller}
 \institute{University of Newcastle}
 %\date{\today}
@@ -102,18 +102,18 @@
 
 \frametitle{Lecture overview}
 \begin{enumerate}
-	\item Normal distributions
-
+	\item Normal distribution
 		\begin{itemize}
 			\item extension of \emph{standard} normal distribution \\ (previous lecture)
-			\item applications
-
-		\end{itemize}
-	
+			\item application
+		\end{itemize}	
 	\item[]
 	
-	\item Curve-fitting
-	
+	\item Fitting straight line to data
+	\begin{itemize}
+		\item using Python to fit a straight line to data
+		\item application
+	\end{itemize}	
 \end{enumerate}
 
 \end{frame}
@@ -436,7 +436,7 @@ f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}
 
 \begin{frame}[fragile]
 
-\frametitle{Application 1}
+\frametitle{Application}
 
 \begin{itemize}
 	\item xxx
@@ -444,14 +444,57 @@ f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}
 
 \end{frame}
 
+%%==============================================================
+%
+%\begin{frame}[fragile]
+%
+%\frametitle{$2)$ Fitting straight line to data}
+%
+%\begin{itemize}
+%	\item straight line fitting
+%	\item low-order polynomials (?)
+%	\item maybe fitting exponentials (??)
+%	\item \texttt{scipy.optimize.curve\_fit}
+%	\item applications
+%\end{itemize}
+%
+%% https://en.wikipedia.org/wiki/Curve_fitting
+%\begin{itemize}
+%	\item ``Curve fitting is the process of constructing a curve, or mathematical function, that has the best fit to a series of data points''
+%	\item simplest form of curve-fitting is \emph{straight line fitting}
+%\end{itemize}
+%
+%\end{frame}
+
 %==============================================================
 
 \begin{frame}[fragile]
 
-\frametitle{Application 2}
+\frametitle{$2)$ Fitting straight line to data}
 
 \begin{itemize}
-	\item xxx
+	\item \textbf{Aim:} construct a function that best fits a series of data points
+	\begin{itemize}
+		\item simplest function is a \emph{straight line}
+	\end{itemize}
+	\item two common forms of \red{\emph{curve-fitting}} in Engineering applications:
+	
+	\begin{enumerate}
+	\item \red{\emph{interpolation}}
+	\begin{itemize}
+		\item week 6, Monday lecture
+	\end{itemize}
+	\item[]
+	\item \red{\emph{regression}}
+	\begin{itemize}
+		\item today's lecture
+	\end{itemize}
+\end{enumerate}
+
+\end{itemize}
+	
+\begin{itemize}
+	\item we now demonstrate both curve-fitting methods applied to the same dataset
 \end{itemize}
 
 \end{frame}
@@ -460,14 +503,18 @@ f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}
 
 \begin{frame}[fragile]
 
-\frametitle{$2)$ Curve-fitting}
+\frametitle{Curve-fitting dataset}
 
+\texttt{Week6Monday.py}
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/Week6MonDataset}
+\end{figure}
+\vspace*{-5mm}
 \begin{itemize}
-	\item straight line fitting
-	\item low-order polynomials
-	\item maybe fitting exponentials (?)
-	\item \texttt{scipy.optimize.curve\_fit}
-	\item applications
+	\item 11 pairs of data points $(t_i,y_i), i = 0,1,2,\ldots,10$
+	\item[] {\small $(0,51.29), (10,65.24), (20,124.89), \ldots,(100,361.32)$}
 \end{itemize}
 
 \end{frame}
@@ -476,31 +523,192 @@ f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Interpolation}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/Week6MonLinearInterp}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Regression: straight-line fit}
+
+\vspace*{-3mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{figures/Week6MonLinearRegression}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Interpolation vs.\ regression}
+
+\begin{itemize}
+	\item \textbf{interpolation:} joining the dots
+	\begin{itemize}
+		\item obtain value of $y$ at some intermediate point
+		\item week 6, Monday lecture
+		\item linear interpolation, cubic spline interpolation
+	\end{itemize}
+	\item[]
+	\item \textbf{regression:} fitting a straight line
+	\begin{itemize}
+		\item when there's ``too much data'', simplify
+		\item here, simplifying to a straight line
+		\item today's lecture
+	\end{itemize}
+	\item[]
+	\item both interpolation \& regression involve creating a function \blue{(blue line)} from data \red{(red dots)}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Line-fitting in Python}
+
+\begin{itemize}
+	\item input data consists of $(x,y)$ data pairs
+	\item goal is to calculate gradient $m$ and $y$-intercept $b$ of line-of-best-fit
+	\[
+		y = mx + b
+	\]
+	\item in Python, we use \texttt{curve\_fit()} function in \texttt{scipy.optimize} library to find $m$ and $b$
+	\begin{itemize}
+		\item may need \texttt{pip install scipy} in terminal
+	\end{itemize}
+	\item[] \begin{lstlisting}[style=CStyle,basicstyle=\small]
+popt, pcov = curve_fit(line, x, y)
+m = popt[0]
+b = popt[1]
+\end{lstlisting}
+	\item ignore \texttt{pcov} returned by \texttt{curve\_fit}
+\end{itemize}
+
+
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Line-fitting example}
+
+Output generated by \texttt{linefitdemo.py}
+\vspace*{-2mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.75\textwidth]{figures/linefitdemoOutput}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code: line-fitting}
+
+\vspace*{-3mm}
+
+\texttt{linefitdemo.py}
+\vspace*{-2mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# linefitdemo
+import numpy as np
+from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
+
+def line(x, m, b):
+    return m * x + b
+
+np.random.seed(1)   # replicate results by fixing seed
+x = np.linspace(0, 100, 100)
+y = 3. * x + 2. + np.random.normal(0., 10., 100)
+plt.plot(x, y, '.')
+
+popt, pcov = curve_fit(line, x, y)
+m = popt[0]
+b = popt[1]
+print('Straight-line gradient m = {:.2f}'.format(m))
+print('Straight-line intercept b = {:.2f}'.format(b))
+
+xfine = np.linspace(0., 100., 100)
+plt.plot(xfine, line(xfine, m, b), 'r')
+plt.show()
+\end{lstlisting}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code: commentary}
+
+\begin{itemize}
+	\item lines 6--7: prepare to fit a straight line to $(x,y)$ data
+	\begin{itemize}
+		\item line equation $y = mx + b$
+	\end{itemize}
+	\item[]
+	\item lines 9--12: create and plot $(x,y)$ data pairs
+	\begin{itemize}
+		\item straight line (gradient $3$ and $y$-intercept $b$)
+		\item[] + Gaussian noise ($\mu=0, \sigma=10$)
+	\end{itemize}
+	\item[]
+	\item lines 14--16: where the action happens!
+	\begin{itemize}
+		\item \texttt{curve\_fit()} function calculates $m$ and $b$ which provide best fit to $(x,y)$ data
+	\end{itemize}
+	\item[]
+	\item lines 20--21: plot best-fit straight line
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{How does line-fitting work?}
+
+\begin{itemize}
+	\item least-squares
+	\item maybe an image?
+	\item extension to higher-order polynomials fitting
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Application of line-fitting: sea-ice extent}
+
+\vspace*{-5mm}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{figures/linearfitscratch}
+	\includegraphics[width=.9\textwidth]{figures/seaiceextent}
 \end{figure}
 
-% https://astrofrog.github.io/py4sci/_static/15.%20Fitting%20models%20to%20data.html
-
-\begin{itemize}
-	\item xxx
-\end{itemize}
-
-\end{frame}
-
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{}
-
-\begin{itemize}
-	\item xxx
-\end{itemize}
+\href{https://climate.nasa.gov/vital-signs/arctic-sea-ice/}{https://climate.nasa.gov/vital-signs/arctic-sea-ice/}
 
 \end{frame}
 
@@ -508,10 +716,21 @@ f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Fitting a straight line to sea-ice data}
 
 \begin{itemize}
-	\item xxx
+	\item graph shows average monthly Arctic sea ice extent each September since 1979, derived from satellite observations
+	\item[]
+	\item[] \textbf{Aim:} use straight-line fit to data to estimate when Arctic will be free of sea-ice
+	\begin{itemize}
+		\item ie: when sea-ice extent is zero
+	\end{itemize}
+	\item[]
+	\item Key steps in solution
+	\begin{enumerate}
+		\item fit straight line to data, using \texttt{scipy.optimize.curve\_fit}
+		\item line $y = mx + b$ intersects $x$-axis ($y=0$) when $x = -b/m$
+	\end{enumerate}
 \end{itemize}
 
 \end{frame}
@@ -520,11 +739,83 @@ f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Python code: sea-ice extent}
+
+\vspace*{-3mm}
+
+\texttt{seaice.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# seaiceextent
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+
+def line(x, m, b):
+    return m * x + b
+
+# dataset: September sea-ice extent 1979-2020
+# https://climate.nasa.gov/vital-signs/arctic-sea-ice/
+year = np.arange(1979, 2021)
+extent = np.array([7.05,7.67,7.14,7.3,7.39,6.81,6.7,7.41,
+        7.28,7.37,7.01,6.14, 6.47,7.47,6.4,7.14,6.08,
+        7.58,6.69,6.54,6.12,6.25,6.73,5.83,6.12,
+        5.98,5.5,5.86,4.27,4.69,5.26,4.87,4.56,
+        3.57,5.21,5.22,4.62,4.53,4.82,4.79,4.36,3.92])
+\end{lstlisting}
 
 \begin{itemize}
-	\item xxx
+	\item lines 6--7: prepare to fit a straight line to data
+	\item lines 11--12: sea-ice extent dataset, 1979--2020
 \end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code: sea-ice extent}
+
+\vspace*{-3mm}
+
+\texttt{seaice.py}---continued
+\vspace*{-1mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+popt, pcov = curve_fit(line, year, extent)
+m = popt[0]         # gradient of best straight-line fit
+b = popt[1]         # intercept
+
+yearto2080 = np.arange(1979,2080)
+
+print('extent(yr) = {:.3f}*year + {:.3f}'.format(m, b))
+print('Estimate September sea-ice extent is 0 in year = {}'.format(int(-b/m)))
+plt.plot(year, extent, 'o')
+plt.plot(yearto2080, line(yearto2080, m, b), 'r')
+plt.plot(-b/m,0,'gs')   # green square when ice extent is zero
+plt.xlabel('Year')
+plt.ylabel('September sea-ice extent (million sq km)')
+plt.grid()
+plt.show()
+\end{lstlisting}
+\vspace*{-2mm}
+\begin{itemize}
+	\item lines 1--3: fit line to data: $x=$~year, $y=$~extent
+	\item line 5: straight line fit over years 1979--2080
+	\item line 8: line intersects horizontal axis at $-b/m$
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Estimate Arctic sea-ice free in year 2071}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.8\textwidth]{figures/seaiceextentOutput}
+\end{figure}
 
 \end{frame}
 
@@ -534,15 +825,14 @@ f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}
 
 \frametitle{Lecture summary}
 \begin{itemize}
-	\item Normal distributions
+	\item Normal distribution
 	\item[]
 	
-	\item Curve-fitting
+	\item Fitting straight line to data
 	\item[]
 	
 \end{itemize}
 
 \end{frame}
-
 
 \end{document}
