@@ -1,0 +1,25 @@
+
+\frametitle{Lecture summary}
+
+\begin{enumerate}
+	\item standard normal distribution
+	\begin{itemize}
+		\item drawing \texttt{N} random samples using \texttt{numpy.random.normal(0.0, 1.0, size=N)}
+	\end{itemize}
+	
+	\item[]
+	
+	\item compute probability $\mathrm{P}(a \leq X \leq b)$ for standard normal distribution
+	\begin{itemize}
+		\item needs numerical integration using PDF
+		\[
+			f(x) = \frac{1}{\sqrt{2\pi}} \int_a^b e^{-x^2/2} dx
+		\]
+	\end{itemize}
+	
+	\item[]
+	
+	\item generalise standard normal distribution, and applications
+	
+\end{enumerate}
+
