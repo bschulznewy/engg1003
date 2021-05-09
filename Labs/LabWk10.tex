@@ -4,65 +4,97 @@
 \usepackage{float}
 \usepackage{soul}
 \usepackage{multicol}
+\usepackage{amsmath}
 
 \addtolength{\oddsidemargin}{-.4in}
 \addtolength{\evensidemargin}{-.4in}
 
 \title{ENGG1003 - Lab Week 10}
-\author{Brenton Schulz}
+\author{Sarah Johnson}
 \date{\today}
 
 \begin{document}
 \maketitle
 
-\begin{task}{Scalar Arithmetic and Scripts}{}
-Write a MATLAB script which calculates the energy stored in a spring stretched (or compressed) by a distance $x$, with spring constant $k$. The equation is:
-\begin{equation*}
-E = \frac{1}{2}k x^2
-\end{equation*}
-Ensure that the variables are initialised separately so that the script can easily be re-used.
+The purpose of this lab is to demonstrate some image processing steps which will be required for The second assignment.
+
+\begin{task}{Load an RGB image}{}
+
+
+\begin{enumerate}
+\item Download the image of Grace Hopper from \\~\\ \texttt{https://www.womenshistory.org/sites/default/files/images/2018-07/} \texttt{Hopper-3\%20square.jpg} \\~\\
+and save it in the same directory as your python project. This image uses the RGB format we saw in the lecture in week 7.
+\item Import \texttt{numpy, matplotlib.pyplot} and \texttt{matplotlib.image}
+\item Load this Grace Hooper into a 3D numpy array using the \texttt{matplotlib.image} function \texttt{imread} (as per lecture in Thursday week 7)
+\item 	What datatype is the numpy array? Use the console or the built in \texttt{type()} function to check this.
+\end{enumerate}
 \end{task}
 
-\begin{task}{Projectile Motion - Vector Arithmetic and Plots}{}
-Write a MATLAB script which plots the path of a particle undergoing projectile motion given its initial velocity. The velocity is specified as a speed, $v_0$, and angle from the horizon, $\theta$. Call your script \texttt{projectile.m}.
-\\~\\
-As the particle moves, the horizontal, $x$, and vertical, $y$, displacements as a function of time, $t$, can be calculated as:
-\begin{align*}
-x &= v_0 t \cos(\theta) \\
-y &= v_0 t \sin(\theta) + \frac{1}{2}g t^2
-\end{align*}
-where $g$ is acceleration due to gravity. If we choose positive $y$ to be ``upwards'' then $g$, in SI units, is $-9.8~{m/s^2}$.
-\\~\\
-Your code should declare a time vector which is long enough to plot the particle's path until it returns to $y=0$. This is achieved by declaring $t$ from 0 to:
-\begin{equation*}
-t = -\frac{2 v_0 \sin(\theta)}{g}
-\end{equation*}
-To keep the output plot reasonably smooth, declare $t$ with a few hundred to a thousand points. You may use the \texttt{linspace()} function or \texttt{start:interval:end} syntax to declare $t$. The exact value of the final element in $t$ is not crucial.
-\\~\\
+
+
+
+\begin{task}{Change the datatype of an RGB image}{}
+
+Image data is typically stored as RGB values where the value each colour channel can take is scaled from 0 to 255. This range is chosen as it is the range of values for which an 8-bit unsigned integer (\texttt{np.uint8}) can take, resulting in eﬃcient use of memory. This is a common standard as it represents a good compromise between storage size and output quality. Storage as other datatypes (eg: 16-bit integers or even 32-bit ﬂoats) can be done but ﬁlesizes are much larger for an imperceivable improvement in quality.
+Image editing, however, typically requires a higher level of precision. As such, editing is often performed on 16-bit data (so-called np.uint16 allowing for 65536 levels of grey. This datatype is chosen because professional grade DSLR cameras shooting “raw” photographs typically record 12 to 14-bit data. 32 and 64 bit datatypes can also be used. \\~
+
+\begin{enumerate}
+\item Convert the numpy array to a new array with datatype 8-bit unsigned integer (0 to 255) with \texttt{np.uint8()}. Observe the values in this third array. The \texttt{unit8} function does truncating (i.e. 9.8 is converted to 9) so you could first use \texttt{np.round()} followed by \texttt{np.unit8()} for improved accuracy of the conversion.
+\item Save the image as a jpg using the \texttt{matplotlib.pyplot} function \texttt{imwrite} (as per lecture in Thursday week 7). Note that \texttt{imwrite} also requires the image in RGB format to consist of integers between 0 and 255 or floats between 0 and 1. 
+\item 	What datatype is the numpy array? Use the console or the built in \texttt{type()} function to check this.
+\end{enumerate}
+
 \end{task}
 
-\begin{task}{Image Scaling - 3D Array Indexing}{}
-Write a MATLAB script which reads an image file with \texttt{imread()}, uses matrix indexing to scale the image down by a factor of 1/10th, then displays the result with \texttt{image()}.
-\\~\\
-You may use any image of your choosing. If in doubt, the image used in lectures is available on Blackboard.
+
+\begin{task}{Clipping and Scaling}{}
+
+Using the 64bit array (let’s call it a):  \\~
+
+\begin{enumerate}
+\item Find the maximum and minimum values in the image array using \texttt{a.max()} and \texttt{a.min} (where ‘a’ is the array name). You can also use \texttt{np.max(a)} or \texttt{np.min(a)}.
+\item Make every pixel in the image redder by adding 50 to the R value in every pixel. (you could do this in a loop or using array slicing and += 50). Now find the minimum and maximum values again. The maximum value should be above 255.
+\item View the new image by repeating \texttt{imshow} and remembering to convert to a uint8 format first. What do you notice?
+\item One way to deal with the pixels that had red values greater than 255 after step 9 would be to clip all the red pixels greater than this maximum. You can do this using loops or use array indexing such as:
+\\~\\ \texttt{a[a>255] = 255}\\~\\
+Clip the array ‘a’ in this way before converting to uint8 and viewing using \texttt{imshow}. Is the image any better?
+\item Another way to deal with pixels that had red values greater than 255 would be to scale all pixels equally so that the minimum value is 0 maximum pixel value is 255. You will need to find the minimum value in the array and subtract that from all entries. Then find the maximum value in the array, and divide all entries by this value and multiply by 255. 
+Is there a difference in how the image appears?
+\item Repeat the steps above using toy image so that you can see how the values in the array are different when clipping as compared to scaling. e.g.
+
+\begin{lstlisting}[style=myPython] 
+img = np.array( [ [ [255, 255, 255], [0, 0, 0] ], [ [255, 0, 0],  [255,192,203] ] ] ) 
+\end{lstlisting}
+
+
+
+\end{enumerate}
+
 \end{task}
 
-\pagebreak
 
-\begin{task}{Image Blur}{}
-Write a MATLAB script which blurs an image by making each pixel's colour the mean of the pixels around it. For this task, the mean of several pixels should be calculated separately for each of the red, green, and blue channels.
-\\~\\
-The ``surrounding'' pixels may be any one of the following definitions:
-\begin{itemize}
-	\item The mean of a pixel and those directly above, below, left, and right of it
-	\item The mean of the 8 pixels directly adjacent
-	\item The mean of the 24 pixels  in a box of ``radius'' 2 surrounding the central pixel
-	\item The \textit{weighted} mean of the 24 pixels defined above where the central pixel has a weighting of 1/2, the ``radius 1'' box has a weighting of 1/4 and the ``radius 2'' box a weighting of 1/8th. For this calculation the weighted sum of all pixels should be divided by $1/2+8\times1/4+16\times1/8 = 4.5$ to avoid changing the image brightness.
-\end{itemize}
-~\\
-You are encouraged to attempt multiple definitions and compare the results.
-\\~\\
-Write your first draft of the script using as many \texttt{for} loop structures as you feel comfortable with. Once the code works, have a think about how parts of it could be vectorised, perhaps with complicated array indexing.
+
+\begin{task}{Convert the image from RGB to HSL and vice versa using the python colorsys module}{}
+
+The HSL colourspace speciﬁes a colour via a hue, saturation, and luminance. The hue is a ”base” colour from the rainbow, with the extension that variations of magenta exist between blue and red. Hue is typically speciﬁed as an angle in degrees around an imaginary “colour wheel”. For this project hue will be a number from 0 to 360.
+The saturation ﬁgure speciﬁes how “colourful” the colour is. A minimum saturation is a shade of grey while a maximum saturation speciﬁes a pure colour (ie: a single wavelength of light). For this project saturation will be a number between 0 and 1.
+Lastly, the luminance ﬁgure is a brightness: minimum luminance is black, maximum luminance is white. Note that if the luminance is minimum or maximum the hue and saturation ﬁgures become irrelevant. For this project luminance will be a number between 0 and 1.
+You can experiment with how the RGB and HSL colourspaces work by playing with this colour picker: \\~\\ \texttt{https://www.w3schools.com/colors/colors\_picker.asp?colorhex=E8B5CE} \\~\\
+We will use the colorsys module. 
+The functions you will need from the colorsys model are
+\\~\\ \texttt{ colorsys.hls\_to\_rgb(h, l, s)} \\~\\
+ \texttt{ colorsys.rgb\_to\_hls(r, g, b)} \\~\\
+where r g b are the red, green and blue intensity values of the pixel and h, l, s are the hue, luminance and saturation of the pixel. Note that the colorsys module is written to accept scalars as inputs not numpy arrays so you will need to call it in a loop when converting an image. The output of  \texttt{rgb\_to\_hls}  is a list of 3 numbers not a numpy array. \\~
+
+
+\begin{enumerate}
+\item Import the colorsys module. 
+\item Use the colorsys module to convert the RGB white (255, 255, 255), black (0, 0, 0), pink (255, 192, 203) and blue (0, 0, 255) to HLS.  
+\item Using loops write python code to convert a 3D RGB array into a 3D HLS array. 
+\item Test this conversion on a toy 4 by 4 by 3 RGB array you have created. 
+\end{enumerate}
+
 \end{task}
+
 
 \end{document}
