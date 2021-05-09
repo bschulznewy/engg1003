@@ -76,7 +76,7 @@
 \lstset{framextopmargin=50pt,tabsize=2}
 
 \title{ENGG1003 - Monday Week 10}
-\subtitle{Normal distribution: extensions and applications \\ Fitting straight line to data}%\\ \& computing integrals}
+\subtitle{Normal distribution: extension and application \\ Fitting straight line to data}%\\ \& computing integrals}
 \author{Steve Weller}
 \institute{University of Newcastle}
 %\date{\today}
@@ -132,37 +132,20 @@
 
 \end{frame}
 
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{Recap}
-%
-%\begin{itemize}
-%	\item re-use some slides from Thursday's lecture
-%	\item equation of PDF
-%	\item shape of PDF
-%	\item interpretation of area (integration) of PDF over $[a,b]$
-%	\item numpy normal() function and how to use it
-%	\item be explicit about what expect students to
-%\end{itemize}
-%
-%\end{frame}
-
 %==============================================================
 
 \begin{frame}[fragile]
 
 \frametitle{Recap: standard normal distribution}
 
-Standard normal probability density function:
+Standard normal probability density function (PDF):
 \[
 \boxed{
 f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}}
 \]
 
 \begin{itemize}
-	\item \emph{standard} normal distribution is a special case of normal (Gaussian) distribution %we'll see next week
+	\item \emph{standard} normal distribution is a special case of normal (Gaussian) distribution
 	\item corresponds to parameters \red{$\mathbf{0.0}$} and \blue{$\mathbf{1.0}$} in:
 \end{itemize}
 
@@ -231,25 +214,6 @@ If $X$ is a random number drawn from a distribution with PDF $f(x)$, probability
 
 \end{frame}
 
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{Computing probabilities using standard normal distribution}
-%
-%\begin{itemize}
-%	\item probability of random number $X$ drawn from standard normal distribution taking value in $[a,b]$:
-%	\[
-%	\mathrm{P}(a \leq X \leq b) = \frac{1}{\sqrt{2\pi}} \int_a^b  e^{-x^2/2} dx
-%	\]
-%	\item no exact expression exists for $\int_a^b e^{-x^2/2} dx$
-%	\begin{itemize}
-%		\item need to use numerical integration!
-%	\end{itemize}
-%\end{itemize}
-%
-%\end{frame}
-
 %==============================================================
 
 \begin{frame}[fragile]
@@ -273,26 +237,31 @@ Use trapezoidal method to approximate $\mathrm{P}(1 \leq X \leq 2)$ when $X$ is 
 
 \begin{frame}[fragile]
 
-\frametitle{}
+\frametitle{Extending the standard normal distribution}
 
 \begin{itemize}
-	\item reiterate importance of normal/Gaussian in applications
-	\item but standard normal is inflexible
+	\item standard normal is useful, but inflexible
 	\item now \textbf{experimentally observe} impact of first two parameters in \texttt{normal()} function call
 \end{itemize}
 
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Impact of mean}
+\boxed{
+{\small
+	\texttt{x = np.random.normal(\textbf{\red{mean}}, \textbf{\blue{SD}}, size=N)}
+}}
 
 \begin{itemize}
-	\item shifts average (mean) value
-	\item left-right shift of PDF
-	\item image here: overlay PDFs for $\mu=0, 5, 20$
+	\item impact of \red{mean}
+	\begin{itemize}
+		\item shifts central (average) value of random numbers
+		\item left-right shift of PDF
+	\end{itemize}
+	
+	\item impact of \blue{SD}
+	\begin{itemize}
+		\item SD is short for ``standard deviation''
+		\item controls spread of PDF around central value
+	\end{itemize}
+	
 \end{itemize}
 
 \end{frame}
@@ -301,15 +270,17 @@ Use trapezoidal method to approximate $\mathrm{P}(1 \leq X \leq 2)$ when $X$ is 
 
 \begin{frame}[fragile]
 
-\frametitle{Mean demo}
+\frametitle{Impact of \emph{mean} parameter}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=0.7\textwidth]{figures/meanDemoOutput}
+	\includegraphics[width=0.65\textwidth]{figures/meanDemoOutput}
 \end{figure}
 
+\vspace*{-5mm}
+
 \begin{itemize}
-	\item blah
+	\item normalized histograms of normal random numbers with mean $=0, 5$ and $15$
 \end{itemize}
 
 \end{frame}
@@ -318,27 +289,37 @@ Use trapezoidal method to approximate $\mathrm{P}(1 \leq X \leq 2)$ when $X$ is 
 
 \begin{frame}[fragile]
 
-\frametitle{Python code}
+\frametitle{Python code: impact of mean}
+
+\vspace*{-3mm}
 
 \texttt{meandemo.py}
+\vspace*{-1mm}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# meandemo
 import numpy as np
 import matplotlib.pyplot as plt
 
-def f(x, mu, sigma):
-    return 1/(sigma * np.sqrt(2 * np.pi)) * np.exp(-(x - mu)**2 / (2 * sigma**2 ))
+N = 100000
+np.random.seed(1)
+x0 = np.random.normal(0.0, 1.0, size=N)
+x5 = np.random.normal(5.0, 1.0, size=N)
+x15 = np.random.normal(15.0, 1.0, size=N)
 
-x = np.linspace(-5, 30, 1000)
+plt.hist(x0, 100, density=True, color='r', label='mean=0')
+plt.hist(x5, 100, density=True, color='b', label='mean=5')
+plt.hist(x15, 100, density=True, color='k', label='mean=15')
 
-plt.plot(x, f(x, 0, 1), color='r', label='mean=0')
-plt.plot(x, f(x, 5, 1), 'b', label='mean=5')
-plt.plot(x, f(x, 15, 1), 'k', label='mean=15')
+plt.title('np.random.normal(mean, 1.0, {})'.format(N))
+plt.axis([-5, 25, 0, 0.45])
 plt.legend()
 plt.show()
 \end{lstlisting}
 
+\vspace*{-2mm}
+
 \begin{itemize}
-	\item blah
+	\item lines 7--13: generate random numbers, plot histograms
 \end{itemize}
 
 \end{frame}
@@ -347,31 +328,17 @@ plt.show()
 
 \begin{frame}[fragile]
 
-\frametitle{Impact of standard deviation $\sigma$}
+\frametitle{Impact of \emph{SD} parameter}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.65\textwidth]{figures/SDdemoOutput}
+\end{figure}
+
+\vspace*{-5mm}
 
 \begin{itemize}
-	\item shifts spread of PDF
-	\item interpretation of ``standard deviation''
-	\item image here
-	\item ``most'' of PDF within plus/minus 3 sigma of mean
-\end{itemize}
-
-% https://en.wikipedia.org/wiki/Standard_deviation
-
-``In statistics, the standard deviation is a measure of the amount of variation or dispersion of a set of values. A low standard deviation indicates that the values tend to be close to the mean (also called the expected value) of the set, while a high standard deviation indicates that the values are spread out over a wider range.
-
-Standard deviation may be abbreviated SD, and is most commonly represented in mathematical texts and equations by the lower case Greek letter sigma $\sigma$
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Impact of stedev}
-
-\begin{itemize}
-	\item xxx
+	\item normalized histograms of normal random numbers with SD $=1, 2$ and $4$
 \end{itemize}
 
 \end{frame}
@@ -380,15 +347,37 @@ Standard deviation may be abbreviated SD, and is most commonly represented in ma
 
 \begin{frame}[fragile]
 
-\frametitle{Stddev demo}
+\frametitle{Python code: impact of SD}
 
-%\begin{figure}[ht]
-%	\centering
-%	\includegraphics[width=0.7\textwidth]{figures/meanDemoOutput}
-%\end{figure}
+\vspace*{-3mm}
+
+\texttt{SDdemo.py}
+\vspace*{-1mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# SDdemo
+import numpy as np
+import matplotlib.pyplot as plt
+
+N = 100000
+np.random.seed(1)
+x0 = np.random.normal(0.0, 1.0, size=N)
+x5 = np.random.normal(0.0, 2.0, size=N)
+x15 = np.random.normal(0.0, 4.0, size=N)
+
+plt.hist(x0, 100, density=True, color='r', label='SD=1')
+plt.hist(x5, 100, density=True, color='b', label='SD=2')
+plt.hist(x15, 100, density=True, color='k', label='SD=4')
+
+plt.title('np.random.normal(0.0, SD, {})'.format(N))
+plt.axis([-15, 15, 0, 0.45])
+plt.legend()
+plt.show()
+\end{lstlisting}
+
+\vspace*{-2mm}
 
 \begin{itemize}
-	\item blah
+	\item lines 7--13: generate random numbers, plot histograms
 \end{itemize}
 
 \end{frame}
@@ -399,18 +388,19 @@ Standard deviation may be abbreviated SD, and is most commonly represented in ma
 
 \frametitle{Normal PDF}
 
+Mathematical expression for normal PDF:
 \[
 \boxed{
 	f(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}}
 \]
 
 \begin{itemize}
-	\item mean $\mu$
-	\item standard deviation $\sigma$
-	\item what are you expected to do with this PDF?
+	\item $\mu = $ mean
+	\item $\sigma = $ SD (standard deviation)
+	\item what are you expected to do with the normally distributed random numbers in ENGG1003?
 	\begin{enumerate}
-		\item call np.random.standard() to generate random numbers for specified $\mu$ and $\sigma$
-		\item compute prob X in range $[a,b]$ using numerical integration (trapezoidal)
+		\item call \texttt{np.random.normal()} to generate random numbers for specified $\mu$ and $\sigma$
+		\item compute probability normally distributed random number $X$ falls in range $[a,b]$ using numerical integration (eg: trapezoidal method)
 	\end{enumerate}
 \end{itemize}
 
@@ -428,7 +418,22 @@ Important special case: $\mu=0$ and $\sigma=1$
 f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}
 \]
 
+\vspace*{5mm}
+
 \textbf{Key point:} standard normal distribution has a mean of $0$ and a standard deviation of $1$
+
+\vspace*{5mm}
+
+\boxed{
+{\small
+	\texttt{x = np.random.normal(\textbf{\red{0.0}}, \textbf{\blue{1.0}}, size=N)}
+}}
+
+\vspace*{5mm}
+
+\begin{itemize}
+	\item we saw this special case in Thursday week 9 lecture
+\end{itemize}
 
 \end{frame}
 
@@ -436,35 +441,97 @@ f(x) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2}
 
 \begin{frame}[fragile]
 
-\frametitle{Application}
+\frametitle{Application: resistor values}
+
+The distribution of resistor values (measured in ohms ($\Omega)$) is observed to follow a normal distribution with mean $\mu=1000$ and SD $\sigma = 30$
+
+\vspace*{5mm}
+
+Write a Python script which:
+\begin{enumerate}
+	\item plots the PDF of resistance values
+	\item uses numerical integration to show that $\approx90$\% of the resistor values fall in the range $[950,1050]~\Omega$
+\end{enumerate}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Distribution of resistance values}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.65\textwidth]{figures/resistanceoutput}
+\end{figure}
+
+\vspace*{-5mm}
 
 \begin{itemize}
-	\item xxx
+	\item blue curve is PDF: mean $=1000$ and SD $=30$
+	\item red shaded area ($= 0.9$) shows range $[950,1050]$
 \end{itemize}
 
 \end{frame}
 
-%%==============================================================
-%
-%\begin{frame}[fragile]
-%
-%\frametitle{$2)$ Fitting straight line to data}
-%
-%\begin{itemize}
-%	\item straight line fitting
-%	\item low-order polynomials (?)
-%	\item maybe fitting exponentials (??)
-%	\item \texttt{scipy.optimize.curve\_fit}
-%	\item applications
-%\end{itemize}
-%
-%% https://en.wikipedia.org/wiki/Curve_fitting
-%\begin{itemize}
-%	\item ``Curve fitting is the process of constructing a curve, or mathematical function, that has the best fit to a series of data points''
-%	\item simplest form of curve-fitting is \emph{straight line fitting}
-%\end{itemize}
-%
-%\end{frame}
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code: resistor values}
+
+\vspace*{-3mm}
+
+\texttt{resistors.py}
+\vspace*{-1mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+import numpy as np
+import matplotlib.pyplot as plt
+
+def f(x):
+    mu = 1000
+    sigma = 30
+    return 1/(sigma * np.sqrt(2 * np.pi)) * np.exp(-(x - mu)**2 / (2 * sigma**2 ))
+
+def trapezoidal(f, a, b, n):
+    h = (b - a) / n
+    f_sum = 0
+    for i in range(1, n, 1):
+        x = a + i * h
+        f_sum = f_sum + f(x)
+    return h * (0.5 * f(a) + f_sum + 0.5 * f(b))
+\end{lstlisting}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Python code: resistor values}
+
+\vspace*{-3mm}
+
+\texttt{resistors.py}---continued
+\vspace*{-1mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+a = 950
+b = 1050
+prob_ab = trapezoidal(f, a, b, 100)
+print('Probability resistance in range [{},{}] is: {:.2f} percent'.format(a, b, 100*prob_ab))
+
+x = np.linspace(900, 1100, 1000)
+xab = np.linspace(a, b, 100)
+
+plt.plot(xab, f(xab), 'r')
+plt.plot(x, f(x), 'b')  # standard normal pdf
+plt.fill_between(xab, f(xab), color='r', alpha=0.5)  # alpha=transparency
+plt.axis([900, 1100, 0, 0.015])
+plt.show()
+\end{lstlisting}
+
+\end{frame}
 
 %==============================================================
 
@@ -677,20 +744,6 @@ plt.show()
 	\end{itemize}
 	\item[]
 	\item lines 20--21: plot best-fit straight line
-\end{itemize}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{How does line-fitting work?}
-
-\begin{itemize}
-	\item least-squares
-	\item maybe an image?
-	\item extension to higher-order polynomials fitting
 \end{itemize}
 
 \end{frame}
