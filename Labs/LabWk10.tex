@@ -16,17 +16,17 @@
 \begin{document}
 \maketitle
 
-The purpose of this lab is to demonstrate some image processing steps which will be required for The second assignment.
+The purpose of this lab is to demonstrate some image processing steps which will be required for the second assignment.
 
 \begin{task}{Load an RGB image}{}
 
 
 \begin{enumerate}
-\item Download the image of Grace Hopper from \\~\\ \texttt{https://www.womenshistory.org/sites/default/files/images/2018-07/} \texttt{Hopper-3\%20square.jpg} \\~\\
+\item Download the image of Grace Hopper from \\~\\ \url{https://www.womenshistory.org/sites/default/files/images/2018-07/Hopper-3\%20square.jpg} \\~\\
 and save it in the same directory as your python project. This image uses the RGB format we saw in the lecture in week 7.
 \item Import \texttt{numpy, matplotlib.pyplot} and \texttt{matplotlib.image}
-\item Load this Grace Hooper into a 3D numpy array using the \texttt{matplotlib.image} function \texttt{imread} (as per lecture in Thursday week 7)
-\item 	What datatype is the numpy array? Use the console or the built in \texttt{type()} function to check this.
+\item Load this Grace Hopper into a 3D numpy array using the \texttt{matplotlib.image} function \texttt{imread} (as per lecture in Thursday week 7)
+\item 	What datatype is the numpy array? Use the console or the built in \texttt{dtype} function to check this. e.g. \texttt{print(img.dtype)}
 \end{enumerate}
 \end{task}
 
@@ -39,9 +39,10 @@ Image data is typically stored as RGB values where the value each colour channel
 Image editing, however, typically requires a higher level of precision. As such, editing is often performed on 16-bit data (so-called np.uint16 allowing for 65536 levels of grey. This datatype is chosen because professional grade DSLR cameras shooting “raw” photographs typically record 12 to 14-bit data. 32 and 64 bit datatypes can also be used. \\~
 
 \begin{enumerate}
-\item Convert the numpy array to a new array with datatype 8-bit unsigned integer (0 to 255) with \texttt{np.uint8()}. Observe the values in this third array. The \texttt{unit8} function does truncating (i.e. 9.8 is converted to 9) so you could first use \texttt{np.round()} followed by \texttt{np.unit8()} for improved accuracy of the conversion.
-\item Save the image as a jpg using the \texttt{matplotlib.pyplot} function \texttt{imwrite} (as per lecture in Thursday week 7). Note that \texttt{imwrite} also requires the image in RGB format to consist of integers between 0 and 255 or floats between 0 and 1. 
-\item 	What datatype is the numpy array? Use the console or the built in \texttt{type()} function to check this.
+\item Convert the numpy image array into a second array with 64 bit datatype using the \texttt{numpy} function \texttt{np.float64()}. Observe the values in the new array.
+\item Convert the 64 bit back into a numpy array with datatype 8-bit unsigned integer (0 to 255) with \texttt{np.uint8()}. Observe the values in this array. The \texttt{unit8} function does truncating (i.e. 9.8 is converted to 9) so you could first use \texttt{np.round()} followed by \texttt{np.unit8()} for improved accuracy of the conversion if the 64 bit array had decimal values (it does not in this case).
+\item Save the image as a jpg using the \texttt{matplotlib.pyplot} function \texttt{savefig} (as per lecture in Thursday week 7). Note that \texttt{savefig} also requires the image in RGB format to consist of integers between 0 and 255 or floats between 0 and 1. 
+\item 	What datatype is the numpy array? Use the console or the built in \texttt{dtype} function to check this.
 \end{enumerate}
 
 \end{task}
@@ -79,7 +80,7 @@ img = np.array( [ [ [255, 255, 255], [0, 0, 0] ], [ [255, 0, 0],  [255,192,203] 
 The HSL colourspace speciﬁes a colour via a hue, saturation, and luminance. The hue is a ”base” colour from the rainbow, with the extension that variations of magenta exist between blue and red. Hue is typically speciﬁed as an angle in degrees around an imaginary “colour wheel”. For this project hue will be a number from 0 to 360.
 The saturation ﬁgure speciﬁes how “colourful” the colour is. A minimum saturation is a shade of grey while a maximum saturation speciﬁes a pure colour (ie: a single wavelength of light). For this project saturation will be a number between 0 and 1.
 Lastly, the luminance ﬁgure is a brightness: minimum luminance is black, maximum luminance is white. Note that if the luminance is minimum or maximum the hue and saturation ﬁgures become irrelevant. For this project luminance will be a number between 0 and 1.
-You can experiment with how the RGB and HSL colourspaces work by playing with this colour picker: \\~\\ \texttt{https://www.w3schools.com/colors/colors\_picker.asp?colorhex=E8B5CE} \\~\\
+You can experiment with how the RGB and HSL colourspaces work by playing with this colour picker: \\~\\ \url{https://www.w3schools.com/colors/colors_picker.asp?colorhex=E8B5CE} \\~\\
 We will use the colorsys module. 
 The functions you will need from the colorsys model are
 \\~\\ \texttt{ colorsys.hls\_to\_rgb(h, l, s)} \\~\\
