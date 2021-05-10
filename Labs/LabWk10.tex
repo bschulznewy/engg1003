@@ -40,7 +40,7 @@ Image editing, however, typically requires a higher level of precision. As such,
 
 \begin{enumerate}
 \item Convert the numpy image array into a second array with 64 bit datatype using the \texttt{numpy} function \texttt{np.float64()}. Observe the values in the new array.
-\item Convert the 64 bit back into a numpy array with datatype 8-bit unsigned integer (0 to 255) with \texttt{np.uint8()}. Observe the values in this array. The \texttt{unit8} function does truncating (i.e. 9.8 is converted to 9) so you could first use \texttt{np.round()} followed by \texttt{np.unit8()} for improved accuracy of the conversion if the 64 bit array had decimal values (it does not in this case).
+\item Convert the 64 bit back into a numpy array with datatype 8-bit unsigned integer (0 to 255) with \texttt{np.uint8()}. Observe the values in this array. The \texttt{uint8} function does truncating (i.e. 9.8 is converted to 9) so you could first use \texttt{np.round()} followed by \texttt{np.uint8()} for improved accuracy of the conversion if the 64 bit array had decimal values (it does not in this case).
 \item Save the image as a jpg using the \texttt{matplotlib.pyplot} function \texttt{savefig} (as per lecture in Thursday week 7). Note that \texttt{savefig} also requires the image in RGB format to consist of integers between 0 and 255 or floats between 0 and 1. 
 \item 	What datatype is the numpy array? Use the console or the built in \texttt{dtype} function to check this.
 \end{enumerate}
