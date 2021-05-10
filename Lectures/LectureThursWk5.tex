@@ -1,0 +1,307 @@
+\documentclass[english,14pt]{beamer}
+\usetheme{EastLansing}
+\usecolortheme{spruce}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{hyperref}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
+
+% https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+%% https://stackoverflow.com/questions/1435837/how-to-remove-footers-of-latex-beamer-templates
+%%gets rid of bottom navigation bars
+%\setbeamertemplate{footline}[page number]
+%
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\newcommand\red[1]{{\color{red} #1}}
+\newcommand\green[1]{{\color{green} #1}}
+\newcommand\blue[1]{{\color{blue} #1}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Thursday Week 5}
+\subtitle{Functions and Arrays}
+\author{Sarah Johnson}
+\institute{University of Newcastle}
+%\date{\today}
+\date{25 March, 2021}
+
+% following is a bit of a hack, but forces page numbers (technically: frame numbers) to run 1,2,3,... 
+% with titlepage counting as frame 1
+
+\addtocounter{framenumber}{1}
+\titlepage
+
+\begin{document}
+
+%\begin{flushleft}
+%{\scriptsize Last compiled:~\DTMnow}
+%\vspace*{-5mm}
+%\end{flushleft}
+\framebreak
+
+
+\begin{frame}
+\frametitle{The Story So Far}
+\begin{itemize}
+\item Course summary:
+	\begin{itemize}
+	\item Variables and data types  
+		\item Arrays (via numpy)
+		\item Plotting (via matplotlib)
+		\item Flow control
+			\begin{itemize}
+				\item \texttt{if}
+				\item \texttt{while}
+				\item \texttt{for}
+			\end{itemize}
+		\item Functions
+	\end{itemize}
+\item Today: Arrays and functions together 
+	\begin{itemize}
+		\item and we will add some flow control in too
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 1 - Access an Array}
+\begin{itemize}
+    \item Write a function which takes as input an array \texttt{x} and calculates it's minimum value, maximum value and its average value
+    \item First let's make some design decisions:
+	    \begin{itemize}
+		    \item Name: \texttt{array\_stats()}
+		    \item Argument: an array \texttt{x}
+		    \item Return Values: \texttt{min\_x, max\_x, avg\_x} 
+	    \end{itemize}
+	\item Let's do it step by step live ...    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Functions which Modify an Array}
+\begin{itemize}
+\item Technically, a pointer to the array is being passed to the function not a copy of the array
+\item Because arrays are passed via a pointer the function gets \textit{the actual array}
+\item --  when an element of the array is accessed the memory address of the original array element is accessed
+\item Consequently, modifying the array in the function modifies the original variable
+\item You don't \textit{need} a return value
+	\begin{itemize}
+		\item In a technically incorrect way: all the array's elements are ``returned''
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 2 - Modify an Array}
+\begin{itemize}
+\item Lets write and test this live...
+\item Write a function which:
+	\begin{itemize}	
+		\item 1) Zeros any negative values in an array \texttt{x} (i.e. replaces any negative values in \texttt{x} with 0)
+		\item 2) Creates a new array \texttt{y} which keeps the positive values in \texttt{x} and has zeros in place of the negative values in \texttt{x}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example 3 - Ball Height}
+\begin{itemize}
+\item Let's re-write our code from Monday so that our ball height function works with arrays:
+\begin{lstlisting}[style=CStyle]
+import numpy as np
+            
+def ball_height2(v0, t, g=9.81):    
+    return v0*t - 0.5*g*t**2      
+    
+v0 = 5
+t = np.linspace(0,1,11)
+y = ball_height2(v0, t)  
+\end{lstlisting}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example 3 - Ball Height}
+\begin{itemize}
+    \item What actually changed? Went from this:
+\begin{lstlisting}[style=CStyle]
+def ball_height2(v0, t, g=9.81):    
+    return v0*t - 0.5*g*t**2      
+    
+v0 = 5
+t = 0.6
+y = ball_height2(v0, t)  
+\end{lstlisting}
+    \item to this:
+\begin{lstlisting}[style=CStyle]
+include numpy as np
+def ball_height2(v0, t, g=9.81):    
+    return v0*t - 0.5*g*t**2      
+    
+v0 = 5
+t = np.linspace(0,1,11)
+y = ball_height2(v0, t)  
+\end{lstlisting}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example 3 - Ball Height}
+\begin{itemize}
+    \item Python is hiding a lot from us here
+    \item Advantage: code easy to read / easy to write
+    \item Disadvantage: it's very easy to write code which is not doing what you think it is doing
+    \begin{itemize}
+        \item Have a look through the Discord chats for issues that arise when arrays are confused with scalars (a single integer / float etc)
+ 	\end{itemize}      
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{When should functions be used?}
+\begin{itemize}
+\item When should functions be used?
+ 
+\item Well, what do they achieve?
+	\begin{itemize}
+		\item \textit{Much} easier to solve problems when they're broken down into sub-tasks
+		\item Reduce code line count and complexity (if they are called multiple times)
+		\item Allows code re-use between projects
+		\item \textit{Much} easier to perform project management between multiple programmers
+		\item Bugs in a function are easier to fix than a bug in code which has been copy+pasted multiple times
+		\item ...the list goes on
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{When should functions be used?}
+\begin{itemize}
+\item What about in an ENGG1003 context?
+ 
+	\begin{itemize}
+		\item Vague rule of thumb? More than 10-20 lines or so in your code - consider breaking up into functions
+		\item Break a big problem into multiple sub-problems
+			\begin{itemize}
+				\item Implement each as their own function
+				 
+				\item Yes, even if they are only called once
+				 
+				\item Do what you feel is most ``readable''
+				 
+				\item Your opinion here will change with experience 
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{More Information}
+\begin{center}
+	\begin{itemize}
+		\item Further Reading: Section 4.1 of the course textbook
+        \item More Practice: All the exercises in Section 4.3 of the course textbook  
+    \end{itemize}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{ENGG1003 Assessed Lab}
+    \begin{itemize}
+	    \item Results are now on Blackboard (BB)
+	    \item Let Steve know via email or a Discord DM if your result is missing or doesn't match what the demonstrator told you
+	    \item We're still processing all of the adverse circumstances requests
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{ENGG1003 Quiz}
+    \begin{itemize}
+		\item During the scheduled Thursday lecture time 4-5pm on 1 April
+        \item There will NOT be a zoom webinar running or a YouTube livestream during the quiz time
+        \item The quiz paper will become available on BB, and students must submit their solutions in BB by the end of the quiz
+        \item This is an OPEN-BOOK quiz covering material presented in weeks 1-4 of lectures, and therefore weeks 1-5 of labs. It counts towards 15\% of your overall course grade in ENGG1003
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{ENGG1003 Quiz}
+    \begin{itemize}
+        \item As an open-book quiz, you will be asked to solve a small number of problems by reading and/or writing Python code, before pasting your answers into Blackboard for assessment
+
+        \item In particular, students are strongly encouraged to develop \& test solutions in PyCharm during the quiz, before submitting to BB for assessment
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{ENGG1003 Quiz}
+    \begin{itemize}
+\item The best exercises for students to prepare for the mid-term quiz as follows:
+
+\item (a) all of the lab tasks, including going back and completing any you may not have completed at the time
+
+\item (b) review the assessed lab from week 4
+
+\item (c) students wanting additional practice can attempt questions from Chapters 1-3 of the LL textbook that were not already included in the lab tasks
+
+    \end{itemize}
+\end{frame}
+
+\end{document}

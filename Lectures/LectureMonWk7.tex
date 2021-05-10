@@ -1,0 +1,628 @@
+\documentclass[english,14pt]{beamer}
+\usetheme{EastLansing}
+\usecolortheme{spruce}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{hyperref}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
+
+% https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+%% https://stackoverflow.com/questions/1435837/how-to-remove-footers-of-latex-beamer-templates
+%%gets rid of bottom navigation bars
+%\setbeamertemplate{footline}[page number]
+%
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\newcommand\red[1]{{\color{red} #1}}
+\newcommand\green[1]{{\color{green} #1}}
+\newcommand\blue[1]{{\color{blue} #1}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Monday Week 7}
+\subtitle{Creating Your Own Libraries: Python Modules \\ 2D Arrays}
+\author{Sarah Johnson}
+\institute{University of Newcastle}
+%\date{\today}
+\date{19 April, 2021}
+
+% following is a bit of a hack, but forces page numbers (technically: frame numbers) to run 1,2,3,... 
+% with titlepage counting as frame 1
+
+\addtocounter{framenumber}{1}
+\titlepage
+
+\begin{document}
+
+
+%\begin{flushleft}
+%{\scriptsize Last compiled:~\DTMnow}
+%\vspace*{-5mm}
+%\end{flushleft}
+\framebreak
+
+\begin{frame}[fragile]
+
+\frametitle{Lecture Overview}
+\begin{enumerate}
+	\item Modules
+	\item[]
+	
+	\item 2D Arrays
+	
+	%\item[]
+	
+	%\item Mid-term quiz
+
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Story So Far}
+\vspace*{-5mm}
+\begin{itemize}
+	\item variables and data types
+	\item 1D arrays (using \texttt{numpy})
+	\item plotting (using \texttt{matplotlib})
+	\item flow control
+	\item functions
+	\item interpolation (using \texttt{scipy})
+\end{itemize}
+\vspace*{3mm}
+Today we are going to extend two of these topics: by putting functions into modules, and by considering arrays with more than one dimension.
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+	\begin{itemize}
+		\item A \textit{module} is a python script saved as .py file
+		\item A \textit{package} is a collection of modules.
+		\item Packages / modules shared with others are often called \textit{libraries}.
+		\item We have seen some very helpful libraries so far in ENGG1003. E.g. numpy, matplotlib.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+	\begin{itemize}
+		\item Any of the Python scripts we have written so far could be regarded as a module (though perhaps not a very useful one).
+		\item e.g. ball.py from week 2 (LL Chapter 1):
+\begin{lstlisting}[style=CStyle]
+v0 = 5
+g = 9.81                     
+t = 0.6
+y = v0*t - 0.5*g*t**2
+print(y)
+\end{lstlisting}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+	\begin{itemize}
+		\item We can import the code ball.py 
+\begin{lstlisting}[style=CStyle]
+import ball
+\end{lstlisting}
+		\item The import statement would just cause this code to be executed and print out the value of $y$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+	\begin{itemize}
+		\item A more useful model might be ball\_function.py from week 5:
+
+\begin{lstlisting}[style=CStyle]
+def ball_height(v0, t):           
+    g = 9.81                      
+    y = v0*t - 0.5*g*t**2
+    return y                      
+    
+v0 = 5
+time1 = 0.6
+height1 = ball_height(v0,time1)
+time2 = 0.9
+height2 = ball_height(v0,time2)
+print('height 1: {}, height 2: {}'.format(height1,height2))
+\end{lstlisting}
+	 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+	\begin{itemize}
+		\item We can import ball\_function and use its function
+\begin{lstlisting}[style=CStyle]
+import ball_function as bf
+
+v0 = 5
+time = 0.7
+height = bf.ball_height(v0, time)
+print('At time {} the height is {:5.3f}'.format(time,height))
+\end{lstlisting}
+		\item At the import statement, the code in ball\_function.py is executed - printing out the values of height1 and height2 and loading in ball\_height ready for use.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+	\begin{itemize}
+		\item Even better let's define a module ball\_motion.py containing just functions
+		
+\begin{lstlisting}[style=CStyle]
+def ball_height(v0, t, g=9.81):          
+    y = v0*t - 0.5*g*t**2
+    return y                     
+
+def time_of_flight(v0, g=9.81):           
+    y = 2*v0/g                     
+    return y                       
+\end{lstlisting}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+	\begin{itemize}
+		\item We can import ball\_motion
+\begin{lstlisting}[style=CStyle]
+import ball_motion as ball
+\end{lstlisting}
+		\item When the code is executed the functions would be imported - but nothing would be printed out. However, the functions ball.ball\_height and ball.time\_of\_flight would be available for use as needed in our code.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+	\begin{itemize}
+		\item We should add some documentation:
+\begin{lstlisting}[style=CStyle]
+"""
+Module for computing vertical motion of a ball
+"""
+def ball_height(v0, t, g=9.81):
+    """
+    Vertical position at time t
+    """
+    y = v0*t - 0.5*g*t**2
+    return y                     
+
+def time_of_flight(v0, g=9.81):           
+    """
+    Time of flight of the ball
+    """
+    y = 2*v0/g                     
+    return y                      
+\end{lstlisting}
+	 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modules}
+	\begin{itemize}
+		\item Now we can import import ball\_motion and get some information about it
+
+\begin{lstlisting}[style=CStyle]
+import ball_motion as ball
+help(ball)
+\end{lstlisting}
+       \item Let's run these live ...
+
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{2D Arrays}
+	\begin{itemize}
+		\item A \textit{scalar} is a single item \small{(one element in memory)}
+\[
+s = 3.0   
+\]
+
+		\item A  \textit{1D array} or \textit{vector} is a series of elements in memory
+\[
+a  = \left[ 
+\begin{array}{cccc}
+   3.0 & 1.9 & 4.8 & 6.2 \\
+ \end{array} \right]    
+\]
+		\item A \textit{2D array} or \textit{matrix} is rectangular array of items \small{(still a series of elements in memory but indexed differently)}
+\[		
+m = \left[ 
+\begin{array}{ccc}
+     1 & 2 & 3   \\
+     4 & 5 & 6   \\
+     7 & 8 & 9  \\     
+\end{array} \right]  
+\]		
+ \item A 2D array is made up of horizontal 1D arrays called \textit{rows}, or vertical 1-D arrays are called \textit{columns}  
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{2D Arrays}
+	\begin{itemize}
+		\item We have seen many examples already of where 1D arrays are useful
+		\item 2D arrays are useful for 
+		    \begin{itemize} 
+		        \item storing/indexing objects which naturally have a grid structure, such as the the pixels in a picture
+		        \item organising data sets e.g. storing the entire dataset from a csv file
+		        \item working with matrices in linear algebra (which you will become very familiar with if you do MATH2320)
+		        \item .....
+		    \end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Arrays in ENGG1003 use Numpy}
+	\begin{itemize}
+		\item A \textit{scalar} is a single integer, float, char, etc 
+		\item A  \textit{1D array} is a series of integers, floats, chars, etc 
+		\item A \textit{2D array} is a series of integers, floats, chars, etc organised in a rectangular structure
+	\end{itemize}
+\vspace{1em}
+\small{* Note that Numpy arrays must contain all entries of the same type (e.g all integers or all floats etc.) This is not the case for other types of 1D or 2D objects in Python such as lists.  \\ 
+\small{* Numpy can handle arrays of dimension up to 32D (but we won't be needing that functionality in ENGG1003)}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Reminder: Creating Scalars and 1D Arrays}
+	\begin{itemize}
+		\item Creating a scalar. Some examples: 
+\begin{lstlisting}[style=CStyle]
+s = 3.0  
+s = 2
+s = np.pi
+s = len(a)
+\end{lstlisting}
+		\item  Creating a 1D array. Some examples:  
+\begin{lstlisting}[style=CStyle]
+a = np.zeros(4)                 # a = [0, 0, 0, 0]  
+a = np.linspace(0,3,4)          # a = [0, 1, 2, 3] 
+a = np.array([3.0,-1.9,4.8,6.2])     
+                       # a = [3.0, -1.9, 4.8, 6.2] 
+\end{lstlisting}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{ Creating 2D Arrays}
+	\begin{itemize}
+		\item  Creating a 2D array. Some examples 
+\begin{lstlisting}[style=CStyle]
+m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+\end{lstlisting}
+
+\[		
+m = \left[ 
+\begin{array}{ccc}
+     1 & 2 & 3   \\
+     4 & 5 & 6   \\
+     7 & 8 & 9  \\     
+\end{array} \right]  
+\]
+\begin{lstlisting}[style=CStyle]
+m = np.zeros([2,2])
+\end{lstlisting}
+\[		
+m = \left[ 
+\begin{array}{cc}
+    0.0 & 0.0   \\
+    0.0 & 0.0   \\
+\end{array} \right]  
+\]
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Indexing Arrays}
+	\begin{itemize}
+		\item Index a 1D array using $[i]$ where $i$ is the index we want eg: 
+\begin{lstlisting}[style=CStyle]
+a = np.linspace(0,3,4)  # a = [0.0, 1.0, 2.0, 3.0] 
+s = a[2]                # s = 2.0
+a[0] = 4                # a = [4.0, 1.0, 2.0, 3.0] 
+\end{lstlisting}
+		\item Index a 2D array using $[r,c]$ where $r$ is the row index and $c$ is the column index eg: 
+\begin{lstlisting}[style=CStyle]		
+m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+s = m[0,2]      # s = 3
+s = m[2,1]      # s = 8
+m[1,1] = 11     #[[1, 2, 3], [4, 11, 6], [7, 8, 9]]
+\end{lstlisting}		
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Indexing Arrays}
+	\begin{itemize}
+		\item We can also select whole rows or column using ':' which means 'all row/column entries'
+\begin{lstlisting}[style=CStyle]		
+m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+\end{lstlisting}
+\[		
+m = \left[ 
+\begin{array}{ccc}
+     1 & 2 & 3   \\
+     4 & 5 & 6   \\
+     7 & 8 & 9  \\     
+\end{array} \right]  
+\]
+\begin{lstlisting}[style=CStyle]		
+		a = m[0, :]     # a = [1, 2, 3]
+		a = m[:, 1]     # a = [2, 5, 8]
+\end{lstlisting}
+\item Note: if you write m[1] Python will assume you mean m[1,:] and will return row 1
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Indexing Arrays}
+	\begin{itemize}
+		\item We can also select a subset of rows and/or columns of a 2D array to create a new array
+\begin{lstlisting}[style=CStyle]	
+m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+a  = m[0, [0, 2] ]    #row 0 and cols 0 & 2
+m2 = m[:, [0, 2] ]    #all rows and cols 0 & 2
+\end{lstlisting}
+
+\[		
+m = \left[ 
+\begin{array}{ccc}
+     1 & 2 & 3   \\
+     4 & 5 & 6   \\
+     7 & 8 & 9  \\     
+\end{array} \right] 
+\;\;\; a = [1, 3]
+\;\;\;\; m2 = \left[ 
+\begin{array}{cc}
+     1  & 3   \\
+     4  & 6   \\
+     7  & 9  \\     
+\end{array} \right] 
+\]
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Indexing Arrays}
+	\begin{itemize}
+		\item We can also use ':' to index a range of entries 
+		\item E.g all row / columns from $a$ to $b$ by $a:b+1$
+\begin{lstlisting}[style=CStyle]
+m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+m3 = m[:, 1:3 ]        #cols 1 & 2 
+\end{lstlisting}
+
+\[		
+m = \left[ 
+\begin{array}{ccc}
+     1 & 2 & 3   \\
+     4 & 5 & 6   \\
+     7 & 8 & 9  \\     
+\end{array} \right] 
+\;\;\; m3 = \left[ 
+\begin{array}{cc}
+     2  & 3   \\
+     5  & 6   \\
+     8  & 9  \\     
+\end{array} \right]
+\]
+	\item It also works for 1D arrays e.g
+\begin{lstlisting}[style=CStyle]		
+a = np.linspace(0,4,5)   #a = [0, 1, 2, 3, 4] 
+a2 = a[1:4]              #a2 = [1, 2, 3] 
+\end{lstlisting}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Indexing Arrays}
+A note on negative indexing
+	\begin{itemize}
+		\item If you have an array $a$ of length $N$ and you want to index the last element you could write: 
+\begin{lstlisting}[style=CStyle]
+a = np.linspace(0,4,5)   #a = [0., 1., 2., 3., 4.] 
+N = len(a)               #N = 5
+s = a[N-1]               #s = 4.0
+s2 = a[N-2]              #s2 = 3.0
+\end{lstlisting}
+\item However Python will also accept the shorthand
+\begin{lstlisting}[style=CStyle]
+s = a[-1]                #s = 4.0
+s2 = a[-2]               #s2 = 3.0
+\end{lstlisting}
+\item This is why if you accidentally index an array by $i-1$ when $i = 0$ it will give the last element
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Indexing Arrays}
+	\begin{itemize}
+        \item The number of rows in a 2D array is given by len(m) or np.size(m,0)
+        \item The number of columns in a 2D array is given by len(m[0])  (i.e. the number of entries in row 0) or np.size(m,1)
+\begin{lstlisting}[style=CStyle]
+m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+a = m[:, len(m)-1]               # a = [3, 6, 9] 
+s = m[len(m[0])-1, len(m)-2]     # s = 8
+\end{lstlisting}
+
+		\item Negative indexing also works for 2D arrays:
+\begin{lstlisting}[style=CStyle]
+m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+a = m[:, -1]      # a = [3, 6, 9] 
+s = m[-1, -2]     # s = 8
+\end{lstlisting}
+
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{2D Arrays and Loops}
+	\begin{itemize}
+		\item To access array entries using loops will require nested loops: 
+	  	\begin{itemize}
+		    \item one loop to index the row and one to index the column
+		\end{itemize}
+\begin{lstlisting}[style=CStyle]
+m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+sum = 0
+for r in range(0,len(m)):
+    for c in range(0,len(m[0])):
+       sum = sum + m[r,c]
+Avg = sum / m.size    # note Numpy .size attribute
+\end{lstlisting}
+        \item Of course there is also a Numpy function for that: 
+\begin{lstlisting}[style=CStyle]
+m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+Avg = np.sum(m) / m.size
+Avg = np.average(m)
+\end{lstlisting}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{2D Arrays and Loops}
+	\begin{itemize}
+		\item We can also re-create m using loops
+	  	\begin{itemize}
+		    \item one loop to index the row and one to index the column
+		\end{itemize}
+\begin{lstlisting}[style=CStyle]
+# m = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+m = np.zeros ([3, 3],int)
+v = 0
+for i in range(0,3):
+    for j in range(0,3):
+       v = v+1
+       m[i,j] = v
+\end{lstlisting}
+\[		
+m = \left[ 
+\begin{array}{ccc}
+     1 & 2 & 3   \\
+     4 & 5 & 6   \\
+     7 & 8 & 9  \\     
+\end{array} \right] 
+\]
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{2D Arrays and Data Sets}
+	\begin{itemize}
+		\item We can redo the Rainfall example (week 4) using 2D arrays 
+	\end{itemize}
+\begin{lstlisting}[style=CStyle]:
+import pandas as pd
+import numpy as np
+
+# import the Rainfall data
+Rainfalldata = pd.read_csv("Rainfall.csv")
+print(Rainfalldata.head())
+
+# extract a 2D array
+Rainfall = Rainfalldata[['Rainfall 2010','Rainfall 2020']].values
+print(type(Rainfall))
+print(Rainfall)
+
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{2D Arrays and Data Sets}
+\begin{lstlisting}[style=CStyle]:
+#e.g. continued
+
+# Get the number of rows in the 2D array
+N_rows = np.size(Rainfall,0)
+
+# How many regions have seen a decrease in rainfall
+count = 0
+for i in range(0, N_rows, 1):
+    if Rainfall[i,1] < Rainfall[i,0]:
+        count = count + 1
+
+percentage_decreased = count/N_rows*100
+print('Of the {} regions, {} have reduced rainfall which is {:5.2f}% '.format(N_rows, count, percentage_decreased))
+\end{lstlisting}
+\end{frame}
+
+\end{document}

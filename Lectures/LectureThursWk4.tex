@@ -1,0 +1,378 @@
+\documentclass[english,14pt]{beamer}
+\usetheme{EastLansing}
+\usecolortheme{spruce}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{hyperref}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
+
+% https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+%% https://stackoverflow.com/questions/1435837/how-to-remove-footers-of-latex-beamer-templates
+%%gets rid of bottom navigation bars
+%\setbeamertemplate{footline}[page number]
+%
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+
+\newcommand\red[1]{{\color{red} #1}}
+\newcommand\green[1]{{\color{green} #1}}
+\newcommand\blue[1]{{\color{blue} #1}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstdefinestyle{PStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\scriptsize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Thursday Week 7}
+\subtitle{Arrays and Images}
+\author{Sarah Johnson}
+\institute{University of Newcastle}
+%\date{\today}
+\date{22 April, 2021}
+
+% following is a bit of a hack, but forces page numbers (technically: frame numbers) to run 1,2,3,... 
+% with titlepage counting as frame 1
+
+\addtocounter{framenumber}{1}
+\titlepage
+
+\begin{document}
+
+
+%\begin{flushleft}
+%{\scriptsize Last compiled:~\DTMnow}
+%\vspace*{-5mm}
+%\end{flushleft}
+\framebreak
+
+\begin{frame}[fragile]
+
+\frametitle{Lecture Overview}
+\begin{enumerate}
+	\item 2D arrays for black and grey-scale images
+	\item []
+	
+	\item 3D arrays for colour images
+	
+\end{enumerate}
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}[fragile]
+\frametitle{ Creating an Image using 2D Arrays}
+\begin{lstlisting}[style=CStyle]
+import matplotlib.pyplot as plt
+import numpy as np
+
+m = np.zeros([10,10])
+m[4:6, :] = 1
+m[:, 4:6] = 1
+
+# showing the image in a figure
+plt.imshow(m, cmap='Greys')
+plt.xticks([])
+plt.yticks([])
+
+# saving the newly created figure
+plt.savefig('toy_example.png')
+
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Creating an Image using 2D Arrays}
+\begin{lstlisting}[style=CStyle]
+m = np.zeros([10,10],int)
+m[4:6, :] = 1
+m[:, 4:6] = 1
+\end{lstlisting}
+\vspace{-1em}
+\[		
+\hspace{5em} m = \left[ 
+\begin{array}{cccccccccc}
+     0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0    \\
+     0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0    \\
+     0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0    \\   
+     0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0    \\
+     1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1    \\
+     1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1    \\
+     0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0    \\
+     0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0    \\
+     0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0    \\ 
+     0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0    \\     
+\end{array} \right]  
+\]
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Creating an Image using 2D Arrays}
+    \begin{itemize}
+		\item The \texttt{matplotlib.pyplot function} \texttt{imshow(m)} displays an image in a plot
+		\begin{itemize}
+     		\item each entry in the 2D array \texttt{m} is a pixel in the image
+     	\end{itemize}
+     		\item The \texttt{cmap} variable defines the mapping of values to colours
+		\item If \texttt{cmap = 'Greys'}: 
+			\begin{itemize}
+			    \item the maximum value in the array is mapped to black
+			    \item the minimum value in the array is mapped to white
+			    \item values in between are a shade of grey relative to their value on the white-black range
+			\end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Creating an Image using 2D Arrays}
+ \vspace{-1em}
+    \begin{figure} 
+        \centering
+        \includegraphics[width = 0.9\textwidth]{figures/toy_example.png}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Matplotlib.pyplot Figures }
+    \begin{itemize}
+		\item \texttt{xticks([])} and \texttt{yticks([])} remove the axis ticks
+     	\item Another option is \texttt{axis('off')} to remove the axis altogether
+     	\item \texttt{savefig('figurename.ext')} saves the figure. If not specified, the format is inferred from the extension (.png, .jpg etc)
+        \item Note: in a script \texttt{savefig()} must come before \texttt{show()} - if you close the figure it does not exist anymore to save it 
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Matplotlib.pyplot Figures }
+    \begin{itemize}
+		\item You can create multiple figures by using a \texttt{figure()} to create a new empty plot instead of overwriting the current plot
+     	\item After all the plots have been created use \texttt{show()} to show them all
+        \item Note: all of these functions apply to all \texttt{pyplot} figures (such as plots) not just figures created using \texttt{imshow()} 
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Creating a Colour Image using 3D Arrays}
+\begin{itemize}
+    \item A colour image can be stored as a 3D array
+    \item Think of it as a 2D array where each entry is itself a length-3 array specifying the colour in RGB (red, green, blue) format
+   \vspace{0.5em}
+    \begin{figure} 
+        \centering
+        \left[ \begin{tabular}{ccccc}
+        & [R, G, B] & ... & [R, G, B] & \\
+        & [R, G, B] & ... & [R, G, B] & \\
+        & [R, G, B] & ... & [R, G, B] & \\
+        \end{tabular} \right]
+   \end{figure}
+   \vspace{0.5em}
+   \item E.g. red: [255, 0 ,0] green: [0, 255, 0]  \\ blue: [0, 0, 255], a purple: [65, 0, 125]
+   \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Creating a Colour Image using 3D Arrays}
+\begin{lstlisting}[style=CStyle]
+# create a 3D array using numpy to make an image of a purple cross on a red background
+m = np.zeros([20,20,3],int)
+m[:, :]    = [255, 0, 0]     
+m[8:12, :] = [65, 0, 125];  m[:, 8:12] = [65, 0, 125]   
+
+plt.imshow(m); plt.axis('off')
+plt.savefig('purple_cross.jpeg')
+plt.show()
+\end{lstlisting}
+\vspace{-1em}
+    \begin{figure} 
+        \centering
+        \includegraphics[width = 0.4\textwidth]{figures/purple_Cross.jpeg}
+   \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Creating a Colour Image using 3D Arrays}
+	\begin{itemize}
+	
+     	\item For \texttt{imshow(m)}, if \texttt{m} is a 3D array with size (M,N,3) the values in \texttt{m} are interpreted as RGB 
+     		\begin{itemize}
+     		    \item the R, B and G values can be a float between 0 and 1 or an integer between 0 and 255
+     		    \item integers above 255 (floats above 1) are cropped to 255 (respectively 1)
+			\end{itemize}
+		 \item There are a multitude of colour charts / colour pickers online which will give the RGB values for you. One is: \\
+    \end{itemize}
+    
+\small \texttt{https://www.w3schools.com/colors/colors\_rgb.asp}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Creating a Colour Image using 3D Arrays}
+\begin{figure}
+\begin{lstlisting}[style=PStyle]:
+# use a 3D array to recreate Tasneem's dartboard
+import numpy as np
+import matplotlib.pyplot as plt
+
+def dartboard_array(N, r_cent, c_cent, radius):
+    m = np.zeros([N, N, 3],int)
+    for r in range(0, N):
+        for c in range(0, N):
+            d_to_cent = np.sqrt((r_cent-r)**2+(c_cent-c)**2)
+            if d_to_cent < 0.1*radius:
+                m[r, c] = [0, 255, 0]   #RGB green
+            elif d_to_cent < 0.2*radius:
+                m[r, c] = [255, 255, 0] #RGB yellow
+            elif d_to_cent < 0.6*radius:
+                m[r, c] = [255, 0, 0]   #RGB red
+            elif d_to_cent < radius:
+                m[r, c] = [0, 0, 255]   #RGB blue
+            else:
+                m[r, c] = [0, 0, 0]     #RGB black
+    return m
+\end{lstlisting}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Creating a Colour Image using 3D Arrays}
+\begin{lstlisting}[style=PStyle]:
+#continued 
+
+N = 500
+r_center_point = round(N/2)
+c_center_point = round(N/2)
+radius = N/2
+
+m = dartboard_array(N, r_center_point, c_center_point, radius)
+
+plt.imshow(m)
+plt.title('Dartboard')
+plt.xticks([])
+plt.yticks([])
+plt.show()
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Importing Images}
+	\begin{itemize}
+     	\item There are a number of libraries to import and process figures, one of which is the \texttt{matplotlib} \texttt{image} module 
+
+\begin{lstlisting}[style=PStyle]
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
+img = mpimg.imread('stinkbug.png')
+plt.imshow(img)
+plt.show()
+\end{lstlisting}
+     	\item A benefit, for us, with \texttt{image}  is that the image is imported into a \texttt{numpy} array
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Importing Images}
+print(img):
+\begin{lstlisting}[style=PStyle]
+
+[[[0.40784314 0.40784314 0.40784314]
+  [0.40784314 0.40784314 0.40784314]
+  [0.40784314 0.40784314 0.40784314]
+  ...
+  [0.42745098 0.42745098 0.42745098]
+  [0.42745098 0.42745098 0.42745098]
+  [0.42745098 0.42745098 0.42745098]]
+ [[0.4117647  0.4117647  0.4117647 ]
+  [0.4117647  0.4117647  0.4117647 ]
+  [0.4117647  0.4117647  0.4117647 ]
+  ...
+  [0.42745098 0.42745098 0.42745098]
+  [0.42745098 0.42745098 0.42745098]
+  [0.42745098 0.42745098 0.42745098]]
+
+\end{lstlisting}
+
+\end{frame}
+
+\end{document}
