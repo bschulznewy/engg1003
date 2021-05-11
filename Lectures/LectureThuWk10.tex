@@ -102,6 +102,8 @@
 
 \frametitle{Lecture overview}
 \begin{enumerate}
+	\item key dates, worth 15\%, lab question sheet in BB $>$ Assessment
+
 	\item images as 3D arrays
 %	\begin{itemize}
 %		\item review Sarah's material
@@ -119,18 +121,18 @@
 %	\end{itemize}	
 		
 	\item structure of assignment
-		\begin{itemize}
-			\item five (5) functions to get started; no marks, infinite help
-			\item eight (8) functions, write some or all for 15 marks
-		\end{itemize}	
+%		\begin{itemize}
+%			\item five (5) functions to get started; no marks, infinite help
+%			\item eight (8) functions, write some or all for 15 marks
+%		\end{itemize}	
 
-	\item how to go about the assignment
-		\begin{itemize}
-			\item week 10 lab
-			\item lab question sheet in BB $>$ Assessment
-			\item write a module called imageProcessing, upload to BB
-			\item test scripts; getting assessed
-		\end{itemize}	
+	\item strategies for the assignment
+%		\begin{itemize}
+%%			\item week 10 lab
+%%			\item lab question sheet in BB $>$ Assessment
+%%			\item write a module called imageProcessing, upload to BB
+%%			\item test scripts; getting assessed
+%		\end{itemize}	
 	
 \end{enumerate}
 
@@ -155,7 +157,7 @@
 
 	\item[]
 	
-	\item review of Sarah's material
+	\item review of Sarah's material from Thursday week 7
 \end{itemize}
 
 \end{frame}
@@ -172,7 +174,10 @@
 	\begin{itemize}
 		\item RGB
 		\item HSL
-		\item two different ways of represeting the \emph{same} colour
+	\end{itemize}
+	\item[]
+	\item RGB and HSL are two different ways of representing the \emph{same} colour
+	\begin{itemize}
 		\item key theme of assignment: RGB \texttt{<-->} HSL
 	\end{itemize}
 	\item[]
@@ -295,7 +300,7 @@ eight (8) functions to be graded in assignment (ctd.)
 			
 	\item \texttt{unsharpMask}
 	\begin{itemize}
-		\item apply image sharpening technique to image
+		\item sharpen image
 	\end{itemize}
 \end{itemize}
 
@@ -313,15 +318,69 @@ eight (8) functions to be graded in assignment (ctd.)
 	\item test RGB/HSL conversion against colour picker
 	\item remember first 5 functions: infinite help from discord, demonstrators, fellow students
 	\begin{itemize}
-		\item no marks for these questions
+		\item no marks for these questions; required for later q's
 	\end{itemize}
-	\item while submission to BB will be a single file imageProcessing.py with definitions and code for eight (8) functions, encouraged to develop and test as follows:
-	\begin{itemize}
-		\item each function own script, test it
-		\item define code into function in same file, test it
-		\item copy/paste working function into imageProcessing.py
-	\end{itemize}
+
 \end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{strategies}
+
+\begin{itemize}
+	\item submission to BB will be a single file \texttt{imageProcessing.py} with definitions and code for up to eight (8) functions
+	\begin{itemize}
+		\item you may implement $<$~8 functions, for $<$~15 marks
+	\end{itemize}
+	\item[]
+	
+	\item strongly encouraged to develop and test as follows:
+	\begin{enumerate}
+		\item each function's beheviour in its own script (test it)
+		\item define code into function in same file (test it)
+		\item copy/paste working function into \texttt{imageProcessing.py}
+		\begin{itemize}
+			\item we'll be making test code available to students
+			\item you can check \emph{in advance} if your code works correctly!
+	\end{itemize}
+	\end{enumerate}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{strategies}
+
+Step 1: in \texttt{square.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# square
+
+x = 3
+print('{} squared = {:.4f}'.format(x,x**2))
+\end{lstlisting}
+
+Step 2: in \texttt{square\_fn.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+# square_fn
+def f(x):
+    return x**2
+
+x = 3
+print('{} squared = {:.4f}'.format(x,f(x)))
+\end{lstlisting}
+
+Step 3: in \texttt{imageProcessing.py}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+def f(x):
+    return x**2
+\end{lstlisting}
 
 \end{frame}
 
