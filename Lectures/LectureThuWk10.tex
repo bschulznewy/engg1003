@@ -1,0 +1,339 @@
+\documentclass[english,14pt]{beamer}
+\usetheme{EastLansing}
+\usecolortheme{spruce}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{textcomp}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
+
+% https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+%% https://stackoverflow.com/questions/1435837/how-to-remove-footers-of-latex-beamer-templates
+%%gets rid of bottom navigation bars
+%\setbeamertemplate{footline}[page number]
+%
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+\definecolor{darkGreen}{rgb}{0, 0.39, 0}
+
+\newcommand\red[1]{{\color{red} #1}}
+\newcommand\green[1]{{\color{green} #1}}
+\newcommand\blue[1]{{\color{blue} #1}}
+\newcommand\darkGreen[1]{{\color{darkGreen} #1}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT,CONDITIONS},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Thursday Week 10}
+\subtitle{Assignment 2: Image processing}
+\author{Steve Weller}
+\institute{University of Newcastle}
+%\date{\today}
+\date{13 May 2021}
+
+% following is a bit of a hack, but forces page numbers (technically: frame numbers) to run 1,2,3,... 
+% with titlepage counting as frame 1
+
+\addtocounter{framenumber}{1}
+\titlepage
+
+\begin{document}
+
+\begin{flushleft}
+{\scriptsize Last compiled:~\DTMnow}
+\vspace*{-5mm}
+\end{flushleft}
+\framebreak
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Lecture overview}
+\begin{enumerate}
+	\item images as 3D arrays
+%	\begin{itemize}
+%		\item review Sarah's material
+%	\end{itemize}
+	
+	\item digital image formats
+%	\begin{itemize}
+%		\item raster image format
+%		\item colourspaces: RGB and HSL
+%	\end{itemize}
+
+	\item data types
+%	\begin{itemize}
+%		\item uint8, uint16, float32, float64
+%	\end{itemize}	
+		
+	\item structure of assignment
+		\begin{itemize}
+			\item five (5) functions to get started; no marks, infinite help
+			\item eight (8) functions, write some or all for 15 marks
+		\end{itemize}	
+
+	\item how to go about the assignment
+		\begin{itemize}
+			\item week 10 lab
+			\item lab question sheet in BB $>$ Assessment
+			\item write a module called imageProcessing, upload to BB
+			\item test scripts; getting assessed
+		\end{itemize}	
+	
+\end{enumerate}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$1)$ images as 3D arrays}
+
+\begin{itemize}
+% bitmap image is composed of a fixed set of pixels, while the vector image is composed of a fixed set of shapes. In the picture, scaling the bitmap reveals the pixels while scaling the vector image preserves the shapes.
+
+% https://en.wikipedia.org/wiki/Scalable_Vector_Graphics
+
+	\item raster images
+	\begin{itemize}
+		\item gif, jpeg, png
+		\item contrast with vector images: svg
+	\end{itemize}
+
+	\item[]
+	
+	\item review of Sarah's material
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$2)$ digital image formats}
+
+\begin{itemize}
+
+	\item colourspaces
+	\begin{itemize}
+		\item RGB
+		\item HSL
+		\item two different ways of represeting the \emph{same} colour
+		\item key theme of assignment: RGB \texttt{<-->} HSL
+	\end{itemize}
+	\item[]
+	\item $[0,1]$ and $[0,255]$
+	\item[]
+	\item use colour images and links to colour picker
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$3)$ data types}
+
+\begin{itemize}
+	\item uint8
+	\item uint16
+	\item float32
+	\item float64
+	\item[]
+	\item type conversions
+		
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$4)$ structure of assignment}
+
+ first 5 functions
+\begin{itemize}
+	\item \texttt{loadImage}
+	\begin{itemize}
+		\item read image file into 3D numpy array
+	\end{itemize}
+		
+	\item \texttt{saveImage}
+	\begin{itemize}
+		\item save 3D numpy array as image file
+	\end{itemize}
+			
+	\item \texttt{rgb2hsl}
+	\begin{itemize}
+		\item convert image in RGB format to HSL format
+	\end{itemize}
+			
+	\item \texttt{rgb2hsl}
+	\begin{itemize}
+		\item convert image in HSL format to RGB format
+	\end{itemize}
+			
+	\item \texttt{showImage}
+	\begin{itemize}
+		\item display image in window
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$5)$ how to go about the assignment}
+
+eight (8) functions to be graded in assignment
+
+\begin{itemize}
+	\item \texttt{brightness}
+	\begin{itemize}
+		\item adjust image brightness
+	\end{itemize}
+		
+	\item \texttt{contrast}
+	\begin{itemize}
+		\item adjust image contrast
+	\end{itemize}
+			
+	\item \texttt{saturation}
+	\begin{itemize}
+		\item adjust image saturation
+	\end{itemize}
+			
+	\item \texttt{toneMap}
+	\begin{itemize}
+		\item adjust image by setting H and S channels of each pixel
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+eight (8) functions to be graded in assignment (ctd.)
+
+\begin{itemize}
+	\item \texttt{crops}
+	\begin{itemize}
+		\item crop image
+	\end{itemize}
+		
+	\item \texttt{histogram}
+	\begin{itemize}
+		\item plot histogram of image
+	\end{itemize}
+			
+	\item \texttt{saturated}
+	\begin{itemize}
+		\item compute percentage of pixels which have at least one RGB channel value which has undergone clipping saturation
+	\end{itemize}
+			
+	\item \texttt{unsharpMask}
+	\begin{itemize}
+		\item apply image sharpening technique to image
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{strategies}
+
+\begin{itemize}
+	\item start small
+	\item Lab sheet week 10 first
+	\item test RGB/HSL conversion against colour picker
+	\item remember first 5 functions: infinite help from discord, demonstrators, fellow students
+	\begin{itemize}
+		\item no marks for these questions
+	\end{itemize}
+	\item while submission to BB will be a single file imageProcessing.py with definitions and code for eight (8) functions, encouraged to develop and test as follows:
+	\begin{itemize}
+		\item each function own script, test it
+		\item define code into function in same file, test it
+		\item copy/paste working function into imageProcessing.py
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Lecture summary}
+\begin{itemize}
+	\item xxx
+\end{itemize}
+
+\end{frame}
+
+\end{document}
