@@ -1,6 +1,25 @@
 
-\frametitle{Getting started with the assignment}
+\frametitle{Code testing and grading}
+
+\vspace*{-3mm}
+
 \begin{itemize}
-	\item xxx
+	\item 15 marks total, for 15\% assignment
+	\item 2 marks each for correct implementation of:
+	\begin{itemize}
+		\item brightness()
+		\item contrast()
+		\item saturation()
+		\item toneMap()
+		\item crop()
+		\item saturated()
+		\item histogram()
+	\end{itemize}
+	\item 1 mark for correct implementation of:
+	\begin{itemize}
+		\item unsharpMask()
+	\end{itemize}
 \end{itemize}
+
+\textbf{\emph{Python test script published on BB which allows you to judge the correctness of your implementations with easy-to-debug data}}
 

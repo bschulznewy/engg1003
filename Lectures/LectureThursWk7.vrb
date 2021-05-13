@@ -1,0 +1,6 @@
+\frametitle{Creating an Image using 2D Arrays}
+ \vspace{-1em}
+    \begin{figure}
+        \centering
+        \includegraphics[width = 0.9\textwidth]{figures/toy_example.png}
+   \end{figure}
