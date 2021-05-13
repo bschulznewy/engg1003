@@ -102,38 +102,28 @@
 
 \frametitle{Lecture overview}
 \begin{enumerate}
-	\item key dates, worth 15\%, lab question sheet in BB $>$ Assessment
+	\item key assignment information
+
+	\item[]
 
 	\item images as 3D arrays
-%	\begin{itemize}
-%		\item review Sarah's material
-%	\end{itemize}
 	
+	\item[]
+
 	\item digital image formats
-%	\begin{itemize}
-%		\item raster image format
-%		\item colourspaces: RGB and HSL
-%	\end{itemize}
+
+	\item[]
 
 	\item data types
-%	\begin{itemize}
-%		\item uint8, uint16, float32, float64
-%	\end{itemize}	
-		
+
+	\item[]
+
 	\item structure of assignment
-%		\begin{itemize}
-%			\item five (5) functions to get started; no marks, infinite help
-%			\item eight (8) functions, write some or all for 15 marks
-%		\end{itemize}	
+
+	\item[]
 
 	\item strategies for the assignment
-%		\begin{itemize}
-%%			\item week 10 lab
-%%			\item lab question sheet in BB $>$ Assessment
-%%			\item write a module called imageProcessing, upload to BB
-%%			\item test scripts; getting assessed
-%		\end{itemize}	
-	
+
 \end{enumerate}
 
 \end{frame}
@@ -142,7 +132,34 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$1)$ images as 3D arrays}
+\frametitle{$1)$ Key assignment information}
+
+\begin{itemize}
+	\item released: Monday 10 May 2021
+	\item \textbf{due date: 9:00am Monday 31 May 2021}
+	\begin{itemize}
+		\item Monday of week 13
+	\end{itemize}
+	\item weighting: 15\% of final course grade
+	\item assignment sheet in BB $>$ assessment
+	\begin{itemize}
+		\item ensure you always have latest version
+	\end{itemize}
+	\item submission: upload \texttt{imageProcessing.py} file to BB as an assignment submission
+	\item marking: during face-face labs in week 13
+	\begin{itemize}
+		\item final exam is on Tuesday 8 of ``week 14'' (8 June)
+	\end{itemize}
+	\item marking guide released earlier today; details later in this lecture	
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$2)$ Images as 3D arrays}
 
 \begin{itemize}
 % bitmap image is composed of a fixed set of pixels, while the vector image is composed of a fixed set of shapes. In the picture, scaling the bitmap reveals the pixels while scaling the vector image preserves the shapes.
@@ -166,7 +183,27 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$2)$ digital image formats}
+\frametitle{}
+
+% https://en.wikipedia.org/wiki/Raster_graphics#/media/File:Rgb-raster-image.svg
+\vspace*{-5mm}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.6\textwidth]{figures/smiley}
+\end{figure}
+\vspace*{-5mm}
+{\footnotesize
+\href{https://en.wikipedia.org/wiki/Raster_graphics}{https://en.wikipedia.org/wiki/Raster\_graphics} \\
+\vspace*{-1mm}
+CC0 1.0}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$3)$ Digital image formats}
 
 \begin{itemize}
 
@@ -192,7 +229,7 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$3)$ data types}
+\frametitle{$4)$ Data types}
 
 \begin{itemize}
 	\item uint8
@@ -210,31 +247,55 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$4)$ structure of assignment}
+\frametitle{$5)$ Structure of assignment}
 
- first 5 functions
 \begin{itemize}
-	\item \texttt{loadImage}
+	\item covers the basics of digital image manipulation
+	\item you will learn how everyday tools such as mobile phone camera apps perform several common image processing tasks
+	\item first 5 functions
+	\begin{itemize}
+		\item ``unlimited'' help from discord, demonstrators, fellow students is permitted
+		\item[] (your assignment submission must be your own work)
+		\item no marks for these questions; required for later q's
+	\end{itemize}
+	\item next 8 functions
+	\begin{itemize}
+		\item where the marks are
+		\item \emph{\textbf{functions can be attempted in any order! }}
+		\item implement all 8 functions, or fewer (for fewer marks)
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Five ``getting started'' functions}
+
+\begin{itemize}
+	\item \textbf{\blue{\texttt{loadImage()}}}
 	\begin{itemize}
 		\item read image file into 3D numpy array
 	\end{itemize}
 		
-	\item \texttt{saveImage}
+	\item \textbf{\blue{\texttt{saveImage()}}}
 	\begin{itemize}
 		\item save 3D numpy array as image file
 	\end{itemize}
 			
-	\item \texttt{rgb2hsl}
+	\item \textbf{\blue{\texttt{rgb2hsl()}}}
 	\begin{itemize}
 		\item convert image in RGB format to HSL format
 	\end{itemize}
 			
-	\item \texttt{rgb2hsl}
+	\item \textbf{\blue{\texttt{hsl2rgb()}}}
 	\begin{itemize}
 		\item convert image in HSL format to RGB format
 	\end{itemize}
 			
-	\item \texttt{showImage}
+	\item \textbf{\blue{\texttt{showImage()}}}
 	\begin{itemize}
 		\item display image in window
 	\end{itemize}
@@ -246,27 +307,29 @@
 
 \begin{frame}[fragile]
 
-\frametitle{$5)$ how to go about the assignment}
+\frametitle{Eight functions in the assignment}
 
-eight (8) functions to be graded in assignment
+Eight (8) functions to be graded in assignment
+
+\vspace*{5mm}
 
 \begin{itemize}
-	\item \texttt{brightness}
+	\item \textbf{\red{\texttt{brightness()}}}
 	\begin{itemize}
 		\item adjust image brightness
 	\end{itemize}
 		
-	\item \texttt{contrast}
+	\item \textbf{\red{\texttt{contrast()}}}
 	\begin{itemize}
 		\item adjust image contrast
 	\end{itemize}
 			
-	\item \texttt{saturation}
+	\item \textbf{\red{\texttt{saturation()}}}
 	\begin{itemize}
 		\item adjust image saturation
 	\end{itemize}
 			
-	\item \texttt{toneMap}
+	\item \textbf{\red{\texttt{toneMap()}}}
 	\begin{itemize}
 		\item adjust image by setting H and S channels of each pixel
 	\end{itemize}
@@ -280,25 +343,27 @@ eight (8) functions to be graded in assignment
 
 \frametitle{}
 
-eight (8) functions to be graded in assignment (ctd.)
+Eight (8) functions to be graded in assignment (ctd.)
+
+\vspace*{5mm}
 
 \begin{itemize}
-	\item \texttt{crops}
+	\item \textbf{\red{\texttt{crop()}}}
 	\begin{itemize}
 		\item crop image
 	\end{itemize}
 		
-	\item \texttt{histogram}
+	\item \textbf{\red{\texttt{histogram()}}}
 	\begin{itemize}
 		\item plot histogram of image
 	\end{itemize}
 			
-	\item \texttt{saturated}
+	\item \textbf{\red{\texttt{saturated()}}}
 	\begin{itemize}
 		\item compute percentage of pixels which have at least one RGB channel value which has undergone clipping saturation
 	\end{itemize}
 			
-	\item \texttt{unsharpMask}
+	\item \textbf{\red{\texttt{unsharpMask()}}}
 	\begin{itemize}
 		\item sharpen image
 	\end{itemize}
@@ -310,17 +375,13 @@ eight (8) functions to be graded in assignment (ctd.)
 
 \begin{frame}[fragile]
 
-\frametitle{strategies}
+\frametitle{$6)$ Strategies for the assignment}
 
 \begin{itemize}
-	\item start small
-	\item Lab sheet week 10 first
+	\item rtfm
+	\item recommend (assume) Lab sheet week 10 first
+	\item start small, take tiny steps
 	\item test RGB/HSL conversion against colour picker
-	\item remember first 5 functions: infinite help from discord, demonstrators, fellow students
-	\begin{itemize}
-		\item no marks for these questions; required for later q's
-	\end{itemize}
-
 \end{itemize}
 
 \end{frame}
@@ -329,22 +390,23 @@ eight (8) functions to be graded in assignment (ctd.)
 
 \begin{frame}[fragile]
 
-\frametitle{strategies}
+\frametitle{Strategies}
 
 \begin{itemize}
-	\item submission to BB will be a single file \texttt{imageProcessing.py} with definitions and code for up to eight (8) functions
+	\item submission to BB will be a single file \texttt{imageProcessing.py}
 	\begin{itemize}
+		\item your uploaded file will contain definitions and code for up to eight (8) functions
 		\item you may implement $<$~8 functions, for $<$~15 marks
 	\end{itemize}
 	\item[]
 	
-	\item strongly encouraged to develop and test as follows:
+	\item \textbf{\emph{strongly}} encouraged to develop and test as follows:
 	\begin{enumerate}
-		\item each function's beheviour in its own script (test it)
-		\item define code into function in same file (test it)
-		\item copy/paste working function into \texttt{imageProcessing.py}
+		\item each function's behaviour in its own script (test it)
+		\item define code into function in same file (test it again)
+		\item copy/paste working function into \texttt{imageProcessing.py} (and test it again!)
 		\begin{itemize}
-			\item we'll be making test code available to students
+			\item test code will be made available to students
 			\item you can check \emph{in advance} if your code works correctly!
 	\end{itemize}
 	\end{enumerate}
@@ -356,7 +418,7 @@ eight (8) functions to be graded in assignment (ctd.)
 
 \begin{frame}[fragile]
 
-\frametitle{strategies}
+\frametitle{Strategies for developing code}
 
 Step 1: in \texttt{square.py}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
@@ -365,6 +427,8 @@ Step 1: in \texttt{square.py}
 x = 3
 print('{} squared = {:.4f}'.format(x,x**2))
 \end{lstlisting}
+
+\pause
 
 Step 2: in \texttt{square\_fn.py}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
@@ -375,6 +439,8 @@ def f(x):
 x = 3
 print('{} squared = {:.4f}'.format(x,f(x)))
 \end{lstlisting}
+
+\pause
 
 Step 3: in \texttt{imageProcessing.py}
 \begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
@@ -388,7 +454,7 @@ def f(x):
 
 \begin{frame}[fragile]
 
-\frametitle{Lecture summary}
+\frametitle{Getting started with the assignment}
 \begin{itemize}
 	\item xxx
 \end{itemize}
