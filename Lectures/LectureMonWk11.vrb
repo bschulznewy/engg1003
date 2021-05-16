@@ -1,10 +1,20 @@
 
 \frametitle{Lecture summary}
 \begin{itemize}
-	\item Normal distribution
+	\item least squares fit
+	\begin{itemize}
+		\item basic concept of least squares
+		\item ``do it yourself'' straight-line fit
+	\end{itemize}
 	\item[]
 	
-	\item Fitting straight line to data
+	\item beyond straight-line fit
+	\begin{itemize}
+		\item fitting polynomials to data
+	\end{itemize}
+	\item[]
+	
+	\item preliminary discussion of the final exam
 	\item[]
 	
 \end{itemize}
