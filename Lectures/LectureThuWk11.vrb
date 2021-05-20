@@ -1,21 +1,16 @@
-\frametitle{Functions}
-\begin{itemize}
-\item Functions work exactly the same way as in Python.
-    \begin{itemize}
-        \item You declare them by defining the function name, inputs, outputs and operation in the function declaration and then call the function by name as needed.
 
-        \item Functions start with the keyword \texttt{function} not \texttt{def}
-        \item The function output is defined at the start of the function not the end
-        \item The end of the function is indicated with the keyword \texttt{end}
-    \end{itemize}
-\begin{lstlisting}[style=CStyle]
-def addition(num_1, num_2):               # Python
-    total = num_1 + num_2
-    return total
-\end{lstlisting}
-\begin{lstlisting}[style=MStyle]
-function [total] = addition(num_1, num_2)  % MATLAB
-    total = num_1 + num_2;
-end
-\end{lstlisting}
+\frametitle{Next steps}
+\begin{itemize}
+	\item getting MATLAB, if you need it \emph{for later courses}
+	\item[]
+	\begin{itemize}
+		\item \textbf{MATLAB is \emph{not} assessable in ENGG1003}
+		\item \href{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}
+	\end{itemize}
+	\item[]
+	\item Octave: free \& mostly compatible with MATLAB
+	\begin{itemize}
+		\item \href{https://www.gnu.org/software/octave/index}{https://www.gnu.org/software/octave/index}
+	\end{itemize}
 \end{itemize}
+	

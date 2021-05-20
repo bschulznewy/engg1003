@@ -122,15 +122,29 @@
 
 \frametitle{Lecture overview}
 \begin{enumerate}
-	\item blah
-
-	\item[]
-
-	\item blah
+	\item Context
+	\begin{itemize}
+		\item ENGG1003
+		\item what is MATLAB?
+		\item do we even need MATLAB?
+	\end{itemize}
 
 	\item[]
 	
-	\item blah
+	\item MATLAB vs.~Python
+	\begin{itemize}
+		\item features and philosophy
+		\item key language details in MATLAB
+	\end{itemize}
+	
+
+	\item[]
+
+	\item Next steps
+	\begin{itemize}
+		\item getting MATLAB, if you need it
+		\item Octave: free \& mostly compataible with MATLAB
+	\end{itemize}
 
 	\item[]
 
@@ -142,25 +156,119 @@
 
 \begin{frame}[fragile]
 
-\frametitle{MATLAB vs.~Python}
+\frametitle{$1)$ Context}
 
 \begin{itemize}
-	\item xxx
+	\item $\leq$ 2020, ENGG1003 used \red{\emph{MATLAB}} and \red{\emph{C}}
+	\begin{itemize}
+%		\item \ldots and ENGG1002 used \red{\emph{Visual Basic/VBA/Excel}}
+%		\item ENGG1002 now wrapped into larger ENGG1003 class
+		\item \textbf{from 2021, ENGG1003 uses Python only} %now all (Engineering) students learn Python in ENGG1003
+		\item \ldots yet some students will use MATLAB \&/or C in later courses
+	\end{itemize}
+	\item[]
+	\item today's lecture: overview of MATLAB
+	\item[]
+	\item Monday week 12: overview of C
+
 \end{itemize}
 
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{What is MATLAB?}
+
+\begin{itemize}
+	\item MATLAB is a computing environment and programming language for \emph{matrix manipulation}
+	\begin{itemize}
+		\item a matrix is a 2D array
+		\item MATLAB is an abbreviation for ``matrix laboratory''
+	\end{itemize}
+	\item[]
+	\item MATLAB offers many additional ``Toolboxes'':
+	\begin{itemize}
+		\item control design
+		\item image processing
+		\item machine learning
+		\item digital signal processing
+		\item computational fluid dynamics
+		\item etc.
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Do we even need MATLAB?}
+
+\begin{itemize}
+	\item \textbf{MATLAB is \emph{not} assessable in ENGG1003}
+	
+	\item[]
+	
+	\item BUT\ldots MATLAB is currently used in a number of later courses in Engineering programs
+	\item[]
+	\item non-exhaustive list:
+	\begin{itemize}
+		\item[] CHEE4945, CHEE4975,  ENGG2440, AERO3600, MCHA3400, MCHA3500, MCHA4100, ELEC2132, ELEC2430, ELEC3400, ELEC3410, ELEC3540, ELEC4100, many FYPs, \ldots
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$2)$ MATLAB vs.~Python}
+
+Features and philosophy:
+\vspace*{7mm}
+
+\begin{itemize}
+	\item \textbf{MATLAB} is proprietary, closed-source software
+	\begin{itemize}
+		\item developed by MathWorks \href{https://www.mathworks.com/}{https://www.mathworks.com/}
+		\item MATLAB license is free for students \ldots
+		\item[] \emph{but very expensive otherwise}
+	\end{itemize}
+	\item[]
+	\item \textbf{Python} is free and open-source software
+	\begin{itemize}
+		\item you can keep programming in Python once you graduate!
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Advantages of Python over MATLAB}
+
+\begin{itemize}
+	\item Python libraries offer similar functionality as MATLAB toolboxes
+	\begin{itemize}
+		\item Python libraries growing much faster, are free, \& supported by active online community 
+	\end{itemize}
+	\item[]
+	\item Python is a very popular, in-demand language
+	\begin{itemize}
+		\item many students are finding that employers are requesting Python coding skills for both positions and internships
+		\item MATLAB: 4 million users
+		\item Python: $>$ 8 million users (2 million new users in 2018)
+		\item Python ranked \#1 most popular language in 2020 (IEEE)
+	\end{itemize}
+	\item[]
+	\item {\small \emph{MATLAB vs Python: Why and How to Make the Switch}}\\
 \href{https://realpython.com/matlab-vs-python/}{https://realpython.com/matlab-vs-python/}
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{MATLAB}
-
-\begin{itemize}
-	\item MATLAB is an abbreviation for Matrix Laboratory. It is a programming language perfectly suited for matrix manipulation and linear algebra.
-	\item MATLAB offers many additional Toolboxes such as control design, image processing, digital signal processing, fluid dynamics etc. They are all very well documented.
-	\item MATLAB includes Simulink which allows visualisation of systems begin simulated which can be very useful in many engineering applications.
 \end{itemize}
 
 \end{frame}
@@ -168,64 +276,65 @@
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{MATLAB}
-\begin{itemize}
-\item For this reason you may use MATLAB in some courses later on. A non exhaustive list of courses currently using MATLAB includes: \\
 
-CHEE4945, CHEE4975,  ENGG2440, AERO3600, MCHA3400, MCHA3500, MCHA4100 ELEC2132, ELEC2430, ELEC3400, ELEC3410, ELEC3540, ELEC4100, many FYPs
+\frametitle{MATLAB: key language details}
+
+\begin{itemize}
+	\item syntax
+	\item arithmetic and relational operators
+	\item flow control
+	\item arrays
+	\item plotting
+	\item functions
 \end{itemize}
+
+\begin{center}
+\textbf{If you're familiar with Python at level of ENGG1003, estimate transition to \\ MATLAB in 1--2 weeks}
+\end{center}
+
 \end{frame}
 
 %==============================================================
 
 \begin{frame}[fragile]
 
-\frametitle{Why are we teaching Python then?}
+\frametitle{MATLAB syntax}
 
 \begin{itemize}
-	\item Unlike Python which is free, MATLAB licences are very expensive. You will be able to keep programming in Python once you graduate.  
-	\item Matplotlib and Numpy have functionality very similar to MATLAB (making it easier to move across).
-	\item Python libraries offer much of the functionality as the MATLAB toolboxes and are growing much faster. 
-	\item Python has become a very popular, in demand language. Many students are finding that employers are requesting Python coding skills for both positions and internships. 
-	\item Python is a general-purpose programming language. 
-\end{itemize}
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Syntax}
-
-A few general differences between MATLAB and Python:
-
-\begin{itemize}
-	\item In MATLAB comments start with \%. In Python, comments start with \#.
-	\item White-space and indenting are very important in Python. MATLAB does not require the same (but it is highly recommended anyway for readability) 
+	\item MATLAB comments start with \%. Python comments start with \#
+	\item[]
+	\item white-space and indenting are very important in Python. MATLAB does not require the same (but it is highly recommended anyway for readability) 
+	\item[]
 	\item MATLAB function \texttt{disp( )} replaces \texttt{print( )}
+	\item[]
 	\item help for a function via \texttt{help fname} rather than \texttt{help(fname)}
 \end{itemize}
 \end{frame}
 
+
+
 %==============================================================
 
 \begin{frame}[fragile]
 
-\frametitle{Maths}
+\frametitle{Arithmetic and relational operators}
 
 \begin{itemize}
 
-\item Addition, subtraction, multiplication and division are the same. A difference is that
+\item addition, subtraction, multiplication and division are the same as Python. A difference is that
 	\begin{itemize}
-		\item  MATLAB uses \^ \;\; not ** for exponential. 
-		\item I.e.  \texttt{x**2} becomes \texttt{x\^\;2}
+		\item MATLAB uses \^ \;\; not ** for exponential
+		\item ie: \texttt{x**2} becomes \texttt{x\^\;2}
 	\end{itemize}
-\item Relational operators $==$, $>$, $<$, $>=$, $<=$ are the same, except
+	\item[]
+\item relational operators $==$, $>$, $<$, $>=$, $<=$ are the same, except
 	\begin{itemize}
 		\item MATLAB uses $\sim =$  instead of $!=$ for 'not equal to'
 	\end{itemize}
-\item In MATLAB the value of a variable is automatically printed to the terminal. You use ';' to suppress     \begin{itemize}
-\item I.e. \texttt{a = 3} prints value of a, whereas \texttt{a = 3;} does not
+	\item[]
+\item value of a MATLAB variable is \emph{automatically} printed to the command window (console), unless ';' used to suppress
+\begin{itemize}
+\item ie: \texttt{a = 3} prints value of \texttt{a}, whereas \texttt{a = 3;} does not
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -237,11 +346,14 @@ A few general differences between MATLAB and Python:
 \frametitle{Flow control}
 
 \begin{itemize}
-	\item If Else statements and For / While loops work exactly the same way in both languages with some small differences in syntax
+	\item \texttt{if}-\texttt{else} statements and \texttt{for} / \texttt{while} loops work exactly the same way in both languages, with some small differences in syntax:
+	\item[]
 	\begin{itemize}
 		\item MATLAB does not need the ':' used in Python at the end of the loop definition / if condition
+		\item[]
 		\item MATLAB designates the end of an If statement or loop by 'end' instead of by indenting
-		\item Python shortens \texttt{elseif} to \texttt{elif}. MATLAB does not.
+		\item[]
+		\item Python shortens \texttt{elseif} to \texttt{elif}. MATLAB does not
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -252,7 +364,7 @@ A few general differences between MATLAB and Python:
 
 \frametitle{Flow control}
 
- E.g. Nested If Else
+Nested If-Else
 
 \begin{lstlisting}[style=CStyle]
 num = 10                      # Python
@@ -265,7 +377,7 @@ else:
 \end{lstlisting}   
 
 \begin{lstlisting}[style=MStyle]
-num = 10                    % MATLAB
+num = 10;                   % MATLAB
 if num == 10
     disp("num is equal to 10")
 elseif num == 20
@@ -283,7 +395,7 @@ end
 
 \frametitle{Flow control}
 
-E.g. Use a For loop to add the integers from 1 to 10
+\textbf{Example:} use a \texttt{for} loop to add integers from 1 to 10
 
 \begin{lstlisting}[style=CStyle]
 sum = 0                  # Python
@@ -291,9 +403,9 @@ for i in range(1,11):
     sum = sum+i
 \end{lstlisting}
 \begin{lstlisting}[style=MStyle]
-sum = 0                  % MATLAB
+sum = 0;                  % MATLAB
 for i = 1:10
-    sum = sum+i
+    sum = sum+i;
 end
 \end{lstlisting} 
 \end{frame}
@@ -304,7 +416,7 @@ end
 
 \frametitle{Flow control}
 
-E.g. Use a While loop to find the first (smallest) integer which when squared is greater than 100
+\textbf{Example:} use a \texttt{while} loop to find the first (smallest) integer which, when squared, is greater than 100
 
 \begin{lstlisting}[style=CStyle]
 n = 1                        # Python
@@ -393,20 +505,20 @@ b = a         % MATLAB
 
 \frametitle{Arrays}
 
-\begin{itemize}
-	\item Many Numpy functions exist in MATLAB including \texttt{linspace() sqrt() log() exp() round() ceil() floor() max() min() mean()} and many more
-	\item A few tips to keep in mind:
+%\begin{itemize}
+%%	\item Many Numpy functions exist in MATLAB including \texttt{linspace() sqrt() log() exp() round() ceil() floor() max() min() mean()} and many more
+%	\item A few tips to keep in mind:
 	\begin{itemize}
-		\item In Python, the index of the first element in an array is '0', in MATLAB it is '1'
-		\item In Python, the index of the last element in an array is '-1', in MATLAB it is '\texttt{end}'
-		\item The length of an array is \texttt{length} rather than \texttt{len}
-		\item Array slicing works similarly in MATLAB to Python
-            \item You don't need to call \texttt{linspace()} to create an array \texttt{start:step:end} will do
+		\item \textbf{in Python, the index of the first element in an array is '0', in MATLAB it is '1'}
+		\item in Python, the index of the last element in an array is '-1', in MATLAB it is '\texttt{end}'
+		\item length of an array is \texttt{length} rather than \texttt{len}
+		\item array slicing works similarly in MATLAB to Python
+            \item no need to call \texttt{linspace()} to create an array in MATLAB,  \texttt{start:step:end} will do
 \begin{lstlisting}[style=MStyle]
 a = 5:1:100              % MATLAB
 \end{lstlisting}
 	\end{itemize}
-\end{itemize}
+%\end{itemize}
 \end{frame}
 
 %==============================================================
@@ -416,12 +528,12 @@ a = 5:1:100              % MATLAB
 \frametitle{Plotting}
 
 \begin{itemize}       
-	\item Plotting in MATLAB is very similar to \texttt{Matplotlib.pyplot}
-	\item Including the functions \texttt{plot() imshow() subplot() scatter() title() axis() xlabel() tick() figure()} and many more
-	\item Two tips tips be aware of:
+	\item plotting in MATLAB is very similar to \texttt{Matplotlib.pyplot}
+	\item including the functions \texttt{plot() imshow() subplot() scatter() title() axis() xlabel() tick() figure()} and many more
+	\item two tips:
 	\begin{itemize}
-		\item In Python plotting a new curve will add it to the figure. In MATLAB it will replace the first curve unless you use a \texttt{hold on} command first
-		\item MATLAB does not need a \texttt{show} command, the figure is shown automatically and it does not need to be closed for the remainder of the program to be run.
+		\item in Python plotting a new curve will add it to the figure. In MATLAB it will replace the first curve unless you use a \texttt{hold on} command first
+		\item MATLAB does not need a \texttt{show()} command, the figure is shown automatically and does not need to be closed for the remainder of the program to be run
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -429,7 +541,9 @@ a = 5:1:100              % MATLAB
 %==============================================================
 
 \begin{frame}[fragile]
-%\frametitle{Plotting}
+
+\frametitle{Plotting}
+
 \begin{lstlisting}[style=CStyle]
 import numpy as np                  # Python
 import matplotlib.pyplot as plt
@@ -443,10 +557,10 @@ plt.title('Velocity over time')
 plt.show()
 \end{lstlisting}
 \begin{lstlisting}[style=MStyle]
-v0 = 5                            % MATLAB
-g = 9.81
-t = linspace(0,1,1001)   
-y = v0*t - 0.5*g*t.^2
+v0 = 5;                            % MATLAB
+g = 9.81;
+t = 0:.001:1;   
+y = v0*t - 0.5*g*t.^2;
 plot(t, y)
 xlabel('t (s)')
 title('Velocity over time')
@@ -456,16 +570,18 @@ title('Velocity over time')
 %==============================================================
 
 \begin{frame}[fragile]
-\frametitle{Functions}
-\begin{itemize}
-\item Functions work exactly the same way as in Python. 
-    \begin{itemize}
-        \item You declare them by defining the function name, inputs, outputs and operation in the function declaration and then call the function by name as needed.
 
-        \item Functions start with the keyword \texttt{function} not \texttt{def}
-        \item The function output is defined at the start of the function not the end
-        \item The end of the function is indicated with the keyword \texttt{end}
-    \end{itemize}
+\frametitle{Functions}
+
+\begin{itemize}
+	\item MATLAB functions work similarly to Python
+	\begin{itemize}
+		\item declared by defining the function name, inputs, outputs and operation in the function declaration, then call the function by name as needed
+
+	\item functions start with the keyword \texttt{function} not \texttt{def}
+	\item function output is defined at the \emph{start} of the function, not the end
+	\item end of function is indicated with the keyword \texttt{end}
+	\end{itemize}
 \begin{lstlisting}[style=CStyle]
 def addition(num_1, num_2):               # Python
     total = num_1 + num_2
@@ -481,13 +597,23 @@ end
 
 %==============================================================
 
-%==============================================================
+\begin{frame}[fragile]
 
-%==============================================================
-
-%==============================================================
-
-%==============================================================
-
+\frametitle{Next steps}
+\begin{itemize}
+	\item getting MATLAB, if you need it \emph{for later courses}
+	\item[]
+	\begin{itemize}
+		\item \textbf{MATLAB is \emph{not} assessable in ENGG1003}
+		\item \href{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}
+	\end{itemize}
+	\item[]
+	\item Octave: free \& mostly compatible with MATLAB
+	\begin{itemize}
+		\item \href{https://www.gnu.org/software/octave/index}{https://www.gnu.org/software/octave/index}
+	\end{itemize}
+\end{itemize}
+	
+\end{frame}
 
 \end{document}
