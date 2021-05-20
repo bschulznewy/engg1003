@@ -1,0 +1,21 @@
+\frametitle{Functions}
+\begin{itemize}
+\item Functions work exactly the same way as in Python.
+    \begin{itemize}
+        \item You declare them by defining the function name, inputs, outputs and operation in the function declaration and then call the function by name as needed.
+
+        \item Functions start with the keyword \texttt{function} not \texttt{def}
+        \item The function output is defined at the start of the function not the end
+        \item The end of the function is indicated with the keyword \texttt{end}
+    \end{itemize}
+\begin{lstlisting}[style=CStyle]
+def addition(num_1, num_2):               # Python
+    total = num_1 + num_2
+    return total
+\end{lstlisting}
+\begin{lstlisting}[style=MStyle]
+function [total] = addition(num_1, num_2)  % MATLAB
+    total = num_1 + num_2;
+end
+\end{lstlisting}
+\end{itemize}

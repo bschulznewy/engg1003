@@ -1,0 +1,493 @@
+\documentclass[english,14pt]{beamer}
+\usetheme{EastLansing}
+\usecolortheme{spruce}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{textcomp}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
+
+% https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+%% https://stackoverflow.com/questions/1435837/how-to-remove-footers-of-latex-beamer-templates
+%%gets rid of bottom navigation bars
+%\setbeamertemplate{footline}[page number]
+%
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+\definecolor{darkGreen}{rgb}{0, 0.39, 0}
+
+\newcommand\red[1]{{\color{red} #1}}
+\newcommand\green[1]{{\color{green} #1}}
+\newcommand\blue[1]{{\color{blue} #1}}
+\newcommand\darkGreen[1]{{\color{darkGreen} #1}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstdefinestyle{MStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=MATLAB
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT,CONDITIONS},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Thursday Week 11}
+\subtitle{MATLAB vs.~Python}
+\author{Sarah Johnson and Steve Weller}
+\institute{University of Newcastle}
+%\date{\today}
+\date{20 May 2021}
+
+% following is a bit of a hack, but forces page numbers (technically: frame numbers) to run 1,2,3,... 
+% with titlepage counting as frame 1
+
+\addtocounter{framenumber}{1}
+\titlepage
+
+\begin{document}
+
+\begin{flushleft}
+{\scriptsize Last compiled:~\DTMnow}
+\vspace*{-5mm}
+\end{flushleft}
+\framebreak
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Lecture overview}
+\begin{enumerate}
+	\item blah
+
+	\item[]
+
+	\item blah
+
+	\item[]
+	
+	\item blah
+
+	\item[]
+
+\end{enumerate}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{MATLAB vs.~Python}
+
+\begin{itemize}
+	\item xxx
+\end{itemize}
+
+\href{https://realpython.com/matlab-vs-python/}{https://realpython.com/matlab-vs-python/}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{MATLAB}
+
+\begin{itemize}
+	\item MATLAB is an abbreviation for Matrix Laboratory. It is a programming language perfectly suited for matrix manipulation and linear algebra.
+	\item MATLAB offers many additional Toolboxes such as control design, image processing, digital signal processing, fluid dynamics etc. They are all very well documented.
+	\item MATLAB includes Simulink which allows visualisation of systems begin simulated which can be very useful in many engineering applications.
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{MATLAB}
+\begin{itemize}
+\item For this reason you may use MATLAB in some courses later on. A non exhaustive list of courses currently using MATLAB includes: \\
+
+CHEE4945, CHEE4975,  ENGG2440, AERO3600, MCHA3400, MCHA3500, MCHA4100 ELEC2132, ELEC2430, ELEC3400, ELEC3410, ELEC3540, ELEC4100, many FYPs
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Why are we teaching Python then?}
+
+\begin{itemize}
+	\item Unlike Python which is free, MATLAB licences are very expensive. You will be able to keep programming in Python once you graduate.  
+	\item Matplotlib and Numpy have functionality very similar to MATLAB (making it easier to move across).
+	\item Python libraries offer much of the functionality as the MATLAB toolboxes and are growing much faster. 
+	\item Python has become a very popular, in demand language. Many students are finding that employers are requesting Python coding skills for both positions and internships. 
+	\item Python is a general-purpose programming language. 
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Syntax}
+
+A few general differences between MATLAB and Python:
+
+\begin{itemize}
+	\item In MATLAB comments start with \%. In Python, comments start with \#.
+	\item White-space and indenting are very important in Python. MATLAB does not require the same (but it is highly recommended anyway for readability) 
+	\item MATLAB function \texttt{disp( )} replaces \texttt{print( )}
+	\item help for a function via \texttt{help fname} rather than \texttt{help(fname)}
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Maths}
+
+\begin{itemize}
+
+\item Addition, subtraction, multiplication and division are the same. A difference is that
+	\begin{itemize}
+		\item  MATLAB uses \^ \;\; not ** for exponential. 
+		\item I.e.  \texttt{x**2} becomes \texttt{x\^\;2}
+	\end{itemize}
+\item Relational operators $==$, $>$, $<$, $>=$, $<=$ are the same, except
+	\begin{itemize}
+		\item MATLAB uses $\sim =$  instead of $!=$ for 'not equal to'
+	\end{itemize}
+\item In MATLAB the value of a variable is automatically printed to the terminal. You use ';' to suppress     \begin{itemize}
+\item I.e. \texttt{a = 3} prints value of a, whereas \texttt{a = 3;} does not
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Flow control}
+
+\begin{itemize}
+	\item If Else statements and For / While loops work exactly the same way in both languages with some small differences in syntax
+	\begin{itemize}
+		\item MATLAB does not need the ':' used in Python at the end of the loop definition / if condition
+		\item MATLAB designates the end of an If statement or loop by 'end' instead of by indenting
+		\item Python shortens \texttt{elseif} to \texttt{elif}. MATLAB does not.
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Flow control}
+
+ E.g. Nested If Else
+
+\begin{lstlisting}[style=CStyle]
+num = 10                      # Python
+if num == 10:
+    print("num is equal to 10")
+elif num == 20:
+    print("num is equal to 20")
+else:
+    print("num is neither 10 nor 20")
+\end{lstlisting}   
+
+\begin{lstlisting}[style=MStyle]
+num = 10                    % MATLAB
+if num == 10
+    disp("num is equal to 10")
+elseif num == 20
+    disp("num is equal to 20")
+else
+    disp("num is neither 10 nor 20")
+end
+\end{lstlisting}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Flow control}
+
+E.g. Use a For loop to add the integers from 1 to 10
+
+\begin{lstlisting}[style=CStyle]
+sum = 0                  # Python
+for i in range(1,11):
+    sum = sum+i
+\end{lstlisting}
+\begin{lstlisting}[style=MStyle]
+sum = 0                  % MATLAB
+for i = 1:10
+    sum = sum+i
+end
+\end{lstlisting} 
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Flow control}
+
+E.g. Use a While loop to find the first (smallest) integer which when squared is greater than 100
+
+\begin{lstlisting}[style=CStyle]
+n = 1                        # Python
+n_squared = 1
+while n_squared < 100:
+    n = n+1
+    n_squared = n**2
+\end{lstlisting}
+\begin{lstlisting}[style=MStyle]
+n = 1                       % MATLAB
+n_squared = 1
+while n_squared < 100
+    n = n+1
+    n_squared = n^2
+end
+\end{lstlisting} 
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Arrays}
+
+\begin{itemize}
+	\item MATLAB arrays work a lot like \texttt{numpy} arrays. If you can work with Numpy arrays you will find MATLAB arrays are easy. Both do vectorisation in the same way
+	\item There are a couple of syntax differences to note:
+	\begin{itemize}
+		\item In MATLAB, when you want to index an array, you use round brackets \texttt{'()'}. Square brackets \texttt{'[]'} are used to create arrays
+\begin{lstlisting}[style=CStyle]
+arr = np.array([10, 20, 30])   # Python
+s = arr[i]
+\end{lstlisting}
+\begin{lstlisting}[style=MStyle]
+arr = [10, 20, 30]             % MATLAB
+s = arr(i)
+\end{lstlisting}
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Arrays}
+
+	\begin{itemize}
+		\item 2D arrays use ';' to designate the next row
+		
+		\begin{lstlisting}[style=CStyle]
+a = np.array([[2,3],[4,5]])    # Python
+s = arr[i,j]
+\end{lstlisting}
+\begin{lstlisting}[style=MStyle]
+a = [2 3; 4 5]              % MATLAB
+s = a(i,j)
+\end{lstlisting}
+
+		\item All zero / all one matrices are very similar
+		
+		\begin{lstlisting}[style=CStyle]
+m = np.zeros([5,10,3])  # Python 5x10x3 array
+\end{lstlisting}
+\begin{lstlisting}[style=MStyle]
+m = zeros(5,10,3)       % MATLAB 5x10x3 array
+\end{lstlisting}
+
+	      \item In MATLAB a new copy of an array is created by default
+	      
+\begin{lstlisting}[style=CStyle]
+b = a.copy()  # Python
+\end{lstlisting}
+\begin{lstlisting}[style=MStyle]
+b = a         % MATLAB
+\end{lstlisting}
+
+	\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Arrays}
+
+\begin{itemize}
+	\item Many Numpy functions exist in MATLAB including \texttt{linspace() sqrt() log() exp() round() ceil() floor() max() min() mean()} and many more
+	\item A few tips to keep in mind:
+	\begin{itemize}
+		\item In Python, the index of the first element in an array is '0', in MATLAB it is '1'
+		\item In Python, the index of the last element in an array is '-1', in MATLAB it is '\texttt{end}'
+		\item The length of an array is \texttt{length} rather than \texttt{len}
+		\item Array slicing works similarly in MATLAB to Python
+            \item You don't need to call \texttt{linspace()} to create an array \texttt{start:step:end} will do
+\begin{lstlisting}[style=MStyle]
+a = 5:1:100              % MATLAB
+\end{lstlisting}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Plotting}
+
+\begin{itemize}       
+	\item Plotting in MATLAB is very similar to \texttt{Matplotlib.pyplot}
+	\item Including the functions \texttt{plot() imshow() subplot() scatter() title() axis() xlabel() tick() figure()} and many more
+	\item Two tips tips be aware of:
+	\begin{itemize}
+		\item In Python plotting a new curve will add it to the figure. In MATLAB it will replace the first curve unless you use a \texttt{hold on} command first
+		\item MATLAB does not need a \texttt{show} command, the figure is shown automatically and it does not need to be closed for the remainder of the program to be run.
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+%\frametitle{Plotting}
+\begin{lstlisting}[style=CStyle]
+import numpy as np                  # Python
+import matplotlib.pyplot as plt
+v0 = 5
+g = 9.81
+t = np.linspace(0,1,1001) 
+y = v0*t - 0.5*g*t**2
+plt.plot(t, y)
+plt.xlabel('t (s)')
+plt.title('Velocity over time')
+plt.show()
+\end{lstlisting}
+\begin{lstlisting}[style=MStyle]
+v0 = 5                            % MATLAB
+g = 9.81
+t = linspace(0,1,1001)   
+y = v0*t - 0.5*g*t.^2
+plot(t, y)
+xlabel('t (s)')
+title('Velocity over time')
+\end{lstlisting}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+\frametitle{Functions}
+\begin{itemize}
+\item Functions work exactly the same way as in Python. 
+    \begin{itemize}
+        \item You declare them by defining the function name, inputs, outputs and operation in the function declaration and then call the function by name as needed.
+
+        \item Functions start with the keyword \texttt{function} not \texttt{def}
+        \item The function output is defined at the start of the function not the end
+        \item The end of the function is indicated with the keyword \texttt{end}
+    \end{itemize}
+\begin{lstlisting}[style=CStyle]
+def addition(num_1, num_2):               # Python
+    total = num_1 + num_2
+    return total
+\end{lstlisting}
+\begin{lstlisting}[style=MStyle]
+function [total] = addition(num_1, num_2)  % MATLAB
+    total = num_1 + num_2;
+end
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+%==============================================================
+
+%==============================================================
+
+%==============================================================
+
+%==============================================================
+
+
+\end{document}
