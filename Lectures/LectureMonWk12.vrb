@@ -1,16 +1,20 @@
 
 \frametitle{Next steps}
 \begin{itemize}
-	\item getting started with C, if you need it \emph{for later courses}
+	\item[]\textbf{C is \emph{not} assessable in ENGG1003}
 	\item[]
+	\item getting started with C, if you need it \emph{for later courses}		
+	\item[]
+	\item Code::Blocks integrated development environment
 	\begin{itemize}
-		\item \textbf{C is \emph{not} assessable in ENGG1003}
-%		\item \href{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}
+		\item \href{https://www.codeblocks.org/downloads/binaries/}{https://www.codeblocks.org/downloads/binaries/}
+		\item runs on platforms
+		\begin{itemize}
+			\item Windows XP / Vista / 7 / 8.x / 10
+			\item Linux 32 and 64-bit
+			\item Mac OS X
+		\end{itemize}
 	\end{itemize}
-%	\item[]
-%	\item Octave: free \& mostly compatible with MATLAB
-%	\begin{itemize}
-%		\item \href{https://www.gnu.org/software/octave/index}{https://www.gnu.org/software/octave/index}
-%	\end{itemize}
+	\item OnlineGDB
 \end{itemize}
 	

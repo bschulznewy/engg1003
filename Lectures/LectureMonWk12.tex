@@ -133,6 +133,8 @@
 \frametitle{$1)$ Context}
 
 \begin{itemize}
+	\item Recall from last week\ldots
+	\item[]
 	\item $\leq$ 2020, ENGG1003 used \red{\emph{MATLAB}} and \red{\emph{C}}
 	\begin{itemize}
 		\item \textbf{from 2021, ENGG1003 uses Python only}
@@ -158,28 +160,6 @@
 
 \href{https://en.wikipedia.org/wiki/C_(programming_language)}{https://en.wikipedia.org/wiki/C\_(programming\_language)}
 
-% https://en.wikipedia.org/wiki/C_(programming_language)
-
-%----------------------------------------------
-
-%\begin{itemize}
-%	\item MATLAB is a computing environment and programming language for \emph{matrix manipulation}
-%	\begin{itemize}
-%		\item a matrix is a 2D array
-%		\item MATLAB is an abbreviation for ``matrix laboratory''
-%	\end{itemize}
-%	\item[]
-%	\item MATLAB offers many additional ``Toolboxes'':
-%	\begin{itemize}
-%		\item control design
-%		\item image processing
-%		\item machine learning
-%		\item digital signal processing
-%		\item computational fluid dynamics
-%		\item etc.
-%	\end{itemize}
-%\end{itemize}
-
 \end{frame}
 
 %==============================================================
@@ -193,15 +173,15 @@
 	
 	\item[]
 	
-	\item BUT\ldots C is currently used in some courses in some Engineering programs
+	\item BUT\ldots C is currently used in some courses in some Engineering programs:
 	\begin{itemize}
 		\item EE, Mecha, Aero, Medical (?)
 	\end{itemize}
 	
 	\item[]
-	\item non-exhaustive (?) list:
+	\item key courses which use C language:
 	\begin{itemize}
-		\item[] ELEC2720, ELEC3730, AERO3600, MCHA3400, MCHA3500
+		\item ELEC2720, ELEC3730, AERO3600, MCHA3400, MCHA3500
 	\end{itemize}
 
 \end{itemize}
@@ -215,10 +195,23 @@
 
 \begin{itemize}
 	\item C philosophy
+	\item C development environment
 	\item compiler
-	\item assemby language
-	\item a.out and executables
+	\item assembly language
+	\item executables
 	\item embedded systems
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Embedded systems and C}
+
+\begin{itemize}
+	\item xxx
 \end{itemize}
 
 \end{frame}
@@ -234,14 +227,36 @@
 	\item data types
 	\item arithmetic and relational operators
 	\item flow control
-	\item arrays
-	\item plotting---hahaha
 	\item functions
+	\item arrays
 \end{itemize}
 
 %\begin{center}
 %\textbf{If you're familiar with Python at level of ENGG1003, estimate transition to \\ MATLAB in 1--2 weeks}
 %\end{center}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Hello world}
+
+\begin{itemize}
+	\item xxx
+\end{itemize}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\normalsize]
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello World");
+
+    return 0;
+}
+\end{lstlisting}
 
 \end{frame}
 
@@ -264,17 +279,21 @@
 
 \frametitle{Next steps}
 \begin{itemize}
-	\item getting started with C, if you need it \emph{for later courses}
+	\item[]\textbf{C is \emph{not} assessable in ENGG1003}
 	\item[]
+	\item getting started with C, if you need it \emph{for later courses}		
+	\item[]
+	\item Code::Blocks integrated development environment
 	\begin{itemize}
-		\item \textbf{C is \emph{not} assessable in ENGG1003}
-%		\item \href{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}
+		\item \href{https://www.codeblocks.org/downloads/binaries/}{https://www.codeblocks.org/downloads/binaries/}
+		\item runs on platforms
+		\begin{itemize}
+			\item Windows XP / Vista / 7 / 8.x / 10
+			\item Linux 32 and 64-bit
+			\item Mac OS X
+		\end{itemize}
 	\end{itemize}
-%	\item[]
-%	\item Octave: free \& mostly compatible with MATLAB
-%	\begin{itemize}
-%		\item \href{https://www.gnu.org/software/octave/index}{https://www.gnu.org/software/octave/index}
-%	\end{itemize}
+	\item OnlineGDB
 \end{itemize}
 	
 \end{frame}
