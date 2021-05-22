@@ -1,0 +1,282 @@
+\documentclass[english,14pt]{beamer}
+\usetheme{EastLansing}
+\usecolortheme{spruce}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm2e}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{textcomp}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/datetime2/datetime2.pdf
+\usepackage{babel}
+\usepackage[useregional]{datetime2}
+
+% https://tex.stackexchange.com/questions/42619/x-mark-to-match-checkmark
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+
+%% https://stackoverflow.com/questions/1435837/how-to-remove-footers-of-latex-beamer-templates
+%%gets rid of bottom navigation bars
+%\setbeamertemplate{footline}[page number]
+%
+%gets rid of navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+\usefonttheme[onlymath]{serif}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.8,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightBlue}{rgb}{0.1, 0.1, 0.8}
+\definecolor{darkGreen}{rgb}{0, 0.39, 0}
+
+\newcommand\red[1]{{\color{red} #1}}
+\newcommand\green[1]{{\color{green} #1}}
+\newcommand\blue[1]{{\color{blue} #1}}
+\newcommand\darkGreen[1]{{\color{darkGreen} #1}}
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=Python
+}
+
+\lstdefinestyle{pseudo}{
+        basicstyle=\ttfamily\footnotesize,
+        keywordstyle=\color{lightBlue},
+        morekeywords={BEGIN,END,IF,ELSE,ENDIF,ELSEIF,PRINT,WHILE,RETURN,ENDWHILE,DO,FOR,TO,IN,ENDFOR,BREAK,INPUT,CONDITIONS},
+        morecomment=[l]{//},
+        commentstyle=\color{mGreen}
+}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt,tabsize=2}
+
+\title{ENGG1003 - Monday Week 12}
+\subtitle{The C programming language \& \\ version control with Git}
+\author{Brenton Schulz and Steve Weller}
+\institute{University of Newcastle}
+%\date{\today}
+\date{24 May 2021}
+
+% following is a bit of a hack, but forces page numbers (technically: frame numbers) to run 1,2,3,... 
+% with titlepage counting as frame 1
+
+\addtocounter{framenumber}{1}
+\titlepage
+
+\begin{document}
+
+\begin{flushleft}
+{\scriptsize Last compiled:~\DTMnow}
+\vspace*{-5mm}
+\end{flushleft}
+\framebreak
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Lecture overview}
+\begin{enumerate}
+	\item Context
+	\begin{itemize}
+		\item ENGG1003
+		\item what is C?
+		\item do we even need C?
+	\end{itemize}
+	\item[]
+		\item C programming language
+	\begin{itemize}
+		\item features and philosophy
+		\item key language details of C
+	\end{itemize}
+	\item[]
+	\item version control with Git
+		\begin{itemize}
+			\item principles
+			\item practical demonstration (live demo by Brenton)
+		\end{itemize}		
+\end{enumerate}
+
+\end{frame}
+
+%==============================================================
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$1)$ Context}
+
+\begin{itemize}
+	\item $\leq$ 2020, ENGG1003 used \red{\emph{MATLAB}} and \red{\emph{C}}
+	\begin{itemize}
+		\item \textbf{from 2021, ENGG1003 uses Python only}
+		\item \ldots yet some students will use MATLAB \&/or C in later courses
+	\end{itemize}
+	\item[]
+	\item Thursday week 11: overview of MATLAB
+	\item[]
+	\item today's lecture: overview of C
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{What is C?}
+
+\begin{itemize}
+	\item ``C is a general-purpose, procedural computer programming language supporting structured programming, lexical variable scope, and recursion, with a static type system. By design, C provides constructs that map efficiently to typical machine instructions. It has found lasting use in applications previously coded in assembly language. Such applications include operating systems and various application software for computer architectures that range from supercomputers to PLCs and embedded systems''
+\end{itemize}
+
+\href{https://en.wikipedia.org/wiki/C_(programming_language)}{https://en.wikipedia.org/wiki/C\_(programming\_language)}
+
+% https://en.wikipedia.org/wiki/C_(programming_language)
+
+%----------------------------------------------
+
+%\begin{itemize}
+%	\item MATLAB is a computing environment and programming language for \emph{matrix manipulation}
+%	\begin{itemize}
+%		\item a matrix is a 2D array
+%		\item MATLAB is an abbreviation for ``matrix laboratory''
+%	\end{itemize}
+%	\item[]
+%	\item MATLAB offers many additional ``Toolboxes'':
+%	\begin{itemize}
+%		\item control design
+%		\item image processing
+%		\item machine learning
+%		\item digital signal processing
+%		\item computational fluid dynamics
+%		\item etc.
+%	\end{itemize}
+%\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Do we even need C?}
+
+\begin{itemize}
+	\item \textbf{C is \emph{not} assessable in ENGG1003}
+	
+	\item[]
+	
+	\item BUT\ldots C is currently used in some courses in some Engineering programs
+	\begin{itemize}
+		\item EE, Mecha, Aero, Medical (?)
+	\end{itemize}
+	
+	\item[]
+	\item non-exhaustive (?) list:
+	\begin{itemize}
+		\item[] ELEC2720, ELEC3730, AERO3600, MCHA3400, MCHA3500
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$2)$ C programming language}
+
+\begin{itemize}
+	\item C philosophy
+	\item compiler
+	\item assemby language
+	\item a.out and executables
+	\item embedded systems
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{C: key language details}
+
+\begin{itemize}
+	\item syntax
+	\item data types
+	\item arithmetic and relational operators
+	\item flow control
+	\item arrays
+	\item plotting---hahaha
+	\item functions
+\end{itemize}
+
+%\begin{center}
+%\textbf{If you're familiar with Python at level of ENGG1003, estimate transition to \\ MATLAB in 1--2 weeks}
+%\end{center}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{$3)$ Version control with Git}
+
+\begin{itemize}
+	\item principles---SRW
+	\item live demo of practice---Brenton
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Next steps}
+\begin{itemize}
+	\item getting started with C, if you need it \emph{for later courses}
+	\item[]
+	\begin{itemize}
+		\item \textbf{C is \emph{not} assessable in ENGG1003}
+%		\item \href{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}{https://www.newcastle.edu.au/current-students/support/it/software-and-tools}
+	\end{itemize}
+%	\item[]
+%	\item Octave: free \& mostly compatible with MATLAB
+%	\begin{itemize}
+%		\item \href{https://www.gnu.org/software/octave/index}{https://www.gnu.org/software/octave/index}
+%	\end{itemize}
+\end{itemize}
+	
+\end{frame}
+
+\end{document}
