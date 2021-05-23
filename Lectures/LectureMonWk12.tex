@@ -480,10 +480,94 @@ int main() {
 
 \frametitle{$3)$ Version control with Git}
 
+Programming projects often give rise to two problems:
+\begin{enumerate}
+	\item programmers want to ``roll back'' to earlier code
+	\begin{itemize}
+		\item after trying an unsuccessful idea, sometimes faster to load up working code from the past and go 	from there
+	\end{itemize}
+	\item multiple people contribute to the same project. How should their changes be ``merged'' into some
+kind of ``master'' code listing?
+\end{enumerate}
+
+%\vspace*{5mm}
+
 \begin{itemize}
-	\item principles---SRW
-	\item live demo of practice---Brenton
+	\item \red{\emph{version control systems}} solve both problems
+	\item most widely used version control system is \red{\emph{Git}}
 \end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\vspace*{-5mm}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.45\textwidth]{figures/AppleWiki}
+\end{figure}
+
+\vspace*{-5mm}
+
+\begin{itemize}
+	\item Wikipedia records history of changes
+	\item every time an edit is made, it's recorded in history, even if that change is later reverted
+	\item possible to go back in time to look at at that page at any point in its history
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Common Git terms}
+
+\begin{itemize}
+	\item \textbf{Repository (repo)}
+	\begin{itemize}
+		\item store of all the different pieces of the project
+		\item collection of files $+$ history of changes made to those files
+	\end{itemize}
+	\item[]
+	\item \textbf{Commit}
+	\begin{itemize}
+		\item captures a snapshot of the project
+	\end{itemize}
+	\item[]
+	\item \textbf{Push}
+	\begin{itemize}
+		\item upload local repository content to a remote repository
+	\end{itemize}
+	\item[]
+	\item \textbf{Pull}
+	\begin{itemize}
+		\item  update the local version of a repository from a remote
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Practical demonstration of Git}
+
+\begin{itemize}
+	\item over to you, Brenton \ldots
+\end{itemize}
+
+% https://chris.beams.io/posts/git-commit/
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.8\textwidth]{figures/git_commit_2x}
+\end{figure}
 
 \end{frame}
 
