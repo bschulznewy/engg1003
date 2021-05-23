@@ -115,7 +115,7 @@
 		\item key language details of C
 	\end{itemize}
 	\item[]
-	\item version control with Git
+	\item Version control with Git
 		\begin{itemize}
 			\item principles
 			\item practical demonstration (live demo by Brenton)
@@ -123,8 +123,6 @@
 \end{enumerate}
 
 \end{frame}
-
-%==============================================================
 
 %==============================================================
 
@@ -263,7 +261,7 @@ Quick recap of \red{\emph{computer language hierarchy}}, week~1:
 
 	\begin{itemize}
 		\item human-readable text-based code
-		\item increased complexity of each high-level instruction %, so common calculations can be done with fewer instructions
+		\item increased complexity of each high-level instruction
 		\item eg: machine code
 		\item[] 0110 0110 1000 0011 1100 0000 0000 1010
 		\item same instruction in assembly language
@@ -303,7 +301,7 @@ int main()
 \begin{itemize}
 	\item line 1: header file \texttt{stdio.h}, like Python \texttt{import}
 	\item line 3: function definition for \texttt{main()}, returns \texttt{int}
-	\item line 5: formatted print, \verb+\n+ prints ``newline''
+	\item line 5: formatted print, \verb+\n+ means ``newline''
 	\item line 6: returns ``all good'' (error-free) message
 	\item lines 4 \& 7: \{$\cdot$\} begin/end of function \texttt{main()}
 \end{itemize}
@@ -364,12 +362,47 @@ int main()
 
 \begin{frame}[fragile]
 
-\frametitle{gdb online}
+\frametitle{OnlineGDB: browser-based C development}
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.7\textwidth]{figures/OnlineGDB}
+\end{figure}
+
+edit, compile and run simple C programs with no setup! \\
+\href{https://www.onlinegdb.com/}{https://www.onlinegdb.com/}
+
+\end{frame}
+
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+% https://www.programiz.com/c-programming/examples/print-integer
+
+\frametitle{C program: read and print an integer}
+\vspace*{-3mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\footnotesize]
+#include <stdio.h>
+int main() {   
+    int number;
+   
+    printf("Enter an integer: ");  
+    
+    // reads and stores input
+    scanf("%d", &number);
+
+    // displays output
+    printf("You entered: %d", number);
+    
+    return 0;
+}
+\end{lstlisting}
+\vspace*{-3mm}
 \begin{itemize}
-	\item screenshot of gdb \href{https://www.onlinegdb.com/}{https://www.onlinegdb.com/}
-	\item link to code blocks
-	\item embedded systems IDEs in other courses	
+	\item line 3: need to ``declare'' variables before use
+	\item line 8: \texttt{scanf()} reads from keyboard, \texttt{\&number} means ``address of variable \texttt{number} in memory''
 \end{itemize}
 
 \end{frame}
@@ -378,15 +411,65 @@ int main()
 
 \begin{frame}[fragile]
 
-\frametitle{C: key language details}
+% https://www.programiz.com/c-programming/examples/sum-natural-numbers
 
+\frametitle{C program: sum of integers using a loop}
+\vspace*{-3mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\footnotesize]
+#include <stdio.h>
+int main() {
+    int n, i, sum = 0;
+
+    printf("Enter a positive integer: ");
+    scanf("%d", &n);
+
+    for (i = 1; i <= n; ++i) {
+        sum += i;
+    }
+
+    printf("Sum = %d", sum);
+    return 0;
+}
+\end{lstlisting}
+\vspace*{-3mm}
 \begin{itemize}
-	\item syntax
-	\item data types
-	\item arithmetic and relational operators
-	\item flow control
-	\item functions
-	\item arrays
+	\item lines 8--10: iterate with \texttt{for} loop
+	\item[] initialise \texttt{i} at 1; continue looping if \texttt{i} $\leq$ \texttt{n} is true; update \texttt{i} $=$ \texttt{i} $ + 1$ after each iteration of loop body
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+% https://www.programiz.com/c-programming/examples/power-number
+
+\frametitle{C program: power of a number $\mathrm{base}^\mathrm{exp}$}
+\vspace*{-3mm}
+\begin{lstlisting}[style=CStyle,basicstyle=\scriptsize]
+#include <stdio.h>
+int main() {
+    int base, exp;
+    long result = 1;
+    printf("Enter a base number: ");
+    scanf("%d", &base);
+    printf("Enter an exponent: ");
+    scanf("%d", &exp);
+
+    while (exp != 0) {
+        result *= base;
+        --exp;
+    }
+    printf("Answer = %ld", result);
+    return 0;
+}
+\end{lstlisting}
+\vspace*{-3mm}
+\begin{itemize}
+	\item lines 10--13: \texttt{while} loop, continues while \texttt{exp} $\neq 0$
+	\item line 11: \texttt{result = result * base}
+	\item line 12: decrement \texttt{exp}, ie: \texttt{exp = exp - 1}
 \end{itemize}
 
 \end{frame}
@@ -424,7 +507,7 @@ int main()
 			\item Mac OS X
 		\end{itemize}
 	\end{itemize}
-	\item OnlineGDB
+	\item[] {\tiny C code examples Copyright \copyright 2020 Parewa Labs Pvt. Ltd.}
 \end{itemize}
 	
 \end{frame}
