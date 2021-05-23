@@ -155,10 +155,19 @@
 \frametitle{What is C?}
 
 \begin{itemize}
-	\item ``C is a general-purpose, procedural computer programming language supporting structured programming, lexical variable scope, and recursion, with a static type system. By design, C provides constructs that map efficiently to typical machine instructions. It has found lasting use in applications previously coded in assembly language. Such applications include operating systems and various application software for computer architectures that range from supercomputers to PLCs and embedded systems''
+	\item C is a general-purpose, high-level programming language
+	\begin{itemize}
+		\item other high-level languages: Python, MATLAB, Java, C++, FORTRAN, \ldots
+	\end{itemize}
+	\item C has been around since early-1970s and still \emph{very} popular
+	\begin{itemize}
+		\item IEEE language ranking 2020: \#1:~Python \textbf{\#3:~C} \\ \#10:~MATLAB
+%		\item[] \href{https://spectrum.ieee.org/static/interactive-the-top-programming-languages-2020}{https://spectrum.ieee.org/static/interactive-the-top-programming-languages-2020}
+	\end{itemize}
+	\item C is native language of Linux, Microsoft Windows, OS X, iOS, \& Android kernels
+	\item even Python language is written in C
+	\item \textbf{C language constructs map efficiently to computer hardware (machine instructions)}
 \end{itemize}
-
-\href{https://en.wikipedia.org/wiki/C_(programming_language)}{https://en.wikipedia.org/wiki/C\_(programming\_language)}
 
 \end{frame}
 
@@ -175,16 +184,40 @@
 	
 	\item BUT\ldots C is currently used in some courses in some Engineering programs:
 	\begin{itemize}
-		\item EE, Mecha, Aero, Medical (?)
+		\item Aerospace Systems, Computer Systems, Electrical, Mechatronics and Medical Engineering
 	\end{itemize}
 	
 	\item[]
 	\item key courses which use C language:
 	\begin{itemize}
 		\item ELEC2720, ELEC3730, AERO3600, MCHA3400, MCHA3500
+		\item common theme of all these courses is \red{\emph{embedded systems}}
 	\end{itemize}
 
 \end{itemize}
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Embedded systems}
+
+\begin{itemize}
+	\item embedded system: coupled hardware and software designed for a \emph{specific task}
+	\item[]
+	\item eg: washing machine
+	\begin{itemize}
+		\item inputs: buttons, water-level, water temperature
+		\item output: LED display, motor control
+		\item control unit: microprocessor \& memory		
+	\end{itemize}
+	\item[]
+	\item \emph{many} other examples: smart TVs, gaming consoles, medical devices, WiFi routers,  automotive \ldots
+	\item[]
+	\item \textbf{C language is well-suited to tight coupling of hardware and software in embedded systems}
+\end{itemize}
+
 \end{frame}
 
 %==============================================================
@@ -193,13 +226,28 @@
 
 \frametitle{$2)$ C programming language}
 
+Quick recap of \red{\emph{computer language hierarchy}}, week~1:
+
 \begin{itemize}
-	\item C philosophy
-	\item C development environment
-	\item compiler
-	\item assembly language
-	\item executables
-	\item embedded systems
+	\item \textbf{machine code}
+	\begin{itemize}
+		\item a microprocessor can only understand machine code
+		\item eg: one instruction for an x86-based processor:
+		\item[] 0110 0110 1000 0011 1100 0000 0000 1010
+		\item very processor-specific!
+	\end{itemize}
+	
+	\item \textbf{assembly language}
+
+	\begin{itemize}
+		\item human-readable abbreviations (``mnemonics'')
+		\item eg: machine code
+		\item[] 0110 0110 1000 0011 1100 0000 0000 1010
+		\item same instruction in assembly language
+		\item[] \texttt{ADD AX, 10}
+		\item very processor-specific
+	\end{itemize}
+	
 \end{itemize}
 
 \end{frame}
@@ -208,10 +256,120 @@
 
 \begin{frame}[fragile]
 
-\frametitle{Embedded systems and C}
+\frametitle{}
 
 \begin{itemize}
-	\item xxx
+	\item \textbf{high-level languages} eg: C, Python, MATLAB \ldots
+
+	\begin{itemize}
+		\item human-readable text-based code
+		\item increased complexity of each high-level instruction %, so common calculations can be done with fewer instructions
+		\item eg: machine code
+		\item[] 0110 0110 1000 0011 1100 0000 0000 1010
+		\item same instruction in assembly language
+		\item[] \texttt{ADD AX, 10}
+		\item same instruction in C
+		\item[] \texttt{x = x + 10;}
+		\item \emph{not} processor-specific (that's a good thing)
+	\end{itemize}
+	
+	% https://medium.com/@vietkieutie/what-happens-when-you-type-gcc-main-c-2a136896ade3
+	
+	\item \red{\emph{compilation process}} converts source code (eg: C) to machine code
+	\begin{itemize}
+		\item source code $\rightarrow$ pre-processor $\rightarrow$ compiler $\rightarrow$ assembler $\rightarrow$  linker $\rightarrow$  machine code (``executable'')
+	\end{itemize}
+	
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Hello, World!  \ldots in the C language}
+
+\begin{lstlisting}[style=CStyle,basicstyle=\small]
+#include <stdio.h>
+
+int main()
+{
+    printf("Hello, World!\n");
+    return 0;
+}
+\end{lstlisting}
+
+\begin{itemize}
+	\item line 1: header file \texttt{stdio.h}, like Python \texttt{import}
+	\item line 3: function definition for \texttt{main()}, returns \texttt{int}
+	\item line 5: formatted print, \verb+\n+ prints ``newline''
+	\item line 6: returns ``all good'' (error-free) message
+	\item lines 4 \& 7: \{$\cdot$\} begin/end of function \texttt{main()}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Hello, World! program in C and assembly}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/Cvsx86assembly}
+\end{figure}
+
+\begin{itemize}
+	\item left panel: C program
+	\item right panel: corresponding assembly language code for 64-bit Intel x86
+	\begin{itemize}
+		\item x86 instructions:~\texttt{push, mov, call, pop, ret}
+	\end{itemize}
+	\item try it yourself at: \href{https://godbolt.org/}{https://godbolt.org/}
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/Cquote}
+\end{figure}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{figures/LCTHW}
+\end{figure}
+
+\href{https://learncodethehardway.org/c/}{https://learncodethehardway.org/c/}	
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{gdb online}
+
+\begin{itemize}
+	\item screenshot of gdb \href{https://www.onlinegdb.com/}{https://www.onlinegdb.com/}
+	\item link to code blocks
+	\item embedded systems IDEs in other courses	
 \end{itemize}
 
 \end{frame}
@@ -230,33 +388,6 @@
 	\item functions
 	\item arrays
 \end{itemize}
-
-%\begin{center}
-%\textbf{If you're familiar with Python at level of ENGG1003, estimate transition to \\ MATLAB in 1--2 weeks}
-%\end{center}
-
-\end{frame}
-
-%==============================================================
-
-\begin{frame}[fragile]
-
-\frametitle{Hello world}
-
-\begin{itemize}
-	\item xxx
-\end{itemize}
-
-\begin{lstlisting}[style=CStyle,basicstyle=\normalsize]
-#include <stdio.h>
-
-int main()
-{
-    printf("Hello World");
-
-    return 0;
-}
-\end{lstlisting}
 
 \end{frame}
 
@@ -286,10 +417,10 @@ int main()
 	\item Code::Blocks integrated development environment
 	\begin{itemize}
 		\item \href{https://www.codeblocks.org/downloads/binaries/}{https://www.codeblocks.org/downloads/binaries/}
-		\item runs on platforms
+		\item runs on various platforms:
 		\begin{itemize}
 			\item Windows XP / Vista / 7 / 8.x / 10
-			\item Linux 32 and 64-bit
+			\item Linux 32- and 64-bit
 			\item Mac OS X
 		\end{itemize}
 	\end{itemize}
