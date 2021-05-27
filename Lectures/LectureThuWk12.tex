@@ -253,14 +253,37 @@
 \frametitle{Question 1}
 
 \begin{itemize}
-	\item ten multiple choice (1 mark each)
+	\item ten (10) multiple choice (1 mark each)
+	\item[]
 	\item given Python code, asked to:
 	\begin{itemize}
-		\item identify coding error
-		\item what is the output when code runs?
-		\item maybe other styles of MC questions
+		\item identify coding error (if any)
+		\item what is the output when code runs? (if any)
+		\item[]
+		\item maybe other styles of multiple choice questions
 	\end{itemize}
-	
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{}
+
+{\small 
+A student wrote the Python code below to calculate the sum total of all entries in array \texttt{x}. What happens when the code is run?}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=.5\textwidth]{figures/sampleq1}
+\end{figure}
+
+\begin{itemize}
+	\item[(a)] PyCharm \texttt{SyntaxError:~invalid syntax}
+	\item[(b)] the code prints the total 5.0
+	\item[(c)] the code prints the total 6.0
+	\item[(d)] the code gets stuck in an infinite loop
 \end{itemize}
 
 \end{frame}
@@ -271,8 +294,37 @@
 
 \frametitle{Question 2}
 
+General scope of Q2 as follows \ldots
+
+\vspace*{5mm}
+
+Write Python code to:
+
 \begin{itemize}
-	\item xxx
+	\item evaluate an expression $f(x)$ at a single value of $x$
+	\item evaluate an expression $f(x)$ at a range of values $x$ using \emph{loops}
+	\item evaluate an expression $f(x)$ at a range of values $x$ using a \emph{vectorised solution}
+	\item generate a plot
+	\item put $x$-labels, $y$-labels, title, grid etc on plot
+\end{itemize}
+
+\end{frame}
+
+%==============================================================
+
+\begin{frame}[fragile]
+
+\frametitle{Question 2}
+
+Write a Python script to plot the following function:
+\[
+f(t) = e^{-at}\left( \sin(5t) + \cos(10t)\right)
+\]
+using $200$ linearly spaced time points over the range $0 \leq t \leq 5$. Your script should use the value $a = 2$. Display todays date in the title of the plot. Use of any Python library is permitted.
+
+\begin{itemize}
+\item[(a)] Upload your Python code to the submission box below
+\item[(b)] Upload the plot image to the file upload box below
 \end{itemize}
 
 \end{frame}
